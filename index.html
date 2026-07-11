@@ -1,0 +1,1166 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Lenskart · AI Stylist</title>
+<style>
+  :root{
+    --navy-950:#0a0f2b;
+    --navy-900:#11173c;
+    --navy-700:#2a3160;
+    --ink-600:#6a6f8a;
+    --ink-400:#9a9eb5;
+    --paper:#ffffff;
+    --mist:#f4f5f9;
+    --mist-deep:#eceefa;
+    --line:#e6e7f0;
+    --gold:#c9a227;
+    --emerald:#1c7d4f;
+    --emerald-bg:#e7f6ee;
+    --ember:#ff4d2e;
+    --ember-ink:#c73412;
+    --ember-bg:#ffece7;
+    --radius-lg:20px;
+    --radius-md:14px;
+    --radius-sm:10px;
+    --shadow-card:0 1px 2px rgba(10,15,43,.06), 0 8px 20px -12px rgba(10,15,43,.18);
+    --font: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Roboto, "Helvetica Neue", Arial, sans-serif;
+  }
+  :root[data-theme="dark"]{
+    --paper:#12142a;
+    --mist:#191b36;
+    --mist-deep:#20223f;
+    --line:#2b2e52;
+    --ink-600:#a9adc8;
+    --ink-400:#7a7fa0;
+    --navy-900:#f5f6ff;
+    --navy-950:#ffffff;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --paper:#12142a;
+      --mist:#191b36;
+      --mist-deep:#20223f;
+      --line:#2b2e52;
+      --ink-600:#a9adc8;
+      --ink-400:#7a7fa0;
+      --navy-900:#f5f6ff;
+      --navy-950:#ffffff;
+    }
+  }
+  *{box-sizing:border-box; -webkit-tap-highlight-color:transparent;}
+  html,body{margin:0;padding:0;}
+  body{
+    font-family:var(--font);
+    background:var(--mist-deep);
+    color:var(--navy-900);
+    display:flex;
+    justify-content:center;
+    min-height:100vh;
+    padding:28px 12px;
+  }
+  ::selection{background:var(--ember-bg); color:var(--ember-ink);}
+  button{font-family:inherit;}
+  a{color:inherit;}
+
+  .stage{width:100%; max-width:1180px; display:flex; gap:32px; align-items:flex-start; justify-content:center; flex-wrap:wrap;}
+
+  .device{
+    width:412px; max-width:100%;
+    background:var(--paper);
+    border-radius:34px;
+    box-shadow:0 30px 60px -20px rgba(10,15,43,.35), 0 2px 0 rgba(10,15,43,.04);
+    border:1px solid var(--line);
+    overflow:hidden;
+    position:relative;
+  }
+  .screenport{
+    height:860px; max-height:88vh;
+    overflow-y:auto;
+    overflow-x:hidden;
+    position:relative;
+    scrollbar-width:none;
+  }
+  .screenport::-webkit-scrollbar{display:none;}
+
+  .panel{
+    display:flex; flex-direction:column; gap:14px;
+    padding-bottom:96px;
+  }
+  .screen{display:none;}
+  .screen.active{display:block; animation:riseIn .32s cubic-bezier(.2,.8,.2,1);}
+  @keyframes riseIn{from{opacity:0; transform:translateY(10px);} to{opacity:1; transform:translateY(0);}}
+  @media (prefers-reduced-motion: reduce){
+    .screen.active{animation:none;}
+  }
+
+  /* ---------- Sidebar (design notes, non-app chrome) ---------- */
+  .sidenotes{
+    width:300px; max-width:100%;
+    padding:6px 4px;
+    color:var(--ink-600);
+    font-size:13px;
+    line-height:1.6;
+  }
+  .sidenotes h2{font-size:15px; color:var(--navy-900); margin:0 0 6px;}
+  .sidenotes .step{
+    display:flex; gap:10px; align-items:flex-start; padding:10px 0; border-top:1px solid var(--line);
+  }
+  .sidenotes .step:first-of-type{border-top:none;}
+  .sidenotes .dot{
+    width:20px;height:20px;border-radius:50%;flex:none;
+    background:var(--mist); border:1px solid var(--line);
+    display:flex;align-items:center;justify-content:center;
+    font-size:11px; font-weight:700; color:var(--navy-700);
+  }
+  .sidenotes .dot.on{background:var(--ember); border-color:var(--ember); color:#fff;}
+
+  /* ---------- Top chrome ---------- */
+  .topbar{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:16px 16px 10px;
+  }
+  .topbar .brand-left{display:flex; align-items:center; gap:10px;}
+  .avatar{
+    width:34px;height:34px;border-radius:50%;
+    background:var(--mist); border:1px solid var(--line);
+    display:flex;align-items:center;justify-content:center;
+    font-weight:700; font-size:14px; color:var(--navy-700);
+  }
+  .delivery-meta{display:flex; flex-direction:column; gap:1px;}
+  .delivery-meta .fast{
+    display:flex; align-items:center; gap:4px;
+    font-size:11.5px; font-weight:700; color:var(--emerald);
+  }
+  .delivery-meta .loc{
+    display:flex; align-items:center; gap:3px;
+    font-size:12.5px; font-weight:600; color:var(--navy-900);
+  }
+  .topbar .brand-right{display:flex; align-items:center; gap:14px;}
+  .gold-pill{
+    display:flex; flex-direction:column; align-items:center; justify-content:center; line-height:1;
+    padding:4px 10px; border-radius:8px;
+    background:linear-gradient(180deg,#2a2f52,#141834);
+    border:1px solid #3a3f68;
+  }
+  .gold-pill .g1{font-size:7px; letter-spacing:.06em; color:var(--gold); font-weight:700;}
+  .gold-pill .g2{font-size:11px; letter-spacing:.05em; color:#f1d98a; font-weight:800;}
+  .icon-btn{position:relative; display:flex; align-items:center; justify-content:center; background:none; border:none; padding:2px; cursor:pointer; color:var(--navy-900);}
+  .badge-count{
+    position:absolute; top:-6px; right:-8px;
+    background:var(--ember); color:#fff; font-size:10px; font-weight:700;
+    min-width:16px; height:16px; border-radius:9px; display:flex; align-items:center; justify-content:center;
+    padding:0 3px;
+  }
+
+  .searchbar{
+    margin:2px 16px 4px;
+    display:flex; align-items:center; gap:10px;
+    background:var(--mist); border:1px solid var(--line); border-radius:999px;
+    padding:11px 14px;
+    color:var(--ink-600); font-size:13px;
+  }
+  .searchbar span{flex:1; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;}
+  .app-tile{
+    width:40px;height:40px;border-radius:11px;
+    background:var(--ember); color:#fff;
+    display:flex; align-items:center; justify-content:center; flex:none;
+  }
+  .search-row{display:flex; align-items:center; padding:0 16px 6px;}
+
+  /* ---------- Section header w/ back ---------- */
+  .subheader{
+    display:flex; align-items:center; gap:12px;
+    padding:16px 16px 4px;
+  }
+  .subheader h1{font-size:17px; margin:0; font-weight:700; letter-spacing:-.01em;}
+  .subheader .spacer{flex:1;}
+  .backbtn{background:none;border:none;padding:4px;cursor:pointer;color:var(--navy-900); display:flex;}
+
+  /* ---------- Generic content padding ---------- */
+  .content{padding:14px 16px 4px; display:flex; flex-direction:column; gap:16px;}
+
+  /* ---------- AI Stylist promo card on home ---------- */
+  .stylist-card{
+    margin:8px 16px 0;
+    border-radius:var(--radius-lg);
+    padding:20px;
+    background:
+      radial-gradient(120% 140% at 100% 0%, rgba(255,110,70,.35), transparent 55%),
+      linear-gradient(135deg, var(--navy-950), var(--navy-700));
+    color:#fff;
+    position:relative;
+    overflow:hidden;
+    box-shadow:var(--shadow-card);
+  }
+  .stylist-card .eyebrow{
+    display:inline-flex; align-items:center; gap:6px;
+    font-size:11px; font-weight:700; letter-spacing:.08em; text-transform:uppercase;
+    color:#ffd7c9; margin-bottom:10px;
+  }
+  .stylist-card h2{font-size:21px; line-height:1.25; margin:0 0 6px; font-weight:800; letter-spacing:-.01em;}
+  .stylist-card p{font-size:13px; margin:0 0 16px; color:#c9cbe6; max-width:80%;}
+  .stylist-card .cta{
+    display:inline-flex; align-items:center; gap:8px;
+    background:#fff; color:var(--navy-950); font-weight:700; font-size:13.5px;
+    border:none; border-radius:999px; padding:11px 18px; cursor:pointer;
+  }
+  .stylist-card .cta:active{transform:scale(.98);}
+  .stylist-card .glasses-deco{position:absolute; right:-10px; bottom:-14px; opacity:.9;}
+
+  .promo-strip{
+    margin:0 16px;
+    border-radius:var(--radius-md);
+    background:var(--navy-950); color:#fff;
+    padding:16px 18px;
+    display:flex; align-items:center; justify-content:space-between; gap:10px;
+  }
+  .promo-strip .txt b{display:block; font-size:14px;}
+  .promo-strip .txt span{font-size:11.5px; color:#aeb2d4;}
+  .promo-strip .timer{font-size:11px; color:#f1d98a; font-weight:700;}
+
+  .cat-title{padding:2px 16px 0; font-size:16.5px; font-weight:800; letter-spacing:-.01em;}
+  .cat-row{display:flex; gap:12px; padding:6px 16px 4px; overflow-x:auto; scrollbar-width:none;}
+  .cat-row::-webkit-scrollbar{display:none;}
+  .cat-item{display:flex; flex-direction:column; align-items:center; gap:8px; flex:none; width:78px;}
+  .cat-swatch{
+    width:78px;height:78px;border-radius:16px;
+    background:var(--mist); border:1px solid var(--line);
+    display:flex; align-items:center; justify-content:center; color:var(--navy-700);
+  }
+  .cat-item span{font-size:12px; font-weight:600; color:var(--navy-900);}
+
+  /* ---------- Bottom nav ---------- */
+  .bottomnav{
+    position:absolute; left:0; right:0; bottom:0;
+    display:flex; justify-content:space-between;
+    background:var(--paper); border-top:1px solid var(--line);
+    padding:9px 6px 12px;
+    z-index:5;
+  }
+  .navitem{
+    flex:1; display:flex; flex-direction:column; align-items:center; gap:3px;
+    background:none; border:none; cursor:pointer; color:var(--ink-600);
+    font-size:10.5px; font-weight:600; padding:3px 2px;
+  }
+  .navitem.active{color:var(--navy-950);}
+  .navitem.ai.active{color:var(--ember);}
+  .navitem .bar{display:block; width:22px;height:2px;border-radius:2px; background:transparent; margin-bottom:1px;}
+  .navitem.active .bar{background:var(--navy-950);}
+  .navitem.ai.active .bar{background:var(--ember);}
+
+  /* ---------- Buttons ---------- */
+  .btn{
+    border:none; border-radius:999px; cursor:pointer; font-weight:700; font-size:14px;
+    padding:14px 18px; display:flex; align-items:center; justify-content:center; gap:8px;
+    width:100%;
+  }
+  .btn:active{transform:scale(.985);}
+  .btn-primary{background:var(--navy-950); color:#fff;}
+  .btn-ember{background:var(--ember); color:#fff;}
+  .btn-outline{background:transparent; color:var(--navy-950); border:1.5px solid var(--line);}
+  .btn-ghost{background:var(--mist); color:var(--navy-900);}
+  .btn[disabled]{opacity:.4; pointer-events:none;}
+  .btn-row{display:flex; gap:10px;}
+
+  /* ---------- Progress ---------- */
+  .progress-dots{display:flex; gap:6px; padding:0 16px;}
+  .progress-dots i{flex:1; height:4px; border-radius:3px; background:var(--line); display:block;}
+  .progress-dots i.done{background:var(--ember);}
+
+  /* ---------- Quiz ---------- */
+  .quiz-kicker{font-size:11.5px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; color:var(--ember-ink);}
+  .quiz-q{font-size:20px; font-weight:800; letter-spacing:-.01em; margin:6px 0 2px;}
+  .quiz-sub{font-size:13px; color:var(--ink-600); margin:0 0 6px;}
+  .option-grid{display:grid; grid-template-columns:1fr 1fr; gap:10px;}
+  .option-card{
+    border:1.5px solid var(--line); border-radius:var(--radius-md);
+    padding:14px; cursor:pointer; background:var(--paper);
+    display:flex; flex-direction:column; gap:6px;
+    text-align:left;
+  }
+  .option-card .ot{font-weight:700; font-size:13.5px;}
+  .option-card .os{font-size:11.5px; color:var(--ink-600);}
+  .option-card.selected{border-color:var(--ember); background:var(--ember-bg);}
+  .option-card.selected .ot{color:var(--ember-ink);}
+  .chip-row{display:flex; flex-wrap:wrap; gap:8px;}
+  .chip{
+    border:1.5px solid var(--line); border-radius:999px; padding:9px 14px;
+    font-size:13px; font-weight:600; cursor:pointer; background:var(--paper); color:var(--navy-900);
+  }
+  .chip.selected{background:var(--navy-950); border-color:var(--navy-950); color:#fff;}
+
+  .quiz-footer{
+    position:sticky; bottom:0; background:linear-gradient(180deg, rgba(255,255,255,0), var(--paper) 30%);
+    padding:18px 16px 6px; margin-top:6px;
+  }
+  :root[data-theme="dark"] .quiz-footer{background:linear-gradient(180deg, rgba(18,20,42,0), var(--paper) 30%);}
+
+  /* ---------- Loading ---------- */
+  .loading-wrap{
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    min-height:640px; gap:22px; padding:0 30px; text-align:center;
+  }
+  .spinner{
+    width:64px;height:64px; border-radius:50%;
+    border:3px solid var(--line); border-top-color:var(--ember);
+    animation:spin 1s linear infinite;
+  }
+  @keyframes spin{to{transform:rotate(360deg);}}
+  @media (prefers-reduced-motion: reduce){ .spinner{animation:spin 2.4s linear infinite;} }
+  .loading-wrap h3{font-size:16px; margin:0; font-weight:700; min-height:22px;}
+  .loading-facts{display:flex; flex-direction:column; gap:8px; width:100%; margin-top:8px;}
+  .loading-fact{
+    display:flex; align-items:center; gap:8px; font-size:12px; color:var(--ink-400);
+    padding:8px 12px; border-radius:10px; background:var(--mist); opacity:.5;
+  }
+  .loading-fact.hit{opacity:1; color:var(--navy-900);}
+  .loading-fact .ck{color:var(--emerald); flex:none; visibility:hidden;}
+  .loading-fact.hit .ck{visibility:visible;}
+
+  /* ---------- Collection ---------- */
+  .collection-head{padding:2px 16px 0;}
+  .collection-head .lede{font-size:12.5px; color:var(--ink-600); margin:0;}
+  .retake{font-size:12px; font-weight:700; color:var(--ember-ink); background:none; border:none; cursor:pointer; padding:0;}
+  .match-legend{
+    margin:0 16px; display:flex; align-items:center; gap:8px;
+    font-size:11.5px; color:var(--ink-600); background:var(--mist); border-radius:10px; padding:9px 12px;
+  }
+
+  .frame-grid{display:grid; grid-template-columns:1fr 1fr; gap:12px; padding:4px 16px 4px;}
+  .frame-card{
+    border:1px solid var(--line); border-radius:var(--radius-md); overflow:hidden;
+    background:var(--paper); cursor:pointer; text-align:left; display:flex; flex-direction:column;
+    box-shadow:var(--shadow-card); padding:0;
+  }
+  .frame-card:active{transform:scale(.98);}
+  .frame-media{
+    aspect-ratio:1/0.82; background:var(--mist); display:flex; align-items:center; justify-content:center;
+    position:relative;
+  }
+  .rank-tag{
+    position:absolute; top:8px; left:8px; background:var(--navy-950); color:#fff;
+    font-size:10px; font-weight:800; padding:3px 7px; border-radius:6px;
+  }
+  .match-tag{
+    position:absolute; top:8px; right:8px; background:#fff; color:var(--emerald);
+    font-size:10.5px; font-weight:800; padding:3px 7px; border-radius:6px; border:1px solid var(--emerald-bg);
+  }
+  .frame-info{padding:10px 12px 12px; display:flex; flex-direction:column; gap:5px;}
+  .frame-info .fn{font-size:12.5px; font-weight:700; line-height:1.25;}
+  .frame-info .fp{font-size:12.5px; font-weight:800;}
+  .frame-info .fp s{color:var(--ink-400); font-weight:500; margin-left:5px; font-size:11px;}
+  .mini-scores{display:flex; gap:4px; margin-top:2px;}
+  .mini-scores i{flex:1; height:3px; border-radius:2px; background:var(--line); overflow:hidden; position:relative; display:block;}
+  .mini-scores i b{position:absolute; inset:0 auto 0 0; background:var(--ember); border-radius:2px; display:block; height:100%;}
+
+  /* ---------- Detail ---------- */
+  .detail-media{
+    margin:4px 16px 0; aspect-ratio:1/0.78; border-radius:var(--radius-lg);
+    background:var(--mist); display:flex; align-items:center; justify-content:center; position:relative;
+  }
+  .detail-media .arbtn{
+    position:absolute; right:12px; bottom:12px; display:flex; align-items:center; gap:6px;
+    background:var(--emerald); color:#fff; border:none; border-radius:999px; padding:9px 13px; font-size:12px; font-weight:700; cursor:pointer;
+  }
+  .detail-title{padding:2px 16px 0; display:flex; flex-direction:column; gap:4px;}
+  .detail-title h2{font-size:19px; margin:0; font-weight:800; letter-spacing:-.01em;}
+  .detail-title .price-row{display:flex; align-items:center; gap:8px; font-size:15px; font-weight:800;}
+  .detail-title .price-row s{color:var(--ink-400); font-weight:500; font-size:13px;}
+  .detail-title .price-row em{color:var(--emerald); font-style:normal; font-size:12px; font-weight:700;}
+
+  .score-panel{margin:6px 16px 0; border:1px solid var(--line); border-radius:var(--radius-md); padding:16px;}
+  .score-panel .overall{display:flex; align-items:center; gap:14px; padding-bottom:14px; margin-bottom:12px; border-bottom:1px solid var(--line);}
+  .overall .ring{
+    width:58px;height:58px;border-radius:50%; flex:none;
+    display:flex; align-items:center; justify-content:center; font-weight:800; font-size:14px; color:#fff;
+    background:conic-gradient(var(--ember) calc(var(--pct)*1%), var(--mist) 0);
+  }
+  .overall .ring .hole{width:44px;height:44px;border-radius:50%; background:var(--paper); display:flex; align-items:center; justify-content:center; color:var(--navy-950); font-size:13.5px;}
+  .overall .ot b{display:block; font-size:14px; font-weight:800;}
+  .overall .ot span{font-size:11.5px; color:var(--ink-600);}
+  .score-rows{display:flex; flex-direction:column; gap:10px;}
+  .score-row{display:flex; align-items:center; gap:10px;}
+  .score-row .lbl{width:64px; font-size:12px; color:var(--ink-600); font-weight:600; flex:none;}
+  .score-row .track{flex:1; height:7px; border-radius:5px; background:var(--mist); overflow:hidden;}
+  .score-row .fill{height:100%; border-radius:5px; background:var(--navy-950); display:block;}
+  .score-row .val{width:32px; text-align:right; font-size:12px; font-weight:700; flex:none; font-variant-numeric:tabular-nums;}
+
+  .why-card{
+    margin:6px 16px 0; border-radius:var(--radius-md); padding:16px;
+    background:var(--ember-bg); border:1px solid #ffd9cd;
+  }
+  .why-card .wh{display:flex; align-items:center; gap:7px; font-size:12px; font-weight:800; color:var(--ember-ink); text-transform:uppercase; letter-spacing:.04em; margin-bottom:8px;}
+  .why-card p{margin:0; font-size:13.5px; line-height:1.5; color:var(--navy-900);}
+
+  .community-card{margin:6px 16px 0; border:1px solid var(--line); border-radius:var(--radius-md); padding:16px;}
+  .community-card .ch{display:flex; align-items:center; gap:7px; font-size:12px; font-weight:800; color:var(--navy-700); text-transform:uppercase; letter-spacing:.04em; margin-bottom:10px;}
+  .community-card .cnum{font-size:26px; font-weight:800; color:var(--emerald);}
+  .community-card .ctrack{height:8px; border-radius:5px; background:var(--mist); overflow:hidden; margin:10px 0 8px;}
+  .community-card .cfill{height:100%; background:var(--emerald); display:block;}
+  .community-card p{margin:0; font-size:12.5px; color:var(--ink-600); line-height:1.5;}
+
+  .detail-cta{margin:8px 16px 20px; display:flex; gap:10px;}
+
+  /* ---------- AR try-on ---------- */
+  .ar-stage{
+    margin:4px 16px; aspect-ratio:3/4; border-radius:var(--radius-lg); overflow:hidden; position:relative;
+    background:
+      radial-gradient(120% 90% at 50% 20%, #2a3160 0%, #11173c 55%, #0a0f2b 100%);
+    display:flex; align-items:center; justify-content:center;
+  }
+  .ar-stage .face{color:rgba(255,255,255,.5);}
+  .ar-stage .frame-overlay{position:absolute; top:41%; left:50%; transform:translate(-50%,-50%); color:#fff;}
+  .ar-hud{position:absolute; top:12px; left:12px; right:12px; display:flex; justify-content:space-between;}
+  .ar-tag{background:rgba(0,0,0,.4); color:#fff; font-size:11px; font-weight:700; padding:6px 10px; border-radius:999px; backdrop-filter:blur(4px); display:flex; align-items:center; gap:5px;}
+  .ar-controls{position:absolute; bottom:14px; left:14px; right:14px; display:flex; gap:10px;}
+
+  /* ---------- Cart ---------- */
+  .cart-banner{
+    margin:0 16px; background:var(--emerald-bg); border-radius:var(--radius-md); padding:12px 14px;
+    display:flex; align-items:center; justify-content:space-between; gap:8px;
+  }
+  .cart-banner b{font-size:13px; color:var(--emerald); display:block; font-weight:800;}
+  .cart-banner span{font-size:11px; color:var(--ember-ink); font-weight:700;}
+  .cart-item{margin:0 16px; border:1px solid var(--line); border-radius:var(--radius-md); padding:12px; display:flex; gap:12px;}
+  .cart-item .thumb{width:88px;height:88px; border-radius:var(--radius-sm); background:var(--mist); flex:none; display:flex; align-items:center; justify-content:center;}
+  .cart-item .ci-body{flex:1; display:flex; flex-direction:column; gap:4px;}
+  .cart-item .ci-name{font-size:14px; font-weight:700;}
+  .cart-item .ai-pill{
+    display:inline-flex; align-items:center; gap:4px; align-self:flex-start;
+    background:var(--ember-bg); color:var(--ember-ink); font-size:10.5px; font-weight:700;
+    padding:3px 8px; border-radius:999px; margin-top:2px;
+  }
+  .cart-item .ci-meta{font-size:11.5px; color:var(--ink-600);}
+  .cart-item .ci-price{margin-top:auto; font-size:14px; font-weight:800;}
+
+  .offer-card{margin:0 16px; border:1px solid var(--line); border-radius:var(--radius-md); padding:13px 14px;}
+  .offer-card.applied{border-color:var(--emerald); background:var(--emerald-bg);}
+  .offer-top{display:flex; align-items:center; justify-content:space-between;}
+  .offer-top .ol{display:flex; align-items:center; gap:8px; font-size:13.5px; font-weight:700;}
+  .offer-top .ov{font-size:13px; font-weight:800; color:var(--emerald);}
+  .offer-card p{margin:6px 0 0; font-size:11.5px; color:var(--ink-600);}
+
+  .save-strip{margin:0 16px; background:var(--mist); border-radius:10px; padding:10px 14px; font-size:12.5px; color:var(--navy-700); display:flex; align-items:center; gap:7px;}
+  .save-strip b{color:var(--emerald);}
+
+  .checkout-bar{
+    position:sticky; bottom:0; background:var(--paper); border-top:1px solid var(--line);
+    padding:14px 16px 16px; display:flex; align-items:center; gap:14px; margin-top:8px;
+  }
+  .checkout-bar .price-block{flex:none;}
+  .checkout-bar .price-block .amt{font-size:17px; font-weight:800;}
+  .checkout-bar .price-block .emi{font-size:10.5px; color:var(--ink-600);}
+  .checkout-bar .btn{flex:1;}
+
+  /* ---------- Confirmation ---------- */
+  .confirm-wrap{display:flex; flex-direction:column; align-items:center; text-align:center; padding:52px 26px 20px; gap:14px;}
+  .confirm-badge{
+    width:72px;height:72px;border-radius:50%; background:var(--emerald-bg); color:var(--emerald);
+    display:flex; align-items:center; justify-content:center;
+  }
+  .confirm-wrap h2{font-size:19px; margin:4px 0 0; font-weight:800;}
+  .confirm-wrap p{font-size:13px; color:var(--ink-600); margin:0; max-width:280px; line-height:1.5;}
+  .confirm-card{width:100%; border:1px solid var(--line); border-radius:var(--radius-md); padding:16px; text-align:left; display:flex; flex-direction:column; gap:10px; margin-top:6px;}
+  .confirm-row{display:flex; justify-content:space-between; font-size:12.5px; color:var(--ink-600);}
+  .confirm-row b{color:var(--navy-900); font-weight:700;}
+
+  .kbd-focus:focus-visible{outline:2px solid var(--ember); outline-offset:2px; border-radius:6px;}
+</style>
+</head>
+<body>
+
+<div class="stage">
+
+  <div class="device">
+    <div class="screenport" id="screenport">
+      <div class="panel">
+
+        <!-- ============ HOME ============ -->
+        <section class="screen active" data-screen="home">
+          <div class="topbar">
+            <div class="brand-left">
+              <div class="avatar">S</div>
+              <div class="delivery-meta">
+                <span class="fast">Next day delivery <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M13 2 3 14h7l-1 8 11-14h-8z"/></svg></span>
+                <span class="loc">560008 · Bengaluru
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg>
+                </span>
+              </div>
+            </div>
+            <div class="brand-right">
+              <div class="gold-pill"><span class="g1">GET</span><span class="g2">GOLD</span></div>
+              <button class="icon-btn" aria-label="Wishlist">
+                <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 20s-7-4.35-9.5-8.8C.6 7.4 2.4 4 6 4c2 0 3.5 1 6 3.6C14.5 5 16 4 18 4c3.6 0 5.4 3.4 3.5 7.2C19 15.65 12 20 12 20z"/></svg>
+                <span class="badge-count">4</span>
+              </button>
+              <button class="icon-btn" aria-label="Bag" onclick="go('cart')">
+                <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 8h12l-1 12H7L6 8z"/><path d="M9 8a3 3 0 0 1 6 0"/></svg>
+                <span class="badge-count" id="bagCountHome">0</span>
+              </button>
+              <button class="icon-btn" aria-label="Menu">
+                <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+              </button>
+            </div>
+          </div>
+
+          <div class="search-row">
+            <div class="searchbar" style="flex:1;">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+              <span>Search "airy light glasses"</span>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7l1.5-3h5L16 7"/><circle cx="12" cy="13.5" r="3"/></svg>
+            </div>
+            <div class="app-tile">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M6 2h9l5 6v14H6V2z" opacity=".85"/></svg>
+            </div>
+          </div>
+
+          <!-- NEW: AI Stylist entry point -->
+          <div class="stylist-card">
+            <span class="eyebrow">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l1.8 5.6L19 9l-5.2 1.4L12 16l-1.8-5.6L5 9l5.2-1.4L12 2z"/></svg>
+              AI Stylist · New
+            </span>
+            <h2>Find your perfect frame in under 3 minutes</h2>
+            <p>Answer a few quick questions and get your AI-curated Top 10, matched to your face and budget.</p>
+            <button class="cta" onclick="startQuiz()">
+              Build My Collection
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </button>
+            <svg class="glasses-deco" width="120" height="80" viewBox="0 0 120 80" fill="none" stroke="rgba(255,255,255,.35)" stroke-width="3">
+              <circle cx="32" cy="42" r="22"/><circle cx="88" cy="42" r="22"/><path d="M54 40h12"/><path d="M10 38 0 34"/><path d="M110 38l10-4"/>
+            </svg>
+          </div>
+
+          <div class="promo-strip">
+            <div class="txt"><b>hustlr CLUB</b><span>Get your first Hustlr frame free</span></div>
+            <div class="timer">01d:10h left</div>
+          </div>
+
+          <div>
+            <div class="cat-title">Eyeglasses</div>
+            <div class="cat-row">
+              <div class="cat-item"><div class="cat-swatch" data-icon="men"></div><span>Men</span></div>
+              <div class="cat-item"><div class="cat-swatch" data-icon="women"></div><span>Women</span></div>
+              <div class="cat-item"><div class="cat-swatch" data-icon="kid"></div><span>Kids</span></div>
+              <div class="cat-item"><div class="cat-swatch" data-icon="sale"></div><span>On Sale</span></div>
+            </div>
+          </div>
+
+          <div>
+            <div class="cat-title">Sunglasses</div>
+            <div class="cat-row">
+              <div class="cat-item"><div class="cat-swatch" data-icon="sunM"></div><span>Men</span></div>
+              <div class="cat-item"><div class="cat-swatch" data-icon="sunW"></div><span>Women</span></div>
+              <div class="cat-item"><div class="cat-swatch" data-icon="sunK"></div><span>Kids</span></div>
+              <div class="cat-item"><div class="cat-swatch" data-icon="sale"></div><span>On Sale</span></div>
+            </div>
+          </div>
+
+        </section>
+
+        <!-- ============ QUIZ ============ -->
+        <section class="screen" data-screen="quiz">
+          <div class="subheader">
+            <button class="backbtn kbd-focus" onclick="exitQuiz()" data-icon="back"></button>
+            <h1>Build My Collection</h1>
+            <div class="spacer"></div>
+          </div>
+          <div class="progress-dots" id="quizDots"></div>
+          <div class="content" id="quizBody"></div>
+          <div class="quiz-footer">
+            <div class="btn-row">
+              <button class="btn btn-outline" id="quizBackBtn" onclick="quizBack()">Back</button>
+              <button class="btn btn-primary" id="quizNextBtn" onclick="quizNext()">Continue</button>
+            </div>
+          </div>
+        </section>
+
+        <!-- ============ LOADING ============ -->
+        <section class="screen" data-screen="loading">
+          <div class="loading-wrap">
+            <div class="spinner" aria-hidden="true"></div>
+            <h3 id="loadingHeadline">Reading your style DNA…</h3>
+            <div class="loading-facts" id="loadingFacts"></div>
+          </div>
+        </section>
+
+        <!-- ============ COLLECTION ============ -->
+        <section class="screen" data-screen="collection">
+          <div class="subheader">
+            <button class="backbtn kbd-focus" onclick="go('home')" data-icon="back"></button>
+            <h1>My Top 10 Frames</h1>
+            <div class="spacer"></div>
+            <button class="retake" onclick="startQuiz()">Retake</button>
+          </div>
+          <div class="collection-head">
+            <p class="lede" id="collectionLede">Curated for your face shape, budget and style.</p>
+          </div>
+          <div class="match-legend">
+            <span data-icon="sparkleSm"></span> Ranked by Overall Match Score — tap a frame to see why it's right for you.
+          </div>
+          <div class="frame-grid" id="frameGrid"></div>
+        </section>
+
+        <!-- ============ DETAIL ============ -->
+        <section class="screen" data-screen="detail">
+          <div class="subheader">
+            <button class="backbtn kbd-focus" onclick="go('collection')" data-icon="back"></button>
+            <h1>Match Details</h1>
+            <div class="spacer"></div>
+            <button class="icon-btn" aria-label="Wishlist" data-icon="heart"></button>
+          </div>
+
+          <div class="detail-media" id="detailMedia">
+            <button class="arbtn" onclick="go('ar')"><span data-icon="arGlyph"></span> Try in AR</button>
+          </div>
+
+          <div class="detail-title">
+            <h2 id="detailName">—</h2>
+            <div class="price-row">
+              <span id="detailPrice">—</span>
+              <s id="detailMrp"></s>
+              <em id="detailSaving"></em>
+            </div>
+          </div>
+
+          <div class="score-panel">
+            <div class="overall">
+              <div class="ring" id="overallRing"><div class="hole" id="overallRingNum">—</div></div>
+              <div class="ot"><b>Overall Match Score</b><span>How well this frame fits you, right now</span></div>
+            </div>
+            <div class="score-rows" id="scoreRows"></div>
+          </div>
+
+          <div class="why-card">
+            <div class="wh"><span data-icon="sparkleSm"></span> Why this is worth it</div>
+            <p id="whyText">—</p>
+          </div>
+
+          <div class="community-card">
+            <div class="ch"><span data-icon="people"></span> Community confidence</div>
+            <div class="cnum" id="communityNum">—%</div>
+            <div class="ctrack"><div class="cfill" id="communityFill"></div></div>
+            <p id="communityText">—</p>
+          </div>
+
+          <div class="detail-cta">
+            <button class="btn btn-outline" onclick="go('ar')"><span data-icon="arGlyph"></span> Try in AR</button>
+            <button class="btn btn-primary" onclick="addToCart()">Add to Cart</button>
+          </div>
+        </section>
+
+        <!-- ============ AR TRY-ON ============ -->
+        <section class="screen" data-screen="ar">
+          <div class="subheader">
+            <button class="backbtn kbd-focus" onclick="go('detail')" data-icon="back"></button>
+            <h1>Try in AR</h1>
+            <div class="spacer"></div>
+          </div>
+          <div class="ar-stage">
+            <div class="ar-hud">
+              <span class="ar-tag" id="arFrameTag">—</span>
+              <span class="ar-tag"><span data-icon="arGlyph"></span> Live</span>
+            </div>
+            <svg class="face" width="150" height="190" viewBox="0 0 150 190" fill="none" stroke="currentColor" stroke-width="2">
+              <ellipse cx="75" cy="82" rx="52" ry="66"/>
+              <path d="M40 165c8 14 62 14 70 0" />
+            </svg>
+            <svg class="frame-overlay" id="arFrameOverlay" width="130" height="46" viewBox="0 0 130 46" fill="none" stroke="currentColor" stroke-width="3.4">
+              <rect x="6" y="8" width="46" height="32" rx="9"/>
+              <rect x="78" y="8" width="46" height="32" rx="9"/>
+              <path d="M52 24h26"/><path d="M6 20 -6 14"/><path d="M124 20l12-6"/>
+            </svg>
+            <div class="ar-controls">
+              <button class="btn btn-ghost" style="background:rgba(255,255,255,.16); color:#fff;" onclick="go('detail')">Back</button>
+              <button class="btn btn-ember" onclick="addToCart()">Looks good · Add to Cart</button>
+            </div>
+          </div>
+          <p style="text-align:center; font-size:11.5px; color:var(--ink-600); padding:0 30px;">Simulated preview for this prototype — the production flow uses live camera face-tracking.</p>
+        </section>
+
+        <!-- ============ CART ============ -->
+        <section class="screen" data-screen="cart">
+          <div class="subheader">
+            <button class="backbtn kbd-focus" onclick="go('home')" data-icon="back"></button>
+            <h1 id="cartTitle">Cart (0 Items)</h1>
+            <div class="spacer"></div>
+          </div>
+
+          <div id="cartEmpty" class="content" style="align-items:center; text-align:center; padding-top:60px;">
+            <div style="color:var(--ink-400);" data-icon="bagLg"></div>
+            <p style="font-size:13.5px; color:var(--ink-600); margin:6px 0 14px;">Your cart is empty. Let the AI Stylist find your frame.</p>
+            <button class="btn btn-primary" style="width:auto; padding:12px 22px;" onclick="startQuiz()">Build My Collection</button>
+          </div>
+
+          <div id="cartFilled" style="display:none; flex-direction:column; gap:14px;">
+            <div class="cart-banner">
+              <b>Free gift for you!</b>
+              <span>59:48 left</span>
+            </div>
+            <div class="cart-item" id="cartItemCard"></div>
+
+            <div class="content" style="padding-top:0; padding-bottom:0;">
+              <div style="font-weight:800; font-size:15px;">Offers</div>
+            </div>
+            <div class="offer-card applied">
+              <div class="offer-top">
+                <div class="ol"><span data-icon="check"></span> Flat ₹1200 OFF</div>
+                <div class="ov">−₹1200</div>
+              </div>
+              <p>COUPON: SINGLE · Applied automatically</p>
+            </div>
+            <div class="save-strip"><b>You're saving ₹1200</b>&nbsp;on this AI-matched frame</div>
+          </div>
+
+          <div class="checkout-bar" id="checkoutBar" style="display:none;">
+            <div class="price-block">
+              <div class="amt" id="cartTotal">₹0</div>
+              <div class="emi">No Cost EMI</div>
+            </div>
+            <button class="btn btn-primary" onclick="go('confirm')">Select Address</button>
+          </div>
+        </section>
+
+        <!-- ============ CONFIRMATION ============ -->
+        <section class="screen" data-screen="confirm">
+          <div class="confirm-wrap">
+            <div class="confirm-badge" data-icon="checkLg"></div>
+            <h2>Order placed!</h2>
+            <p>Your AI-matched frame is on its way. We'll notify you at every step.</p>
+            <div class="confirm-card">
+              <div class="confirm-row"><span>Frame</span><b id="confirmName">—</b></div>
+              <div class="confirm-row"><span>Match score</span><b id="confirmMatch">—</b></div>
+              <div class="confirm-row"><span>Amount paid</span><b id="confirmAmount">—</b></div>
+              <div class="confirm-row"><span>Delivery</span><b>4-day delivery</b></div>
+            </div>
+            <div class="btn-row" style="margin-top:18px;">
+              <button class="btn btn-outline" onclick="resetPrototype()">Start Over</button>
+              <button class="btn btn-primary" onclick="go('home')">Continue Shopping</button>
+            </div>
+          </div>
+        </section>
+
+      </div>
+
+      <!-- ============ BOTTOM NAV ============ -->
+      <nav class="bottomnav" id="bottomNav">
+        <button class="navitem active" data-tab="home" onclick="go('home')"><i class="bar"></i><span data-icon="navHome"></span><span>Home</span></button>
+        <button class="navitem" data-tab="stores" onclick="go('home')"><i class="bar"></i><span data-icon="navStore"></span><span>Stores</span></button>
+        <button class="navitem" data-tab="ar" onclick="go('home')"><i class="bar"></i><span data-icon="navAR"></span><span>AR Try on</span></button>
+        <button class="navitem" data-tab="eye" onclick="go('home')"><i class="bar"></i><span data-icon="navEye"></span><span>Eye Test</span></button>
+        <button class="navitem" data-tab="orders" onclick="go('home')"><i class="bar"></i><span data-icon="navOrders"></span><span>Orders</span></button>
+        <button class="navitem ai" data-tab="stylist" onclick="startQuiz()"><i class="bar"></i><span data-icon="navStylist"></span><span>AI Stylist</span></button>
+      </nav>
+    </div>
+  </div>
+
+  <aside class="sidenotes">
+    <h2>Phase 1 · AI Stylist flow</h2>
+    <div class="step"><div class="dot on">1</div><div>Homepage entry — new "Build My Collection" card, sitting alongside the existing hustlr &amp; category modules.</div></div>
+    <div class="step"><div class="dot on">2</div><div>Questionnaire — budget, usage, style, face shape.</div></div>
+    <div class="step"><div class="dot on">3</div><div>AI generates "My Top 10 Frames," ranked by Overall Match Score.</div></div>
+    <div class="step"><div class="dot on">4</div><div>Tap a frame → Fit / Style / Comfort / Budget breakdown + "Why this is worth it" + Community Confidence.</div></div>
+    <div class="step"><div class="dot on">5</div><div>Try in AR → Add to Cart → Checkout → Order confirmation.</div></div>
+    <div class="step"><div class="dot on">✓</div><div>Every screen reuses the app's existing header, search, bottom-nav and button styles — no new icon language introduced.</div></div>
+  </aside>
+
+</div>
+
+<script>
+/* ---------------------------------------------------------------
+   Icon set: line icons matched to the current app's visual style
+   (navy stroke, ~1.8-2.2 weight, rounded caps), reused everywhere.
+--------------------------------------------------------------- */
+var ICON = {
+  back: '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg>',
+  heart: '<svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 20s-7-4.35-9.5-8.8C.6 7.4 2.4 4 6 4c2 0 3.5 1 6 3.6C14.5 5 16 4 18 4c3.6 0 5.4 3.4 3.5 7.2C19 15.65 12 20 12 20z"/></svg>',
+  check: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>',
+  checkLg: '<svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>',
+  sparkleSm: '<svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l1.8 5.6L19 9l-5.2 1.4L12 16l-1.8-5.6L5 9l5.2-1.4L12 2z"/></svg>',
+  people: '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><circle cx="8" cy="9" r="3"/><circle cx="16" cy="9" r="3"/><path d="M2 20c0-3 3-5 6-5s6 2 6 5"/><path d="M12 20c0-2.4 2.2-4.2 5-4.2s5 1.8 5 4.2"/></svg>',
+  arGlyph: '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 8V5a1 1 0 0 1 1-1h3M20 8V5a1 1 0 0 1-1-1h-3M4 16v3a1 1 0 0 0 1 1h3M20 16v3a1 1 0 0 0-1 1h-3"/><circle cx="12" cy="12" r="3"/></svg>',
+  bagLg: '<svg width="46" height="46" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6 8h12l-1 12H7L6 8z"/><path d="M9 8a3 3 0 0 1 6 0"/></svg>',
+  navHome: '<svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11.5L12 4l8 7.5"/><path d="M6 10v9h12v-9"/></svg>',
+  navStore: '<svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9l1-4h14l1 4"/><path d="M4 9a2 2 0 0 0 4 0 2 2 0 0 0 4 0 2 2 0 0 0 4 0 2 2 0 0 0 4 0"/><path d="M5 9v10h14V9"/></svg>',
+  navAR: '<svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="3"/><circle cx="9" cy="12" r="1.4" fill="currentColor" stroke="none"/><circle cx="15" cy="12" r="1.4" fill="currentColor" stroke="none"/><path d="M9 16c1 1 5 1 6 0"/></svg>',
+  navEye: '<svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.6-6.5 10-6.5S22 12 22 12s-3.6 6.5-10 6.5S2 12 2 12z"/><circle cx="12" cy="12" r="2.6"/></svg>',
+  navOrders: '<svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h9l3 3v15H6V3z"/><path d="M9 9h6M9 13h6M9 17h4"/></svg>',
+  navStylist: '<svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.9 4.9L19 9l-5.1 1.1L12 15l-1.9-4.9L5 9l5.1-1.1L12 3z"/><path d="M19 15l.9 2.1L22 18l-2.1.9L19 21l-.9-2.1L16 18l2.1-.9L19 15z"/></svg>',
+  men: '<svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7"/></svg>',
+  women: '<svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="7.5" r="3.6"/><path d="M8.6 10.5L6 20M15.4 10.5L18 20M8 15h8"/></svg>',
+  kid: '<svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="9" r="3.4"/><path d="M6 20c0-3.6 2.7-5.6 6-5.6s6 2 6 5.6"/></svg>',
+  sale: '<svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 12l8-8h7a1 1 0 0 1 1 1v7l-8 8-8-8z"/><circle cx="14" cy="9" r="1.3" fill="currentColor" stroke="none"/></svg>',
+  sunM: '<svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2" y="9" width="8" height="6" rx="2"/><rect x="14" y="9" width="8" height="6" rx="2"/><path d="M10 12h4M2 12l-1-2M22 12l1-2"/></svg>',
+  sunW: '<svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2 11c0-2 1.8-3 4-3s4 1 4 3-1.8 4-4 4-4-2-4-4z"/><path d="M14 11c0-2 1.8-3 4-3s4 1 4 3-1.8 4-4 4-4-2-4-4z"/><path d="M10 11h4"/></svg>',
+  sunK: '<svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="7" cy="12" r="3.4"/><circle cx="17" cy="12" r="3.4"/><path d="M10.4 12h3.2"/></svg>'
+};
+
+function paintIcons(root){
+  (root || document).querySelectorAll('[data-icon]').forEach(function(el){
+    var key = el.getAttribute('data-icon');
+    if (ICON[key]) el.innerHTML = ICON[key];
+  });
+}
+
+/* ---------------------------------------------------------------
+   State
+--------------------------------------------------------------- */
+var state = {
+  answers: { budget: null, usage: null, style: null, faceShape: null },
+  quizStep: 0,
+  scored: [],
+  selectedFrameId: null,
+  cart: null
+};
+
+var QUIZ_STEPS = ['budget', 'usage', 'style', 'faceShape'];
+
+var BUDGETS = [
+  { id: 'under1500', label: 'Under ₹1,500', sub: 'Everyday essentials' },
+  { id: '1500-3000', label: '₹1,500 – ₹3,000', sub: 'Most popular range' },
+  { id: '3000-5000', label: '₹3,000 – ₹5,000', sub: 'Premium materials' },
+  { id: '5000+', label: '₹5,000+', sub: 'Designer & titanium' }
+];
+var USAGES = [
+  { id: 'daily', label: 'Daily wear', sub: 'All-day comfort' },
+  { id: 'screen', label: 'Computer & screens', sub: 'Long desk hours' },
+  { id: 'sports', label: 'Sports & outdoor', sub: 'Active lifestyle' },
+  { id: 'fashion', label: 'Fashion & occasional', sub: 'Statement pieces' }
+];
+var STYLES = [
+  { id: 'classic', label: 'Classic', sub: 'Timeless, versatile' },
+  { id: 'bold', label: 'Bold', sub: 'Strong, structured' },
+  { id: 'minimal', label: 'Minimal', sub: 'Light, understated' },
+  { id: 'trendy', label: 'Trendy', sub: 'Fashion-forward' }
+];
+var FACE_SHAPES = [
+  { id: 'round', label: 'Round' },
+  { id: 'oval', label: 'Oval' },
+  { id: 'square', label: 'Square' },
+  { id: 'heart', label: 'Heart' }
+];
+
+var PERSONA = { daily: 'everyday commuters', screen: 'remote professionals', sports: 'active, on-the-go users', fashion: 'fashion-forward shoppers' };
+var BUDGET_LABEL = { 'under1500': 'under ₹1,500', '1500-3000': '₹1,500–3,000', '3000-5000': '₹3,000–5,000', '5000+': '₹5,000+' };
+var FACE_LABEL = { round: 'round', oval: 'oval', square: 'square', heart: 'heart-shaped' };
+
+var FRAME_DATA = [
+  { id: 1, name: 'Air Flex Rectangle', price: 1500, mrp: 2000, style: 'classic', shape: 'rectangle', color: '#8a93a8', shapes: ['round', 'oval'], comfort: 92, community: 89 },
+  { id: 2, name: 'Urban Bold Square', price: 2200, mrp: 2999, style: 'bold', shape: 'rectangle', color: '#22262f', shapes: ['oval', 'heart'], comfort: 88, community: 84 },
+  { id: 3, name: 'Retro Round Gold', price: 2800, mrp: 3600, style: 'trendy', shape: 'round', color: '#c9a227', shapes: ['square', 'heart'], comfort: 90, community: 91 },
+  { id: 4, name: 'Minimal Clear Oval', price: 1800, mrp: 2400, style: 'minimal', shape: 'round', color: '#9dc3e6', shapes: ['round', 'square'], comfort: 94, community: 87 },
+  { id: 5, name: 'Classic Tortoise Wayfarer', price: 2500, mrp: 3200, style: 'classic', shape: 'rectangle', color: '#9a5b2e', shapes: ['oval', 'round'], comfort: 91, community: 93 },
+  { id: 6, name: 'Sleek Cat-Eye Berry', price: 3200, mrp: 4200, style: 'trendy', shape: 'cateye', color: '#c0447a', shapes: ['heart', 'oval'], comfort: 85, community: 88 },
+  { id: 7, name: 'Titanium Aviator', price: 4200, mrp: 5400, style: 'bold', shape: 'aviator', color: '#a7adb8', shapes: ['square', 'oval'], comfort: 93, community: 90 },
+  { id: 8, name: 'Featherlight Rimless', price: 3800, mrp: 4800, style: 'minimal', shape: 'rectangle', color: '#c7cede', shapes: ['round', 'heart'], comfort: 96, community: 82 },
+  { id: 9, name: 'Bold Geometric Hex', price: 2600, mrp: 3400, style: 'bold', shape: 'cateye', color: '#20232b', shapes: ['oval', 'square'], comfort: 87, community: 79 },
+  { id: 10, name: 'Everyday Blue-Light Rectangle', price: 1600, mrp: 2100, style: 'classic', shape: 'rectangle', color: '#4a5570', shapes: ['round', 'oval', 'square'], comfort: 95, community: 92 }
+];
+
+/* ---------------------------------------------------------------
+   Navigation
+--------------------------------------------------------------- */
+function go(screen){
+  document.querySelectorAll('.screen').forEach(function(s){ s.classList.remove('active'); });
+  document.querySelector('.screen[data-screen="' + screen + '"]').classList.add('active');
+  document.querySelectorAll('.navitem').forEach(function(n){ n.classList.remove('active'); });
+  if (screen === 'home') document.querySelector('.navitem[data-tab="home"]').classList.add('active');
+  document.getElementById('screenport').scrollTop = 0;
+}
+
+function startQuiz(){
+  state.quizStep = 0;
+  state.answers = { budget: null, usage: null, style: null, faceShape: null };
+  renderQuizStep();
+  go('quiz');
+}
+
+function exitQuiz(){ go('home'); }
+
+/* ---------------------------------------------------------------
+   Quiz rendering
+--------------------------------------------------------------- */
+function renderQuizStep(){
+  var step = QUIZ_STEPS[state.quizStep];
+  var dots = document.getElementById('quizDots');
+  dots.innerHTML = QUIZ_STEPS.map(function(s, i){ return i < state.quizStep ? '<i class="done"></i>' : '<i></i>'; }).join('');
+
+  var body = document.getElementById('quizBody');
+  var html = '';
+
+  function optionCards(list, key){
+    return '<div class="option-grid">' + list.map(function(o){
+      var sel = state.answers[key] === o.id ? ' selected' : '';
+      return '<button class="option-card' + sel + '" data-answer-key="' + key + '" data-answer-val="' + o.id + '">' +
+        '<div class="ot">' + o.label + '</div><div class="os">' + o.sub + '</div></button>';
+    }).join('') + '</div>';
+  }
+
+  function chips(list, key){
+    return '<div class="chip-row">' + list.map(function(o){
+      var sel = state.answers[key] === o.id ? ' selected' : '';
+      return '<button class="chip' + sel + '" data-answer-key="' + key + '" data-answer-val="' + o.id + '">' + o.label + '</button>';
+    }).join('') + '</div>';
+  }
+
+  if (step === 'budget'){
+    html = '<div class="quiz-kicker">Step 1 of 4</div>' +
+      '<div class="quiz-q">What’s your budget?</div>' +
+      '<p class="quiz-sub">We’ll only surface frames that make sense for you.</p>' +
+      optionCards(BUDGETS, 'budget');
+  } else if (step === 'usage'){
+    html = '<div class="quiz-kicker">Step 2 of 4</div>' +
+      '<div class="quiz-q">Where will you wear these most?</div>' +
+      '<p class="quiz-sub">This shapes comfort and lens recommendations.</p>' +
+      optionCards(USAGES, 'usage');
+  } else if (step === 'style'){
+    html = '<div class="quiz-kicker">Step 3 of 4</div>' +
+      '<div class="quiz-q">Pick a style that feels like you</div>' +
+      '<p class="quiz-sub">You can always mix it up later.</p>' +
+      chips(STYLES, 'style');
+  } else if (step === 'faceShape'){
+    html = '<div class="quiz-kicker">Step 4 of 4</div>' +
+      '<div class="quiz-q">What’s your face shape?</div>' +
+      '<p class="quiz-sub">Unsure? Pick your closest match — you can rescan anytime.</p>' +
+      chips(FACE_SHAPES, 'faceShape');
+  }
+
+  body.innerHTML = html;
+  body.querySelectorAll('[data-answer-key]').forEach(function(el){
+    el.addEventListener('click', function(){
+      selectAnswer(el.getAttribute('data-answer-key'), el.getAttribute('data-answer-val'));
+    });
+  });
+
+  document.getElementById('quizBackBtn').style.visibility = state.quizStep === 0 ? 'hidden' : 'visible';
+  var nextBtn = document.getElementById('quizNextBtn');
+  var answered = state.answers[step] !== null;
+  nextBtn.disabled = !answered;
+  nextBtn.textContent = state.quizStep === QUIZ_STEPS.length - 1 ? 'Generate My Collection' : 'Continue';
+}
+
+function selectAnswer(key, val){
+  state.answers[key] = val;
+  renderQuizStep();
+}
+
+function quizBack(){
+  if (state.quizStep > 0){ state.quizStep--; renderQuizStep(); }
+}
+
+function quizNext(){
+  if (state.quizStep < QUIZ_STEPS.length - 1){
+    state.quizStep++;
+    renderQuizStep();
+  } else {
+    runAIGeneration();
+  }
+}
+
+/* ---------------------------------------------------------------
+   Loading / AI generation
+--------------------------------------------------------------- */
+var LOADING_STEPS = [
+  'Reading your style DNA…',
+  'Matching frames to your face shape…',
+  'Cross-checking your budget…',
+  'Ranking your Top 10…'
+];
+
+function runAIGeneration(){
+  go('loading');
+  var headline = document.getElementById('loadingHeadline');
+  var facts = document.getElementById('loadingFacts');
+  facts.innerHTML = LOADING_STEPS.map(function(t, i){
+    return '<div class="loading-fact" id="lf' + i + '"><span class="ck">' + ICON.check + '</span><span>' + t + '</span></div>';
+  }).join('');
+
+  var i = 0;
+  headline.textContent = LOADING_STEPS[0];
+  document.getElementById('lf0').classList.add('hit');
+  var timer = setInterval(function(){
+    i++;
+    if (i < LOADING_STEPS.length){
+      headline.textContent = LOADING_STEPS[i];
+      document.getElementById('lf' + i).classList.add('hit');
+    } else {
+      clearInterval(timer);
+      computeCollection();
+      go('collection');
+      renderCollection();
+    }
+  }, 650);
+}
+
+/* ---------------------------------------------------------------
+   Scoring engine
+--------------------------------------------------------------- */
+function budgetScore(price, range){
+  var bands = {
+    'under1500': price <= 1500 ? 96 : price <= 2000 ? 68 : 42,
+    '1500-3000': (price >= 1500 && price <= 3000) ? 97 : price < 1500 ? 84 : 56,
+    '3000-5000': (price >= 3000 && price <= 5000) ? 97 : price < 3000 ? 78 : 62,
+    '5000+': price >= 5000 ? 96 : 82
+  };
+  return bands[range];
+}
+
+function computeCollection(){
+  var budget = state.answers.budget, usage = state.answers.usage, style = state.answers.style, faceShape = state.answers.faceShape;
+  var scored = FRAME_DATA.map(function(f){
+    var fit = f.shapes.indexOf(faceShape) !== -1 ? 94 + (f.id % 4) : 72 + (f.id % 8);
+    var styleScore = f.style === style ? 92 + (f.comfort % 5) : 66 + (f.id % 10);
+    var comfort = f.comfort;
+    if (usage === 'screen') comfort = Math.min(99, comfort + 3);
+    if (usage === 'sports') comfort = Math.max(60, comfort - 2);
+    var budgetSc = budgetScore(f.price, budget);
+    var overall = Math.round(fit * 0.30 + styleScore * 0.25 + comfort * 0.20 + budgetSc * 0.25);
+    return Object.assign({}, f, { fit: fit, styleScore: styleScore, comfort: comfort, budgetSc: budgetSc, overall: overall });
+  }).sort(function(a, b){ return b.overall - a.overall; });
+
+  state.scored = scored;
+}
+
+/* ---------------------------------------------------------------
+   Frame art (SVG glasses, no external images)
+--------------------------------------------------------------- */
+function frameSVG(frame, size){
+  size = size || 96;
+  var c = frame.color;
+  var shape = frame.shape;
+  var lenses = '';
+  if (shape === 'round'){
+    lenses = '<circle cx="30" cy="46" r="22"/><circle cx="90" cy="46" r="22"/>';
+  } else if (shape === 'cateye'){
+    lenses = '<path d="M10 50c0-16 12-24 24-22 10 1.4 16 10 16 22s-8 20-20 20S10 62 10 50z"/><path d="M70 50c0-16 12-24 24-22 10 1.4 16 10 16 22s-8 20-20 20-20-8-20-20z"/>';
+  } else if (shape === 'aviator'){
+    lenses = '<path d="M8 42c2-14 16-20 24-16 9 4 12 16 10 30-2 12-14 18-22 14S6 56 8 42z"/><path d="M72 42c2-14 16-20 24-16 9 4 12 16 10 30-2 12-14 18-22 14s-16-14-14-28z"/>';
+  } else {
+    lenses = '<rect x="8" y="26" width="44" height="38" rx="10"/><rect x="68" y="26" width="44" height="38" rx="10"/>';
+  }
+  return '<svg width="' + size + '" height="' + Math.round(size * 0.72) + '" viewBox="0 0 120 86" fill="none" stroke="' + c + '" stroke-width="4.2" stroke-linecap="round" stroke-linejoin="round">' +
+    lenses +
+    '<path d="M54 46h12" stroke="' + c + '"/>' +
+    '<path d="M8 40 -6 32" stroke="' + c + '"/>' +
+    '<path d="M112 40l14-8" stroke="' + c + '"/>' +
+    '</svg>';
+}
+
+/* ---------------------------------------------------------------
+   Collection screen
+--------------------------------------------------------------- */
+function renderCollection(){
+  var faceShape = state.answers.faceShape, budget = state.answers.budget;
+  document.getElementById('collectionLede').textContent =
+    'Curated for your ' + FACE_LABEL[faceShape] + ' face shape and ' + BUDGET_LABEL[budget] + ' budget.';
+
+  var grid = document.getElementById('frameGrid');
+  grid.innerHTML = state.scored.map(function(f, idx){
+    return '<button class="frame-card" onclick="openDetail(' + f.id + ')">' +
+      '<div class="frame-media"><span class="rank-tag">#' + (idx + 1) + '</span><span class="match-tag">' + f.overall + '% Match</span>' + frameSVG(f, 96) + '</div>' +
+      '<div class="frame-info"><div class="fn">' + f.name + '</div><div class="fp">₹' + f.price + ' <s>₹' + f.mrp + '</s></div>' +
+      '<div class="mini-scores"><i><b style="width:' + f.fit + '%"></b></i><i><b style="width:' + f.styleScore + '%"></b></i><i><b style="width:' + f.comfort + '%"></b></i><i><b style="width:' + f.budgetSc + '%"></b></i></div>' +
+      '</div></button>';
+  }).join('');
+}
+
+/* ---------------------------------------------------------------
+   Detail screen
+--------------------------------------------------------------- */
+function openDetail(id){
+  var f = state.scored.filter(function(x){ return x.id === id; })[0];
+  state.selectedFrameId = id;
+
+  var media = document.getElementById('detailMedia');
+  var existingSvg = media.querySelector('svg.frame-hero');
+  if (existingSvg) existingSvg.remove();
+  media.insertAdjacentHTML('afterbegin', frameSVG(f, 220).replace('<svg', '<svg class="frame-hero"'));
+
+  document.getElementById('detailName').textContent = f.name;
+  document.getElementById('detailPrice').textContent = '₹' + f.price;
+  document.getElementById('detailMrp').textContent = '₹' + f.mrp;
+  document.getElementById('detailSaving').textContent = Math.round(100 - (f.price / f.mrp * 100)) + '% OFF';
+
+  document.getElementById('overallRing').style.setProperty('--pct', f.overall);
+  document.getElementById('overallRingNum').textContent = f.overall + '%';
+
+  var rows = [['Fit', f.fit], ['Style', f.styleScore], ['Comfort', f.comfort], ['Budget', f.budgetSc]];
+  document.getElementById('scoreRows').innerHTML = rows.map(function(r){
+    return '<div class="score-row"><div class="lbl">' + r[0] + '</div><div class="track"><div class="fill" style="width:' + r[1] + '%"></div></div><div class="val">' + r[1] + '%</div></div>';
+  }).join('');
+
+  var usage = state.answers.usage, budget = state.answers.budget, faceShape = state.answers.faceShape;
+  document.getElementById('whyText').textContent =
+    'Recommended because it complements your ' + FACE_LABEL[faceShape] + ' face shape, fits your ' + BUDGET_LABEL[budget] + ' budget, and is popular among ' + PERSONA[usage] + '.';
+
+  document.getElementById('communityNum').textContent = f.community + '%';
+  document.getElementById('communityFill').style.width = f.community + '%';
+  document.getElementById('communityText').textContent =
+    f.community + '% of users with a similar face shape purchased or positively rated this frame.';
+
+  document.getElementById('arFrameTag').textContent = f.name;
+  document.getElementById('arFrameOverlay').style.color = f.color;
+
+  go('detail');
+}
+
+/* ---------------------------------------------------------------
+   Cart / checkout / confirmation
+--------------------------------------------------------------- */
+function addToCart(){
+  var f = state.scored.filter(function(x){ return x.id === state.selectedFrameId; })[0];
+  state.cart = f;
+  document.getElementById('bagCountHome').textContent = '1';
+  go('cart');
+  renderCart();
+}
+
+function renderCart(){
+  var f = state.cart;
+  var empty = document.getElementById('cartEmpty');
+  var filled = document.getElementById('cartFilled');
+  var bar = document.getElementById('checkoutBar');
+
+  if (!f){
+    empty.style.display = 'flex'; filled.style.display = 'none'; bar.style.display = 'none';
+    document.getElementById('cartTitle').textContent = 'Cart (0 Items)';
+    paintIcons(empty);
+    return;
+  }
+
+  empty.style.display = 'none'; filled.style.display = 'flex'; bar.style.display = 'flex';
+  document.getElementById('cartTitle').textContent = 'Cart (1 Item)';
+
+  document.getElementById('cartItemCard').innerHTML =
+    '<div class="thumb">' + frameSVG(f, 68) + '</div>' +
+    '<div class="ci-body"><div class="ci-name">' + f.name + '</div>' +
+    '<span class="ai-pill">' + ICON.sparkleSm + ' ' + f.overall + '% AI Match</span>' +
+    '<div class="ci-meta">Frame + Power Lenses · 4 day delivery</div>' +
+    '<div class="ci-price">₹' + (f.price - 200) + '</div></div>';
+
+  var total = (f.price - 200 - 1200) > 0 ? (f.price - 200 - 1200) : Math.max(499, f.price - 1400);
+  document.getElementById('cartTotal').textContent = '₹' + total;
+
+  document.getElementById('confirmName').textContent = f.name;
+  document.getElementById('confirmMatch').textContent = f.overall + '% Match';
+  document.getElementById('confirmAmount').textContent = '₹' + total;
+}
+
+function resetPrototype(){
+  state.cart = null;
+  state.selectedFrameId = null;
+  document.getElementById('bagCountHome').textContent = '0';
+  renderCart();
+  go('home');
+}
+
+/* init */
+paintIcons(document);
+renderQuizStep();
+renderCart();
+</script>
+
+</body>
+</html>

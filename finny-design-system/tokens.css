@@ -1,0 +1,217 @@
+/*
+ * Finny design tokens — CSS custom properties + base component styles.
+ * Source of truth: tokens.json. Keep both in sync.
+ * Requires Poppins (400, 500, 600, 700):
+ *   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+ */
+
+:root {
+  /* ---------- Primitive: colour ---------- */
+  --fy-primary-900: #02372F;
+  --fy-primary-800: #1B4B44;
+  --fy-primary-700: #03685A;
+  --fy-primary-500: #4E736E;
+  --fy-primary-400: #678782;
+  --fy-primary-300: #9AAFAC;
+
+  --fy-neutral-900: #01231E;
+  --fy-neutral-700: #576361;
+  --fy-neutral-500: #909D9B;
+  --fy-neutral-300: #CCD7D5;
+  --fy-neutral-200: #E6EBEA;
+  --fy-neutral-100: #F5F7F7;
+  --fy-neutral-0:   #FFFFFF;
+
+  --fy-green-600: #2E7A4A;
+  --fy-green-500: #4C9B66;
+  --fy-green-200: #CCE6D4;
+  --fy-green-50:  #EEF7F1;
+  --fy-red-600:   #B4475B;
+  --fy-red-500:   #C85267;
+  --fy-red-50:    #F9ECEE;
+  --fy-amber-600: #9A6531;
+  --fy-amber-500: #C88A52;
+  --fy-amber-50:  #F9F2EC;
+  --fy-cream-50:  #F5F6F0;
+
+  --fy-gradient-green: linear-gradient(100deg, #216941 0%, #43915F 100%);
+  --fy-gradient-teal:  linear-gradient(100deg, #205558 0%, #166159 100%);
+
+  /* ---------- Primitive: type ---------- */
+  --fy-font: "Poppins", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --fy-weight-regular: 400;
+  --fy-weight-medium: 500;
+  --fy-weight-semibold: 600;
+  --fy-weight-bold: 700;
+  --fy-lh-tight: 1.25;
+  --fy-lh-snug: 1.4;
+  --fy-lh-normal: 1.5;
+
+  /* ---------- Primitive: space / radius / shadow ---------- */
+  --fy-space-0: 0px;
+  --fy-space-1: 4px;
+  --fy-space-2: 8px;
+  --fy-space-3: 12px;
+  --fy-space-4: 16px;
+  --fy-space-5: 20px;
+  --fy-space-6: 24px;
+  --fy-space-8: 32px;
+  --fy-space-10: 40px;
+  --fy-space-12: 48px;
+
+  --fy-radius-sm: 6px;
+  --fy-radius-md: 8px;
+  --fy-radius-lg: 12px;
+  --fy-radius-pill: 999px;
+
+  --fy-shadow-card: 0 1px 4px rgba(1, 35, 30, 0.08);
+  --fy-shadow-raised: 0 4px 12px rgba(1, 35, 30, 0.12);
+
+  /* ---------- Semantic: colour ---------- */
+  --fy-bg-canvas:  var(--fy-cream-50);
+  --fy-bg-surface: var(--fy-neutral-0);
+  --fy-bg-subtle:  var(--fy-neutral-100);
+  --fy-bg-muted:   var(--fy-neutral-200);
+  --fy-bg-inverse: var(--fy-neutral-900);
+  --fy-bg-brand:   var(--fy-green-500);
+
+  --fy-text-heading:     var(--fy-primary-800);
+  --fy-text-primary:     var(--fy-neutral-900);
+  --fy-text-secondary:   var(--fy-neutral-700);
+  --fy-text-placeholder: var(--fy-neutral-500);
+  --fy-text-disabled:    var(--fy-primary-300);
+  --fy-text-inverse:     var(--fy-neutral-0);
+  --fy-text-link:        var(--fy-primary-900);
+  --fy-text-brand:       var(--fy-green-600);
+
+  --fy-border-default: var(--fy-neutral-300);
+  --fy-border-subtle:  var(--fy-neutral-200);
+  --fy-border-strong:  var(--fy-primary-300);
+  --fy-border-focus:   var(--fy-green-500);
+
+  --fy-success:        var(--fy-green-500);
+  --fy-success-text:   var(--fy-green-600);
+  --fy-success-subtle: var(--fy-green-50);
+  --fy-error:          var(--fy-red-500);
+  --fy-error-text:     var(--fy-red-600);
+  --fy-error-subtle:   var(--fy-red-50);
+  --fy-warning:        var(--fy-amber-500);
+  --fy-warning-text:   var(--fy-amber-600);
+  --fy-warning-subtle: var(--fy-amber-50);
+
+  /* ---------- Component ---------- */
+  --fy-button-height: 48px;
+  --fy-button-secondary-border: #3B8757;
+  --fy-input-height: 40px;
+  --fy-chip-height: 40px;
+}
+
+/* ---------- Typography ---------- */
+.fy-heading-1    { font: var(--fy-weight-bold)     32px/var(--fy-lh-tight)  var(--fy-font); }
+.fy-heading-2    { font: var(--fy-weight-semibold) 28px/var(--fy-lh-tight)  var(--fy-font); }
+.fy-heading-3    { font: var(--fy-weight-semibold) 24px/var(--fy-lh-tight)  var(--fy-font); }
+.fy-subheading-1 { font: var(--fy-weight-semibold) 20px/var(--fy-lh-snug)   var(--fy-font); }
+.fy-subtitle-1   { font: var(--fy-weight-semibold) 16px/var(--fy-lh-snug)   var(--fy-font); }
+.fy-subtitle-2   { font: var(--fy-weight-medium)   16px/var(--fy-lh-snug)   var(--fy-font); }
+.fy-body-1       { font: var(--fy-weight-medium)   14px/var(--fy-lh-normal) var(--fy-font); }
+.fy-body-2       { font: var(--fy-weight-regular)  14px/var(--fy-lh-normal) var(--fy-font); }
+.fy-subtitle-3   { font: var(--fy-weight-medium)   12px/var(--fy-lh-normal) var(--fy-font); }
+.fy-caption      { font: var(--fy-weight-regular)  10px/var(--fy-lh-normal) var(--fy-font); }
+
+/* ---------- Buttons ---------- */
+.fy-btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: var(--fy-space-2);
+  width: 100%; height: var(--fy-button-height); padding: 0 var(--fy-space-4);
+  border: 1px solid transparent; border-radius: var(--fy-radius-sm);
+  font: var(--fy-weight-semibold) 16px/1 var(--fy-font);
+  cursor: pointer; transition: filter .15s, box-shadow .15s;
+}
+.fy-btn:focus-visible { outline: none; box-shadow: 0 0 0 3px var(--fy-green-200); }
+.fy-btn--primary   { background: var(--fy-gradient-green); color: var(--fy-text-inverse); }
+.fy-btn--primary:hover { filter: brightness(1.06); }
+.fy-btn--secondary { background: var(--fy-bg-surface); border-color: var(--fy-button-secondary-border); color: var(--fy-text-brand); }
+.fy-btn--secondary:hover { background: var(--fy-success-subtle); }
+.fy-btn--danger    { background: var(--fy-error); color: var(--fy-text-inverse); }
+.fy-btn--danger-outline { background: var(--fy-bg-surface); border-color: var(--fy-error); color: var(--fy-error-text); }
+.fy-btn--text {
+  width: auto; height: auto; padding: var(--fy-space-1); background: none;
+  font: var(--fy-weight-medium) 12px/var(--fy-lh-normal) var(--fy-font);
+  color: var(--fy-text-link); text-decoration: underline; text-underline-offset: 2px;
+}
+.fy-btn--primary:disabled,
+.fy-btn--danger:disabled  { background: var(--fy-bg-muted); color: var(--fy-text-disabled); cursor: not-allowed; filter: none; }
+.fy-btn--secondary:disabled,
+.fy-btn--danger-outline:disabled { background: var(--fy-bg-surface); border-color: var(--fy-border-strong); color: var(--fy-text-disabled); cursor: not-allowed; }
+.fy-btn[aria-busy="true"] { pointer-events: none; }
+.fy-spinner {
+  width: 14px; height: 14px; border-radius: 50%;
+  border: 1.5px solid currentColor; border-right-color: transparent;
+  animation: fy-spin .8s linear infinite;
+}
+@keyframes fy-spin { to { transform: rotate(360deg); } }
+
+/* ---------- Form fields ---------- */
+.fy-field { display: flex; flex-direction: column; gap: var(--fy-space-2); min-width: 0; }
+.fy-field__label  { font: var(--fy-weight-medium) 12px/var(--fy-lh-normal) var(--fy-font); color: var(--fy-text-primary); }
+.fy-field__helper { font: var(--fy-weight-regular) 10px/var(--fy-lh-normal) var(--fy-font); color: var(--fy-text-secondary); margin-top: calc(var(--fy-space-1) * -1); }
+
+.fy-input {
+  display: flex; align-items: center; height: var(--fy-input-height);
+  background: var(--fy-bg-surface); border: 1px solid var(--fy-border-default); border-radius: var(--fy-radius-sm);
+  overflow: hidden; transition: border-color .15s, box-shadow .15s;
+}
+.fy-input:focus-within { border-color: var(--fy-border-focus); box-shadow: 0 0 0 3px var(--fy-success-subtle); }
+.fy-input input, .fy-input select {
+  flex: 1; width: 100%; min-width: 0; height: 100%; padding: 0 var(--fy-space-3);
+  border: 0; background: transparent; outline: none; appearance: none;
+  font: var(--fy-weight-regular) 14px/1 var(--fy-font); color: var(--fy-text-primary);
+}
+.fy-input input::placeholder { color: var(--fy-text-placeholder); }
+.fy-input select:invalid { color: var(--fy-text-placeholder); }
+.fy-input__prefix {
+  display: grid; place-items: center; width: 32px; height: 100%;
+  border-right: 1px solid var(--fy-border-default);
+  font: var(--fy-weight-medium) 14px/1 var(--fy-font); color: var(--fy-text-primary);
+}
+.fy-input__chevron { margin-right: var(--fy-space-3); color: var(--fy-text-secondary); pointer-events: none; }
+.fy-field--error .fy-input { border-color: var(--fy-error); }
+.fy-field--error .fy-input:focus-within { box-shadow: 0 0 0 3px var(--fy-error-subtle); }
+.fy-field--error .fy-input input,
+.fy-field--error .fy-input input::placeholder,
+.fy-field--error .fy-field__helper { color: var(--fy-error-text); }
+
+/* ---------- Choice chips (Self / Spouse / Shared) ---------- */
+.fy-choices { display: grid; grid-auto-flow: column; grid-auto-columns: 1fr; gap: var(--fy-space-2); }
+.fy-choice {
+  height: var(--fy-chip-height); padding: 0 var(--fy-space-3);
+  background: var(--fy-bg-surface); border: 1px solid var(--fy-border-default); border-radius: var(--fy-radius-sm);
+  font: var(--fy-weight-regular) 14px/1 var(--fy-font); color: var(--fy-text-primary); cursor: pointer;
+}
+.fy-choice[aria-checked="true"] { background: var(--fy-success-subtle); border-color: var(--fy-success); }
+.fy-choice:focus-visible { outline: 2px solid var(--fy-border-focus); outline-offset: 2px; }
+
+/* ---------- Filter chips (All / Bank accounts / …) ---------- */
+.fy-filter { display: flex; gap: var(--fy-space-2); overflow-x: auto; }
+.fy-filter__chip {
+  flex: none; height: 28px; padding: 0 var(--fy-space-2);
+  background: var(--fy-bg-surface); border: 1px solid var(--fy-border-subtle); border-radius: var(--fy-radius-sm);
+  font: var(--fy-weight-regular) 10px/1 var(--fy-font); color: var(--fy-text-secondary); cursor: pointer;
+}
+.fy-filter__chip[aria-pressed="true"] { background: var(--fy-bg-muted); border-color: var(--fy-bg-muted); font-weight: var(--fy-weight-semibold); font-size: 12px; color: var(--fy-text-primary); }
+
+/* ---------- Segmented toggle (You / Spouse) ---------- */
+.fy-segmented {
+  display: inline-flex; padding: 3px; gap: 2px;
+  background: var(--fy-bg-subtle); border-radius: var(--fy-radius-pill);
+  box-shadow: inset 0 0 0 1px var(--fy-border-subtle);
+}
+.fy-segmented button {
+  min-width: 88px; height: 28px; padding: 0 var(--fy-space-4); border: 0; border-radius: var(--fy-radius-pill);
+  background: transparent; font: var(--fy-weight-medium) 12px/1 var(--fy-font); color: var(--fy-text-disabled); cursor: pointer;
+}
+.fy-segmented button[aria-pressed="true"] { background: var(--fy-gradient-teal); color: var(--fy-text-inverse); }
+
+/* ---------- Cards & lists ---------- */
+.fy-card { background: var(--fy-bg-surface); border-radius: var(--fy-radius-md); box-shadow: var(--fy-shadow-card); padding: var(--fy-space-4); }
+.fy-card--dashed { box-shadow: none; border: 1px dashed var(--fy-border-default); }
+.fy-list > * + * { border-top: 1px solid var(--fy-border-subtle); }

@@ -18,7 +18,7 @@
   .wordmark { font: var(--fy-weight-bold) 56px/1 var(--fy-font); letter-spacing: -1px; color: var(--fy-cream-50); }
   .masthead p { margin: var(--fy-space-3) 0 0; color: var(--fy-neutral-300); max-width: 60ch; font-size: 14px; line-height: 1.6; }
 
-  .toc { position: sticky; top: 0; z-index: 5; background: var(--fy-neutral-900); border-top: 1px solid #0b3a33; }
+  .toc { position: sticky; top: 0; z-index: 5; background: var(--fy-neutral-600); border-top: 1px solid #0b3a33; }
   .toc__inner { display: flex; gap: var(--fy-space-1); overflow-x: auto; padding: var(--fy-space-2) var(--fy-space-4); }
   .toc a { flex: none; padding: 6px 12px; border-radius: var(--fy-radius-pill); color: var(--fy-neutral-300); text-decoration: none; font-size: 12px; font-weight: 500; }
   .toc a:hover { background: #0b3a33; color: #fff; }
@@ -27,8 +27,8 @@
   section { padding-top: var(--fy-space-12); scroll-margin-top: 48px; }
   .section-title { font: var(--fy-weight-bold) 28px/1.2 var(--fy-font); color: var(--fy-text-heading); margin: 0 0 var(--fy-space-2); }
   .section-lede { margin: 0 0 var(--fy-space-6); color: var(--fy-text-secondary); font-size: 14px; line-height: 1.6; max-width: 70ch; }
-  .group-title { font: var(--fy-weight-semibold) 16px/1.4 var(--fy-font); color: var(--fy-primary-400); margin: var(--fy-space-8) 0 var(--fy-space-3); }
-  code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 12px; background: var(--fy-bg-subtle); padding: 1px 5px; border-radius: 4px; color: var(--fy-primary-800); }
+  .group-title { font: var(--fy-weight-semibold) 16px/1.4 var(--fy-font); color: var(--fy-primary-200); margin: var(--fy-space-8) 0 var(--fy-space-3); }
+  code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 12px; background: var(--fy-bg-subtle); padding: 1px 5px; border-radius: 4px; color: var(--fy-primary-500); }
 
   /* swatches */
   .swatches { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: var(--fy-space-3); }
@@ -51,15 +51,15 @@
   /* spacing / radius */
   .scale { display: grid; gap: var(--fy-space-2); }
   .scale__row { display: grid; grid-template-columns: 90px 56px 1fr; align-items: center; gap: var(--fy-space-3); font-size: 12px; }
-  .scale__bar { height: 12px; background: var(--fy-green-200); border-radius: 2px; }
+  .scale__bar { height: 12px; background: var(--fy-success-100); border-radius: 2px; }
   .tiles { display: flex; flex-wrap: wrap; gap: var(--fy-space-4); }
-  .tile { width: 120px; height: 88px; background: var(--fy-success-subtle); border: 1px solid var(--fy-green-500); display: grid; place-items: center; text-align: center; font-size: 11px; color: var(--fy-text-primary); }
+  .tile { width: 120px; height: 88px; background: var(--fy-success-subtle); border: 1px solid var(--fy-success-600); display: grid; place-items: center; text-align: center; font-size: 11px; color: var(--fy-text-primary); }
   .tile--shadow { background: #fff; border: 0; border-radius: var(--fy-radius-md); }
 
   /* component specimens */
   .specimens { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: var(--fy-space-6); }
   .specimen { border: 1px dashed var(--fy-border-default); border-radius: var(--fy-radius-lg); padding: var(--fy-space-5); display: grid; gap: var(--fy-space-4); align-content: start; }
-  .specimen__label { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: .06em; color: var(--fy-primary-400); }
+  .specimen__label { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: .06em; color: var(--fy-primary-200); }
   .stack { display: grid; gap: var(--fy-space-3); }
   .row { display: flex; align-items: center; justify-content: space-between; gap: var(--fy-space-2); }
 
@@ -76,7 +76,7 @@
   .amt-chip { display: inline-block; margin-top: 2px; padding: 1px 6px; border-radius: 4px; background: var(--fy-bg-subtle); color: var(--fy-text-secondary); }
   .bank { display: flex; align-items: center; gap: var(--fy-space-3); padding: 10px 0; }
   .bank__logo { width: 28px; height: 28px; border-radius: 50%; border: 1px solid var(--fy-border-subtle); display: grid; place-items: center; font-size: 10px; font-weight: 700; color: var(--fy-error); background: #fff; flex: none; }
-  .check { width: 18px; height: 18px; border-radius: 50%; background: var(--fy-primary-700); color: #fff; display: grid; place-items: center; margin-left: auto; flex: none; }
+  .check { width: 18px; height: 18px; border-radius: 50%; background: var(--fy-primary-400); color: #fff; display: grid; place-items: center; margin-left: auto; flex: none; }
   .check svg { width: 10px; height: 10px; }
 
   /* notes */
@@ -132,6 +132,29 @@
     <symbol id="i-play" viewBox="0 0 20 20"><circle cx="10" cy="10" r="9" fill="#fff"/><path d="M8.3 6.6v6.8L13.6 10Z" fill="#0B2A3A"/></symbol>
     <symbol id="i-question" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 9a3 3 0 1 1 4.2 2.8c-.8.4-1.2 1-1.2 1.8v.9M12 17.5v.1"/></symbol>
     <symbol id="i-in-flag" viewBox="0 0 27 20"><rect width="27" height="20" fill="#fff"/><rect width="27" height="6.67" fill="#FF9933"/><rect y="13.33" width="27" height="6.67" fill="#138808"/><circle cx="13.5" cy="10" r="2.3" fill="none" stroke="#000080" stroke-width=".7"/></symbol>
+    <symbol id="i-home" viewBox="0 0 24 24" fill="currentColor"><path d="M10.6 3.5a2.2 2.2 0 0 1 2.8 0l6.4 5.3c.5.4.7 1 .7 1.6V19a2 2 0 0 1-2 2h-3.3v-5.2a1.3 1.3 0 0 0-1.3-1.3h-3.8a1.3 1.3 0 0 0-1.3 1.3V21H5.5a2 2 0 0 1-2-2v-8.6c0-.6.3-1.2.7-1.6Z"/></symbol>
+    <symbol id="i-wallet" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><path d="M4 8.5h15a1.5 1.5 0 0 1 1.5 1.5v8.5A1.5 1.5 0 0 1 19 20H5a1.5 1.5 0 0 1-1.5-1.5V7A3 3 0 0 1 6.5 4H16v4.5"/><path d="M16.5 14.2h.1"/></symbol>
+    <symbol id="i-fire" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><path d="M12 21a6.5 6.5 0 0 0 6.5-6.5c0-3.8-3-6.5-4.2-10C12 7 10.8 8.2 9.6 9.5 8.7 8.9 8.2 8 8 7c-1.6 1.7-2.5 4.4-2.5 7.5A6.5 6.5 0 0 0 12 21Z"/></symbol>
+    <symbol id="i-user" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="8" r="3.8"/><path d="M4.5 20.5c.8-3.6 3.8-5.5 7.5-5.5s6.7 1.9 7.5 5.5" stroke-linecap="round"/></symbol>
+    <symbol id="i-info" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"><circle cx="8" cy="8" r="6.3"/><path d="M8 7.3v3.6M8 5v.1"/></symbol>
+    <symbol id="i-calendar" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3"><rect x="2.5" y="3.5" width="11" height="10" rx="1.6"/><path d="M2.5 6.5h11M5.5 2v3M10.5 2v3" stroke-linecap="round"/></symbol>
+    <symbol id="i-refresh" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M13 8a5 5 0 1 1-1.5-3.6M13 2.5v3h-3"/></symbol>
+    <symbol id="i-pencil" viewBox="0 0 16 16" fill="currentColor"><path d="M11.3 1.8a1.6 1.6 0 0 1 2.3 0l.6.6a1.6 1.6 0 0 1 0 2.3l-8 8-3.4.9.9-3.4Z"/></symbol>
+    <symbol id="i-sliders" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"><path d="M2.5 4.5h7M12.5 4.5h1M2.5 11.5h1M6.5 11.5h7"/><circle cx="11" cy="4.5" r="1.6"/><circle cx="5" cy="11.5" r="1.6"/></symbol>
+    <symbol id="i-selector" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m5 6 3-3 3 3M5 10l3 3 3-3"/></symbol>
+    <symbol id="i-chev-left" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m15 6-6 6 6 6"/></symbol>
+    <symbol id="i-tag" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"><path d="M2.5 2.5h5l6 6-5 5-6-6Z"/><circle cx="5.3" cy="5.3" r=".9" fill="currentColor"/></symbol>
+    <symbol id="i-sort" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"><path d="M2.5 4h7M2.5 8h5M2.5 12h3M12 3.5v9m0 0-2-2m2 2 2-2"/></symbol>
+    <symbol id="i-split" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3"><circle cx="5.5" cy="6" r="2.2"/><circle cx="11" cy="6.5" r="1.8"/><path d="M1.8 13c.4-2 1.9-3.2 3.7-3.2S8.8 11 9.2 13M9.5 10.2c.4-.3.9-.4 1.5-.4 1.5 0 2.6 1 2.9 2.7" stroke-linecap="round"/></symbol>
+    <symbol id="i-candles" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M7 3v3M7 16v5M17 3v5M17 15v6M12 6v2M12 18v3"/><rect x="5" y="6" width="4" height="10" rx="1"/><rect x="15" y="8" width="4" height="7" rx="1"/><rect x="10" y="8" width="4" height="10" rx="1"/></symbol>
+    <symbol id="i-coins" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><ellipse cx="9" cy="7" rx="5" ry="2.5"/><path d="M4 7v4c0 1.4 2.2 2.5 5 2.5s5-1.1 5-2.5V7M10 15.6c.6 1.1 2.5 1.9 5 1.9 2.8 0 5-1.1 5-2.5v-4c0-1.4-2.2-2.5-5-2.5"/></symbol>
+    <symbol id="i-building" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><path d="M4 21V5.5L12 3v18M12 8.5l8 2.5v10M3 21h18M7 8h2M7 12h2M7 16h2M15 13h2M15 17h2"/></symbol>
+    <symbol id="i-gem" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><path d="M6 4h12l3 5-9 11L3 9Z"/><path d="M3 9h18M9 4l3 5 3-5M12 20 9 9M12 20l3-11"/></symbol>
+    <symbol id="i-house-loan" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><path d="M3.5 11 12 4l8.5 7M6 9.5V20h12V9.5"/><path d="M10 20v-5h4v5"/></symbol>
+    <symbol id="i-heart" viewBox="0 0 24 24" fill="currentColor"><path d="M12 20s-7.5-4.6-7.5-10.2A4.3 4.3 0 0 1 12 7a4.3 4.3 0 0 1 7.5 2.8C19.5 15.4 12 20 12 20Z"/></symbol>
+    <symbol id="i-rocket" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><path d="M14 4.5c3-1.3 5.3-1 5.5-1 0 .2.3 2.5-1 5.5L13 14.5 9.5 11Z"/><path d="M9.5 11 6 11.5 4 14l3.5.5M13 14.5l-.5 3.5-2.5 2-.5-3.5M6.5 17.5 4.5 19.5"/><circle cx="15.5" cy="8.5" r="1.3"/></symbol>
+    <symbol id="i-cap" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><path d="M2.5 9 12 4.5 21.5 9 12 13.5Z"/><path d="M6.5 11v5c1.3 1.3 3.3 2 5.5 2s4.2-.7 5.5-2v-5M21.5 9v5"/></symbol>
+    <symbol id="i-palm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M12 21c0-5 .5-8.5 1.5-11M13.5 10C12 6.5 8 6 5 7.5M13.5 10c1-3.5 4.5-5 7.5-3.5M13.5 10c-3 0-6 2-6.5 5M13.5 10c3 .5 5 3 5 5.5M6 21h12"/></symbol>
   </defs>
 </svg>
 
@@ -146,7 +169,7 @@
   <div class="toc__inner">
     <a href="#colour">Colour</a><a href="#type">Typography</a><a href="#layout">Space &amp; shape</a>
     <a href="#buttons">Buttons</a><a href="#inputs">Inputs</a><a href="#selection">Selection</a>
-    <a href="#components">Components</a><a href="#flows">Flows</a><a href="#screens">Screens</a><a href="#a11y">Accessibility</a><a href="#notes">Notes</a>
+    <a href="#components">Components</a><a href="#flows">Flows</a><a href="#product">Product</a><a href="#product-screens">Product screens</a><a href="#screens">Screens</a><a href="#a11y">Accessibility</a><a href="#notes">Notes</a>
   </div>
 </nav>
 
@@ -168,16 +191,16 @@
     <thead><tr><th>Role</th><th>Token</th><th>Resolves to</th><th>Use</th></tr></thead>
     <tbody>
       <tr><td>Screen background</td><td><code>--fy-bg-canvas</code></td><td>cream-50 #F5F6F0</td><td>Behind every app screen</td></tr>
-      <tr><td>Surface</td><td><code>--fy-bg-surface</code></td><td>neutral-0 #FFFFFF</td><td>Cards, inputs, sheets</td></tr>
-      <tr><td>Inverse</td><td><code>--fy-bg-inverse</code></td><td>neutral-900 #01231E</td><td>Dark bands, splash</td></tr>
-      <tr><td>Heading text</td><td><code>--fy-text-heading</code></td><td>primary-800 #1B4B44</td><td>Screen titles, section headings</td></tr>
-      <tr><td>Body text</td><td><code>--fy-text-primary</code></td><td>neutral-900 #01231E</td><td>Values, list items, labels</td></tr>
-      <tr><td>Secondary text</td><td><code>--fy-text-secondary</code></td><td>neutral-700 #576361</td><td>Meta lines (“Savings ••••734”)</td></tr>
-      <tr><td>Placeholder</td><td><code>--fy-text-placeholder</code></td><td>neutral-500 #909D9B</td><td>Placeholder text only</td></tr>
-      <tr><td>Disabled</td><td><code>--fy-text-disabled</code></td><td>primary-300 #9AAFAC</td><td>Disabled labels, inactive toggle</td></tr>
+      <tr><td>Surface</td><td><code>--fy-bg-surface</code></td><td>white #FFFFFF</td><td>Cards, inputs, sheets</td></tr>
+      <tr><td>Inverse</td><td><code>--fy-bg-inverse</code></td><td>neutral-600 #01231E</td><td>Dark bands, splash</td></tr>
+      <tr><td>Heading text</td><td><code>--fy-text-heading</code></td><td>primary-500 #1B4B44</td><td>Screen titles, section headings</td></tr>
+      <tr><td>Body text</td><td><code>--fy-text-primary</code></td><td>neutral-600 #01231E</td><td>Values, list items, labels</td></tr>
+      <tr><td>Secondary text</td><td><code>--fy-text-secondary</code></td><td>neutral-500 #576361</td><td>Meta lines (“Savings ••••734”)</td></tr>
+      <tr><td>Placeholder</td><td><code>--fy-text-placeholder</code></td><td>neutral-400 #909D9B</td><td>Placeholder text only</td></tr>
+      <tr><td>Disabled</td><td><code>--fy-text-disabled</code></td><td>primary-100 #9AAFAC</td><td>Disabled labels, inactive toggle</td></tr>
       <tr><td>Border</td><td><code>--fy-border-default</code></td><td>neutral-300 #CCD7D5</td><td>Inputs, chips</td></tr>
       <tr><td>Divider</td><td><code>--fy-border-subtle</code></td><td>neutral-200 #E6EBEA</td><td>Rows inside cards</td></tr>
-      <tr><td>Focus / selected</td><td><code>--fy-border-focus</code></td><td>green-500 #4C9B66</td><td>Focused field, selected chip</td></tr>
+      <tr><td>Focus / selected</td><td><code>--fy-border-focus</code></td><td>success-600 #4C9B66</td><td>Focused field, selected chip</td></tr>
     </tbody>
   </table></div>
 </section>
@@ -241,7 +264,7 @@
     <thead><tr><th>Variant</th><th>Fill</th><th>Border</th><th>Label</th></tr></thead>
     <tbody>
       <tr><td>Primary</td><td>gradient-green</td><td>—</td><td>text-inverse</td></tr>
-      <tr><td>Secondary</td><td>bg-surface</td><td>green-700 #236B42</td><td>text-brand (green-700)</td></tr>
+      <tr><td>Secondary</td><td>bg-surface</td><td>success-700 #236B42</td><td>text-brand (success-700)</td></tr>
       <tr><td>Disabled</td><td>bg-muted (#E6EBEA)</td><td>—</td><td>text-disabled</td></tr>
       <tr><td>Secondary disabled</td><td>bg-surface</td><td>border-strong</td><td>text-disabled</td></tr>
       <tr><td>Danger</td><td>error (#C85267)</td><td>—</td><td>text-inverse</td></tr>
@@ -359,7 +382,7 @@
           <div class="fy-list">
             <div class="bank"><span class="bank__logo">IC</span><span><span class="fy-subtitle-3">ICICI bank</span><br><span class="fy-caption" style="color:var(--fy-text-secondary)">Savings ••••734</span></span><span class="check"><svg viewBox="0 0 10 10" fill="none"><path d="m2 5 2 2 4-4" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div>
             <div class="bank"><span class="bank__logo">IC</span><span><span class="fy-subtitle-3">ICICI bank</span><br><span class="fy-caption" style="color:var(--fy-text-secondary)">Fixed deposit ••••124</span></span><span class="check"><svg viewBox="0 0 10 10" fill="none"><path d="m2 5 2 2 4-4" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div>
-            <div class="bank"><span class="bank__logo" style="color:var(--fy-primary-900)">K</span><span><span class="fy-subtitle-3">Kotak bank</span><br><span class="fy-caption" style="color:var(--fy-text-secondary)">Savings ••••133</span></span><span class="check"><svg viewBox="0 0 10 10" fill="none"><path d="m2 5 2 2 4-4" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div>
+            <div class="bank"><span class="bank__logo" style="color:var(--fy-primary-600)">K</span><span><span class="fy-subtitle-3">Kotak bank</span><br><span class="fy-caption" style="color:var(--fy-text-secondary)">Savings ••••133</span></span><span class="check"><svg viewBox="0 0 10 10" fill="none"><path d="m2 5 2 2 4-4" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div>
           </div>
           <div style="text-align:center"><button class="fy-btn fy-btn--text" style="text-decoration:none;font-weight:600;color:var(--fy-text-brand)">View all</button></div>
         </div>
@@ -458,7 +481,7 @@
     <div class="specimen">
       <span class="specimen__label">Option rows</span>
       <button class="fy-option" type="button"><svg class="fy-flag"><use href="#i-in-flag"/></svg><span class="fy-option__label">8876273731</span><span class="fy-option__trail"><svg><use href="#i-chev-right"/></svg></span></button>
-      <button class="fy-option fy-option--plain" type="button"><span class="fy-group__icon"><svg><use href="#i-sprout"/></svg></span><span class="fy-option__label">Mutual funds</span><span class="fy-option__trail"><span class="fy-logo-stack"><span class="fy-logo fy-logo--sm">CA</span><span class="fy-logo fy-logo--sm" style="color:var(--fy-primary-700)">KF</span></span><svg><use href="#i-chev-down"/></svg></span></button>
+      <button class="fy-option fy-option--plain" type="button"><span class="fy-group__icon"><svg><use href="#i-sprout"/></svg></span><span class="fy-option__label">Mutual funds</span><span class="fy-option__trail"><span class="fy-logo-stack"><span class="fy-logo fy-logo--sm">CA</span><span class="fy-logo fy-logo--sm" style="color:var(--fy-primary-400)">KF</span></span><svg><use href="#i-chev-down"/></svg></span></button>
       <button class="fy-option fy-option--plain" type="button"><span class="fy-group__icon"><svg><use href="#i-rupee"/></svg></span><span class="fy-option__label">NPS</span><span class="fy-option__trail"><span class="fy-check"><svg><use href="#i-check"/></svg></span></span></button>
     </div>
 
@@ -656,7 +679,7 @@
               <button class="fy-group__more" type="button">View all</button>
             </div>
           </details>
-          <button class="fy-option fy-option--plain" type="button"><span class="fy-group__icon"><svg><use href="#i-sprout"/></svg></span><span class="fy-option__label">Mutual funds</span><span class="fy-option__trail"><span class="fy-logo-stack"><span class="fy-logo fy-logo--sm">CA</span><span class="fy-logo fy-logo--sm" style="color:var(--fy-primary-700)">KF</span></span><svg><use href="#i-chev-down"/></svg></span></button>
+          <button class="fy-option fy-option--plain" type="button"><span class="fy-group__icon"><svg><use href="#i-sprout"/></svg></span><span class="fy-option__label">Mutual funds</span><span class="fy-option__trail"><span class="fy-logo-stack"><span class="fy-logo fy-logo--sm">CA</span><span class="fy-logo fy-logo--sm" style="color:var(--fy-primary-400)">KF</span></span><svg><use href="#i-chev-down"/></svg></span></button>
           <button class="fy-option fy-option--plain" type="button"><span class="fy-group__icon"><svg><use href="#i-chart"/></svg></span><span class="fy-option__label">Stocks &amp; ETF</span><span class="fy-option__trail"><span class="fy-check"><svg><use href="#i-check"/></svg></span></span></button>
         </div>
         <div style="padding:var(--fy-space-3) var(--fy-space-4) var(--fy-space-3);background:var(--fy-bg-surface);border-radius:var(--fy-radius-lg) var(--fy-radius-lg) 0 0;box-shadow:var(--fy-shadow-panel);display:grid;gap:var(--fy-space-2)">
@@ -712,6 +735,365 @@
   </div>
 </section>
 
+<!-- ============ PRODUCT COMPONENTS ============ -->
+<section id="product">
+  <h2 class="section-title">Product components</h2>
+  <p class="section-lede">Taken from the Home, Assets, Transactions, Cashflow, FIRE Goals, FIRE age, Overrides and Launch pages in Figma, about 1,400 frames in all. Most of these are drawn as loose frames in Figma rather than as components. Each one below replaces several near-identical copies.</p>
+
+  <h3 class="group-title">Inventory</h3>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Component</th><th>Class</th><th>Variants / states</th><th>Figma pages</th></tr></thead>
+    <tbody>
+      <tr><td>Bottom navigation</td><td><code>.fy-bnb</code></td><td>Home · Cashflow · Fire Age · Profile active</td><td>Home, Cashflow, Overrides, Launch (“BNB-14”)</td></tr>
+      <tr><td>Member switcher</td><td><code>.fy-members</code></td><td>You · Spouse · Family</td><td>Home, Net worth, Cashflow</td></tr>
+      <tr><td>Headline metric</td><td><code>.fy-metric</code>, <code>.fy-updated</code></td><td>with info, privacy toggle, last-updated chip</td><td>Net worth, Cashflow</td></tr>
+      <tr><td>Section card</td><td><code>.fy-section-card</code></td><td>total pill · retry · add link</td><td>Home, Net worth, Assets</td></tr>
+      <tr><td>Asset row</td><td><code>.fy-asset-row</code></td><td>per-category tint · stale date · ownership</td><td>Home, Net worth, Launch</td></tr>
+      <tr><td>KPI strip</td><td><code>.fy-kpis</code></td><td>default · small · gain / loss</td><td>Asset detail pages</td></tr>
+      <tr><td>Holding card</td><td><code>.fy-holding</code></td><td>stock · MF · bank; sort toggle</td><td>Assets (“Stock Card”, “MF Card”)</td></tr>
+      <tr><td>Category tabs</td><td><code>.fy-cat-tabs</code></td><td>scrolling, icon + label</td><td>Asset detail pages</td></tr>
+      <tr><td>Filter bar</td><td><code>.fy-filterbar</code>, <code>.fy-dropdown-chip</code></td><td>default · applied</td><td>Transactions</td></tr>
+      <tr><td>Transaction row</td><td><code>.fy-txn</code>, <code>.fy-tag-chip</code></td><td>debit · credit · tagged · untagged · split</td><td>Transactions (~200 copies)</td></tr>
+      <tr><td>Filter panel</td><td><code>.fy-filters</code>, <code>.fy-radio-card</code></td><td>rail with count badges</td><td>Transactions (“Selected”)</td></tr>
+      <tr><td>Check list</td><td><code>.fy-check-row</code>, <code>.fy-checkbox</code>, <code>.fy-select-row</code></td><td>checked · unchecked · select all</td><td>Tags sheet, asset picker</td></tr>
+      <tr><td>Period selector</td><td><code>.fy-stepper</code>, <code>.fy-periods</code></td><td>1M · 3M · 6M · 1Y</td><td>Cashflow</td></tr>
+      <tr><td>Total/Average toggle</td><td><code>.fy-title-toggle</code></td><td>with or without info</td><td>Cashflow (“Total toggle”)</td></tr>
+      <tr><td>Amount card</td><td><code>.fy-amount-card</code></td><td>collapsed · expanded with rows</td><td>Cashflow</td></tr>
+      <tr><td>Breakdown row</td><td><code>.fy-breakdown</code></td><td>spends · investment · loans · untagged · surplus · shortfall</td><td>Cashflow, Overrides (“Outgoing breakup”, 178 copies)</td></tr>
+      <tr><td>Health gauge</td><td><code>.fy-gauge</code></td><td>poor · reasonable · excellent</td><td>Cashflow</td></tr>
+      <tr><td>Switch</td><td><code>.fy-switch</code></td><td>monthly / yearly</td><td>Your expenses</td></tr>
+      <tr><td>FIRE timeline + card</td><td><code>.fy-timeline</code>, <code>.fy-fire-card</code></td><td>reached · locked (add goal)</td><td>FIRE age, Launch (“Fire cards”, 153 copies)</td></tr>
+      <tr><td>Comparison cards</td><td><code>.fy-compare</code>, <code>.fy-alert-pill</code></td><td>dark FIRE theme</td><td>FIRE age, Launch</td></tr>
+      <tr><td>Tier tabs</td><td><code>.fy-tier-tabs</code></td><td>Basic · Secure · Aspire</td><td>FIRE inputs</td></tr>
+      <tr><td>Value row</td><td><code>.fy-value-row</code>, <code>.fy-edit</code></td><td>with caption · expandable</td><td>FIRE inputs</td></tr>
+      <tr><td>Slider</td><td><code>.fy-slider</code>, <code>.fy-range</code></td><td>amount · years · scale labels</td><td>FIRE Goals (“Edit value”)</td></tr>
+      <tr><td>Wheel picker</td><td><code>.fy-wheel</code></td><td>month · year · duration</td><td>FIRE Goals (“Date selector”)</td></tr>
+      <tr><td>Goal picker</td><td><code>.fy-goal-card</code>, <code>.fy-goal-icons</code></td><td>—</td><td>FIRE Goals</td></tr>
+      <tr><td>Profile list</td><td><code>.fy-list-group</code>, <code>.fy-avatar--lg</code></td><td>—</td><td>Home → Profile</td></tr>
+      <tr><td>Skeleton</td><td><code>.fy-skeleton</code></td><td>—</td><td>Assets, Cashflow (190 copies)</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="specimens" style="margin-top:var(--fy-space-8)">
+    <div class="specimen">
+      <span class="specimen__label">Member switcher · metric</span>
+      <div style="display:grid;justify-items:center;gap:var(--fy-space-4)">
+        <div class="fy-members" data-group><button aria-pressed="true">You</button><button aria-pressed="false">Spouse</button><button aria-pressed="false">Family</button></div>
+        <div class="fy-metric">
+          <span class="fy-metric__label">Networth <svg><use href="#i-info"/></svg></span>
+          <span class="fy-metric__value">₹ 50.5 L <svg><use href="#i-eye-off"/></svg></span>
+          <span class="fy-updated"><svg><use href="#i-calendar"/></svg>Last updated 15th Sep</span>
+        </div>
+        <button class="fy-title-toggle" type="button"><svg><use href="#i-info"/></svg>Total<svg><use href="#i-selector"/></svg></button>
+      </div>
+    </div>
+    <div class="specimen">
+      <span class="specimen__label">Section card · asset rows</span>
+      <div class="fy-section-card" style="box-shadow:var(--fy-shadow-card-strong)">
+        <div class="fy-section-card__head"><div><p class="fy-section-card__title">Assets</p><p class="fy-section-card__sub">Your investments &amp; savings</p></div><span class="fy-total-pill">₹ 70.5 L</span></div>
+        <button class="fy-asset-row" type="button" style="--row-tint:var(--fy-neutral-200)"><span class="fy-asset-row__icon"><svg><use href="#i-bank"/></svg></span><span class="fy-asset-row__name">Bank Accounts<small>you own 50%</small></span><span class="fy-asset-row__value">₹ 12.3 L<small class="is-stale">⚠ 15 Sep</small></span><svg class="fy-chevron"><use href="#i-chev-right"/></svg></button>
+        <button class="fy-asset-row" type="button" style="--row-tint:var(--fy-tint-surplus)"><span class="fy-asset-row__icon"><svg><use href="#i-sprout"/></svg></span><span class="fy-asset-row__name">Mutual Funds</span><span class="fy-asset-row__value">₹ 5.31 L<small>Today</small></span><svg class="fy-chevron"><use href="#i-chev-right"/></svg></button>
+        <button class="fy-asset-row" type="button" style="--row-tint:var(--fy-tint-investment)"><span class="fy-asset-row__icon"><svg><use href="#i-candles"/></svg></span><span class="fy-asset-row__name">Stocks</span><span class="fy-asset-row__value">₹ 7.31 L<small>2 hrs ago</small></span><svg class="fy-chevron"><use href="#i-chev-right"/></svg></button>
+        <button class="fy-add-link" type="button">Add more assets</button>
+      </div>
+    </div>
+    <div class="specimen">
+      <span class="specimen__label">Bottom navigation</span>
+      <nav class="fy-bnb" aria-label="Main">
+        <a href="#product" aria-current="page"><svg><use href="#i-home"/></svg>Home</a>
+        <a href="#product"><svg><use href="#i-wallet"/></svg>Cashflow</a>
+        <a href="#product"><svg><use href="#i-fire"/></svg>Fire Age</a>
+        <a href="#product"><svg><use href="#i-user"/></svg>Profile</a>
+      </nav>
+      <span class="specimen__label">Retry · count · skeleton</span>
+      <div style="display:flex;gap:var(--fy-space-3);align-items:center"><button class="fy-retry" type="button"><svg><use href="#i-refresh"/></svg>retry</button><span class="fy-count">11</span><span class="fy-badge">4</span></div>
+      <div style="display:grid;gap:8px"><span class="fy-skeleton" style="width:70%"></span><span class="fy-skeleton" style="width:45%"></span></div>
+    </div>
+  </div>
+
+  <div class="specimens" style="margin-top:var(--fy-space-6)">
+    <div class="specimen">
+      <span class="specimen__label">Holding card · KPI strip</span>
+      <div class="fy-kpis"><div class="fy-kpi"><span class="fy-kpi__label">Invested</span><span class="fy-kpi__value">₹ 20 L</span></div><div class="fy-kpi"><span class="fy-kpi__label">Your returns</span><span class="fy-kpi__value">₹ 20 L</span></div><div class="fy-kpi"><span class="fy-kpi__label">Returns % <button class="fy-sort" type="button" aria-label="Sort by returns"><svg><use href="#i-selector"/></svg></button></span><span class="fy-kpi__value is-gain">+21.1%</span></div></div>
+      <article class="fy-holding">
+        <div class="fy-holding__head"><span class="fy-holding__logo" style="background:#A51F4C;color:#fff">AX</span><span class="fy-holding__name">Axis bank<span class="fy-holding__meta">Qty. 20 • Avg. ₹1.2k • LTP ₹1.2k</span></span><span class="fy-holding__value">₹ 32.3 cr<small>Current value</small></span></div>
+        <hr />
+        <div class="fy-kpis fy-kpis--sm"><div class="fy-kpi"><span class="fy-kpi__label">Invested</span><span class="fy-kpi__value">₹ 1.3 L</span></div><div class="fy-kpi"><span class="fy-kpi__label">Total returns</span><span class="fy-kpi__value">− ₹ 1.3 L</span></div><div class="fy-kpi"><span class="fy-kpi__label">Returns %</span><span class="fy-kpi__value is-loss">−21.1%</span></div></div>
+      </article>
+    </div>
+    <div class="specimen">
+      <span class="specimen__label">Filter bar · transaction rows</span>
+      <div class="fy-filterbar">
+        <button class="fy-icon-chip" type="button" aria-label="All filters"><svg><use href="#i-sliders"/></svg></button>
+        <button class="fy-dropdown-chip" type="button" aria-pressed="true">Month<svg><use href="#i-chev-down"/></svg></button>
+        <button class="fy-dropdown-chip" type="button">Type<svg><use href="#i-chev-down"/></svg></button>
+        <button class="fy-dropdown-chip" type="button">Account<svg><use href="#i-chev-down"/></svg></button>
+      </div>
+      <div class="fy-group-head">Sep’25 <b class="is-gain">+ ₹ 1,02,209</b></div>
+      <div class="fy-txn"><span class="fy-avatar" style="background:#E23744;color:#fff;font-size:9px">zomato<span class="fy-avatar__badge">A</span></span><span class="fy-txn__body"><span class="fy-txn__name">Zomato</span><span class="fy-txn__tags"><button class="fy-tag-chip" type="button">Food</button><svg width="14" height="14" style="color:var(--fy-primary-300)"><use href="#i-split"/></svg></span></span><span class="fy-txn__amount">₹ 1,500<small>29 Sep’25</small></span></div>
+      <div class="fy-txn"><span class="fy-avatar">JD<span class="fy-avatar__badge">A</span></span><span class="fy-txn__body"><span class="fy-txn__name">John Doe</span><span class="fy-txn__tags"><button class="fy-tag-chip fy-tag-chip--add" type="button">+ Tag</button></span></span><span class="fy-txn__amount"><span class="is-gain">+ ₹ 3,504</span><small>29 Sep’25</small></span></div>
+    </div>
+    <div class="specimen">
+      <span class="specimen__label">Period selector · amount card</span>
+      <div class="fy-stepper"><button type="button" aria-label="Previous month"><svg><use href="#i-chev-left"/></svg></button>October’25<button type="button" aria-label="Next month"><svg><use href="#i-chev-right"/></svg></button></div>
+      <div class="fy-periods" data-group><button aria-pressed="true">1M</button><button aria-pressed="false">3M</button><button aria-pressed="false">6M</button><button aria-pressed="false">1Y</button></div>
+      <div class="fy-amount-card"><span class="fy-amount-card__label">Incoming</span><span class="fy-amount-card__value">₹ 4.10 L</span></div>
+      <span class="specimen__label">Switch</span>
+      <div><label class="fy-switch-row">Monthly <input class="fy-switch" id="sw-1" type="checkbox" checked aria-label="Show yearly" /> Yearly</label></div>
+    </div>
+  </div>
+
+  <div class="specimens" style="margin-top:var(--fy-space-6)">
+    <div class="specimen">
+      <span class="specimen__label">Breakdown rows</span>
+      <button class="fy-breakdown fy-breakdown--spends" style="--share:28%" type="button"><span class="fy-breakdown__icon"><svg><use href="#i-wallet"/></svg></span><span class="fy-breakdown__label">Spends</span><span class="fy-breakdown__value">₹ 1.16 L</span><svg class="fy-chevron"><use href="#i-chev-right"/></svg></button>
+      <button class="fy-breakdown fy-breakdown--investment" style="--share:36%" type="button"><span class="fy-breakdown__icon"><svg><use href="#i-candles"/></svg></span><span class="fy-breakdown__label">Investment</span><span class="fy-breakdown__value">₹ 1.16 L</span><svg class="fy-chevron"><use href="#i-chev-right"/></svg></button>
+      <button class="fy-breakdown fy-breakdown--loans" style="--share:22%" type="button"><span class="fy-breakdown__icon"><svg><use href="#i-rupee"/></svg></span><span class="fy-breakdown__label">Loans</span><span class="fy-breakdown__value">₹ 1.16 L</span><svg class="fy-chevron"><use href="#i-chev-right"/></svg></button>
+      <button class="fy-breakdown fy-breakdown--untagged" style="--share:16%" type="button"><span class="fy-breakdown__icon"><svg><use href="#i-tag"/></svg></span><span class="fy-breakdown__label">Untagged</span><span class="fy-breakdown__value">₹ 1.16 L</span><svg class="fy-chevron"><use href="#i-chev-right"/></svg></button>
+      <button class="fy-breakdown fy-breakdown--surplus" style="--share:14%" type="button"><span class="fy-breakdown__icon"><svg><use href="#i-coins"/></svg></span><span class="fy-breakdown__label">Cash remaining</span><span class="fy-breakdown__value">+₹ 1.16 L</span><svg class="fy-chevron"><use href="#i-chev-right"/></svg></button>
+      <button class="fy-breakdown fy-breakdown--shortfall" style="--share:14%" type="button"><span class="fy-breakdown__icon"><svg><use href="#i-coins"/></svg></span><span class="fy-breakdown__label">Income shortfall</span><span class="fy-breakdown__value">−₹ 1.16 L</span><svg class="fy-chevron"><use href="#i-chev-right"/></svg></button>
+    </div>
+    <div class="specimen">
+      <span class="specimen__label">Slider · value box</span>
+      <div class="fy-slider">
+        <div class="fy-slider__head"><span class="fy-slider__title">Down payment<small>At current value</small></span><span class="fy-slider__value"><span class="fy-value-box">₹ 2.5 <small>cr</small></span><span class="fy-slider__hint">₹ 3.5 cr at redemption</span></span></div>
+        <input class="fy-range" id="rg-1" type="range" min="0" max="100" value="14" style="--pct:14%" aria-label="Down payment" />
+      </div>
+      <div class="fy-slider" style="border:0">
+        <div class="fy-slider__head"><span class="fy-slider__title">Post-retirement spends</span><span class="fy-slider__value"><span class="fy-value-box">10 <small>yrs</small></span><span class="fy-slider__hint">by 2030</span></span></div>
+        <input class="fy-range" id="rg-2" type="range" min="0" max="100" value="50" style="--pct:50%" aria-label="Years" />
+        <div class="fy-slider__scale"><span>Lower</span><span>Same as today</span><span>Higher</span></div>
+      </div>
+    </div>
+    <div class="specimen">
+      <span class="specimen__label">Wheel picker · health gauge</span>
+      <div class="fy-wheel" role="listbox" aria-label="Target year" data-wheel>
+        <button role="option" aria-selected="false">2024</button><button role="option" aria-selected="false">2025</button><button role="option" aria-selected="true">2026</button><button role="option" aria-selected="false">2027</button><button role="option" aria-selected="false">2028</button>
+      </div>
+      <div class="fy-gauge" style="--value:88"><span class="fy-gauge__label">Cashflow Health <svg width="12" height="12"><use href="#i-info"/></svg></span><span class="fy-gauge__arc"></span><span class="fy-gauge__value">Excellent</span></div>
+    </div>
+  </div>
+
+  <div class="specimens" style="margin-top:var(--fy-space-6)">
+    <div class="specimen">
+      <span class="specimen__label">FIRE timeline · cards</span>
+      <div class="fy-timeline">
+        <div class="fy-timeline__now">Today<small>32 years</small></div>
+        <button class="fy-fire-card" type="button"><span class="fy-fire-card__icon" style="background:var(--fy-error-50);color:var(--fy-error-600)"><svg><use href="#i-heart"/></svg></span><span class="fy-fire-card__text"><span class="fy-fire-card__title">Survive FIRE</span><span class="fy-fire-card__sub">₹ 10.5 cr</span></span><span class="fy-fire-card__stat">50<small>years</small></span><svg class="fy-chevron" style="width:16px;height:16px"><use href="#i-chev-right"/></svg></button>
+        <button class="fy-fire-card fy-fire-card--locked" type="button"><span class="fy-fire-card__icon" style="background:var(--fy-warning-50);color:var(--fy-warning-700)"><svg><use href="#i-lock"/></svg></span><span class="fy-fire-card__text"><span class="fy-fire-card__title">Secure FIRE</span><span class="fy-fire-card__sub">Add a goal to unlock</span></span><span class="fy-fire-card__add">+</span></button>
+      </div>
+      <div class="fy-ornament">✦</div>
+    </div>
+    <div class="specimen" style="background:var(--fy-fire-bg);border-color:transparent">
+      <span class="specimen__label" style="color:var(--fy-primary-100)">Comparison · dark FIRE theme</span>
+      <span class="fy-alert-pill"><svg><use href="#i-alert"/></svg>Not on track for early retirement</span>
+      <div class="fy-compare">
+        <div><div class="fy-compare__card"><small>FIRE Age</small><b>77</b><small>years</small></div><div class="fy-compare__legend" style="display:flex;color:#fff">Your pace</div></div>
+        <div><div class="fy-compare__card"><small>FIRE Age</small><b>54</b><small>years</small></div><div class="fy-compare__legend" style="display:flex;color:#fff;--dot:var(--fy-success-600)">With Finny</div></div>
+      </div>
+    </div>
+    <div class="specimen">
+      <span class="specimen__label">Tier tabs · value rows</span>
+      <div class="fy-tier-tabs" data-group><button aria-pressed="true" style="--tier:#B85A47"><i></i>Basic</button><button aria-pressed="false" style="--tier:#8A6A3F"><i></i>Secure</button><button aria-pressed="false" style="--tier:#5B3A6B"><i></i>Aspire</button></div>
+      <div class="fy-value-row"><span class="fy-value-row__label">Inflation</span><span class="fy-value-row__value">8%</span><button class="fy-edit" type="button" aria-label="Edit inflation"><svg><use href="#i-pencil"/></svg></button></div>
+      <div class="fy-value-row"><span class="fy-value-row__label">Increase in income<small>Per year</small></span><span class="fy-value-row__value">10%</span><button class="fy-edit" type="button" aria-label="Edit increase in income"><svg><use href="#i-pencil"/></svg></button></div>
+      <div class="fy-value-row"><span class="fy-value-row__label">Surplus<small>Income − Expenses</small></span><span class="fy-value-row__value is-gain">+₹ 1.16 L</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PRODUCT SCREENS ============ -->
+<section id="product-screens">
+  <h2 class="section-title">Product screens rebuilt</h2>
+  <p class="section-lede">Eight launch screens built from the product components. Illustrations are shown as icon slots.</p>
+  <div class="phones">
+
+    <!-- Net worth home -->
+    <div class="app-phone">
+      <div class="fy-screen">
+        <div class="statusbar"><span>5:13 PM</span><span>●●●</span></div>
+        <div style="flex:1;overflow:auto;display:grid;gap:var(--fy-space-4);align-content:start;padding:var(--fy-space-2) var(--fy-space-4) var(--fy-space-4)">
+          <div style="display:grid;justify-items:center;gap:var(--fy-space-4)">
+            <div class="fy-members" data-group><button aria-pressed="true">You</button><button aria-pressed="false">Spouse</button><button aria-pressed="false">Family</button></div>
+            <div class="fy-metric"><span class="fy-metric__label">Networth <svg><use href="#i-info"/></svg></span><span class="fy-metric__value">₹ 50.5 L</span><span class="fy-updated"><svg><use href="#i-calendar"/></svg>Last updated 15th Sep</span></div>
+            <span class="fy-art"><svg><use href="#i-coins"/></svg></span>
+            <a class="fy-link" href="#product-screens" style="font-size:10px">Something wrong? Report it</a>
+          </div>
+          <div class="fy-section-card">
+            <div class="fy-section-card__head"><div><p class="fy-section-card__title">Assets</p><p class="fy-section-card__sub">Your investments &amp; savings</p></div><span class="fy-total-pill">₹ 70.5 L</span></div>
+            <button class="fy-asset-row" type="button" style="--row-tint:var(--fy-neutral-200)"><span class="fy-asset-row__icon"><svg><use href="#i-bank"/></svg></span><span class="fy-asset-row__name">Bank Accounts<small>you own 50%</small></span><span class="fy-asset-row__value">₹ 12.3 L<small class="is-stale">⚠ 15 Sep</small></span><svg class="fy-chevron"><use href="#i-chev-right"/></svg></button>
+            <button class="fy-asset-row" type="button" style="--row-tint:var(--fy-tint-surplus)"><span class="fy-asset-row__icon"><svg><use href="#i-sprout"/></svg></span><span class="fy-asset-row__name">Mutual Funds</span><span class="fy-asset-row__value">₹ 5.31 L<small>Today</small></span><svg class="fy-chevron"><use href="#i-chev-right"/></svg></button>
+            <button class="fy-asset-row" type="button" style="--row-tint:var(--fy-tint-investment)"><span class="fy-asset-row__icon"><svg><use href="#i-candles"/></svg></span><span class="fy-asset-row__name">Stocks</span><span class="fy-asset-row__value">₹ 7.31 L<small>2 hrs ago</small></span><svg class="fy-chevron"><use href="#i-chev-right"/></svg></button>
+            <button class="fy-asset-row" type="button" style="--row-tint:var(--fy-tint-spends)"><span class="fy-asset-row__icon"><svg><use href="#i-building"/></svg></span><span class="fy-asset-row__name">Real estate<small>you own 50%</small></span><span class="fy-asset-row__value">₹ 1.31 Cr<small>Yesterday</small></span><svg class="fy-chevron"><use href="#i-chev-right"/></svg></button>
+            <button class="fy-add-link" type="button">Add more assets</button>
+          </div>
+        </div>
+        <nav class="fy-bnb" aria-label="Main"><a href="#product-screens" aria-current="page"><svg><use href="#i-home"/></svg>Home</a><a href="#product-screens"><svg><use href="#i-wallet"/></svg>Cashflow</a><a href="#product-screens"><svg><use href="#i-fire"/></svg>Fire Age</a><a href="#product-screens"><svg><use href="#i-user"/></svg>Profile</a></nav>
+      </div>
+    </div>
+
+    <!-- Stocks detail -->
+    <div class="app-phone">
+      <div class="fy-screen">
+        <div class="statusbar"><span>5:13 PM</span><span>●●●</span></div>
+        <div style="flex:1;overflow:auto">
+          <div class="fy-appbar"><button class="fy-icon-btn" type="button" aria-label="Back"><svg><use href="#i-back"/></svg></button></div>
+          <div style="display:grid;justify-items:center;gap:var(--fy-space-3);padding:0 var(--fy-space-4) var(--fy-space-5)">
+            <span class="fy-art fy-art--sm"><svg><use href="#i-candles"/></svg></span>
+            <h3 class="fy-hero__title" style="font-size:28px;color:var(--fy-primary-600)">Stocks</h3>
+            <span class="fy-amount-pill">₹ 12.3 L</span>
+            <div class="fy-kpis" style="width:100%"><div class="fy-kpi"><span class="fy-kpi__label">Invested</span><span class="fy-kpi__value">₹ 20L</span></div><div class="fy-kpi"><span class="fy-kpi__label">Your returns</span><span class="fy-kpi__value">₹ 20 L</span></div><div class="fy-kpi"><span class="fy-kpi__label">Returns %</span><span class="fy-kpi__value is-gain">+21.1%</span></div></div>
+            <a class="fy-link" href="#product-screens" style="font-size:10px">Why are my returns not matching?</a>
+          </div>
+          <div class="fy-panel" style="gap:var(--fy-space-3)">
+            <p class="fy-subhead" style="justify-content:flex-start;gap:8px;margin:0;color:var(--fy-primary-600)">All stocks <span class="fy-count">11</span></p>
+            <article class="fy-holding"><div class="fy-holding__head"><span class="fy-holding__logo"><svg width="20" height="20"><use href="#i-candles"/></svg></span><span class="fy-holding__name">Stock name<span class="fy-holding__meta">Qty. 20 • Avg. ₹1.2k • LTP ₹1.2k</span></span><span class="fy-holding__value">₹ 32.3 cr<small>Current value</small></span></div><hr /><div class="fy-kpis fy-kpis--sm"><div class="fy-kpi"><span class="fy-kpi__label">Invested</span><span class="fy-kpi__value">₹ 1.3 L</span></div><div class="fy-kpi"><span class="fy-kpi__label">Your returns</span><span class="fy-kpi__value">₹ 1.3 L</span></div><div class="fy-kpi"><span class="fy-kpi__label">Returns %</span><span class="fy-kpi__value is-gain">+21.1%</span></div></div></article>
+            <article class="fy-holding"><div class="fy-holding__head"><span class="fy-holding__logo" style="background:#A51F4C;color:#fff">AX</span><span class="fy-holding__name">Axis bank<span class="fy-holding__meta">Qty. 20 • Avg. ₹1.2k • LTP ₹1.2k</span></span><span class="fy-holding__value">₹ 32.3 cr<small>Current value</small></span></div><hr /><div class="fy-kpis fy-kpis--sm"><div class="fy-kpi"><span class="fy-kpi__label">Invested</span><span class="fy-kpi__value">₹ 1.3 L</span></div><div class="fy-kpi"><span class="fy-kpi__label">Total returns</span><span class="fy-kpi__value">− ₹ 1.3 L</span></div><div class="fy-kpi"><span class="fy-kpi__label">Returns %</span><span class="fy-kpi__value is-loss">−21.1%</span></div></div></article>
+          </div>
+        </div>
+        <div class="fy-cat-tabs" data-group><button aria-pressed="true"><svg><use href="#i-candles"/></svg>Stocks</button><button aria-pressed="false"><svg><use href="#i-coins"/></svg>Cash</button><button aria-pressed="false"><svg><use href="#i-gem"/></svg>Gold</button><button aria-pressed="false"><svg><use href="#i-building"/></svg>Real estate</button></div>
+      </div>
+    </div>
+
+    <!-- Transactions -->
+    <div class="app-phone">
+      <div class="fy-screen" style="background:var(--fy-white)">
+        <div class="statusbar"><span>5:13 PM</span><span>●●●</span></div>
+        <div class="fy-appbar"><button class="fy-icon-btn" type="button" aria-label="Back"><svg><use href="#i-back"/></svg></button></div>
+        <div style="padding:0 var(--fy-space-4);display:grid;gap:var(--fy-space-3)">
+          <h3 class="fy-hero__title" style="font-size:28px;line-height:1.2;color:var(--fy-primary-500)">Transactions</h3>
+          <span class="fy-updated" style="justify-self:start;background:var(--fy-neutral-100)"><svg><use href="#i-calendar"/></svg>Last updated 15th Sep</span>
+          <div class="fy-filterbar"><button class="fy-icon-chip" type="button" aria-label="All filters"><svg><use href="#i-sliders"/></svg></button><button class="fy-dropdown-chip" type="button">Month<svg><use href="#i-chev-down"/></svg></button><button class="fy-dropdown-chip" type="button">Type<svg><use href="#i-chev-down"/></svg></button><button class="fy-dropdown-chip" type="button">Account<svg><use href="#i-chev-down"/></svg></button><button class="fy-dropdown-chip" type="button">Tags<svg><use href="#i-chev-down"/></svg></button></div>
+        </div>
+        <div style="flex:1;overflow:auto;padding:0 var(--fy-space-4) var(--fy-space-4);display:grid;gap:var(--fy-space-3);align-content:start;background:var(--fy-neutral-100);margin-top:var(--fy-space-3)">
+          <div class="fy-group-head">Sep’25 <b class="is-gain">+ ₹ 1,02,209</b></div>
+          <div class="fy-txn"><span class="fy-avatar" style="background:#E23744;color:#fff;font-size:9px">zomato<span class="fy-avatar__badge">A</span></span><span class="fy-txn__body"><span class="fy-txn__name">Zomato</span><span class="fy-txn__tags"><button class="fy-tag-chip" type="button">Food</button><svg width="14" height="14" style="color:var(--fy-primary-300)"><use href="#i-split"/></svg></span></span><span class="fy-txn__amount">₹ 1,500<small>29 Sep’25</small></span></div>
+          <div class="fy-txn"><span class="fy-avatar">JD<span class="fy-avatar__badge">A</span></span><span class="fy-txn__body"><span class="fy-txn__name">John Doe</span><span class="fy-txn__tags"><button class="fy-tag-chip" type="button">People</button></span></span><span class="fy-txn__amount"><span class="is-gain">+ ₹ 3,504</span><small>29 Sep’25</small></span></div>
+          <div class="fy-txn"><span class="fy-avatar" style="background:#000;color:#fff;font-size:10px">Uber<span class="fy-avatar__badge">A</span></span><span class="fy-txn__body"><span class="fy-txn__name">Uber</span><span class="fy-txn__tags"><button class="fy-tag-chip fy-tag-chip--add" type="button">+ Tag</button></span></span><span class="fy-txn__amount">₹ 1,500<small>29 Sep’25</small></span></div>
+          <div class="fy-txn"><span class="fy-avatar" style="background:#1DB954;color:#000;font-size:9px">Spot<span class="fy-avatar__badge">A</span></span><span class="fy-txn__body"><span class="fy-txn__name">Spotify</span><span class="fy-txn__tags"><button class="fy-tag-chip fy-tag-chip--add" type="button">+ Tag</button><svg width="14" height="14" style="color:var(--fy-primary-300)"><use href="#i-split"/></svg></span></span><span class="fy-txn__amount">₹ 1,500<small>29 Sep’25</small></span></div>
+          <div class="fy-group-head">Oct’25 <b>₹ 22,209</b></div>
+          <div class="fy-txn"><span class="fy-avatar">JD<span class="fy-avatar__badge">A</span></span><span class="fy-txn__body"><span class="fy-txn__name">John Doe</span><span class="fy-txn__tags"><button class="fy-tag-chip" type="button">People</button></span></span><span class="fy-txn__amount"><span class="is-gain">+ ₹ 1,500</span><small>29 Oct’25</small></span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Filters -->
+    <div class="app-phone">
+      <div class="fy-screen" style="background:var(--fy-white)">
+        <div class="statusbar"><span>5:13 PM</span><span>●●●</span></div>
+        <div class="fy-appbar" style="padding:var(--fy-space-3) var(--fy-space-2) var(--fy-space-3) var(--fy-space-4)"><h3 class="fy-hero__title" style="font-size:24px;line-height:1.2;color:var(--fy-primary-500)">Filters</h3><button class="fy-icon-btn" type="button" aria-label="Close filters"><svg><use href="#i-close"/></svg></button></div>
+        <div class="fy-filters">
+          <div class="fy-filters__rail" role="tablist" aria-orientation="vertical">
+            <button role="tab" aria-selected="false"><svg><use href="#i-calendar"/></svg>Months</button>
+            <button role="tab" aria-selected="false"><svg><use href="#i-split"/></svg>Type</button>
+            <button role="tab" aria-selected="false"><span class="fy-badge">1</span><svg><use href="#i-rupee"/></svg>Amount</button>
+            <button role="tab" aria-selected="false"><span class="fy-badge">4</span><svg><use href="#i-tag"/></svg>Tags</button>
+            <button role="tab" aria-selected="false"><span class="fy-badge">1</span><svg><use href="#i-bank"/></svg>Account</button>
+            <button role="tab" aria-selected="false"><svg><use href="#i-user"/></svg>Owner</button>
+            <button role="tab" aria-selected="true"><svg><use href="#i-sort"/></svg>Sort By</button>
+          </div>
+          <div class="fy-filters__panel" role="radiogroup" aria-label="Sort by">
+            <p class="fy-section-label" style="margin:0;font-size:12px">Sort by</p>
+            <label class="fy-radio-card">Date : Newest first<input class="fy-radio" type="radio" name="sort" id="sort-1" checked /></label>
+            <label class="fy-radio-card">Date : Earliest first<input class="fy-radio" type="radio" name="sort" id="sort-2" /></label>
+            <label class="fy-radio-card">Amount: Low to High<input class="fy-radio" type="radio" name="sort" id="sort-3" /></label>
+            <label class="fy-radio-card">Amount: High to Low<input class="fy-radio" type="radio" name="sort" id="sort-4" /></label>
+          </div>
+        </div>
+        <div class="fy-btn-row" style="padding:var(--fy-space-3) var(--fy-space-4) var(--fy-space-4);box-shadow:var(--fy-shadow-panel)"><button class="fy-btn fy-btn--secondary" type="button">Clear All</button><button class="fy-btn fy-btn--primary" type="button" disabled>Apply</button></div>
+      </div>
+    </div>
+
+    <!-- Cashflow -->
+    <div class="app-phone">
+      <div class="fy-screen">
+        <div class="statusbar"><span>5:13 PM</span><span>●●●</span></div>
+        <div style="flex:1;overflow:auto;padding:var(--fy-space-2) var(--fy-space-4) var(--fy-space-4);display:grid;gap:var(--fy-space-3);align-content:start">
+          <div style="display:grid;justify-items:center;gap:var(--fy-space-3)">
+            <div class="fy-members" data-group><button aria-pressed="true">You</button><button aria-pressed="false">Spouse</button><button aria-pressed="false">Family</button></div>
+            <h3 class="fy-hero__title" style="font-size:24px;line-height:1.2;color:var(--fy-primary-500)">Cashflow</h3>
+            <button class="fy-title-toggle" type="button" style="font-size:12px"><svg><use href="#i-info"/></svg>Total<svg><use href="#i-selector"/></svg></button>
+          </div>
+          <div class="fy-section-card" style="border-radius:var(--fy-radius-lg)">
+            <div class="fy-stepper"><button type="button" aria-label="Previous month"><svg><use href="#i-chev-left"/></svg></button>October’25<button type="button" aria-label="Next month"><svg><use href="#i-chev-right"/></svg></button></div>
+            <div class="fy-periods" data-group><button aria-pressed="true">1M</button><button aria-pressed="false">3M</button><button aria-pressed="false">6M</button><button aria-pressed="false">1Y</button></div>
+            <div class="fy-amount-card"><span class="fy-amount-card__label">Incoming</span><span class="fy-amount-card__value">₹ 4.10 L</span></div>
+            <p class="fy-subhead">Outgoing <span>₹ 3.90 L</span></p>
+            <button class="fy-breakdown fy-breakdown--spends" style="--share:28%" type="button"><span class="fy-breakdown__icon"><svg><use href="#i-wallet"/></svg></span><span class="fy-breakdown__label">Spends</span><span class="fy-breakdown__value">₹ 1.16 L</span><svg class="fy-chevron"><use href="#i-chev-right"/></svg></button>
+            <button class="fy-breakdown fy-breakdown--investment" style="--share:36%" type="button"><span class="fy-breakdown__icon"><svg><use href="#i-candles"/></svg></span><span class="fy-breakdown__label">Investment</span><span class="fy-breakdown__value">₹ 1.16 L</span><svg class="fy-chevron"><use href="#i-chev-right"/></svg></button>
+            <button class="fy-breakdown fy-breakdown--loans" style="--share:22%" type="button"><span class="fy-breakdown__icon"><svg><use href="#i-rupee"/></svg></span><span class="fy-breakdown__label">Loans</span><span class="fy-breakdown__value">₹ 1.16 L</span><svg class="fy-chevron"><use href="#i-chev-right"/></svg></button>
+            <p class="fy-subhead">Net Cashflow</p>
+            <button class="fy-breakdown fy-breakdown--surplus" style="--share:14%" type="button"><span class="fy-breakdown__icon"><svg><use href="#i-coins"/></svg></span><span class="fy-breakdown__label">Cash remaining</span><span class="fy-breakdown__value">+₹ 1.16 L</span><svg class="fy-chevron"><use href="#i-chev-right"/></svg></button>
+            <div class="fy-gauge" style="--value:88;margin-top:var(--fy-space-3)"><span class="fy-gauge__label">Cashflow Health <svg width="12" height="12"><use href="#i-info"/></svg></span><span class="fy-gauge__arc"></span><span class="fy-gauge__value">Excellent</span></div>
+          </div>
+        </div>
+        <nav class="fy-bnb" aria-label="Main"><a href="#product-screens"><svg><use href="#i-home"/></svg>Home</a><a href="#product-screens" aria-current="page"><svg><use href="#i-wallet"/></svg>Cashflow</a><a href="#product-screens"><svg><use href="#i-fire"/></svg>Fire Age</a><a href="#product-screens"><svg><use href="#i-user"/></svg>Profile</a></nav>
+      </div>
+    </div>
+
+    <!-- FIRE report -->
+    <div class="app-phone">
+      <div class="fy-screen">
+        <div class="statusbar"><span>5:13 PM</span><span>●●●</span></div>
+        <div style="flex:1;overflow:auto;padding:0 var(--fy-space-4) var(--fy-space-4);display:grid;gap:var(--fy-space-4);align-content:start">
+          <div class="fy-appbar" style="padding:0;margin:0 -8px"><button class="fy-icon-btn" type="button" aria-label="Back"><svg><use href="#i-back"/></svg></button><button class="fy-icon-btn" type="button" aria-label="About FIRE"><svg style="width:18px;height:18px"><use href="#i-info"/></svg></button></div>
+          <div style="display:grid;justify-items:center;gap:6px;text-align:center"><span style="font:300 36px/1 var(--fy-font);letter-spacing:.2em;color:var(--fy-primary-400)">FIRE</span><span class="fy-alert-pill" style="border:0;background:var(--fy-primary-400);color:#fff;letter-spacing:.2em">REPORT</span><a class="fy-link" href="#product-screens" style="font-size:12px">Learn about FIRE</a></div>
+          <div class="fy-timeline">
+            <div class="fy-timeline__now">Today<small>32 years</small></div>
+            <button class="fy-fire-card" type="button"><span class="fy-fire-card__icon" style="background:var(--fy-error-50);color:var(--fy-error-600)"><svg><use href="#i-heart"/></svg></span><span class="fy-fire-card__text"><span class="fy-fire-card__title">Survive FIRE</span><span class="fy-fire-card__sub">₹ 10.5 cr</span></span><span class="fy-fire-card__stat">50<small>years</small></span><svg class="fy-chevron" style="width:16px;height:16px"><use href="#i-chev-right"/></svg></button>
+            <button class="fy-fire-card fy-fire-card--locked" type="button"><span class="fy-fire-card__icon" style="background:var(--fy-warning-50);color:var(--fy-warning-700)"><svg><use href="#i-lock"/></svg></span><span class="fy-fire-card__text"><span class="fy-fire-card__title">Secure FIRE</span><span class="fy-fire-card__sub">Add a goal to unlock</span></span><span class="fy-fire-card__add">+</span></button>
+            <button class="fy-fire-card fy-fire-card--locked" type="button"><span class="fy-fire-card__icon" style="background:#F1EAF3;color:#5B3A6B"><svg><use href="#i-rocket"/></svg></span><span class="fy-fire-card__text"><span class="fy-fire-card__title">Aspire FIRE</span><span class="fy-fire-card__sub">Add a goal to unlock</span></span><span class="fy-fire-card__add">+</span></button>
+          </div>
+          <div class="fy-ornament">✦</div>
+          <button class="fy-fire-card" type="button"><span class="fy-fire-card__icon"><svg><use href="#i-coins"/></svg></span><span class="fy-fire-card__text"><span class="fy-fire-card__title">Fire Factors</span><span class="fy-fire-card__sub">Factors that impact your FIRE AGE</span></span><svg class="fy-chevron" style="width:16px;height:16px"><use href="#i-chev-right"/></svg></button>
+        </div>
+        <nav class="fy-bnb" aria-label="Main"><a href="#product-screens"><svg><use href="#i-home"/></svg>Home</a><a href="#product-screens"><svg><use href="#i-wallet"/></svg>Cashflow</a><a href="#product-screens" aria-current="page"><svg><use href="#i-fire"/></svg>Fire Age</a><a href="#product-screens"><svg><use href="#i-user"/></svg>Profile</a></nav>
+      </div>
+    </div>
+
+    <!-- FIRE comparison (dark) -->
+    <div class="app-phone">
+      <div class="fy-screen fy-fire-dark">
+        <div class="statusbar" style="color:#fff"><span>5:13 PM</span><span>●●●</span></div>
+        <div class="fy-appbar"><button class="fy-icon-btn" type="button" aria-label="Back" style="color:#fff"><svg><use href="#i-back"/></svg></button></div>
+        <div style="flex:1;display:grid;gap:var(--fy-space-6);align-content:start;padding:0 var(--fy-space-4)">
+          <span class="fy-alert-pill" style="justify-self:start"><svg><use href="#i-alert"/></svg>Not on track for early retirement</span>
+          <h3 class="fy-hero__title" style="font-size:26px;line-height:1.3">Early retirement isn’t possible at your pace. <span class="fy-accent">But Finny can get you there.</span></h3>
+          <div class="fy-compare" style="padding:0 var(--fy-space-3)">
+            <div><div class="fy-compare__card"><small>FIRE Age</small><b>77</b><small>years</small></div><div class="fy-compare__legend" style="display:flex;color:#fff">Your pace</div></div>
+            <div><div class="fy-compare__card"><small>FIRE Age</small><b>54</b><small>years</small></div><div class="fy-compare__legend" style="display:flex;color:#fff;--dot:var(--fy-success-600)">With Finny</div></div>
+          </div>
+        </div>
+        <div style="padding:var(--fy-space-4)"><button class="fy-btn fy-btn--primary" type="button">Show me how</button></div>
+      </div>
+    </div>
+
+    <!-- FIRE factors -->
+    <div class="app-phone">
+      <div class="fy-screen">
+        <div class="statusbar"><span>5:13 PM</span><span>●●●</span></div>
+        <div style="flex:1;overflow:auto;padding:0 var(--fy-space-4) var(--fy-space-4);display:grid;gap:var(--fy-space-3);align-content:start">
+          <div class="fy-appbar" style="padding:0;margin:0 -8px"><button class="fy-icon-btn" type="button" aria-label="Back"><svg><use href="#i-back"/></svg></button></div>
+          <div style="display:grid;justify-items:center;gap:var(--fy-space-3)"><span class="fy-art fy-art--sm"><svg><use href="#i-coins"/></svg></span><h3 class="fy-hero__title" style="font-size:24px;line-height:1.2;color:var(--fy-primary-500)">FIRE Factors</h3>
+            <div class="fy-tier-tabs" data-group><button aria-pressed="true" style="--tier:#B85A47"><i></i>Basic</button><button aria-pressed="false" style="--tier:#8A6A3F"><i></i>Secure</button><button aria-pressed="false" style="--tier:#5B3A6B"><i></i>Aspire</button></div></div>
+          <p class="fy-subhead">Networth <span>₹ 23.50L</span></p>
+          <div class="fy-value-row"><span class="fy-asset-row__icon"><svg><use href="#i-sprout"/></svg></span><span class="fy-value-row__label">Assets</span><span class="fy-value-row__value">₹ 23.50L</span><button class="fy-edit" type="button" aria-label="Edit assets"><svg><use href="#i-pencil"/></svg></button></div>
+          <div class="fy-value-row"><span class="fy-asset-row__icon"><svg><use href="#i-house-loan"/></svg></span><span class="fy-value-row__label">Loans</span><span class="fy-value-row__value">₹ 23.5L</span><button class="fy-edit" type="button" aria-label="Edit loans"><svg><use href="#i-pencil"/></svg></button></div>
+          <p class="fy-subhead">Cashflow</p>
+          <div class="fy-value-row"><span class="fy-asset-row__icon"><svg><use href="#i-coins"/></svg></span><span class="fy-value-row__label">Surplus<small>Income − Expenses</small></span><span class="fy-value-row__value is-gain">+₹ 1.16 L</span></div>
+          <p class="fy-subhead">Assumptions</p>
+          <div class="fy-section-card" style="border-radius:var(--fy-radius-md);gap:0;padding:var(--fy-space-2) var(--fy-space-4)">
+            <div class="fy-slider" style="border:0"><div class="fy-slider__head"><span class="fy-slider__title" style="font-size:14px;font-weight:500">Life span</span><span class="fy-value-box">80 <small>yrs</small></span></div><input class="fy-range" id="rg-life" type="range" min="40" max="100" value="80" style="--pct:66%" aria-label="Life span" /></div>
+          </div>
+          <div class="fy-value-row"><span class="fy-value-row__label">Inflation</span><span class="fy-value-row__value">8%</span><button class="fy-edit" type="button" aria-label="Edit inflation"><svg><use href="#i-pencil"/></svg></button></div>
+          <button class="fy-btn fy-btn--primary" type="button" disabled>Recalculate FIRE Age</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
 <!-- ============ A11Y ============ -->
 <section id="a11y">
   <h2 class="section-title">Accessibility</h2>
@@ -720,12 +1102,12 @@
     <thead><tr><th>Pair</th><th>Ratio</th><th>AA (4.5)</th><th>Action</th></tr></thead>
     <tbody>
       <tr><td>White on gradient-green (left / centre / right)</td><td>6.84 / 5.09 / 3.80</td><td>Pass where the label sits</td><td>Labels are centred, where the gradient measures 5.1:1. Keep text away from the right edge.</td></tr>
-      <tr><td>White on green-500 #4C9B66</td><td>3.39</td><td>Fail</td><td>Use green-500 only for fills, icons and borders, never behind text.</td></tr>
-      <tr><td>White on error #C85267 (Delete)</td><td>4.32</td><td>Near-miss</td><td>Passes at 18px+ bold. For 16px labels, use red-600 #B4475B (5.26).</td></tr>
+      <tr><td>White on success-600 #4C9B66</td><td>3.39</td><td>Fail</td><td>Use success-600 only for fills, icons and borders, never behind text.</td></tr>
+      <tr><td>White on error #C85267 (Delete)</td><td>4.32</td><td>Near-miss</td><td>Passes at 18px+ bold. For 16px labels, use error-700 #B4475B (5.26).</td></tr>
       <tr><td>Link and secondary label #236B42 on white</td><td>6.46</td><td>Pass</td><td>From Figma. Used for links, “View all” and secondary buttons.</td></tr>
-      <tr><td>Account meta #678782 at 10px (Figma)</td><td>3.91</td><td>Fail</td><td><code>.fy-account__meta</code> uses neutral-700 #576361 (6.25) instead.</td></tr>
-      <tr><td>Error text #C85267 on white</td><td>4.32</td><td>Near-miss</td><td><code>error-text</code> → red-600 #B4475B.</td></tr>
-      <tr><td>Warning #C88A52 on white</td><td>2.91</td><td>Fail</td><td><code>warning-text</code> → amber-600 #9A6531 (4.91).</td></tr>
+      <tr><td>Account meta #678782 at 10px (Figma)</td><td>3.91</td><td>Fail</td><td><code>.fy-account__meta</code> uses neutral-500 #576361 (6.25) instead.</td></tr>
+      <tr><td>Error text #C85267 on white</td><td>4.32</td><td>Near-miss</td><td><code>error-text</code> → error-700 #B4475B.</td></tr>
+      <tr><td>Warning #C88A52 on white</td><td>2.91</td><td>Fail</td><td><code>warning-text</code> → warning-700 #9A6531 (4.91).</td></tr>
       <tr><td>Placeholder #909D9B on white</td><td>2.81</td><td>Fail</td><td>Fine for placeholder text only. Never use it for real content or labels.</td></tr>
       <tr><td>Heading #1B4B44 on canvas #F5F6F0</td><td>9.04</td><td>Pass</td><td>—</td></tr>
       <tr><td>Body #01231E on white</td><td>16.66</td><td>Pass</td><td>—</td></tr>
@@ -740,10 +1122,14 @@
   <div class="notes">
     <div class="note note--err"><span class="dot" style="background:var(--fy-error)"></span><div><b>Both “BG” swatches are labelled #02372F.</b> The green one renders as #4C9B66 (same as success) and the light one as #F5F6F0. They are tokenised as <code>bg-brand</code> and <code>bg-canvas</code>.</div></div>
     <div class="note note--warn"><span class="dot" style="background:var(--fy-warning)"></span><div><b>“Subtitle 2” appears twice</b> (Medium 16 and Medium 12). The 12px style is renamed <code>subtitle-3</code>. It is the field-label style.</div></div>
-    <div class="note note--warn"><span class="dot" style="background:var(--fy-warning)"></span><div><b>Success tint is labelled #CCE6D4 but renders as #EEF7F1.</b> The selected-chip fill also uses #EEF7F1, so both are kept: <code>green-200</code> #CCE6D4 and <code>green-50</code> #EEF7F1 (<code>success-subtle</code>).</div></div>
-    <div class="note note--warn"><span class="dot" style="background:var(--fy-warning)"></span><div><b>Figma overrides the PDF measurements.</b> Buttons and inputs use an 8px radius (the PDF looked like 6px). Cards use 12px and sheets 16px. The button gradient is <code>#1F673F → #57A870</code> at 94°. Links use green-700 #236B42. The tokens now follow Figma.</div></div>
-    <div class="note note--warn"><span class="dot" style="background:var(--fy-warning)"></span><div><b>Off-palette colours in Figma, mapped to tokens:</b> card border #EDEDED → neutral-200, edit tag #F4F5EF → cream-50, legal text #546881 → neutral-700, T&amp;C link #09A98B → green-700, video title #151A20 → neutral-900, success #4C9B67 → green-500. The Figma file has no colour variables, so every value is typed in by hand. Publishing these tokens as Figma variables would stop the drift.</div></div>
+    <div class="note note--warn"><span class="dot" style="background:var(--fy-warning)"></span><div><b>Success tint is labelled #CCE6D4 but renders as #EEF7F1.</b> The selected-chip fill also uses #EEF7F1, so both are kept: <code>success-100</code> #CCE6D4 and <code>success-50</code> #EEF7F1 (<code>success-subtle</code>).</div></div>
+    <div class="note note--warn"><span class="dot" style="background:var(--fy-warning)"></span><div><b>Figma overrides the PDF measurements.</b> Buttons and inputs use an 8px radius (the PDF looked like 6px). Cards use 12px and sheets 16px. The button gradient is <code>#1F673F → #57A870</code> at 94°. Links use success-700 #236B42. The tokens now follow Figma.</div></div>
+    <div class="note note--warn"><span class="dot" style="background:var(--fy-warning)"></span><div><b>Off-palette colours in Figma, mapped to tokens:</b> card border #EDEDED → neutral-200, edit tag #F4F5EF → cream-50, legal text #546881 → neutral-500, T&amp;C link #09A98B → success-700, video title #151A20 → neutral-600, success #4C9B67 → success-600. The Figma file has no colour variables, so every value is typed in by hand. Publishing these tokens as Figma variables would stop the drift.</div></div>
     <div class="note note--err"><span class="dot" style="background:var(--fy-error)"></span><div><b>Two typefaces leak into Figma text layers:</b> “Cina GEO Test” (T&amp;C line, bank names, “don’t allow”) and SF Pro (system keypad only). The components use Poppins throughout.</div></div>
+    <div class="note note--ok"><span class="dot" style="background:var(--fy-success)"></span><div><b>Token names now match Figma variables.</b> The product pages use Figma variables <code>Primary 100–600</code>, <code>Neutral 100–600</code>, <code>Success 50 / 600</code>, <code>Error 600</code>, <code>White</code> and the effects <code>Card shadow</code> and <code>Card Shadow light</code>. The CSS tokens use the same numbers, so <code>--fy-primary-400</code> is Figma’s Primary 400 (#03685A). The login pages don’t use these variables yet.</div></div>
+    <div class="note note--warn"><span class="dot" style="background:var(--fy-warning)"></span><div><b>Figma text styles disagree with the PDF in two places.</b> The Figma style “Body 2” is Medium 14/22, but the PDF says Regular 14. Line heights are 22px (14–16px text) and 28px (Heading 3). The tokens take the Figma line heights and keep the PDF weight for Body 2 until a designer decides which is right.</div></div>
+    <div class="note note--warn"><span class="dot" style="background:var(--fy-warning)"></span><div><b>More off-palette values on the product pages:</b> labels #8B8B8B → neutral-500, values #4A4A4A → neutral-600, positive returns #2F8F0D (4.15:1) → success-700 #236B42, “Learn more” #D19405 (2.6:1) → warning-700, slider track #E4F2E8 kept, chip fill #F3F3F3 → neutral-100. The ₹ sign uses “Inria Sans”, and the FIRE FAQ tiles use a serif face. Neither is in the brand fonts.</div></div>
+    <div class="note note--warn"><span class="dot" style="background:var(--fy-warning)"></span><div><b>Repeated frames that should be Figma components:</b> transaction row (~200 copies), breakdown row (178), FIRE card (153), skeleton (190), period chips, member switcher, holding card, asset row. Only “Primary button”, “BNB-14”, “Outgoing breakup”, “Total toggle”, “Edit value” and “Date selector” are real components today.</div></div>
     <div class="note note--ok"><span class="dot" style="background:var(--fy-success)"></span><div><b>Not specified in the PDF, so these are proposed:</b> line heights, the spacing scale, radii, shadows, focus rings, gradient angles and component heights. Heights and radii were measured from the artwork at a 360px mobile frame (48px buttons, 40px inputs, 6px corners).</div></div>
   </div>
 </section>
@@ -755,36 +1141,45 @@
 <script>
   const swatchGroups = [
     { title: 'Primary', items: [
-      ['primary-900', '#02372F', 'Brand anchor, link text'],
-      ['primary-800', '#1B4B44', 'Headings'],
-      ['primary-700', '#03685A', 'Teal accent, check badges'],
-      ['primary-500', '#4E736E', ''],
-      ['primary-400', '#678782', 'Section eyebrows'],
-      ['primary-300', '#9AAFAC', 'Disabled text, strong border'],
+      ['primary-600', '#02372F', 'Brand anchor, link text'],
+      ['primary-500', '#1B4B44', 'Headings'],
+      ['primary-400', '#03685A', 'Teal accent, check badges'],
+      ['primary-300', '#4E736E', ''],
+      ['primary-200', '#678782', 'Section eyebrows'],
+      ['primary-100', '#9AAFAC', 'Disabled text, strong border'],
     ]},
     { title: 'Neutrals', items: [
-      ['neutral-900', '#01231E', 'Body text, dark bands'],
-      ['neutral-700', '#576361', 'Secondary text'],
-      ['neutral-500', '#909D9B', 'Placeholder'],
+      ['neutral-600', '#01231E', 'Body text, dark bands'],
+      ['neutral-500', '#576361', 'Secondary text'],
+      ['neutral-400', '#909D9B', 'Placeholder'],
       ['neutral-300', '#CCD7D5', 'Default border'],
       ['neutral-200', '#E6EBEA', 'Dividers, disabled fill'],
       ['neutral-100', '#F5F7F7', 'Subtle fill, toggle track'],
-      ['neutral-0',   '#FFFFFF', 'Surface'],
+      ['white',   '#FFFFFF', 'Surface'],
     ]},
     { title: 'Semantics', items: [
-      ['green-500', '#4C9B66', 'Success, focus, selected'],
-      ['green-700', '#236B42', 'Links, success text, secondary button'],
-      ['green-200', '#CCE6D4', 'Success tint (PDF label)'],
-      ['green-50',  '#EEF7F1', 'Success subtle, selected chip'],
-      ['red-500',   '#C85267', 'Error border, danger fill'],
-      ['red-600',   '#B4475B', 'Error text', true],
-      ['red-50',    '#F9ECEE', 'Error subtle'],
-      ['amber-500', '#C88A52', 'Warning'],
-      ['amber-600', '#9A6531', 'Warning text', true],
-      ['amber-50',  '#F9F2EC', 'Warning subtle'],
+      ['success-600', '#4C9B66', 'Success, focus, selected'],
+      ['success-700', '#236B42', 'Links, success text, secondary button'],
+      ['success-100', '#CCE6D4', 'Success tint (PDF label)'],
+      ['success-50',  '#EEF7F1', 'Success subtle, selected chip'],
+      ['error-600',   '#C85267', 'Error border, danger fill'],
+      ['error-700',   '#B4475B', 'Error text', true],
+      ['error-50',    '#F9ECEE', 'Error subtle'],
+      ['warning-600', '#C88A52', 'Warning'],
+      ['warning-700', '#9A6531', 'Warning text', true],
+      ['warning-50',  '#F9F2EC', 'Warning subtle'],
+    ]},
+    { title: 'Category tints', items: [
+      ['tint-spends', '#EAD8E2', 'Spends breakdown'],
+      ['tint-investment', '#CBCDE5', 'Investment breakdown'],
+      ['tint-loans', '#E4E3CC', 'Loans breakdown'],
+      ['tint-untagged', '#DFDFDF', 'Untagged breakdown'],
+      ['tint-surplus', '#C0DFCA', 'Cash remaining'],
+      ['tint-shortfall', '#FCCBCC', 'Income shortfall'],
+      ['fire-bg', '#1C2518', 'FIRE result screens'],
     ]},
     { title: 'Backgrounds', items: [
-      ['bg-brand → green-500', '#4C9B66', 'Brand moments, illustration backdrops'],
+      ['bg-brand → success-600', '#4C9B66', 'Brand moments, illustration backdrops'],
       ['bg-canvas → cream-50', '#F5F6F0', 'App screen background'],
     ]},
   ];
@@ -853,6 +1248,24 @@
       c.addEventListener('keydown', e => { if (e.key === 'Backspace' && !c.value && cells[i - 1]) cells[i - 1].focus(); });
     });
   });
+
+  // Range sliders paint their filled track from --pct.
+  document.querySelectorAll('.fy-range').forEach(r => {
+    const paint = () => r.style.setProperty('--pct', ((r.value - r.min) / (r.max - r.min) * 100) + '%');
+    r.addEventListener('input', paint); paint();
+  });
+  // Wheel picker: centre the selected row, tap a row to select it.
+  document.querySelectorAll('[data-wheel]').forEach(w => { const b = w.querySelector('[aria-selected="true"]'); if (b) w.scrollTop = b.offsetTop - w.clientHeight / 2 + b.offsetHeight / 2; });
+  document.querySelectorAll('[data-wheel]').forEach(w => w.addEventListener('click', e => {
+    const b = e.target.closest('button'); if (!b) return;
+    w.querySelectorAll('button').forEach(x => x.setAttribute('aria-selected', String(x === b)));
+    b.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+  }));
+  // Filter rail tabs.
+  document.querySelectorAll('.fy-filters__rail').forEach(rail => rail.addEventListener('click', e => {
+    const b = e.target.closest('button'); if (!b) return;
+    rail.querySelectorAll('button').forEach(x => x.setAttribute('aria-selected', String(x === b)));
+  }));
 </script>
 </body>
 </html>

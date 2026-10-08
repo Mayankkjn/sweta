@@ -95,7 +95,8 @@
   --fy-scrim: rgba(0, 15, 13, 0.9);
 
   /* ---------- Semantic: colour ---------- */
-  --fy-bg-canvas:  var(--fy-cream-50);
+  --fy-bg-canvas:  var(--fy-cream-50);    /* landing and main pages only (.fy-screen--main) */
+  --fy-bg-page:    var(--fy-neutral-100); /* default for intermediate screens */
   --fy-bg-surface: var(--fy-white);
   --fy-bg-subtle:  var(--fy-neutral-100);
   --fy-bg-muted:   var(--fy-neutral-200);
@@ -255,8 +256,13 @@
 /* ---------- Screen scaffolding ---------- */
 .fy-screen {
   position: relative; display: flex; flex-direction: column; overflow: hidden;
-  background: var(--fy-bg-canvas); color: var(--fy-text-primary); font-family: var(--fy-font);
+  background: var(--fy-bg-page); color: var(--fy-text-primary); font-family: var(--fy-font);
 }
+.fy-screen--main { background: var(--fy-bg-canvas); }
+/* Controls whose resting fill is neutral-100 need contrast on the page background. */
+.fy-screen:not(.fy-screen--main) .fy-phone__country,
+.fy-screen:not(.fy-screen--main) .fy-phone__field { background: var(--fy-white); border-color: var(--fy-neutral-200); }
+.fy-screen:not(.fy-screen--main) .fy-phone__field:focus-within { border-color: var(--fy-border-focus); }
 .fy-appbar { display: flex; align-items: center; justify-content: space-between; min-height: 56px; padding: 0 var(--fy-space-2); }
 .fy-icon-btn {
   display: inline-grid; place-items: center; width: 40px; height: 40px; padding: 0;
@@ -800,7 +806,7 @@
   .stage__nav { display: flex; gap: 10px; }
   .stage__nav button { height: 34px; padding: 0 14px; border: 1px solid var(--fy-neutral-300); border-radius: 999px; background: #fff; cursor: pointer; font-size: 12px; font-weight: 500; color: var(--fy-primary-500); }
 
-  .phone { position: relative; width: 360px; max-width: 100%; height: 760px; border-radius: 32px; overflow: hidden; background: var(--fy-bg-canvas); box-shadow: 0 0 0 10px #0d1a17, 0 24px 60px rgba(1,35,30,.35); }
+  .phone { position: relative; width: 360px; max-width: 100%; height: 760px; border-radius: 32px; overflow: hidden; background: var(--fy-bg-page); box-shadow: 0 0 0 10px #0d1a17, 0 24px 60px rgba(1,35,30,.35); }
   .phone > .fy-screen { height: 100%; }
 
   .why { position: sticky; top: 76px; padding: 18px 18px 20px; display: grid; gap: 14px; }
@@ -872,7 +878,7 @@
   .pill--ok { background: var(--fy-success-50); color: var(--fy-success-700); }
   .pill--warn { background: var(--fy-warning-50); color: var(--fy-warning-700); }
   .pill--err { background: var(--fy-error-50); color: var(--fy-error-700); }
-  .pill--mute { background: var(--fy-neutral-100); color: var(--fy-neutral-500); }
+  .pill--mute { background: var(--fy-neutral-200); color: var(--fy-neutral-500); }
   .banner { display: flex; gap: 10px; padding: 12px; border-radius: var(--fy-radius-md); font: 400 12px/1.5 var(--fy-font); }
   .banner svg { flex: none; width: 18px; height: 18px; margin-top: 1px; }
   .banner b { font-weight: 600; }
@@ -898,7 +904,7 @@
   .steps li.now i::after { content: ""; width: 10px; height: 10px; border: 2px solid var(--fy-primary-400); border-right-color: transparent; border-radius: 50%; animation: fy-spin .8s linear infinite; }
   .progress { height: 6px; border-radius: 999px; background: var(--fy-neutral-200); overflow: hidden; }
   .progress i { display: block; height: 100%; width: var(--p, 40%); border-radius: inherit; background: var(--fy-primary-400); transition: width .4s; }
-  .seg { display: grid; grid-template-columns: repeat(var(--n, 3), 1fr); padding: 3px; border-radius: 999px; background: var(--fy-neutral-100); }
+  .seg { display: grid; grid-template-columns: repeat(var(--n, 3), 1fr); padding: 3px; border-radius: 999px; background: var(--fy-neutral-200); }
   .seg button { height: 30px; border: 0; border-radius: 999px; background: none; cursor: pointer; font: 500 12px/1 var(--fy-font); color: var(--fy-primary-300); }
   .seg button[aria-pressed="true"] { background: var(--fy-white); color: var(--fy-primary-600); font-weight: 600; box-shadow: var(--fy-shadow-card); }
   .consent-card { display: grid; gap: 10px; padding: 14px; border-radius: var(--fy-radius-md); background: #fff; box-shadow: var(--fy-shadow-card); }
@@ -959,7 +965,7 @@
   .tabs button { padding: 10px 0; border: 0; border-bottom: 2px solid transparent; background: none; cursor: pointer; font: 500 13px/1 var(--fy-font); color: var(--fy-primary-300); }
   .tabs button[aria-pressed="true"] { border-bottom-color: var(--fy-primary-400); color: var(--fy-primary-600); font-weight: 600; }
   .stat3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
-  .stat3 div { padding: 10px 8px; border-radius: 10px; background: var(--fy-neutral-100); text-align: center; }
+  .stat3 div { padding: 10px 8px; border-radius: 10px; background: var(--fy-white); box-shadow: var(--fy-shadow-card); text-align: center; }
   .stat3 small { display: block; font: 400 10px/1.3 var(--fy-font); color: var(--fy-text-secondary); }
   .stat3 b { font: 700 18px/1.3 var(--fy-font); color: var(--fy-primary-600); font-variant-numeric: tabular-nums; }
   .field-err { border-color: var(--fy-error-600) !important; }
@@ -1127,7 +1133,8 @@ const otpCells = (vals = [], cls = '', id = 'o') => `<div class="fy-otp otp-mask
 const acctRow = (a, { checkbox = true, checked = false, status = '' } = {}) => `
   <label class="acct">${logo(a)}<span class="acct__text"><span class="acct__name">${a.bank}</span><span class="acct__meta">${a.type} ${a.num}</span></span>
   ${status}${checkbox ? `<input class="fy-checkbox" type="checkbox" data-pick ${checked ? 'checked' : ''} aria-label="Select ${a.bank} ${a.num}">` : ''}</label>`;
-const screen = (body, { dark = false, bg = '' } = {}) => `<div class="fy-screen" style="${bg}">${sb(dark)}${body}</div>`;
+// Cream canvas only on landing/main pages; every other screen uses the page grey (#F5F7F7).
+const screen = (body, { dark = false, bg = '', main = false } = {}) => `<div class="fy-screen${main ? ' fy-screen--main' : ''}" style="${bg}">${sb(dark)}${body}</div>`;
 
 /* ============================================================
  * Screens  (id, flow, number, title, isNew, clauses, notes, render)
@@ -1150,7 +1157,7 @@ add({ id: 'redirect', flow: 'A. Start & sign in', title: 'Hand-off to Account Ag
       <p class="lede">Finvu is an <b>RBI-regulated Account Aggregator</b>. It finds your accounts and asks for your consent. Finny never sees your bank login.</p>
       <div class="banner banner--info" style="text-align:left">${ic('shield')}<span>You’ll come back to Finny automatically when you’re done.</span></div>
     </div>
-    <div class="foot foot--plain pad">${btn('Continue to Finvu', 'intro')}<button class="link" data-back style="justify-self:center">Not now</button></div>${tagline}`) });
+    <div class="foot foot--plain pad">${btn('Continue to Finvu', 'intro')}<button class="link" data-back style="justify-self:center">Not now</button></div>${tagline}`, { main: true }) });
 
 add({ id: 'intro', flow: 'A. Start & sign in', title: '1. Intro', clauses: ['4.2.iii', '4.2.iv', '4.1.ii'],
   notes: ['AA name at the top and the RBI tagline at the bottom on every AA screen.', 'Four trust points reduced to short, scannable lines with a clear “revoke anytime” promise.', 'Language switcher in reach on the first screen.'],
@@ -1167,7 +1174,7 @@ add({ id: 'intro', flow: 'A. Start & sign in', title: '1. Intro', clauses: ['4.2
       </ul>
       <button class="listen" data-go="language" style="justify-self:start">${ic('globe')}English · हिन्दी · 8 more</button>
     </div>
-    <div class="foot">${btn('Continue', 'otp')}${tagline}</div>`) });
+    <div class="foot">${btn('Continue', 'otp')}${tagline}</div>`, { main: true }) });
 
 add({ id: 'otp', flow: 'A. Start & sign in', title: '2. Verify mobile (SIM binding)', clauses: ['5.1.i', '5.1.ii', '1.6.1', '1.6.3'],
   notes: ['OTP is read automatically from the SMS sent from this SIM; manual entry is disabled during SIM binding.', 'Digits are masked (●) as required for OTPs and PINs.', 'Clear status: reading → verified, with a countdown instead of a dead “Verify” button.'],
@@ -1529,7 +1536,7 @@ add({ id: 'dashboard', flow: 'E. Manage consents', title: '17. Your consents (da
           <dl class="kv"><dt>Last fetched</dt><dd>${last}</dd><dt>Next fetch</dt><dd>${next}</dd><dt>Accounts</dt><dd>3</dd></dl>
         </button>`).join('')}
     </div>
-    <div class="foot"><nav class="fy-bnb" style="margin:0 -16px;box-shadow:none"><a aria-current="page" data-go="dashboard">${ic('doc')}Consents</a><a data-go="linked">${ic('bank')}Accounts</a><a data-go="activity">${ic('clock')}Activity</a><a data-go="profile">${ic('user')}Profile</a></nav></div>`) });
+    <div class="foot"><nav class="fy-bnb" style="margin:0 -16px;box-shadow:none"><a aria-current="page" data-go="dashboard">${ic('doc')}Consents</a><a data-go="linked">${ic('bank')}Accounts</a><a data-go="activity">${ic('clock')}Activity</a><a data-go="profile">${ic('user')}Profile</a></nav></div>`, { main: true }) });
 
 add({ id: 'consent-detail', flow: 'E. Manage consents', title: '17b. Consent details & controls', isNew: true, clauses: ['3.2.ii', '3.2.x', '3.3.i'],
   notes: ['Pause, Resume and Revoke are all here, each with a confirmation step.', 'Data-fetch history for this consent (what was fetched, when, from whom).', 'Link to the immutable audit trail.'],
@@ -1599,7 +1606,7 @@ add({ id: 'activity', flow: 'E. Manage consents', title: '18. Consent activity (
       </ul></div>
       <p class="lock" style="margin:0">${ic('lock')}This log is tamper-proof and can’t be edited.</p>
     </div>
-    <div class="foot"><nav class="fy-bnb" style="margin:0 -16px;box-shadow:none"><a data-go="dashboard">${ic('doc')}Consents</a><a data-go="linked">${ic('bank')}Accounts</a><a aria-current="page" data-go="activity">${ic('clock')}Activity</a><a data-go="profile">${ic('user')}Profile</a></nav></div>`) });
+    <div class="foot"><nav class="fy-bnb" style="margin:0 -16px;box-shadow:none"><a data-go="dashboard">${ic('doc')}Consents</a><a data-go="linked">${ic('bank')}Accounts</a><a aria-current="page" data-go="activity">${ic('clock')}Activity</a><a data-go="profile">${ic('user')}Profile</a></nav></div>`, { main: true }) });
 
 /* ---------- F. Linked accounts ---------- */
 add({ id: 'linked', flow: 'F. Linked accounts', title: 'Linked accounts', isNew: true, clauses: ['2.1', '3.2.x'],
@@ -1610,7 +1617,7 @@ add({ id: 'linked', flow: 'F. Linked accounts', title: 'Linked accounts', isNew:
       <div class="card card--flush">${[...BANKS, MF[0], EQ[0]].map((a, i) => `<div class="acct" data-go="${i === 0 ? 'delink' : 'delink'}">${logo(a)}<span class="acct__text"><span class="acct__name">${a.bank}</span><span class="acct__meta">${a.type} ${a.num}</span></span><span class="pill ${i < 1 || i > 2 ? 'pill--ok' : 'pill--mute'}">${i < 1 || i > 2 ? '1 consent' : 'No consent'}</span>${ic('chev-right','fy-chevron')}</div>`).join('')}</div>
       <button class="fy-add-link" data-go="identifiers">Find more accounts</button>
     </div>
-    <div class="foot"><nav class="fy-bnb" style="margin:0 -16px;box-shadow:none"><a data-go="dashboard">${ic('doc')}Consents</a><a aria-current="page" data-go="linked">${ic('bank')}Accounts</a><a data-go="activity">${ic('clock')}Activity</a><a data-go="profile">${ic('user')}Profile</a></nav></div>`) });
+    <div class="foot"><nav class="fy-bnb" style="margin:0 -16px;box-shadow:none"><a data-go="dashboard">${ic('doc')}Consents</a><a aria-current="page" data-go="linked">${ic('bank')}Accounts</a><a data-go="activity">${ic('clock')}Activity</a><a data-go="profile">${ic('user')}Profile</a></nav></div>`, { main: true }) });
 
 add({ id: 'delink', flow: 'F. Linked accounts', title: '19. Delink account (blocked)', clauses: ['2.1', '4.1.viii'],
   notes: ['Standard: all active consents on the account must be revoked before delinking. The screen lists them with a revoke action, instead of letting the user fail later.', 'Delink button stays disabled until the list is empty.'],
@@ -1663,7 +1670,7 @@ add({ id: 'profile', flow: 'G. Profile, safety & help', title: 'Profile & VUA', 
         <a data-go="close-account">${ic('trash')}<span style="color:var(--fy-error-700)">Close Finvu account</span>${ic('chev-right','fy-chevron')}</a>
       </div>
     </div>
-    <div class="foot"><nav class="fy-bnb" style="margin:0 -16px;box-shadow:none"><a data-go="dashboard">${ic('doc')}Consents</a><a data-go="linked">${ic('bank')}Accounts</a><a data-go="activity">${ic('clock')}Activity</a><a aria-current="page" data-go="profile">${ic('user')}Profile</a></nav></div>`) });
+    <div class="foot"><nav class="fy-bnb" style="margin:0 -16px;box-shadow:none"><a data-go="dashboard">${ic('doc')}Consents</a><a data-go="linked">${ic('bank')}Accounts</a><a data-go="activity">${ic('clock')}Activity</a><a aria-current="page" data-go="profile">${ic('user')}Profile</a></nav></div>`, { main: true }) });
 
 add({ id: 'devices', flow: 'G. Profile, safety & help', title: 'Registered devices', isNew: true, clauses: ['1.6.3.vi', '1.6.3.vii'],
   notes: ['Shows every bound device and active session with a remove action and the device limit.'],

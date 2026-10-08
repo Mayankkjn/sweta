@@ -85,7 +85,8 @@
   --fy-scrim: rgba(0, 15, 13, 0.9);
 
   /* ---------- Semantic: colour ---------- */
-  --fy-bg-canvas:  var(--fy-cream-50);
+  --fy-bg-canvas:  var(--fy-cream-50);    /* landing and main pages only (.fy-screen--main) */
+  --fy-bg-page:    var(--fy-neutral-100); /* default for intermediate screens */
   --fy-bg-surface: var(--fy-white);
   --fy-bg-subtle:  var(--fy-neutral-100);
   --fy-bg-muted:   var(--fy-neutral-200);
@@ -245,8 +246,13 @@
 /* ---------- Screen scaffolding ---------- */
 .fy-screen {
   position: relative; display: flex; flex-direction: column; overflow: hidden;
-  background: var(--fy-bg-canvas); color: var(--fy-text-primary); font-family: var(--fy-font);
+  background: var(--fy-bg-page); color: var(--fy-text-primary); font-family: var(--fy-font);
 }
+.fy-screen--main { background: var(--fy-bg-canvas); }
+/* Controls whose resting fill is neutral-100 need contrast on the page background. */
+.fy-screen:not(.fy-screen--main) .fy-phone__country,
+.fy-screen:not(.fy-screen--main) .fy-phone__field { background: var(--fy-white); border-color: var(--fy-neutral-200); }
+.fy-screen:not(.fy-screen--main) .fy-phone__field:focus-within { border-color: var(--fy-border-focus); }
 .fy-appbar { display: flex; align-items: center; justify-content: space-between; min-height: 56px; padding: 0 var(--fy-space-2); }
 .fy-icon-btn {
   display: inline-grid; place-items: center; width: 40px; height: 40px; padding: 0;

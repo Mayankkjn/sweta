@@ -21,7 +21,7 @@ Choice chips `.fy-choices > .fy-choice[role=radio][aria-checked]`; segmented tog
 ## Screen scaffolding
 
 ```html
-<div class="fy-screen">                                   <!-- cream canvas, flex column -->
+<div class="fy-screen [fy-screen--main]">                  <!-- #F5F7F7 by default; --main = cream, landing/main pages only -->
   <div class="fy-appbar"><button class="fy-icon-btn" aria-label="Back"><svg><use href="#i-back"/></svg></button></div>
   <div class="fy-hero"><h1 class="fy-hero__title">Verify your number</h1><span class="fy-art fy-art--sm"><svg><use href="#i-mobile"/></svg></span></div>
   <!-- fy-hero--stacked | fy-hero--center ; .fy-hero__lede for a sub line -->

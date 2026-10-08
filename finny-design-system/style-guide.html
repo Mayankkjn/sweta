@@ -91,7 +91,7 @@
   footer { text-align: center; padding: var(--fy-space-8) var(--fy-space-4); font-size: 11px; color: var(--fy-text-secondary); border-top: 1px solid var(--fy-border-subtle); }
 
   /* app flows */
-  .app-phone { position: relative; width: 340px; max-width: 100%; height: 720px; border-radius: 24px; overflow: hidden; box-shadow: var(--fy-shadow-raised); background: var(--fy-bg-canvas); }
+  .app-phone { position: relative; width: 340px; max-width: 100%; height: 720px; border-radius: 24px; overflow: hidden; box-shadow: var(--fy-shadow-raised); background: var(--fy-bg-page); }
   .app-phone > .fy-screen { height: 100%; }
   .statusbar { display: flex; justify-content: space-between; padding: 12px 18px 4px; font-size: 11px; font-weight: 600; color: var(--fy-text-primary); }
   .backdrop { filter: saturate(.8); }
@@ -190,7 +190,8 @@
   <div class="table-wrap"><table>
     <thead><tr><th>Role</th><th>Token</th><th>Resolves to</th><th>Use</th></tr></thead>
     <tbody>
-      <tr><td>Screen background</td><td><code>--fy-bg-canvas</code></td><td>cream-50 #F5F6F0</td><td>Behind every app screen</td></tr>
+      <tr><td>Main screen background</td><td><code>--fy-bg-canvas</code></td><td>cream-50 #F5F6F0</td><td>Landing and main pages only (<code>.fy-screen--main</code>)</td></tr>
+      <tr><td>Screen background</td><td><code>--fy-bg-page</code></td><td>neutral-100 #F5F7F7</td><td>All intermediate screens (default)</td></tr>
       <tr><td>Surface</td><td><code>--fy-bg-surface</code></td><td>white #FFFFFF</td><td>Cards, inputs, sheets</td></tr>
       <tr><td>Inverse</td><td><code>--fy-bg-inverse</code></td><td>neutral-600 #01231E</td><td>Dark bands, splash</td></tr>
       <tr><td>Heading text</td><td><code>--fy-text-heading</code></td><td>primary-500 #1B4B44</td><td>Screen titles, section headings</td></tr>
@@ -556,7 +557,7 @@
 
     <!-- Login -->
     <div class="app-phone">
-      <div class="fy-screen">
+      <div class="fy-screen fy-screen--main">
         <div class="statusbar"><span>5:13 PM</span><span>●●●</span></div>
         <div class="fy-hero"><h3 class="fy-hero__title">Lets get started!</h3><span class="fy-art fy-art--sm"><svg><use href="#i-flag"/></svg></span></div>
         <div class="fy-panel">
@@ -575,7 +576,7 @@
 
     <!-- Choose phone number sheet -->
     <div class="app-phone">
-      <div class="fy-screen backdrop"><div class="fy-hero"><h3 class="fy-hero__title">Lets get started!</h3></div></div>
+      <div class="fy-screen fy-screen--main backdrop"><div class="fy-hero"><h3 class="fy-hero__title">Lets get started!</h3></div></div>
       <div class="fy-scrim">
         <div class="fy-sheet" role="dialog" aria-label="Choose a phone number">
           <div class="fy-sheet__head fy-sheet__head--plain">
@@ -618,7 +619,7 @@
 
     <!-- AA intro -->
     <div class="app-phone">
-      <div class="fy-screen">
+      <div class="fy-screen fy-screen--main">
         <div class="statusbar"><span>5:13 PM</span><span>●●●</span></div>
         <div class="fy-appbar"><button class="fy-icon-btn" type="button" aria-label="Back"><svg><use href="#i-back"/></svg></button></div>
         <div class="fy-hero fy-hero--stacked" style="padding-top:0">
@@ -641,7 +642,7 @@
 
     <!-- FAQ sheet -->
     <div class="app-phone">
-      <div class="fy-screen backdrop"><div class="fy-hero"><h3 class="fy-hero__title">Analyze your finances</h3></div></div>
+      <div class="fy-screen fy-screen--main backdrop"><div class="fy-hero"><h3 class="fy-hero__title">Analyze your finances</h3></div></div>
       <div class="fy-scrim">
         <div class="fy-sheet" role="dialog" aria-label="FAQs" style="height:80%">
           <div class="fy-sheet__head" style="grid-template-columns:1fr auto;align-items:center">
@@ -691,7 +692,7 @@
 
     <!-- Consent overview -->
     <div class="app-phone">
-      <div class="fy-screen backdrop"><div class="fy-hero"><h3 class="fy-hero__title">Analyze your finances</h3></div></div>
+      <div class="fy-screen fy-screen--main backdrop"><div class="fy-hero"><h3 class="fy-hero__title">Analyze your finances</h3></div></div>
       <div class="fy-scrim">
         <div class="fy-sheet" role="dialog" aria-label="Consent overview">
           <div class="fy-sheet__head fy-sheet__head--plain fy-sheet__head--center" style="padding-top:var(--fy-space-4)">
@@ -718,7 +719,7 @@
 
     <!-- Generic error sheet -->
     <div class="app-phone">
-      <div class="fy-screen backdrop"><div class="fy-hero"><h3 class="fy-hero__title">Lets get started!</h3></div></div>
+      <div class="fy-screen fy-screen--main backdrop"><div class="fy-hero"><h3 class="fy-hero__title">Lets get started!</h3></div></div>
       <div class="fy-scrim">
         <div class="fy-sheet" role="alertdialog" aria-label="Error">
           <button class="fy-icon-btn fy-sheet__close" type="button" aria-label="Close"><svg><use href="#i-close"/></svg></button>
@@ -910,7 +911,7 @@
 
     <!-- Net worth home -->
     <div class="app-phone">
-      <div class="fy-screen">
+      <div class="fy-screen fy-screen--main">
         <div class="statusbar"><span>5:13 PM</span><span>●●●</span></div>
         <div style="flex:1;overflow:auto;display:grid;gap:var(--fy-space-4);align-content:start;padding:var(--fy-space-2) var(--fy-space-4) var(--fy-space-4)">
           <div style="display:grid;justify-items:center;gap:var(--fy-space-4)">
@@ -1006,7 +1007,7 @@
 
     <!-- Cashflow -->
     <div class="app-phone">
-      <div class="fy-screen">
+      <div class="fy-screen fy-screen--main">
         <div class="statusbar"><span>5:13 PM</span><span>●●●</span></div>
         <div style="flex:1;overflow:auto;padding:var(--fy-space-2) var(--fy-space-4) var(--fy-space-4);display:grid;gap:var(--fy-space-3);align-content:start">
           <div style="display:grid;justify-items:center;gap:var(--fy-space-3)">
@@ -1033,7 +1034,7 @@
 
     <!-- FIRE report -->
     <div class="app-phone">
-      <div class="fy-screen">
+      <div class="fy-screen fy-screen--main">
         <div class="statusbar"><span>5:13 PM</span><span>●●●</span></div>
         <div style="flex:1;overflow:auto;padding:0 var(--fy-space-4) var(--fy-space-4);display:grid;gap:var(--fy-space-4);align-content:start">
           <div class="fy-appbar" style="padding:0;margin:0 -8px"><button class="fy-icon-btn" type="button" aria-label="Back"><svg><use href="#i-back"/></svg></button><button class="fy-icon-btn" type="button" aria-label="About FIRE"><svg style="width:18px;height:18px"><use href="#i-info"/></svg></button></div>

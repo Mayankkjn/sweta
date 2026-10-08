@@ -22,7 +22,8 @@
   --fy-neutral-100: #F5F7F7;
   --fy-neutral-0:   #FFFFFF;
 
-  --fy-green-600: #2E7A4A;
+  --fy-green-700: #236B42;
+  --fy-green-600: #236B42;
   --fy-green-500: #4C9B66;
   --fy-green-200: #CCE6D4;
   --fy-green-50:  #EEF7F1;
@@ -34,7 +35,7 @@
   --fy-amber-50:  #F9F2EC;
   --fy-cream-50:  #F5F6F0;
 
-  --fy-gradient-green: linear-gradient(100deg, #216941 0%, #43915F 100%);
+  --fy-gradient-green: linear-gradient(94deg, #1F673F 1.66%, #57A870 149.87%);
   --fy-gradient-teal:  linear-gradient(100deg, #205558 0%, #166159 100%);
 
   /* ---------- Primitive: type ---------- */
@@ -59,13 +60,16 @@
   --fy-space-10: 40px;
   --fy-space-12: 48px;
 
-  --fy-radius-sm: 6px;
-  --fy-radius-md: 8px;
-  --fy-radius-lg: 12px;
+  --fy-radius-xs: 4px;
+  --fy-radius-sm: 8px;
+  --fy-radius-md: 12px;
+  --fy-radius-lg: 16px;
   --fy-radius-pill: 999px;
 
-  --fy-shadow-card: 0 1px 4px rgba(1, 35, 30, 0.08);
+  --fy-shadow-card: 0 4px 5px rgba(178, 178, 178, 0.24);
   --fy-shadow-raised: 0 4px 12px rgba(1, 35, 30, 0.12);
+  --fy-shadow-panel: 0 -6px 24px #E6EBEA;
+  --fy-scrim: rgba(0, 15, 13, 0.9);
 
   /* ---------- Semantic: colour ---------- */
   --fy-bg-canvas:  var(--fy-cream-50);
@@ -75,13 +79,15 @@
   --fy-bg-inverse: var(--fy-neutral-900);
   --fy-bg-brand:   var(--fy-green-500);
 
+  --fy-text-display:     var(--fy-primary-700);
   --fy-text-heading:     var(--fy-primary-800);
   --fy-text-primary:     var(--fy-neutral-900);
   --fy-text-secondary:   var(--fy-neutral-700);
   --fy-text-placeholder: var(--fy-neutral-500);
   --fy-text-disabled:    var(--fy-primary-300);
   --fy-text-inverse:     var(--fy-neutral-0);
-  --fy-text-link:        var(--fy-primary-900);
+  --fy-text-link:        var(--fy-green-700);
+  --fy-text-muted:       var(--fy-primary-500);
   --fy-text-brand:       var(--fy-green-600);
 
   --fy-border-default: var(--fy-neutral-300);
@@ -101,7 +107,7 @@
 
   /* ---------- Component ---------- */
   --fy-button-height: 48px;
-  --fy-button-secondary-border: #3B8757;
+  --fy-button-secondary-border: var(--fy-green-700);
   --fy-input-height: 40px;
   --fy-chip-height: 40px;
 }
@@ -215,3 +221,230 @@
 .fy-card { background: var(--fy-bg-surface); border-radius: var(--fy-radius-md); box-shadow: var(--fy-shadow-card); padding: var(--fy-space-4); }
 .fy-card--dashed { box-shadow: none; border: 1px dashed var(--fy-border-default); }
 .fy-list > * + * { border-top: 1px solid var(--fy-border-subtle); }
+
+/* =====================================================================
+ * App components — extracted from the Figma "Login flows" page
+ * (login, OTP, account aggregator, errors, app update).
+ * ===================================================================== */
+
+/* ---------- Screen scaffolding ---------- */
+.fy-screen {
+  position: relative; display: flex; flex-direction: column; overflow: hidden;
+  background: var(--fy-bg-canvas); color: var(--fy-text-primary); font-family: var(--fy-font);
+}
+.fy-appbar { display: flex; align-items: center; justify-content: space-between; min-height: 56px; padding: 0 var(--fy-space-2); }
+.fy-icon-btn {
+  display: inline-grid; place-items: center; width: 40px; height: 40px; padding: 0;
+  border: 0; border-radius: var(--fy-radius-pill); background: transparent; color: var(--fy-text-heading); cursor: pointer;
+}
+.fy-icon-btn:hover { background: var(--fy-bg-muted); }
+.fy-icon-btn:focus-visible { outline: 2px solid var(--fy-border-focus); outline-offset: 2px; }
+.fy-icon-btn svg { width: 22px; height: 22px; }
+
+/* Hero: big teal display title with an illustration slot. */
+.fy-hero { display: grid; grid-template-columns: 1fr auto; align-items: end; gap: var(--fy-space-3); padding: var(--fy-space-2) var(--fy-space-4) var(--fy-space-6); }
+.fy-hero--stacked { grid-template-columns: 1fr; }
+.fy-hero--center { grid-template-columns: 1fr; justify-items: center; text-align: center; }
+.fy-hero__title { margin: 0; font: var(--fy-weight-bold) 32px/39px var(--fy-font); color: var(--fy-text-display); text-wrap: balance; }
+.fy-hero__lede { margin: var(--fy-space-3) 0 0; font: var(--fy-weight-regular) 14px/1.5 var(--fy-font); color: var(--fy-text-heading); }
+
+/* Panel: white surface that rises over the hero. */
+.fy-panel {
+  flex: 1; display: flex; flex-direction: column; gap: var(--fy-space-4);
+  padding: var(--fy-space-6) var(--fy-space-4) var(--fy-space-4);
+  background: var(--fy-bg-surface); border-radius: var(--fy-radius-lg) var(--fy-radius-lg) 0 0; box-shadow: var(--fy-shadow-panel);
+}
+.fy-panel__title { margin: 0; font: var(--fy-weight-semibold) 20px/1.3 var(--fy-font); color: var(--fy-text-heading); }
+.fy-panel__sub   { margin: 4px 0 0; font: var(--fy-weight-regular) 12px/1.5 var(--fy-font); color: var(--fy-text-muted); }
+.fy-actions { display: grid; gap: var(--fy-space-3); margin-top: auto; }
+
+/* ---------- Bottom sheet ---------- */
+.fy-scrim { position: absolute; inset: 0; display: flex; align-items: flex-end; background: var(--fy-scrim); }
+.fy-sheet {
+  position: relative; display: flex; flex-direction: column; width: 100%; max-height: 92%; overflow: auto;
+  background: var(--fy-bg-surface); border-radius: var(--fy-radius-lg) var(--fy-radius-lg) 0 0;
+}
+.fy-sheet__head { display: grid; gap: var(--fy-space-2); padding: var(--fy-space-6) var(--fy-space-4) var(--fy-space-5); background: var(--fy-bg-canvas); }
+.fy-sheet__head--center { justify-items: center; text-align: center; }
+.fy-sheet__head--plain { background: var(--fy-bg-surface); }
+.fy-sheet__close { position: absolute; top: var(--fy-space-2); right: var(--fy-space-2); color: var(--fy-text-muted); }
+.fy-sheet__title { margin: 0; font: var(--fy-weight-bold) 24px/29px var(--fy-font); color: var(--fy-text-display); text-wrap: balance; }
+.fy-sheet__sub   { margin: 0; font: var(--fy-weight-regular) 14px/1.5 var(--fy-font); color: var(--fy-text-muted); }
+.fy-sheet__body {
+  display: grid; gap: var(--fy-space-3); padding: var(--fy-space-5) var(--fy-space-4);
+  background: var(--fy-bg-surface); border-radius: var(--fy-radius-lg) var(--fy-radius-lg) 0 0; margin-top: calc(var(--fy-space-3) * -1);
+}
+.fy-sheet__head--plain + .fy-sheet__body { margin-top: 0; }
+.fy-sheet__foot { display: grid; gap: var(--fy-space-3); padding: var(--fy-space-2) var(--fy-space-4) var(--fy-space-4); }
+
+/* Illustration slot: tinted disc that holds a 3D illustration or icon. */
+.fy-art { display: grid; place-items: center; width: 88px; height: 88px; border-radius: 50%; background: var(--fy-bg-canvas); color: var(--fy-primary-700); }
+.fy-art--sm { width: 56px; height: 56px; background: var(--fy-bg-surface); box-shadow: var(--fy-shadow-card); }
+.fy-art--error { background: var(--fy-error-subtle); color: var(--fy-error); }
+.fy-art--success { background: var(--fy-success-subtle); color: var(--fy-success-text); }
+.fy-art svg { width: 44%; height: 44%; }
+
+/* ---------- Phone number input ---------- */
+.fy-phone { display: grid; grid-template-columns: 68px minmax(0, 1fr); gap: var(--fy-space-2); }
+.fy-phone__country, .fy-phone__field {
+  height: 48px; border: 1px solid transparent; border-radius: var(--fy-radius-sm); background: var(--fy-bg-subtle);
+  transition: border-color .15s, background .15s;
+}
+.fy-phone__country { display: inline-flex; align-items: center; justify-content: center; gap: 6px; padding: 0; cursor: pointer; color: var(--fy-text-heading); }
+.fy-phone__field { display: flex; align-items: center; gap: var(--fy-space-2); padding: 0 var(--fy-space-3); }
+.fy-phone__field:focus-within { border-color: var(--fy-border-focus); background: var(--fy-bg-surface); }
+.fy-phone__code, .fy-phone__field input {
+  font: var(--fy-weight-semibold) 16px/1 var(--fy-font); letter-spacing: .04em; color: var(--fy-text-heading);
+}
+.fy-phone__field input { flex: 1; min-width: 0; width: 100%; height: 100%; border: 0; padding: 0; background: transparent; outline: none; }
+.fy-phone__field input::placeholder { font-weight: var(--fy-weight-regular); font-size: 12px; letter-spacing: 0; color: var(--fy-text-placeholder); }
+.fy-flag { width: 27px; height: 20px; border-radius: 3px; overflow: hidden; flex: none; box-shadow: 0 0 0 1px var(--fy-border-subtle); }
+
+/* ---------- OTP input ---------- */
+.fy-otp { display: grid; grid-template-columns: repeat(6, 40px); justify-content: space-between; gap: var(--fy-space-2); }
+.fy-otp__cell {
+  width: 40px; height: 48px; padding: 0; border: 0; border-bottom: 1px solid var(--fy-border-default); border-radius: 0;
+  background: transparent; text-align: center; outline: none;
+  font: var(--fy-weight-semibold) 24px/1 var(--fy-font); letter-spacing: .04em; color: var(--fy-text-heading);
+  caret-color: var(--fy-primary-700);
+}
+.fy-otp__cell:not(:placeholder-shown) { border-bottom-color: var(--fy-primary-700); }
+.fy-otp__cell:focus { border-bottom: 2px solid var(--fy-primary-700); }
+.fy-otp--error .fy-otp__cell { color: var(--fy-error-text); border-bottom-color: var(--fy-error); }
+.fy-field-error { margin: 0; font: var(--fy-weight-regular) 12px/1.5 var(--fy-font); color: var(--fy-error-text); }
+
+/* Small inline tag, e.g. "edit" next to the phone number. */
+.fy-tag {
+  display: inline-flex; align-items: center; padding: 2px 6px; border: 0; border-radius: var(--fy-radius-pill);
+  background: var(--fy-bg-canvas); font: var(--fy-weight-regular) 12px/16px var(--fy-font); color: var(--fy-text-heading); cursor: pointer;
+}
+.fy-recipient { display: flex; align-items: center; gap: 6px; font: var(--fy-weight-medium) 14px/1.4 var(--fy-font); color: var(--fy-text-heading); }
+
+/* Resend countdown line. */
+.fy-timer { margin: 0; font: var(--fy-weight-medium) 14px/1.4 var(--fy-font); color: var(--fy-text-heading); }
+.fy-timer b { font-weight: var(--fy-weight-bold); font-variant-numeric: tabular-nums; }
+
+/* Status pill: background progress or a completed step. */
+.fy-status-pill {
+  display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px; border-radius: var(--fy-radius-pill);
+  background: var(--fy-success-subtle); font: var(--fy-weight-medium) 12px/1.4 var(--fy-font); color: var(--fy-text-heading);
+}
+.fy-status-pill .fy-spinner { width: 12px; height: 12px; color: var(--fy-success-text); }
+.fy-status-pill svg { width: 14px; height: 14px; color: var(--fy-success); }
+
+/* Resend channel chips (SMS / Call / WhatsApp). */
+.fy-channels { display: flex; flex-wrap: wrap; gap: var(--fy-space-3); }
+.fy-channel {
+  display: inline-flex; align-items: center; gap: 4px; padding: 6px 10px;
+  border: 1px solid var(--fy-primary-400); border-radius: var(--fy-radius-pill); background: var(--fy-bg-subtle);
+  font: var(--fy-weight-medium) 12px/1.4 var(--fy-font); color: var(--fy-text-heading); cursor: pointer;
+}
+.fy-channel svg { width: 16px; height: 16px; }
+.fy-channel:hover { background: var(--fy-success-subtle); }
+.fy-channel:focus-visible { outline: 2px solid var(--fy-border-focus); outline-offset: 2px; }
+.fy-label { margin: 0; font: var(--fy-weight-medium) 14px/1.5 var(--fy-font); color: var(--fy-text-heading); }
+
+/* ---------- Option row (tappable list card) ---------- */
+.fy-option {
+  display: flex; align-items: center; gap: 10px; width: 100%; min-height: 54px; padding: 8px 10px 8px 16px;
+  border: 1px solid var(--fy-border-subtle); border-radius: var(--fy-radius-md); background: var(--fy-bg-surface); box-shadow: var(--fy-shadow-card);
+  font: var(--fy-weight-semibold) 16px/1.3 var(--fy-font); letter-spacing: .04em; color: var(--fy-text-heading); text-align: left; cursor: pointer;
+}
+.fy-option__label { flex: 1; min-width: 0; }
+.fy-option__trail { display: inline-flex; align-items: center; gap: 14px; color: var(--fy-text-heading); }
+.fy-option__trail > svg { width: 20px; height: 20px; }
+.fy-option--plain { font-weight: var(--fy-weight-medium); letter-spacing: 0; color: var(--fy-text-primary); }
+.fy-option:focus-visible { outline: 2px solid var(--fy-border-focus); outline-offset: 2px; }
+
+/* ---------- Account group (accordion card) ---------- */
+.fy-group { border: 1px solid var(--fy-border-subtle); border-radius: var(--fy-radius-md); background: var(--fy-bg-surface); box-shadow: var(--fy-shadow-card); }
+.fy-group > summary {
+  display: flex; align-items: center; gap: 10px; min-height: 54px; padding: 8px 14px 8px 16px; list-style: none; cursor: pointer;
+  font: var(--fy-weight-medium) 16px/1.3 var(--fy-font); color: var(--fy-text-primary);
+}
+.fy-group > summary::-webkit-details-marker { display: none; }
+.fy-group > summary .fy-chevron { margin-left: auto; transition: transform .2s; }
+.fy-group[open] > summary .fy-chevron { transform: rotate(180deg); }
+.fy-group__icon { display: grid; place-items: center; width: 28px; height: 28px; color: var(--fy-success); flex: none; }
+.fy-group__icon svg { width: 20px; height: 20px; }
+.fy-group__body { display: grid; gap: var(--fy-space-4); margin: 0 var(--fy-space-4); padding: var(--fy-space-4) 0 var(--fy-space-3) var(--fy-space-3); border-top: 1px dashed var(--fy-border-default); }
+.fy-group__more { justify-self: center; padding: 4px; border: 0; background: none; font: var(--fy-weight-semibold) 12px/1.4 var(--fy-font); color: var(--fy-text-link); cursor: pointer; }
+.fy-chevron { width: 20px; height: 20px; flex: none; color: var(--fy-text-heading); }
+
+/* Account row inside a group. */
+.fy-account { display: flex; align-items: center; gap: var(--fy-space-2); }
+.fy-account__text { display: grid; gap: 2px; min-width: 0; }
+.fy-account__name { font: var(--fy-weight-medium) 12px/1.4 var(--fy-font); color: var(--fy-text-primary); }
+.fy-account__meta { font: var(--fy-weight-regular) 10px/1.4 var(--fy-font); color: var(--fy-text-secondary); font-variant-numeric: tabular-nums; }
+.fy-account .fy-check { margin-left: auto; }
+.fy-logo {
+  display: grid; place-items: center; width: 36px; height: 36px; flex: none; border-radius: 50%;
+  border: 1px solid var(--fy-border-subtle); background: var(--fy-bg-surface);
+  font: var(--fy-weight-bold) 11px/1 var(--fy-font); color: var(--fy-text-heading);
+}
+.fy-logo--sm { width: 20px; height: 20px; font-size: 7px; border-color: #B2BBC6; }
+.fy-logo-stack { display: inline-flex; }
+.fy-logo-stack > * + * { margin-left: -8px; }
+
+/* Selection badge. */
+.fy-check { display: grid; place-items: center; width: 20px; height: 20px; flex: none; border-radius: 50%; background: var(--fy-primary-700); color: #fff; }
+.fy-check svg { width: 11px; height: 11px; }
+.fy-check--off { background: transparent; box-shadow: inset 0 0 0 1.5px var(--fy-border-default); }
+.fy-check--off svg { visibility: hidden; }
+
+/* ---------- Trust / feature list ---------- */
+.fy-features { display: grid; gap: var(--fy-space-4); margin: 0; padding: 0; list-style: none; }
+.fy-features li { display: flex; align-items: center; gap: 11px; font: var(--fy-weight-regular) 14px/1.4 var(--fy-font); color: var(--fy-text-heading); }
+.fy-features__icon { display: grid; place-items: center; width: 34px; height: 34px; flex: none; border-radius: 50%; background: var(--fy-success-subtle); color: var(--fy-success-text); }
+.fy-features__icon svg { width: 18px; height: 18px; }
+
+/* ---------- FAQ accordion ---------- */
+.fy-faq { display: grid; gap: var(--fy-space-1); }
+.fy-faq details { border-bottom: 1px solid var(--fy-border-subtle); }
+.fy-faq details[open] { border-bottom-color: transparent; }
+.fy-faq summary {
+  display: flex; align-items: center; justify-content: space-between; gap: var(--fy-space-3); padding: 12px 0; list-style: none; cursor: pointer;
+  font: var(--fy-weight-medium) 14px/1.4 var(--fy-font); color: var(--fy-text-heading);
+}
+.fy-faq summary::-webkit-details-marker { display: none; }
+.fy-faq summary .fy-chevron { width: 16px; height: 16px; transition: transform .2s; }
+.fy-faq details[open] summary .fy-chevron { transform: rotate(180deg); }
+.fy-faq__answer { display: grid; gap: var(--fy-space-3); margin-bottom: var(--fy-space-2); padding: 12px; border-radius: var(--fy-radius-sm); background: var(--fy-bg-canvas); }
+.fy-faq__answer p { margin: 0; font: var(--fy-weight-medium) 12px/25px var(--fy-font); color: var(--fy-text-muted); }
+
+/* Video card (thumbnail + title + duration). */
+.fy-video { display: flex; align-items: center; gap: var(--fy-space-3); padding: 12px 8px 12px 12px; border-radius: var(--fy-radius-sm); background: var(--fy-bg-surface); color: inherit; text-decoration: none; }
+.fy-video__thumb { position: relative; display: grid; place-items: center; width: 68px; height: 44px; flex: none; border-radius: var(--fy-radius-xs); background: linear-gradient(135deg, #0B2A3A, #164E5C); color: #fff; }
+.fy-video__thumb svg { width: 20px; height: 20px; }
+.fy-video__text { flex: 1; min-width: 0; display: grid; }
+.fy-video__title { font: var(--fy-weight-medium) 12px/16px var(--fy-font); color: var(--fy-text-primary); }
+.fy-video__time { font: var(--fy-weight-regular) 10px/20px var(--fy-font); color: var(--fy-text-secondary); font-variant-numeric: tabular-nums; }
+
+/* ---------- Stat tiles (consent terms) ---------- */
+.fy-stats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--fy-space-2); }
+.fy-stat { display: grid; padding: var(--fy-space-2); border-radius: var(--fy-radius-sm); background: var(--fy-bg-subtle); text-align: center; }
+.fy-stat__label { font: var(--fy-weight-regular) 10px/1.4 var(--fy-font); color: var(--fy-text-muted); }
+.fy-stat__value { font: var(--fy-weight-semibold) 12px/22px var(--fy-font); color: var(--fy-primary-900); }
+
+/* ---------- Status block (error / info / waiting / update) ---------- */
+.fy-status { display: grid; justify-items: center; gap: var(--fy-space-2); padding: var(--fy-space-6) var(--fy-space-6) var(--fy-space-4); text-align: center; }
+.fy-status--start { justify-items: start; text-align: left; }
+.fy-status__title { margin: var(--fy-space-3) 0 0; font: var(--fy-weight-bold) 24px/1.25 var(--fy-font); color: var(--fy-text-heading); text-wrap: balance; }
+.fy-status--display .fy-status__title { font-size: 32px; line-height: 39px; color: var(--fy-text-display); }
+.fy-status__body { margin: 0; max-width: 32ch; font: var(--fy-weight-regular) 14px/1.6 var(--fy-font); color: var(--fy-text-heading); }
+.fy-status__body b { font-weight: var(--fy-weight-semibold); }
+
+/* ---------- Small print ---------- */
+.fy-legal { margin: 0; font: var(--fy-weight-regular) 10px/1.45 var(--fy-font); color: var(--fy-text-secondary); text-align: center; }
+.fy-legal a, .fy-link { color: var(--fy-text-link); text-decoration: underline; text-underline-offset: 2px; font-weight: var(--fy-weight-medium); }
+.fy-powered { display: flex; align-items: center; justify-content: center; gap: 4px; margin: 0; font: var(--fy-weight-regular) 10px/1.4 var(--fy-font); color: var(--fy-text-secondary); }
+.fy-powered__brand { font-weight: var(--fy-weight-semibold); color: var(--fy-error); }
+
+/* Account identifier chip, e.g. a bank logo and "XX1231". */
+.fy-id-chip { display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px; border-radius: var(--fy-radius-pill); background: var(--fy-bg-surface); box-shadow: var(--fy-shadow-card); font: var(--fy-weight-regular) 12px/1.4 var(--fy-font); color: var(--fy-text-primary); }
+.fy-step { font: var(--fy-weight-regular) 10px/1.4 var(--fy-font); color: var(--fy-text-secondary); }
+
+@media (prefers-reduced-motion: reduce) {
+  .fy-spinner { animation-duration: 2.4s; }
+  .fy-group > summary .fy-chevron, .fy-faq summary .fy-chevron { transition: none; }
+}

@@ -90,6 +90,14 @@
 
   footer { text-align: center; padding: var(--fy-space-8) var(--fy-space-4); font-size: 11px; color: var(--fy-text-secondary); border-top: 1px solid var(--fy-border-subtle); }
 
+  /* app flows */
+  .app-phone { position: relative; width: 340px; max-width: 100%; height: 720px; border-radius: 24px; overflow: hidden; box-shadow: var(--fy-shadow-raised); background: var(--fy-bg-canvas); }
+  .app-phone > .fy-screen { height: 100%; }
+  .statusbar { display: flex; justify-content: space-between; padding: 12px 18px 4px; font-size: 11px; font-weight: 600; color: var(--fy-text-primary); }
+  .backdrop { filter: saturate(.8); }
+  .app-phone .fy-btn--text { display: inline-flex; align-items: center; gap: 4px; }
+  .specimen .fy-status { padding: var(--fy-space-2); }
+
   @media (max-width: 520px) {
     .wordmark { font-size: 44px; }
     .section-title { font-size: 24px; }
@@ -98,6 +106,34 @@
 </style>
 </head>
 <body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="i-back" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12H4m6-6-6 6 6 6"/></symbol>
+    <symbol id="i-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></symbol>
+    <symbol id="i-chev-down" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></symbol>
+    <symbol id="i-chev-right" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m9 6 6 6-6 6"/></symbol>
+    <symbol id="i-check" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m2.5 6.2 2.3 2.3 4.7-4.8"/></symbol>
+    <symbol id="i-check-circle" viewBox="0 0 16 16"><circle cx="8" cy="8" r="7" fill="currentColor"/><path d="m4.8 8.2 2.1 2.1 4.3-4.4" fill="none" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-sms" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"><rect x="2" y="2" width="12" height="10" rx="2"/><path d="M5 12v2.2L8 12M5 5.5h6M5 8.5h4" stroke-linecap="round"/></symbol>
+    <symbol id="i-phone" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"><path d="M3.2 2.5h2.3l1.1 2.9-1.4 1a7.5 7.5 0 0 0 4.4 4.4l1-1.4 2.9 1.1v2.3a1.2 1.2 0 0 1-1.3 1.2A11.3 11.3 0 0 1 2 3.8a1.2 1.2 0 0 1 1.2-1.3Z"/></symbol>
+    <symbol id="i-chat" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"><path d="M8 2a6 6 0 0 0-5.2 9L2 14l3.1-.8A6 6 0 1 0 8 2Z"/><path d="M6 6.2c.2 1.6 1.6 3.1 3.6 3.6l.8-.9-1-.6-.6.4a3 3 0 0 1-1.6-1.6l.4-.6-.6-1Z" fill="currentColor" stroke="none"/></symbol>
+    <symbol id="i-mobile" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3"><rect x="4" y="1.5" width="8" height="13" rx="1.6"/><path d="M7 12h2" stroke-linecap="round"/></symbol>
+    <symbol id="i-shield" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M12 3 4.5 6v5.5c0 4.6 3.2 8.2 7.5 9.5 4.3-1.3 7.5-4.9 7.5-9.5V6Z"/><path d="m8.8 12 2.2 2.2 4.2-4.4" stroke-linecap="round"/></symbol>
+    <symbol id="i-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="5" y="10.5" width="14" height="10" rx="2"/><path d="M8 10.5V8a4 4 0 0 1 8 0v2.5"/></symbol>
+    <symbol id="i-share" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 5l6 6-6 6"/><path d="M20 11h-8a7 7 0 0 0-7 7v1"/></symbol>
+    <symbol id="i-eye-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M3 3l18 18M10.6 6.1A9.8 9.8 0 0 1 12 6c5 0 8.5 4.5 9.5 6a17 17 0 0 1-2.9 3.4M6.5 7.6A16 16 0 0 0 2.5 12c1 1.5 4.5 6 9.5 6a9 9 0 0 0 4.2-1"/><path d="M9.9 10a3 3 0 0 0 4.1 4.2"/></symbol>
+    <symbol id="i-bank" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M3 9.5 12 4l9 5.5M4.5 20h15M6 10.5v7M10 10.5v7M14 10.5v7M18 10.5v7"/></symbol>
+    <symbol id="i-sprout" viewBox="0 0 24 24" fill="currentColor"><path d="M11.2 21v-6.4C6.5 14.6 3 11.6 3 6.5c4.8 0 8 2.6 8.7 6.6.8-3.9 4-6.8 9.3-6.8 0 5.4-3.5 8.4-8.2 8.4V21Z"/></symbol>
+    <symbol id="i-chart" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M6 20V9M12 20V4M18 20v-7"/></symbol>
+    <symbol id="i-rupee" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M9 8h6M9 11h6M11.5 8a2.5 2.5 0 0 1 0 5.5H9.5l4 3.5"/></symbol>
+    <symbol id="i-alert" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9.5"/><path d="M12 7.5v5.5M12 16.5v.1"/></symbol>
+    <symbol id="i-flag" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M6 21V4M6 4.5h11l-2.5 4 2.5 4H6"/></symbol>
+    <symbol id="i-doc" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M7 3h7l4 4v14H7Z"/><path d="m9.5 14 2 2 4-4"/></symbol>
+    <symbol id="i-play" viewBox="0 0 20 20"><circle cx="10" cy="10" r="9" fill="#fff"/><path d="M8.3 6.6v6.8L13.6 10Z" fill="#0B2A3A"/></symbol>
+    <symbol id="i-question" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 9a3 3 0 1 1 4.2 2.8c-.8.4-1.2 1-1.2 1.8v.9M12 17.5v.1"/></symbol>
+    <symbol id="i-in-flag" viewBox="0 0 27 20"><rect width="27" height="20" fill="#fff"/><rect width="27" height="6.67" fill="#FF9933"/><rect y="13.33" width="27" height="6.67" fill="#138808"/><circle cx="13.5" cy="10" r="2.3" fill="none" stroke="#000080" stroke-width=".7"/></symbol>
+  </defs>
+</svg>
 
 <header class="masthead">
   <div class="masthead__inner">
@@ -110,7 +146,7 @@
   <div class="toc__inner">
     <a href="#colour">Colour</a><a href="#type">Typography</a><a href="#layout">Space &amp; shape</a>
     <a href="#buttons">Buttons</a><a href="#inputs">Inputs</a><a href="#selection">Selection</a>
-    <a href="#screens">Screens</a><a href="#a11y">Accessibility</a><a href="#notes">Notes</a>
+    <a href="#components">Components</a><a href="#flows">Flows</a><a href="#screens">Screens</a><a href="#a11y">Accessibility</a><a href="#notes">Notes</a>
   </div>
 </nav>
 
@@ -123,7 +159,7 @@
   <div id="swatch-groups"></div>
   <h3 class="group-title">Gradients</h3>
   <div class="swatches">
-    <div class="swatch"><div class="swatch__chip" style="background:var(--fy-gradient-green)"></div><div class="swatch__meta"><span class="swatch__name">gradient-green</span><span class="swatch__hex">#216941 → #43915F</span><span class="swatch__use">Primary buttons</span></div></div>
+    <div class="swatch"><div class="swatch__chip" style="background:var(--fy-gradient-green)"></div><div class="swatch__meta"><span class="swatch__name">gradient-green</span><span class="swatch__hex">#1F673F → #57A870</span><span class="swatch__use">Primary buttons</span></div></div>
     <div class="swatch"><div class="swatch__chip" style="background:var(--fy-gradient-teal)"></div><div class="swatch__meta"><span class="swatch__name">gradient-teal</span><span class="swatch__hex">#205558 → #166159</span><span class="swatch__use">Active segmented toggle</span></div></div>
   </div>
 
@@ -159,14 +195,14 @@
 <!-- ============ LAYOUT ============ -->
 <section id="layout">
   <h2 class="section-title">Space &amp; shape</h2>
-  <p class="section-lede">A 4px grid. Screens use a 16px side gutter (<code>space-4</code>) and 12px between stacked cards (<code>space-3</code>). Corners stay small: 6px on controls, 8px on cards.</p>
+  <p class="section-lede">A 4px grid. Screens use a 16px side gutter (<code>space-4</code>) and 12px between stacked cards (<code>space-3</code>). Corners: 8px on controls, 12px on cards and list rows, 16px on sheets and panels.</p>
   <h3 class="group-title">Spacing</h3>
   <div class="scale" id="space-scale"></div>
   <h3 class="group-title">Radius</h3>
   <div class="tiles">
-    <div class="tile" style="border-radius:var(--fy-radius-sm)">radius-sm<br>6px · controls</div>
-    <div class="tile" style="border-radius:var(--fy-radius-md)">radius-md<br>8px · cards</div>
-    <div class="tile" style="border-radius:var(--fy-radius-lg)">radius-lg<br>12px · groups</div>
+    <div class="tile" style="border-radius:var(--fy-radius-sm)">radius-sm<br>8px · controls</div>
+    <div class="tile" style="border-radius:var(--fy-radius-md)">radius-md<br>12px · cards</div>
+    <div class="tile" style="border-radius:var(--fy-radius-lg)">radius-lg<br>16px · sheets</div>
     <div class="tile" style="border-radius:var(--fy-radius-pill);height:44px;width:160px">radius-pill · toggle</div>
   </div>
   <h3 class="group-title">Elevation</h3>
@@ -179,7 +215,7 @@
 <!-- ============ BUTTONS ============ -->
 <section id="buttons">
   <h2 class="section-title">Buttons</h2>
-  <p class="section-lede">Full-width, 48px tall, 6px radius, label in Subtitle 1 (Semibold 16). Use one primary per screen, pinned to the bottom. Pair it with a secondary for a lesser action (“Edit All” over “Looks Good”).</p>
+  <p class="section-lede">Full-width, 48px tall, 8px radius, label in Subtitle 1 (Semibold 16). Use one primary per screen, pinned to the bottom. Pair it with a secondary for a lesser action (“Edit All” over “Looks Good”).</p>
   <div class="specimens">
     <div class="specimen">
       <span class="specimen__label">Emphasis</span>
@@ -205,7 +241,7 @@
     <thead><tr><th>Variant</th><th>Fill</th><th>Border</th><th>Label</th></tr></thead>
     <tbody>
       <tr><td>Primary</td><td>gradient-green</td><td>—</td><td>text-inverse</td></tr>
-      <tr><td>Secondary</td><td>bg-surface</td><td>#3B8757</td><td>text-brand (green-600)</td></tr>
+      <tr><td>Secondary</td><td>bg-surface</td><td>green-700 #236B42</td><td>text-brand (green-700)</td></tr>
       <tr><td>Disabled</td><td>bg-muted (#E6EBEA)</td><td>—</td><td>text-disabled</td></tr>
       <tr><td>Secondary disabled</td><td>bg-surface</td><td>border-strong</td><td>text-disabled</td></tr>
       <tr><td>Danger</td><td>error (#C85267)</td><td>—</td><td>text-inverse</td></tr>
@@ -218,7 +254,7 @@
 <!-- ============ INPUTS ============ -->
 <section id="inputs">
   <h2 class="section-title">Input fields</h2>
-  <p class="section-lede">40px tall, 1px <code>border-default</code>, 6px radius. Label sits 8px above in Subtitle 3 (Medium 12). Values use Body 2. Focus turns the border green with a soft green ring. Errors turn border, value and helper text red.</p>
+  <p class="section-lede">Outlined form fields: 40px tall, 1px <code>border-default</code>, 8px radius. The login flows use the filled 48px <a href="#components" class="fy-link">phone input</a> instead. Label sits 8px above in Subtitle 3 (Medium 12). Values use Body 2. Focus turns the border green with a soft green ring. Errors turn border, value and helper text red.</p>
   <div class="specimens">
     <div class="specimen">
       <span class="specimen__label">Empty</span>
@@ -338,6 +374,344 @@
   </div>
 </section>
 
+<!-- ============ APP COMPONENTS ============ -->
+<section id="components">
+  <h2 class="section-title">App components</h2>
+  <p class="section-lede">Taken from the 50 screens on the Figma page “Login flows”: login, OTP, account aggregator (AA), errors and app update. Each component below appears on at least two screens. Illustrations are shown as tinted icon slots because the 3D artwork lives in Figma.</p>
+
+  <h3 class="group-title">Inventory</h3>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Component</th><th>Class</th><th>Variants / states</th><th>Seen in</th></tr></thead>
+    <tbody>
+      <tr><td>Hero header</td><td><code>.fy-hero</code></td><td>art right · stacked · centred</td><td>Login, Verify OTP, AA intro, Fetch accounts</td></tr>
+      <tr><td>Content panel</td><td><code>.fy-panel</code></td><td>with or without keypad</td><td>Login, all OTP screens</td></tr>
+      <tr><td>Bottom sheet</td><td><code>.fy-sheet</code></td><td>cream or plain head · centred · list, form, status, consent</td><td>Choose number, errors, FAQ, AA login, consent, decline</td></tr>
+      <tr><td>Phone input</td><td><code>.fy-phone</code></td><td>empty · filled · focused</td><td>Login, AA phone entry</td></tr>
+      <tr><td>OTP input</td><td><code>.fy-otp</code></td><td>empty · typing · filled · error</td><td>Manual, auto-fetch, resend, AA login</td></tr>
+      <tr><td>Edit tag</td><td><code>.fy-tag</code></td><td>—</td><td>Every OTP screen</td></tr>
+      <tr><td>Retry timer</td><td><code>.fy-timer</code></td><td>“Retry in” · “Retrying in”</td><td>Every OTP screen</td></tr>
+      <tr><td>Status pill</td><td><code>.fy-status-pill</code></td><td>progress (spinner) · done (check)</td><td>Auto-fetch, resend sent</td></tr>
+      <tr><td>Channel chips</td><td><code>.fy-channel</code></td><td>SMS · Call · WhatsApp</td><td>Resend OTP</td></tr>
+      <tr><td>Option row</td><td><code>.fy-option</code></td><td>flag · icon · logo stack · chevron or check</td><td>Choose number, collapsed account groups</td></tr>
+      <tr><td>Account group</td><td><code>.fy-group</code></td><td>collapsed · expanded · view all / less</td><td>Self discovery</td></tr>
+      <tr><td>Account row</td><td><code>.fy-account</code></td><td>selected · unselected</td><td>Self discovery</td></tr>
+      <tr><td>Feature list</td><td><code>.fy-features</code></td><td>—</td><td>AA intro</td></tr>
+      <tr><td>FAQ accordion</td><td><code>.fy-faq</code></td><td>closed · text + video · video only</td><td>FAQ sheet (5 states)</td></tr>
+      <tr><td>Video card</td><td><code>.fy-video</code></td><td>—</td><td>FAQ answers</td></tr>
+      <tr><td>Stat tiles</td><td><code>.fy-stats</code></td><td>3-up</td><td>Consent overview</td></tr>
+      <tr><td>Status block</td><td><code>.fy-status</code></td><td>error · info · waiting · update (centred or left)</td><td>Generic error, OTP error, not in India, loader, app update ×2</td></tr>
+      <tr><td>Small print</td><td><code>.fy-legal</code>, <code>.fy-powered</code></td><td>—</td><td>Login, self discovery, consent</td></tr>
+      <tr><td>Account ID chip</td><td><code>.fy-id-chip</code></td><td>with step count (“1 of 3”)</td><td>AA bank authorisation</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="specimens" style="margin-top:var(--fy-space-8)">
+    <div class="specimen">
+      <span class="specimen__label">Phone input</span>
+      <div class="fy-phone">
+        <button class="fy-phone__country" type="button" aria-label="Country: India"><svg class="fy-flag"><use href="#i-in-flag"/></svg><svg width="16" height="16"><use href="#i-chev-down"/></svg></button>
+        <label class="fy-phone__field"><span class="fy-phone__code">+91</span><input id="ph-empty" inputmode="numeric" placeholder="Enter 10 digit phone number" aria-label="Phone number" /></label>
+      </div>
+      <div class="fy-phone">
+        <button class="fy-phone__country" type="button" aria-label="Country: India"><svg class="fy-flag"><use href="#i-in-flag"/></svg><svg width="16" height="16"><use href="#i-chev-down"/></svg></button>
+        <label class="fy-phone__field"><span class="fy-phone__code">+91</span><input id="ph-filled" inputmode="numeric" value="8876273731" aria-label="Phone number" /></label>
+      </div>
+      <p class="fy-legal">By clicking on continue you agree to our <a href="#components">T&amp;C</a> and allow ThinkFinny Tech Labs to fetch your credit report using credit bureau</p>
+    </div>
+
+    <div class="specimen">
+      <span class="specimen__label">OTP input</span>
+      <div class="fy-recipient">+91 8876273731 <button class="fy-tag" type="button">edit</button></div>
+      <div class="fy-otp" data-otp>
+        <input class="fy-otp__cell" id="otp-a1" inputmode="numeric" maxlength="1" placeholder=" " value="1" aria-label="Digit 1" />
+        <input class="fy-otp__cell" id="otp-a2" inputmode="numeric" maxlength="1" placeholder=" " value="2" aria-label="Digit 2" />
+        <input class="fy-otp__cell" id="otp-a3" inputmode="numeric" maxlength="1" placeholder=" " aria-label="Digit 3" />
+        <input class="fy-otp__cell" id="otp-a4" inputmode="numeric" maxlength="1" placeholder=" " aria-label="Digit 4" />
+        <input class="fy-otp__cell" id="otp-a5" inputmode="numeric" maxlength="1" placeholder=" " aria-label="Digit 5" />
+        <input class="fy-otp__cell" id="otp-a6" inputmode="numeric" maxlength="1" placeholder=" " aria-label="Digit 6" />
+      </div>
+      <p class="fy-timer">Didn’t receive it? Retry in <b>00:12</b></p>
+      <span class="fy-status-pill"><span class="fy-spinner"></span>Auto fetching OTP</span>
+      <span class="specimen__label">Error</span>
+      <div class="fy-otp fy-otp--error">
+        <input class="fy-otp__cell" id="otp-e1" value="1" placeholder=" " aria-label="Digit 1" aria-invalid="true" /><input class="fy-otp__cell" id="otp-e2" value="2" placeholder=" " aria-label="Digit 2" aria-invalid="true" /><input class="fy-otp__cell" id="otp-e3" value="5" placeholder=" " aria-label="Digit 3" aria-invalid="true" /><input class="fy-otp__cell" id="otp-e4" value="2" placeholder=" " aria-label="Digit 4" aria-invalid="true" /><input class="fy-otp__cell" id="otp-e5" value="6" placeholder=" " aria-label="Digit 5" aria-invalid="true" /><input class="fy-otp__cell" id="otp-e6" value="9" placeholder=" " aria-label="Digit 6" aria-invalid="true" />
+      </div>
+      <p class="fy-field-error">Entered OTP is incorrect, please retry.</p>
+    </div>
+
+    <div class="specimen">
+      <span class="specimen__label">Resend channels</span>
+      <p class="fy-label">Resend OTP via</p>
+      <div class="fy-channels">
+        <button class="fy-channel" type="button"><svg><use href="#i-sms"/></svg>SMS</button>
+        <button class="fy-channel" type="button"><svg><use href="#i-phone"/></svg>Call</button>
+        <button class="fy-channel" type="button"><svg><use href="#i-chat"/></svg>WhatsApp</button>
+      </div>
+      <span class="fy-status-pill"><svg><use href="#i-check-circle"/></svg>OTP sent via SMS</span>
+      <span class="specimen__label">Account ID chip</span>
+      <div><span class="fy-id-chip"><span class="fy-logo fy-logo--sm" style="color:var(--fy-error)">IC</span>XX1231</span></div>
+      <span class="fy-step">1 of 3</span>
+    </div>
+  </div>
+
+  <div class="specimens" style="margin-top:var(--fy-space-6)">
+    <div class="specimen">
+      <span class="specimen__label">Option rows</span>
+      <button class="fy-option" type="button"><svg class="fy-flag"><use href="#i-in-flag"/></svg><span class="fy-option__label">8876273731</span><span class="fy-option__trail"><svg><use href="#i-chev-right"/></svg></span></button>
+      <button class="fy-option fy-option--plain" type="button"><span class="fy-group__icon"><svg><use href="#i-sprout"/></svg></span><span class="fy-option__label">Mutual funds</span><span class="fy-option__trail"><span class="fy-logo-stack"><span class="fy-logo fy-logo--sm">CA</span><span class="fy-logo fy-logo--sm" style="color:var(--fy-primary-700)">KF</span></span><svg><use href="#i-chev-down"/></svg></span></button>
+      <button class="fy-option fy-option--plain" type="button"><span class="fy-group__icon"><svg><use href="#i-rupee"/></svg></span><span class="fy-option__label">NPS</span><span class="fy-option__trail"><span class="fy-check"><svg><use href="#i-check"/></svg></span></span></button>
+    </div>
+
+    <div class="specimen">
+      <span class="specimen__label">Account group</span>
+      <details class="fy-group" open>
+        <summary><span class="fy-group__icon"><svg><use href="#i-bank"/></svg></span>Bank accounts<svg class="fy-chevron"><use href="#i-chev-down"/></svg></summary>
+        <div class="fy-group__body">
+          <div class="fy-account"><span class="fy-logo" style="color:#B02A30">IC</span><span class="fy-account__text"><span class="fy-account__name">ICICI bank</span><span class="fy-account__meta">Savings ••••734</span></span><span class="fy-check"><svg><use href="#i-check"/></svg></span></div>
+          <div class="fy-account"><span class="fy-logo" style="color:#B02A30">IC</span><span class="fy-account__text"><span class="fy-account__name">ICICI bank</span><span class="fy-account__meta">Fixed deposit ••••124</span></span><span class="fy-check"><svg><use href="#i-check"/></svg></span></div>
+          <div class="fy-account"><span class="fy-logo" style="color:#1F3A93">KO</span><span class="fy-account__text"><span class="fy-account__name">Kotak bank</span><span class="fy-account__meta">Savings ••••133</span></span><span class="fy-check fy-check--off"><svg><use href="#i-check"/></svg></span></div>
+          <button class="fy-group__more" type="button">View all</button>
+        </div>
+      </details>
+    </div>
+
+    <div class="specimen">
+      <span class="specimen__label">Feature list</span>
+      <ul class="fy-features">
+        <li><span class="fy-features__icon"><svg><use href="#i-shield"/></svg></span>RBI Authorised Account Aggregator</li>
+        <li><span class="fy-features__icon"><svg><use href="#i-lock"/></svg></span>Cannot read or store your data</li>
+        <li><span class="fy-features__icon"><svg><use href="#i-share"/></svg></span>Share only what you want</li>
+        <li><span class="fy-features__icon"><svg><use href="#i-eye-off"/></svg></span>Will not be shared with third party</li>
+      </ul>
+      <span class="specimen__label">Stat tiles</span>
+      <div class="fy-stats">
+        <div class="fy-stat"><span class="fy-stat__label">Finance updates</span><span class="fy-stat__value">Daily</span></div>
+        <div class="fy-stat"><span class="fy-stat__label">Valid till</span><span class="fy-stat__value">Feb 2028</span></div>
+        <div class="fy-stat"><span class="fy-stat__label">Access period</span><span class="fy-stat__value">12 months</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="specimens" style="margin-top:var(--fy-space-6)">
+    <div class="specimen">
+      <span class="specimen__label">FAQ accordion · video card</span>
+      <div class="fy-faq">
+        <details open>
+          <summary>What is account aggregator?<svg class="fy-chevron"><use href="#i-chev-down"/></svg></summary>
+          <div class="fy-faq__answer">
+            <p>An Account Aggregator (AA) is a financial data-sharing framework that lets you share information from banks, insurers and mutual funds with consent, securely and transparently.</p>
+            <a class="fy-video" href="#components"><span class="fy-video__thumb"><svg><use href="#i-play"/></svg></span><span class="fy-video__text"><span class="fy-video__title">What is account aggregator?</span><span class="fy-video__time">1m : 20s</span></span><svg class="fy-chevron" style="width:16px;height:16px"><use href="#i-chev-right"/></svg></a>
+          </div>
+        </details>
+        <details><summary>How do we protect your financial data?<svg class="fy-chevron"><use href="#i-chev-down"/></svg></summary><div class="fy-faq__answer"><p>Data moves through an RBI-licensed aggregator, encrypted end to end. Finny never sees your bank login.</p></div></details>
+        <details><summary>How will the data be fetched?<svg class="fy-chevron"><use href="#i-chev-down"/></svg></summary><div class="fy-faq__answer"><p>After you give consent, the aggregator fetches statements from each institution you pick.</p></div></details>
+      </div>
+    </div>
+
+    <div class="specimen">
+      <span class="specimen__label">Status block · error</span>
+      <div class="fy-status">
+        <span class="fy-art fy-art--error"><svg><use href="#i-alert"/></svg></span>
+        <p class="fy-status__title">Oops!</p>
+        <p class="fy-status__body">We couldn’t fetch the OTP due to a technical error. Please retry!</p>
+      </div>
+      <span class="specimen__label">Status block · info</span>
+      <div class="fy-status">
+        <span class="fy-art"><svg><use href="#i-flag"/></svg></span>
+        <p class="fy-status__title">Will serve you soon!</p>
+        <p class="fy-status__body">We currently support only <b>Indian users</b> and <b>Indian mobile</b> numbers.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FLOWS ============ -->
+<section id="flows">
+  <h2 class="section-title">Flows rebuilt from components</h2>
+  <p class="section-lede">Eight Figma screens built only from the classes above, to check that the library covers them. Tap the FAQ questions and account group to try the open and closed states.</p>
+  <div class="phones">
+
+    <!-- Login -->
+    <div class="app-phone">
+      <div class="fy-screen">
+        <div class="statusbar"><span>5:13 PM</span><span>●●●</span></div>
+        <div class="fy-hero"><h3 class="fy-hero__title">Lets get started!</h3><span class="fy-art fy-art--sm"><svg><use href="#i-flag"/></svg></span></div>
+        <div class="fy-panel">
+          <div><p class="fy-panel__title">Enter your number</p><p class="fy-panel__sub">Use your phone number registered with PAN</p></div>
+          <div class="fy-phone">
+            <button class="fy-phone__country" type="button" aria-label="Country: India"><svg class="fy-flag"><use href="#i-in-flag"/></svg><svg width="16" height="16"><use href="#i-chev-down"/></svg></button>
+            <label class="fy-phone__field"><span class="fy-phone__code">+91</span><input id="flow-phone" inputmode="numeric" value="8876273731" aria-label="Phone number" /></label>
+          </div>
+          <div class="fy-actions">
+            <button class="fy-btn fy-btn--primary" type="button">Continue</button>
+            <p class="fy-legal">By clicking on continue you agree to our <a href="#flows">T&amp;C</a> and allow ThinkFinny Tech Labs to fetch your credit report using credit bureau</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Choose phone number sheet -->
+    <div class="app-phone">
+      <div class="fy-screen backdrop"><div class="fy-hero"><h3 class="fy-hero__title">Lets get started!</h3></div></div>
+      <div class="fy-scrim">
+        <div class="fy-sheet" role="dialog" aria-label="Choose a phone number">
+          <div class="fy-sheet__head fy-sheet__head--plain">
+            <button class="fy-icon-btn fy-sheet__close" type="button" aria-label="Close"><svg><use href="#i-close"/></svg></button>
+            <span class="fy-art fy-art--sm"><svg><use href="#i-mobile"/></svg></span>
+            <p class="fy-sheet__title">Choose a phone number</p>
+            <p class="fy-sheet__sub">Select phone number registered with PAN</p>
+          </div>
+          <div class="fy-sheet__body">
+            <button class="fy-option" type="button"><svg class="fy-flag"><use href="#i-in-flag"/></svg><span class="fy-option__label">8876273731</span><span class="fy-option__trail"><svg><use href="#i-chev-right"/></svg></span></button>
+            <button class="fy-option" type="button"><svg class="fy-flag"><use href="#i-in-flag"/></svg><span class="fy-option__label">8726428274</span><span class="fy-option__trail"><svg><use href="#i-chev-right"/></svg></span></button>
+            <button class="fy-btn fy-btn--text" type="button" style="justify-self:center;text-decoration:none;font-size:14px;color:var(--fy-text-link)"><svg width="16" height="16"><use href="#i-mobile"/></svg>Use another number</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Verify OTP: error + resend -->
+    <div class="app-phone">
+      <div class="fy-screen">
+        <div class="statusbar"><span>5:13 PM</span><span>●●●</span></div>
+        <div class="fy-appbar"><button class="fy-icon-btn" type="button" aria-label="Back"><svg><use href="#i-back"/></svg></button></div>
+        <div class="fy-hero" style="padding-top:0"><h3 class="fy-hero__title">Verify your number</h3><span class="fy-art fy-art--sm"><svg><use href="#i-mobile"/></svg></span></div>
+        <div class="fy-panel">
+          <div><p class="fy-panel__title">Enter OTP sent to</p><div class="fy-recipient">+91 8876273731 <button class="fy-tag" type="button">edit</button></div></div>
+          <div class="fy-otp fy-otp--error">
+            <input class="fy-otp__cell" id="f-otp1" value="1" placeholder=" " aria-label="Digit 1" aria-invalid="true" /><input class="fy-otp__cell" id="f-otp2" value="2" placeholder=" " aria-label="Digit 2" aria-invalid="true" /><input class="fy-otp__cell" id="f-otp3" value="5" placeholder=" " aria-label="Digit 3" aria-invalid="true" /><input class="fy-otp__cell" id="f-otp4" value="2" placeholder=" " aria-label="Digit 4" aria-invalid="true" /><input class="fy-otp__cell" id="f-otp5" value="6" placeholder=" " aria-label="Digit 5" aria-invalid="true" /><input class="fy-otp__cell" id="f-otp6" value="9" placeholder=" " aria-label="Digit 6" aria-invalid="true" />
+          </div>
+          <p class="fy-field-error" style="margin-top:-8px">Entered OTP is incorrect, please retry.</p>
+          <p class="fy-label">Resend OTP via</p>
+          <div class="fy-channels">
+            <button class="fy-channel" type="button"><svg><use href="#i-sms"/></svg>SMS</button>
+            <button class="fy-channel" type="button"><svg><use href="#i-phone"/></svg>Call</button>
+            <button class="fy-channel" type="button"><svg><use href="#i-chat"/></svg>WhatsApp</button>
+          </div>
+          <div class="fy-actions"><button class="fy-btn fy-btn--primary" type="button" disabled>Verify</button></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- AA intro -->
+    <div class="app-phone">
+      <div class="fy-screen">
+        <div class="statusbar"><span>5:13 PM</span><span>●●●</span></div>
+        <div class="fy-appbar"><button class="fy-icon-btn" type="button" aria-label="Back"><svg><use href="#i-back"/></svg></button></div>
+        <div class="fy-hero fy-hero--stacked" style="padding-top:0">
+          <div><h3 class="fy-hero__title">Let’s analyse your data..</h3><p class="fy-hero__lede">We will be fetching your bank accounts &amp; investments using RBI authorised entity</p></div>
+        </div>
+        <div style="padding:0 var(--fy-space-4);flex:1;display:flex;flex-direction:column;gap:var(--fy-space-4)">
+          <ul class="fy-features">
+            <li><span class="fy-features__icon"><svg><use href="#i-shield"/></svg></span>RBI Authorised Account Aggregator</li>
+            <li><span class="fy-features__icon"><svg><use href="#i-lock"/></svg></span>Cannot read or store your data</li>
+            <li><span class="fy-features__icon"><svg><use href="#i-share"/></svg></span>Share only what you want</li>
+            <li><span class="fy-features__icon"><svg><use href="#i-eye-off"/></svg></span>Will not be shared with third party</li>
+          </ul>
+          <div class="fy-actions" style="padding-bottom:var(--fy-space-4)">
+            <p class="fy-timer" style="text-align:center">Questions? Browse through our <a class="fy-link" href="#flows">FAQs</a></p>
+            <button class="fy-btn fy-btn--primary" type="button">Continue</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- FAQ sheet -->
+    <div class="app-phone">
+      <div class="fy-screen backdrop"><div class="fy-hero"><h3 class="fy-hero__title">Analyze your finances</h3></div></div>
+      <div class="fy-scrim">
+        <div class="fy-sheet" role="dialog" aria-label="FAQs" style="height:80%">
+          <div class="fy-sheet__head" style="grid-template-columns:1fr auto;align-items:center">
+            <div><p class="fy-hero__title" style="font-size:32px">FAQs</p><p class="fy-sheet__sub">Frequently asked questions</p></div>
+            <span class="fy-art fy-art--sm" style="margin-right:var(--fy-space-6)"><svg><use href="#i-question"/></svg></span>
+            <button class="fy-icon-btn fy-sheet__close" type="button" aria-label="Close"><svg><use href="#i-close"/></svg></button>
+          </div>
+          <div class="fy-sheet__body" style="flex:1;align-content:start;box-shadow:var(--fy-shadow-panel)">
+            <div class="fy-faq">
+              <details open><summary>What is account aggregator?<svg class="fy-chevron"><use href="#i-chev-down"/></svg></summary>
+                <div class="fy-faq__answer"><p style="line-height:20px">Watch video:</p>
+                  <a class="fy-video" href="#flows"><span class="fy-video__thumb"><svg><use href="#i-play"/></svg></span><span class="fy-video__text"><span class="fy-video__title">What is account aggregator?</span><span class="fy-video__time">1m : 20s</span></span><svg class="fy-chevron" style="width:16px;height:16px"><use href="#i-chev-right"/></svg></a>
+                </div></details>
+              <details><summary>How do we protect your financial data?<svg class="fy-chevron"><use href="#i-chev-down"/></svg></summary><div class="fy-faq__answer"><p>Data moves through an RBI-licensed aggregator, encrypted end to end.</p></div></details>
+              <details><summary>How will the data be fetched?<svg class="fy-chevron"><use href="#i-chev-down"/></svg></summary><div class="fy-faq__answer"><p>After you give consent, the aggregator fetches statements from each institution you pick.</p></div></details>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Self discovery -->
+    <div class="app-phone">
+      <div class="fy-screen">
+        <div class="statusbar"><span>5:13 PM</span><span>●●●</span></div>
+        <div class="fy-appbar"><button class="fy-icon-btn" type="button" aria-label="Back"><svg><use href="#i-back"/></svg></button></div>
+        <div class="fy-hero fy-hero--center" style="padding-top:0"><span class="fy-art fy-art--sm"><svg><use href="#i-bank"/></svg></span><h3 class="fy-hero__title" style="font-size:24px;line-height:29px">Let’s fetch your accounts</h3></div>
+        <div style="flex:1;overflow:auto;padding:0 var(--fy-space-4) var(--fy-space-3);display:grid;gap:var(--fy-space-3);align-content:start">
+          <details class="fy-group" open>
+            <summary><span class="fy-group__icon"><svg><use href="#i-bank"/></svg></span>Bank accounts<svg class="fy-chevron"><use href="#i-chev-down"/></svg></summary>
+            <div class="fy-group__body">
+              <div class="fy-account"><span class="fy-logo" style="color:#B02A30">IC</span><span class="fy-account__text"><span class="fy-account__name">ICICI bank</span><span class="fy-account__meta">Savings ••••734</span></span><span class="fy-check"><svg><use href="#i-check"/></svg></span></div>
+              <div class="fy-account"><span class="fy-logo" style="color:#B02A30">IC</span><span class="fy-account__text"><span class="fy-account__name">ICICI bank</span><span class="fy-account__meta">Fixed deposit ••••124</span></span><span class="fy-check"><svg><use href="#i-check"/></svg></span></div>
+              <div class="fy-account"><span class="fy-logo" style="color:#1F3A93">KO</span><span class="fy-account__text"><span class="fy-account__name">Kotak bank</span><span class="fy-account__meta">Savings ••••133</span></span><span class="fy-check"><svg><use href="#i-check"/></svg></span></div>
+              <button class="fy-group__more" type="button">View all</button>
+            </div>
+          </details>
+          <button class="fy-option fy-option--plain" type="button"><span class="fy-group__icon"><svg><use href="#i-sprout"/></svg></span><span class="fy-option__label">Mutual funds</span><span class="fy-option__trail"><span class="fy-logo-stack"><span class="fy-logo fy-logo--sm">CA</span><span class="fy-logo fy-logo--sm" style="color:var(--fy-primary-700)">KF</span></span><svg><use href="#i-chev-down"/></svg></span></button>
+          <button class="fy-option fy-option--plain" type="button"><span class="fy-group__icon"><svg><use href="#i-chart"/></svg></span><span class="fy-option__label">Stocks &amp; ETF</span><span class="fy-option__trail"><span class="fy-check"><svg><use href="#i-check"/></svg></span></span></button>
+        </div>
+        <div style="padding:var(--fy-space-3) var(--fy-space-4) var(--fy-space-3);background:var(--fy-bg-surface);border-radius:var(--fy-radius-lg) var(--fy-radius-lg) 0 0;box-shadow:var(--fy-shadow-panel);display:grid;gap:var(--fy-space-2)">
+          <button class="fy-btn fy-btn--primary" type="button">View consent</button>
+          <p class="fy-powered">Powered by RBI regulated account aggregator <span class="fy-powered__brand">onemoney</span></p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Consent overview -->
+    <div class="app-phone">
+      <div class="fy-screen backdrop"><div class="fy-hero"><h3 class="fy-hero__title">Analyze your finances</h3></div></div>
+      <div class="fy-scrim">
+        <div class="fy-sheet" role="dialog" aria-label="Consent overview">
+          <div class="fy-sheet__head fy-sheet__head--plain fy-sheet__head--center" style="padding-top:var(--fy-space-4)">
+            <button class="fy-btn fy-btn--text" type="button" style="justify-self:end;padding:0;text-decoration:none;color:var(--fy-text-display)">don’t allow</button>
+            <span class="fy-art fy-art--success"><svg><use href="#i-shield"/></svg></span>
+            <p class="fy-sheet__title">Consent overview</p>
+            <p class="fy-sheet__sub" style="font-size:12px">Know your FIRE score by allowing us to fetch your bank accounts and investment details to provide a personalised plan for financial independence. <a class="fy-link" href="#flows" style="text-decoration:none;font-weight:600">Know more</a></p>
+          </div>
+          <div class="fy-sheet__body">
+            <div class="fy-stats">
+              <div class="fy-stat"><span class="fy-stat__label">Finance updates</span><span class="fy-stat__value">Daily</span></div>
+              <div class="fy-stat"><span class="fy-stat__label">Valid till</span><span class="fy-stat__value">Feb 2028</span></div>
+              <div class="fy-stat"><span class="fy-stat__label">Access period</span><span class="fy-stat__value">12 months</span></div>
+            </div>
+          </div>
+          <div class="fy-sheet__foot">
+            <button class="fy-btn fy-btn--primary" type="button">I allow</button>
+            <p class="fy-powered">powered by RBI regulated account aggregator <span class="fy-powered__brand">onemoney</span></p>
+            <a class="fy-link" href="#flows" style="justify-self:center;font-size:12px">terms and conditions</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Generic error sheet -->
+    <div class="app-phone">
+      <div class="fy-screen backdrop"><div class="fy-hero"><h3 class="fy-hero__title">Lets get started!</h3></div></div>
+      <div class="fy-scrim">
+        <div class="fy-sheet" role="alertdialog" aria-label="Error">
+          <button class="fy-icon-btn fy-sheet__close" type="button" aria-label="Close"><svg><use href="#i-close"/></svg></button>
+          <div class="fy-status" style="padding-top:var(--fy-space-10)">
+            <span class="fy-art fy-art--error"><svg><use href="#i-alert"/></svg></span>
+            <p class="fy-status__title">Oops!</p>
+            <p class="fy-status__body">We hit a snag, please retry!</p>
+          </div>
+          <div class="fy-sheet__foot" style="padding-top:var(--fy-space-8)"><button class="fy-btn fy-btn--primary" type="button">Retry</button></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
 <!-- ============ A11Y ============ -->
 <section id="a11y">
   <h2 class="section-title">Accessibility</h2>
@@ -345,10 +719,11 @@
   <div class="table-wrap"><table>
     <thead><tr><th>Pair</th><th>Ratio</th><th>AA (4.5)</th><th>Action</th></tr></thead>
     <tbody>
-      <tr><td>White on gradient-green (start / end)</td><td>6.64 / 3.85</td><td>Partial</td><td>Centred label sits mid-gradient (~5.1:1). Don't put text near the light end.</td></tr>
+      <tr><td>White on gradient-green (left / centre / right)</td><td>6.84 / 5.09 / 3.80</td><td>Pass where the label sits</td><td>Labels are centred, where the gradient measures 5.1:1. Keep text away from the right edge.</td></tr>
       <tr><td>White on green-500 #4C9B66</td><td>3.39</td><td>Fail</td><td>Use green-500 only for fills, icons and borders, never behind text.</td></tr>
       <tr><td>White on error #C85267 (Delete)</td><td>4.32</td><td>Near-miss</td><td>Passes at 18px+ bold. For 16px labels, use red-600 #B4475B (5.26).</td></tr>
-      <tr><td>Secondary label #3B8757 on white</td><td>4.38</td><td>Near-miss</td><td>Tokenised as green-600 #2E7A4A (5.25). Border stays #3B8757.</td></tr>
+      <tr><td>Link and secondary label #236B42 on white</td><td>6.46</td><td>Pass</td><td>From Figma. Used for links, “View all” and secondary buttons.</td></tr>
+      <tr><td>Account meta #678782 at 10px (Figma)</td><td>3.91</td><td>Fail</td><td><code>.fy-account__meta</code> uses neutral-700 #576361 (6.25) instead.</td></tr>
       <tr><td>Error text #C85267 on white</td><td>4.32</td><td>Near-miss</td><td><code>error-text</code> → red-600 #B4475B.</td></tr>
       <tr><td>Warning #C88A52 on white</td><td>2.91</td><td>Fail</td><td><code>warning-text</code> → amber-600 #9A6531 (4.91).</td></tr>
       <tr><td>Placeholder #909D9B on white</td><td>2.81</td><td>Fail</td><td>Fine for placeholder text only. Never use it for real content or labels.</td></tr>
@@ -366,6 +741,9 @@
     <div class="note note--err"><span class="dot" style="background:var(--fy-error)"></span><div><b>Both “BG” swatches are labelled #02372F.</b> The green one renders as #4C9B66 (same as success) and the light one as #F5F6F0. They are tokenised as <code>bg-brand</code> and <code>bg-canvas</code>.</div></div>
     <div class="note note--warn"><span class="dot" style="background:var(--fy-warning)"></span><div><b>“Subtitle 2” appears twice</b> (Medium 16 and Medium 12). The 12px style is renamed <code>subtitle-3</code>. It is the field-label style.</div></div>
     <div class="note note--warn"><span class="dot" style="background:var(--fy-warning)"></span><div><b>Success tint is labelled #CCE6D4 but renders as #EEF7F1.</b> The selected-chip fill also uses #EEF7F1, so both are kept: <code>green-200</code> #CCE6D4 and <code>green-50</code> #EEF7F1 (<code>success-subtle</code>).</div></div>
+    <div class="note note--warn"><span class="dot" style="background:var(--fy-warning)"></span><div><b>Figma overrides the PDF measurements.</b> Buttons and inputs use an 8px radius (the PDF looked like 6px). Cards use 12px and sheets 16px. The button gradient is <code>#1F673F → #57A870</code> at 94°. Links use green-700 #236B42. The tokens now follow Figma.</div></div>
+    <div class="note note--warn"><span class="dot" style="background:var(--fy-warning)"></span><div><b>Off-palette colours in Figma, mapped to tokens:</b> card border #EDEDED → neutral-200, edit tag #F4F5EF → cream-50, legal text #546881 → neutral-700, T&amp;C link #09A98B → green-700, video title #151A20 → neutral-900, success #4C9B67 → green-500. The Figma file has no colour variables, so every value is typed in by hand. Publishing these tokens as Figma variables would stop the drift.</div></div>
+    <div class="note note--err"><span class="dot" style="background:var(--fy-error)"></span><div><b>Two typefaces leak into Figma text layers:</b> “Cina GEO Test” (T&amp;C line, bank names, “don’t allow”) and SF Pro (system keypad only). The components use Poppins throughout.</div></div>
     <div class="note note--ok"><span class="dot" style="background:var(--fy-success)"></span><div><b>Not specified in the PDF, so these are proposed:</b> line heights, the spacing scale, radii, shadows, focus rings, gradient angles and component heights. Heights and radii were measured from the artwork at a 360px mobile frame (48px buttons, 40px inputs, 6px corners).</div></div>
   </div>
 </section>
@@ -395,7 +773,7 @@
     ]},
     { title: 'Semantics', items: [
       ['green-500', '#4C9B66', 'Success, focus, selected'],
-      ['green-600', '#2E7A4A', 'Success text', true],
+      ['green-700', '#236B42', 'Links, success text, secondary button'],
       ['green-200', '#CCE6D4', 'Success tint (PDF label)'],
       ['green-50',  '#EEF7F1', 'Success subtle, selected chip'],
       ['red-500',   '#C85267', 'Error border, danger fill'],
@@ -464,6 +842,15 @@
       const btn = e.target.closest('button'); if (!btn) return;
       const attr = btn.hasAttribute('aria-checked') ? 'aria-checked' : 'aria-pressed';
       group.querySelectorAll('button').forEach(b => b.setAttribute(attr, String(b === btn)));
+    });
+  });
+
+  // OTP: move to the next cell after typing a digit, back on Backspace.
+  document.querySelectorAll('[data-otp]').forEach(row => {
+    const cells = [...row.querySelectorAll('input')];
+    cells.forEach((c, i) => {
+      c.addEventListener('input', () => { c.value = c.value.replace(/\D/g, '').slice(-1); if (c.value && cells[i + 1]) cells[i + 1].focus(); });
+      c.addEventListener('keydown', e => { if (e.key === 'Backspace' && !c.value && cells[i - 1]) cells[i - 1].focus(); });
     });
   });
 </script>

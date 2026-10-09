@@ -26,3 +26,10 @@ LOGO_DIR=assets python3 scripts/render.py <recording.mp4> <vo_dir> <fonts_dir> f
 ```
 
 To change the copy or the cuts, edit `scripts/spec.py`, then re-run both steps.
+
+## Finny_Project_2 (edited cut)
+
+`Finny_Project_2_V2.mp4` is `Finny_Project_2_V1.mp4` with the stage names ("02 · ACCOUNT AGGREGATOR", and so on) and the horizontal stepper painted out. Everything else is unchanged, and the audio is copied as is.
+
+- `scripts/remove_stepper.py` repaints rows 84–131 in frames 89–3149 with a blend of the background just above and below.
+- The title-card slide and the end card are left untouched.

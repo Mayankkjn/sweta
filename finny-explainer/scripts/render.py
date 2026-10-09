@@ -1,4 +1,4 @@
-"""Finny explainer renderer: builds a 1920x1080 video from spec.py + VO lines."""
+"""Finny explainer renderer: builds a 1920x1080 (or VERTICAL=1 -> 1080x1920) video from spec.py + VO lines."""
 import sys, os, json, math, subprocess
 import numpy as np
 from PIL import Image, ImageDraw, ImageFont, ImageFilter
@@ -7,7 +7,8 @@ from spec import SECTIONS
 
 SRC = sys.argv[1]; VO = sys.argv[2]; FONTS = sys.argv[3]; OUT = sys.argv[4]
 PREVIEW = os.environ.get("PREVIEW")  # "t1,t2,..." -> write stills only
-W, H, FPS = 1920, 1080, 30
+VERT = os.environ.get("VERTICAL") == "1"
+W, H, FPS = (1080, 1920, 30) if VERT else (1920, 1080, 30)
 
 # ---------------- brand ----------------
 C = dict(
@@ -65,7 +66,7 @@ for sh in shots:
         print(f"  clip {a:6.1f}-{b:6.1f} nat {sh['nat']:4.1f}s slot {sh['dur']:4.1f}s speed {sh['speed']:.2f}")
 
 # ---------------- source frames ----------------
-SW = 430; SH = round(SW * 1562 / 720) // 2 * 2  # 932
+SW = 540 if VERT else 430; SH = round(SW * 1562 / 720) // 2 * 2  # 932
 BAR = round(92 / 1562 * SH)
 
 def clean_status(img):
@@ -108,7 +109,7 @@ def screen_at(sh, tl):
     return fr[min(i, len(fr) - 1)]
 
 # ---------------- static layers ----------------
-def radial_bg(c_in, c_out, cx=0.62, cy=0.45):
+def radial_bg(c_in, c_out, cx=(0.5 if VERT else 0.62), cy=(0.55 if VERT else 0.45)):
     y, x = np.mgrid[0:H, 0:W]
     d = np.sqrt(((x - cx * W) / W) ** 2 + ((y - cy * H) / H) ** 2) / 0.75
     d = np.clip(d, 0, 1)[..., None]
@@ -118,9 +119,14 @@ def radial_bg(c_in, c_out, cx=0.62, cy=0.45):
 def light_bg():
     im = radial_bg((250, 252, 250), (226, 240, 230)).convert("RGBA")
     blob = Image.new("RGBA", (W, H), (210, 236, 218, 0)); d = ImageDraw.Draw(blob)
-    d.ellipse((1050, 80, 1650, 680), fill=(200, 234, 212, 110))
-    d.ellipse((1250, 520, 1800, 1070), fill=(218, 240, 225, 130))
-    d.ellipse((-200, 760, 380, 1340), fill=(205, 232, 214, 90))
+    if VERT:
+        d.ellipse((60, 560, 1020, 1420), fill=(200, 234, 212, 110))
+        d.ellipse((420, 1250, 1240, 2050), fill=(218, 240, 225, 130))
+        d.ellipse((-300, -200, 420, 480), fill=(205, 232, 214, 90))
+    else:
+        d.ellipse((1050, 80, 1650, 680), fill=(200, 234, 212, 110))
+        d.ellipse((1250, 520, 1800, 1070), fill=(218, 240, 225, 130))
+        d.ellipse((-200, 760, 380, 1340), fill=(205, 232, 214, 90))
     blob = blob.filter(ImageFilter.GaussianBlur(90))
     im.alpha_composite(blob)
     return im.convert("RGB")
@@ -132,7 +138,7 @@ def sparkle(d, x, y, r, col):
 
 for k in ("dark", "olive"):
     d = ImageDraw.Draw(BG[k])
-    for (x, y, r) in [(140, 170, 9), (860, 120, 7), (1820, 260, 10), (1760, 930, 8), (980, 1010, 6), (760, 1020, 7)]:
+    for (x, y, r) in ([(980, 300, 9), (70, 560, 7), (1010, 1500, 10), (60, 1600, 8), (900, 1820, 6), (180, 1880, 7)] if VERT else [(140, 170, 9), (860, 120, 7), (1820, 260, 10), (1760, 930, 8), (980, 1010, 6), (760, 1020, 7)]):
         sparkle(d, x, y, r, C["gold"])
 
 def phone_layer():
@@ -148,7 +154,7 @@ def phone_layer():
     return im, pad + bez
 PHONE, SCR_OFF = phone_layer()
 SMASK = Image.new("L", (SW, SH), 0); ImageDraw.Draw(SMASK).rounded_rectangle((0, 0, SW - 1, SH - 1), 46, fill=255)
-PH_CX, PH_CY = 1350, 540
+PH_CX, PH_CY = (540, 1080) if VERT else (1350, 540)
 def phone_xy(cx=PH_CX, cy=PH_CY):
     return int(cx - PHONE.width / 2), int(cy - PHONE.height / 2)
 
@@ -212,9 +218,9 @@ STEP_IDS = ["start", "aa", "mf", "orbit", "assets", "cash", "check", "age", "rep
 
 def draw_left(canvas, si, ts, line, tl, dark):
     """left panel: wordmark, chip, headline (animated), caption, progress"""
-    L = section_layers(si); X = 130
-    canvas.alpha_composite(wordmark(46, (255, 255, 255) if dark else C["green"]), (X, 70))
-    y = 330
+    L = section_layers(si); X = 90 if VERT else 130
+    canvas.alpha_composite(wordmark(46, (255, 255, 255) if dark else C["green"]), (X, 60 if VERT else 70))
+    y = 170 if VERT else 330
     items = ([L["chip"]] if L["chip"] else []) + L["heads"]
     for k, im in enumerate(items):
         p = ease_out((ts - 0.08 * k) / 0.55)
@@ -224,25 +230,27 @@ def draw_left(canvas, si, ts, line, tl, dark):
         y += im.height + (18 if k == 0 else 0)
     # caption (VO text)
     if line is not None:
-        f = F(400, 27); p = ease_out(tl / 0.35)
-        cap = Image.new("RGBA", (720, 200), (0, 0, 0, 0)); d = ImageDraw.Draw(cap)
+        f = F(400, 32 if VERT else 27); lh = 48 if VERT else 42; p = ease_out(tl / 0.35)
+        cap = Image.new("RGBA", (W, 220), (0, 0, 0, 0)); d = ImageDraw.Draw(cap)
         cy = 0
-        for ln in wrap(line["text"], f, 640):
-            d.text((0, cy), ln, font=f, fill=((215, 230, 222) if dark else C["gray"])); cy += 42
+        for ln in wrap(line["text"], f, 860 if VERT else 640):
+            d.text((0, cy), ln, font=f, fill=((215, 230, 222) if dark else C["gray"])); cy += lh
         cap.putalpha(cap.getchannel("A").point(lambda v: int(v * p)))
         bar = Image.new("RGBA", (4, max(cy - 8, 30)), (*(C["gold"] if dark else C["green2"]), int(255 * p)))
-        canvas.alpha_composite(bar, (X, y + 42)); canvas.alpha_composite(cap, (X + 26, y + 36))
+        capy = 1716 if VERT else y + 36
+        canvas.alpha_composite(bar, (X, capy + 6)); canvas.alpha_composite(cap, (X + 26, capy))
     # progress
     sid = SECTIONS[si]["id"]
     if sid in STEP_IDS:
         cur = STEP_IDS.index(sid); d = ImageDraw.Draw(canvas)
         for i in range(len(STEP_IDS)):
-            x0 = X + i * 50
+            x0 = (W - X - 492 + i * 50) if VERT else X + i * 50
             if i < cur: c = (*(C["green2"] if not dark else (150, 190, 160)), 255)
             elif i == cur: c = (*(C["green"] if not dark else C["gold"]), 255)
             else: c = (200, 220, 208, 255) if not dark else (78, 98, 76, 255)
-            d.rounded_rectangle((x0, 975, x0 + 42, 981), 3, fill=c)
-        d.text((X, 948), f"STEP {cur + 1} OF {len(STEP_IDS)}", font=F(600, 16), fill=(C["gold"] if dark else C["green"]))
+            py = 104 if VERT else 975
+            d.rounded_rectangle((x0, py, x0 + 42, py + 6), 3, fill=c)
+        d.text(((W - X - 492) if VERT else X, 77 if VERT else 948), f"STEP {cur + 1} OF {len(STEP_IDS)}", font=F(600, 16), fill=(C["gold"] if dark else C["green"]))
 
 # ---------------- custom scenes ----------------
 def shadowed_card(w, h, r=30, fill=(255, 255, 255, 255), outline=None, sh_alpha=70):
@@ -282,12 +290,12 @@ def scene_age(canvas, which, tl, line):
     global AGE_STILL
     if AGE_STILL is None: AGE_STILL = decode(449.4, 449.5)[0]
     # phone holds the real FIRE-age screen, cards pop out of it
-    phx = 1350
-    draw_phone(canvas, AGE_STILL, phx, 540)
-    x0, y0 = phone_xy(phx, 540); sc = SW / 720
+    phx, phy = PH_CX, PH_CY
+    draw_phone(canvas, AGE_STILL, phx, phy)
+    x0, y0 = phone_xy(phx, phy); sc = SW / 720
     src = [(x0 + SCR_OFF + 207 * sc, y0 + SCR_OFF + 836 * sc), (x0 + SCR_OFF + 512 * sc, y0 + SCR_OFF + 836 * sc)]
-    dst = [(1010, 520), (1690, 520)]
-    s0 = 250 * sc / 300 * (380 / 450)
+    dst = [(290, 1010), (790, 1010)] if VERT else [(1010, 520), (1690, 520)]
+    s0 = 250 * sc / 300 * (380 / 450) * (1.0 if not VERT else 1.0)
     pop1 = line["adur"] * 0.52 if which == "age1" else -10
     t1 = tl - pop1 if which == "age1" else 10
     t2 = tl - 0.15 if which == "age2" else -1
@@ -304,7 +312,7 @@ def scene_age(canvas, which, tl, line):
             b = Image.new("RGBA", (w, 74), (0, 0, 0, 0)); d = ImageDraw.Draw(b)
             d.rounded_rectangle((0, 0, w - 1, 73), 37, fill=(*C["gold"], 255))
             d.text((w / 2, 37), txt, font=f, fill=(40, 34, 18), anchor="mm")
-            paste_scaled(canvas, b, 1350, 930, max(0.01, p), clamp01(tb / 0.2))
+            paste_scaled(canvas, b, PH_CX, 1460 if VERT else 930, max(0.01, p), clamp01(tb / 0.2))
 
 def ring(d, cx, cy, r, frac, col, bg=(226, 236, 229), wdt=16):
     d.arc((cx - r, cy - r, cx + r, cy + r), 0, 360, fill=bg, width=wdt)
@@ -372,14 +380,14 @@ def scene_report(canvas, which, tl, line):
     t0 = rep_lines[0]["start"]; now = line["start"] + tl; ts = now - t0
     p = ease_out(ts / 0.6)
     sc = score_card(clamp01(ts / 1.2))
-    paste_scaled(canvas, sc, 1340, 290 + (1 - p) * 40, 1.0, p)
+    paste_scaled(canvas, sc, 540 if VERT else 1340, (780 if VERT else 290) + (1 - p) * 40, 1.0, p)
     for j in range(3):
         L = rep_lines[j + 1]
         tt = now - L["start"]
         if tt < 0: continue
         q = ease_back(tt / 0.55)
         im = pillar_card(j, clamp01(tt / 1.0), active=(k == j + 1) or (k == 3 and j == 2))
-        paste_scaled(canvas, im, 1340 + (j - 1) * 312, 720, 0.85 + 0.15 * q, clamp01(tt / 0.25))
+        paste_scaled(canvas, im, (540 if VERT else 1340) + (j - 1) * 312, 1310 if VERT else 720, 0.85 + 0.15 * q, clamp01(tt / 0.25))
 
 def center_text(canvas, y, text, font, col, alpha=1.0):
     lay = Image.new("RGBA", (W, int(font.size * 1.6)), (0, 0, 0, 0))
@@ -390,10 +398,11 @@ def center_text(canvas, y, text, font, col, alpha=1.0):
 def scene_title(canvas, tl):
     p = ease_out(tl / 0.8)
     wm = wordmark(190, (255, 255, 255))
-    paste_scaled(canvas, wm, W / 2, 470 + (1 - p) * 30, 1.0, p)
+    oy = 390 if VERT else 0
+    paste_scaled(canvas, wm, W / 2, 470 + oy + (1 - p) * 30, 1.0, p)
     q = ease_out((tl - 0.45) / 0.7)
-    center_text(canvas, 640, "Your path to financial independence", F(500, 36), (205, 228, 214), q)
-    center_text(canvas, 700, "FIRE  ·  Financial Independence, Retire Early", F(500, 22), C["gold"], q)
+    center_text(canvas, 640 + oy, "Your path to financial independence", F(500, 36), (205, 228, 214), q)
+    center_text(canvas, 700 + oy, "FIRE  ·  Financial Independence, Retire Early", F(500, 22), C["gold"], q)
 
 def node(canvas, cx, cy, num, t1, t2, prog):
     if prog <= 0: return
@@ -407,8 +416,9 @@ def node(canvas, cx, cy, num, t1, t2, prog):
 def scene_outro(canvas, which, tl, line):
     if which == "out1":
         p1 = ease_out(tl / 0.6); p2 = ease_out((tl - 0.9) / 0.6)
-        center_text(canvas, 300, "From a free review…", F(500, 34), (205, 228, 214), p1)
+        center_text(canvas, 700 if VERT else 300, "From a free review…", F(500, 34), (205, 228, 214), p1)
         for k, (txt, x) in enumerate((("Free portfolio review", 640), ("Paid advisory client", 1280))):
+            px, py = ((540, 860 + 260 * k) if VERT else (x, 520))
             pp = p1 if k == 0 else p2
             if pp <= 0: continue
             f = F(600, 40); w = int(f.getlength(txt)) + 90
@@ -416,25 +426,36 @@ def scene_outro(canvas, which, tl, line):
             d.rounded_rectangle((0, 0, w - 1, 99), 50, fill=((255, 255, 255, 30) if k == 0 else (*C["gold"], 255)),
                                 outline=(214, 178, 106, 200), width=2)
             d.text((w / 2, 50), txt, font=f, fill=((255, 255, 255) if k == 0 else (40, 34, 18)), anchor="mm")
-            paste_scaled(canvas, b, x, 520, 0.9 + 0.1 * ease_back(pp), pp)
-        if p2 > 0:
+            paste_scaled(canvas, b, px, py, 0.9 + 0.1 * ease_back(pp), pp)
+        if p2 > 0 and VERT:
+            d = ImageDraw.Draw(canvas); y1 = 918 + (1080 - 918) * p2
+            d.line((540, 918, 540, y1), fill=C["gold"], width=4)
+            if p2 > 0.9: d.polygon([(528, 1080), (540, 1100), (552, 1080)], fill=C["gold"])
+        elif p2 > 0:
             d = ImageDraw.Draw(canvas); x0, x1 = 905, 905 + (1010 - 905) * p2
             d.line((x0, 520, x1, 520), fill=C["gold"], width=4)
             if p2 > 0.9: d.polygon([(1010, 508), (1030, 520), (1010, 532)], fill=C["gold"])
     elif which == "out2":
-        center_text(canvas, 250, "How Finny gets you there", F(500, 34), (205, 228, 214), ease_out(tl / 0.5))
+        center_text(canvas, 470 if VERT else 250, "How Finny gets you there", F(500, 34), (205, 228, 214), ease_out(tl / 0.5))
         A = line["adur"]
         for k, (t1, t2, at) in enumerate((("Financial models", "create the plan", 0.0), ("Expert advisors", "walk you through it", 0.36 * A), ("AI agents", "execute it", 0.72 * A))):
-            node(canvas, 470 + k * 490, 560, k + 1, t1, t2, (tl - at) / 0.6)
+            if VERT: node(canvas, 540, 760 + k * 340, k + 1, t1, t2, (tl - at) / 0.6)
+            else: node(canvas, 470 + k * 490, 560, k + 1, t1, t2, (tl - at) / 0.6)
     else:
         p = ease_out(tl / 0.8)
-        paste_scaled(canvas, wordmark(170, (255, 255, 255)), W / 2, 400 + (1 - p) * 30, 1.0, p)
+        oy = 420 if VERT else 0
+        paste_scaled(canvas, wordmark(170, (255, 255, 255)), W / 2, 400 + oy + (1 - p) * 30, 1.0, p)
         q = ease_out((tl - 0.5) / 0.8)
-        hl = rich_line("Your one-stop shop for *financial independence*", 52, (255, 255, 255), C["gold"])
-        paste_scaled(canvas, hl, W / 2 + 10, 585, 1.0, q)
+        if VERT:
+            paste_scaled(canvas, rich_line("Your one-stop shop for", 52, (255, 255, 255), C["gold"]), W / 2 + 10, 1000, 1.0, q)
+            paste_scaled(canvas, rich_line("*financial independence*", 52, (255, 255, 255), C["gold"]), W / 2 + 10, 1075, 1.0, q)
+            oy += 90
+        else:
+            hl = rich_line("Your one-stop shop for *financial independence*", 52, (255, 255, 255), C["gold"])
+            paste_scaled(canvas, hl, W / 2 + 10, 585, 1.0, q)
         r = ease_out((tl - 1.4) / 0.8)
-        center_text(canvas, 720, "SEBI Registered  ·  100% safe  ·  0% commissions", F(500, 24), (190, 214, 200), r)
-        center_text(canvas, 800, "Know your FIRE age in 3 minutes", F(600, 28), C["gold"], r)
+        center_text(canvas, 720 + oy, "SEBI Registered  ·  100% safe  ·  0% commissions", F(500, 24), (190, 214, 200), r)
+        center_text(canvas, 800 + oy, "Know your FIRE age in 3 minutes", F(600, 28), C["gold"], r)
 
 # ---------------- frame render ----------------
 def theme_of(sh):
@@ -473,10 +494,12 @@ def render(tt):
 
 def main():
     if PREVIEW == "mid":
-        ims = [render(s["start"] + 0.75 * s["dur"])[0].resize((480, 270), Image.LANCZOS) for s in shots]
+        tw, th = W // 4, H // 4
+        ims = [render(s["start"] + 0.75 * s["dur"])[0].resize((tw, th), Image.LANCZOS) for s in shots]
         for k in range(0, len(ims), 16):
-            sheet = Image.new("RGB", (1920, 1080), (0, 0, 0))
-            for j, im in enumerate(ims[k:k + 16]): sheet.paste(im, ((j % 4) * 480, (j // 4) * 270))
+            sheet = Image.new("RGB", (tw * 8, th * 2) if VERT else (1920, 1080), (0, 0, 0))
+            cols = 8 if VERT else 4
+            for j, im in enumerate(ims[k:k + 16]): sheet.paste(im, ((j % cols) * tw, (j // cols) * th))
             sheet.save(f"{OUT}_sheet{k // 16}.png")
         return
     if PREVIEW:

@@ -1,6 +1,7 @@
 # Finny product explainer video
 
-`finny_explainer.mp4`: 1920×1080, 30 fps, about 2:15, with an AI voiceover.
+- `finny_explainer.mp4`: 16:9, 1920×1080, 30 fps, about 2:15, with an AI voiceover.
+- `finny_explainer_9x16.mp4`: 9:16, 1080×1920. Same script, voice and timing in a vertical layout: headline on top, phone in the middle, captions at the bottom.
 
 - **Script:** see `SCRIPT.md`. It is the founder's voiceover cleaned up into a happy-flow script. The raw transcript is in `original_voiceover_transcript.txt`.
 - **Voice:** Kokoro TTS (`af_heart`). It runs offline and generates one clip per line.
@@ -19,6 +20,7 @@ pip install kokoro-onnx sherpa-onnx soundfile scipy numpy pillow
 # models: kokoro-v1.0.onnx + voices-v1.0.bin (github.com/thewh1teagle/kokoro-onnx releases)
 python3 scripts/gen_vo.py <models_dir> <vo_dir>          # AI voiceover, one wav per line
 python3 scripts/render.py <recording.mp4> <vo_dir> <fonts_dir> finny_explainer.mp4
+# VERTICAL=1 python3 scripts/render.py ...  -> 9:16 version
 # PREVIEW=mid python3 scripts/render.py ...  -> contact sheets of every shot
 ```
 

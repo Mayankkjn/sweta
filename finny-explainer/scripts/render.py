@@ -66,8 +66,8 @@ for sh in shots:
         print(f"  clip {a:6.1f}-{b:6.1f} nat {sh['nat']:4.1f}s slot {sh['dur']:4.1f}s speed {sh['speed']:.2f}")
 
 # ---------------- source frames ----------------
-SW = 540 if VERT else 430; SH = round(SW * 1562 / 720) // 2 * 2  # 932
-BAR = round(92 / 1562 * SH)
+SW = 600 if VERT else 430; SH = round(SW * 1520 / 700) // 2 * 2  # source cropped to 700x1520 (drops black side strips + nav bar)  # 932
+BAR = round(92 / 1520 * SH)
 
 def clean_status(img):
     a = np.asarray(img).copy()
@@ -88,7 +88,7 @@ def clean_status(img):
 
 def decode(a, b):
     cmd = ["ffmpeg", "-v", "error", "-ss", f"{a:.3f}", "-t", f"{b - a:.3f}", "-i", SRC,
-           "-vf", f"fps=30,scale={SW}:{SH}:flags=lanczos", "-f", "rawvideo", "-pix_fmt", "rgb24", "-"]
+           "-vf", f"fps=30,crop=700:1520:10:0,scale={SW}:{SH}:flags=lanczos", "-f", "rawvideo", "-pix_fmt", "rgb24", "-"]
     raw = subprocess.run(cmd, capture_output=True, check=True).stdout
     n = len(raw) // (SW * SH * 3)
     arr = np.frombuffer(raw, np.uint8)[: n * SW * SH * 3].reshape(n, SH, SW, 3)
@@ -98,6 +98,7 @@ _cache = {}
 def frames_for(sh):
     key = (sh["kind"],) + tuple(sh["arg"][:2])
     if key not in _cache:
+        while len(_cache) >= 3: _cache.pop(next(iter(_cache)))  # keep memory bounded
         if sh["kind"] == "clip": _cache[key] = decode(sh["arg"][0], sh["arg"][1])
         else: _cache[key] = decode(sh["arg"][0], sh["arg"][0] + 0.1)[:1]
     return _cache[key]
@@ -154,7 +155,7 @@ def phone_layer():
     return im, pad + bez
 PHONE, SCR_OFF = phone_layer()
 SMASK = Image.new("L", (SW, SH), 0); ImageDraw.Draw(SMASK).rounded_rectangle((0, 0, SW - 1, SH - 1), 46, fill=255)
-PH_CX, PH_CY = (540, 1080) if VERT else (1350, 540)
+PH_CX, PH_CY = (540, 615 + (SH + 26) // 2) if VERT else (1350, 540)  # vertical: phone bleeds off the bottom edge
 def phone_xy(cx=PH_CX, cy=PH_CY):
     return int(cx - PHONE.width / 2), int(cy - PHONE.height / 2)
 
@@ -199,11 +200,15 @@ def chip_img(text, dark=False):
     d.text((22, 23), text, font=f, fill=(C["gold"] if dark else C["green"]), anchor="lm")
     return im
 
+LOGO_DIR = os.environ.get("LOGO_DIR", os.path.join(os.path.dirname(FONTS.rstrip("/")), "logo"))
+_logo = {}
 def wordmark(size, col):
-    f = SER(size, 600); w = int(f.getlength("finny")) + 10
-    im = Image.new("RGBA", (w, int(size * 1.4)), (0, 0, 0, 0))
-    ImageDraw.Draw(im).text((0, size * 1.05), "finny", font=f, fill=col, anchor="ls")
-    return im
+    """official Finny logo (SVG rasterised), white on dark / green on light"""
+    name = "white" if sum(col[:3]) > 600 else "green"
+    if name not in _logo:
+        im = Image.open(f"{LOGO_DIR}/finny_{name}.png").convert("RGBA"); _logo[name] = im.crop(im.getbbox())
+    im = _logo[name]; h = int(size * 1.15)
+    return im.convert("RGBa").resize((int(im.width * h / im.height), h), Image.LANCZOS).convert("RGBA")
 
 SEC_LAYERS = {}
 def section_layers(si):
@@ -218,6 +223,7 @@ STEP_IDS = ["start", "aa", "mf", "orbit", "assets", "cash", "check", "age", "rep
 
 def draw_left(canvas, si, ts, line, tl, dark):
     """left panel: wordmark, chip, headline (animated), caption, progress"""
+    if VERT: return draw_top(canvas, si, ts, line, tl, dark)
     L = section_layers(si); X = 90 if VERT else 130
     canvas.alpha_composite(wordmark(46, (255, 255, 255) if dark else C["green"]), (X, 60 if VERT else 70))
     y = 170 if VERT else 330
@@ -252,6 +258,35 @@ def draw_left(canvas, si, ts, line, tl, dark):
             d.rounded_rectangle((x0, py, x0 + 42, py + 6), 3, fill=c)
         d.text(((W - X - 492) if VERT else X, 77 if VERT else 948), f"STEP {cur + 1} OF {len(STEP_IDS)}", font=F(600, 16), fill=(C["gold"] if dark else C["green"]))
 
+def draw_top(canvas, si, ts, line, tl, dark):
+    """9:16 header: centred logo, step label + progress, headline, explainer text; phone sits below"""
+    L = section_layers(si)
+    lg = wordmark(46, (255, 255, 255) if dark else C["green"])
+    canvas.alpha_composite(lg, (int(W / 2 - lg.width / 2), 52))
+    acc = C["gold"] if dark else C["green"]
+    sid = SECTIONS[si]["id"]; chip = SECTIONS[si]["chip"]
+    p0 = ease_out(ts / 0.5)
+    if chip:
+        center_text(canvas, 152, chip.upper().replace("  ", " "), F(600, 21), acc, p0)
+    if sid in STEP_IDS:
+        cur = STEP_IDS.index(sid); d = ImageDraw.Draw(canvas); x00 = W / 2 - 246
+        for i in range(len(STEP_IDS)):
+            if i < cur: c = (*(C["green2"] if not dark else (150, 190, 160)), 255)
+            elif i == cur: c = (*(C["green"] if not dark else C["gold"]), 255)
+            else: c = (200, 220, 208, 255) if not dark else (78, 98, 76, 255)
+            d.rounded_rectangle((x00 + i * 50, 180, x00 + i * 50 + 42, 186), 3, fill=c)
+    y = 212
+    for k, im in enumerate(L["heads"]):
+        p = ease_out((ts - 0.08 * (k + 1)) / 0.55)
+        if p > 0:
+            lay = im.copy(); lay.putalpha(lay.getchannel("A").point(lambda v: int(v * p)))
+            canvas.alpha_composite(lay, (int(W / 2 - (im.width - 20) / 2), int(y + (1 - p) * 30)))
+        y += im.height - 4
+    if line is not None:
+        f = F(400, 32); p = ease_out(tl / 0.35); yy = y + 48
+        for ln in wrap(line["text"], f, 900):
+            center_text(canvas, yy, ln, f, ((225, 236, 229) if dark else C["gray"]), p); yy += 46
+
 # ---------------- custom scenes ----------------
 def shadowed_card(w, h, r=30, fill=(255, 255, 255, 255), outline=None, sh_alpha=70):
     pad = 40
@@ -273,6 +308,7 @@ def age_card(label, dotc, age, corpus):
     d.text((cx, p + 336), corpus, font=F(700, 42), fill=C["ink"], anchor="mm")
     lab = Image.new("RGBA", (im.width, 60), (0, 0, 0, 0)); ld = ImageDraw.Draw(lab)
     f = F(600, 24); tw = f.getlength(label) + 26; x0 = im.width / 2 - tw / 2
+    ld.rounded_rectangle((x0 - 16, 8, x0 + tw + 16, 52), 22, fill=(18, 30, 22, 235))
     ld.ellipse((x0, 22, x0 + 16, 38), fill=dotc); ld.text((x0 + 26, 30), label, font=f, fill=(255, 255, 255), anchor="lm")
     out = Image.new("RGBA", (im.width, im.height + 50), (0, 0, 0, 0)); out.alpha_composite(im); out.alpha_composite(lab, (0, im.height - 20))
     return out
@@ -292,9 +328,9 @@ def scene_age(canvas, which, tl, line):
     # phone holds the real FIRE-age screen, cards pop out of it
     phx, phy = PH_CX, PH_CY
     draw_phone(canvas, AGE_STILL, phx, phy)
-    x0, y0 = phone_xy(phx, phy); sc = SW / 720
-    src = [(x0 + SCR_OFF + 207 * sc, y0 + SCR_OFF + 836 * sc), (x0 + SCR_OFF + 512 * sc, y0 + SCR_OFF + 836 * sc)]
-    dst = [(290, 1010), (790, 1010)] if VERT else [(1010, 520), (1690, 520)]
+    x0, y0 = phone_xy(phx, phy); sc = SW / 700
+    src = [(x0 + SCR_OFF + 197 * sc, y0 + SCR_OFF + 836 * sc), (x0 + SCR_OFF + 502 * sc, y0 + SCR_OFF + 836 * sc)]
+    dst = [(285, 1170), (795, 1170)] if VERT else [(1010, 520), (1690, 520)]
     s0 = 250 * sc / 300 * (380 / 450) * (1.0 if not VERT else 1.0)
     pop1 = line["adur"] * 0.52 if which == "age1" else -10
     t1 = tl - pop1 if which == "age1" else 10
@@ -312,7 +348,7 @@ def scene_age(canvas, which, tl, line):
             b = Image.new("RGBA", (w, 74), (0, 0, 0, 0)); d = ImageDraw.Draw(b)
             d.rounded_rectangle((0, 0, w - 1, 73), 37, fill=(*C["gold"], 255))
             d.text((w / 2, 37), txt, font=f, fill=(40, 34, 18), anchor="mm")
-            paste_scaled(canvas, b, PH_CX, 1460 if VERT else 930, max(0.01, p), clamp01(tb / 0.2))
+            paste_scaled(canvas, b, PH_CX, 1620 if VERT else 930, max(0.01, p), clamp01(tb / 0.2))
 
 def ring(d, cx, cy, r, frac, col, bg=(226, 236, 229), wdt=16):
     d.arc((cx - r, cy - r, cx + r, cy + r), 0, 360, fill=bg, width=wdt)
@@ -380,14 +416,14 @@ def scene_report(canvas, which, tl, line):
     t0 = rep_lines[0]["start"]; now = line["start"] + tl; ts = now - t0
     p = ease_out(ts / 0.6)
     sc = score_card(clamp01(ts / 1.2))
-    paste_scaled(canvas, sc, 540 if VERT else 1340, (780 if VERT else 290) + (1 - p) * 40, 1.0, p)
+    paste_scaled(canvas, sc, 540 if VERT else 1340, (840 if VERT else 290) + (1 - p) * 40, 1.0, p)
     for j in range(3):
         L = rep_lines[j + 1]
         tt = now - L["start"]
         if tt < 0: continue
         q = ease_back(tt / 0.55)
         im = pillar_card(j, clamp01(tt / 1.0), active=(k == j + 1) or (k == 3 and j == 2))
-        paste_scaled(canvas, im, (540 if VERT else 1340) + (j - 1) * 312, 1310 if VERT else 720, 0.85 + 0.15 * q, clamp01(tt / 0.25))
+        paste_scaled(canvas, im, (540 if VERT else 1340) + (j - 1) * 312, 1370 if VERT else 720, 0.85 + 0.15 * q, clamp01(tt / 0.25))
 
 def center_text(canvas, y, text, font, col, alpha=1.0):
     lay = Image.new("RGBA", (W, int(font.size * 1.6)), (0, 0, 0, 0))

@@ -1,7 +1,7 @@
 # Finny product explainer video
 
 - `finny_explainer.mp4`: 16:9, 1920×1080, 30 fps, about 2:15, with an AI voiceover.
-- `finny_explainer_9x16.mp4`: 9:16, 1080×1920. Same script, voice and timing in a vertical layout: logo, step and headline centred at the top with the explainer text under them, and a large phone whose bottom edge runs slightly off the frame.
+- `finny_explainer_9x16.mp4`: 9:16, 1080×1920. Same script, voice and timing in a vertical layout: logo and headline centred at the top (no stage labels or stepper) with the explainer text under them, and a large phone whose bottom edge runs slightly off the frame.
 
 - **Script:** see `SCRIPT.md`. It is the founder's voiceover cleaned up into a happy-flow script. The raw transcript is in `original_voiceover_transcript.txt`.
 - **Voice:** Kokoro TTS (`af_heart`). It runs offline and generates one clip per line.

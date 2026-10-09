@@ -265,17 +265,8 @@ def draw_top(canvas, si, ts, line, tl, dark):
     canvas.alpha_composite(lg, (int(W / 2 - lg.width / 2), 52))
     acc = C["gold"] if dark else C["green"]
     sid = SECTIONS[si]["id"]; chip = SECTIONS[si]["chip"]
-    p0 = ease_out(ts / 0.5)
-    if chip:
-        center_text(canvas, 152, chip.upper().replace("  ", " "), F(600, 21), acc, p0)
-    if sid in STEP_IDS:
-        cur = STEP_IDS.index(sid); d = ImageDraw.Draw(canvas); x00 = W / 2 - 246
-        for i in range(len(STEP_IDS)):
-            if i < cur: c = (*(C["green2"] if not dark else (150, 190, 160)), 255)
-            elif i == cur: c = (*(C["green"] if not dark else C["gold"]), 255)
-            else: c = (200, 220, 208, 255) if not dark else (78, 98, 76, 255)
-            d.rounded_rectangle((x00 + i * 50, 180, x00 + i * 50 + 42, 186), 3, fill=c)
-    y = 212
+    # (no stage label / stepper in 9:16 — headline sits right under the logo)
+    y = 168
     for k, im in enumerate(L["heads"]):
         p = ease_out((ts - 0.08 * (k + 1)) / 0.55)
         if p > 0:

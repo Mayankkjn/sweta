@@ -1,0 +1,113 @@
+[   7.43-  13.90] Phinee focuses on financial independence for our users and tells them when they can be financially free.
+[  15.69-  17.68] with a fire corpus and an amount.
+[  18.44-  20.84] and how Finney can help them get there faster.
+[  21.41-  24.65] and also get their portfolio reviewed with an expert advisor.
+[  25.57-  28.59] user log will send with their phone number notp
+[  29.57-  30.54] and sees a map
+[  31.88-  33.23] at how they can achieve their
+[  34.95-  36.68] fire report within 3 minutes.
+[  37.41-  39.60] once users enter their pants.
+[  41.61-  43.63] Once the user enters their pan detail,
+[  44.52-  45.36] Ignore this.
+[  51.75-  53.20] Finney verifies
+[  54.92-  56.40] pan detail and fetches.
+[  57.03-  59.12] name associated with the pan.
+[  59.59-  61.26] Once the user confirms,
+[  66.69-  67.08] this
+[  69.48-  73.45] the next step is to discover the accounts linked with their phone and pen.
+[  77.00-  79.12] using the account aggregator framework.
+[  83.08-  85.00] once logged into account aggregator
+[  93.54- 102.73] Finney discovers their accounts across different asset classes such as banks, mutual funds, stocks, and NPS.
+[ 108.26- 109.52] delete all the gaps
+[ 110.66- 111.79] I am not speaking
+[ 123.40- 126.48] user gives consent to Fini
+[ 131.05- 132.52] user gives their consent
+[ 135.85- 139.08] don't show all these details after expanding keep the
+[ 140.13- 144.65] Unexpected part where all the categories are visible with 3 bank accounts.
+[ 147.72- 149.87] simply move to the view consent part.
+[ 159.91- 163.60] User gives consent to fetch the data for selected accounts.
+[ 170.21- 174.06] and all accounts get successfully fetched linked to Finney.
+[ 175.72- 179.79] The next step is to get transaction details of users mutual funds.
+[ 182.79- 185.13] using the MS-MF Central framework.
+[ 190.98- 191.92] to a secure
+[ 193.22- 195.18] connection with MF Central APIs.
+[ 196.36- 199.98] User then selects the fire type they want to.
+[ 201.06- 202.86] User then selects the Fire type.
+[ 203.37- 205.52] as an individual or a family.
+[ 211.33- 215.60] The next step is to review the assets which we have fetched automatically.
+[ 217.09- 218.99] to account aggregator in nfcentral.
+[ 223.17- 225.77] just show this for 2-3 seconds
+[ 228.74- 230.41] and then move to the next part.
+[ 233.99- 238.12] don't show all these taps across different asset classes.
+[ 274.47- 276.11] once all accounts are fetched
+[ 276.84- 278.48] The user verifies the data.
+[ 281.93- 283.34] adds any
+[ 283.85- 287.18] other acids which are not fished automatically, such as
+[ 288.13- 291.92] gold, real estate, PF and others.
+[ 298.60- 301.10] quickly show the filled part and move on.
+[ 303.94- 306.12] they also add in inheritance.
+[ 306.85- 308.72] if they are expecting in the future.
+[ 311.65- 315.18] along with their value and when they expect it to.
+[ 318.66- 319.47] and I've
+[ 323.53- 334.35] The next step is to confirm their income and spends which are automatically fetched through their bank accounts and categorized as salary, dividend and interest.
+[ 337.09- 340.46] Don't show the transaction, just move on and say looks good.
+[ 349.35- 353.45] There's no need to show the editing part. We are only showing the happy flow.
+[ 360.52- 362.67] The user verifies the expense.
+[ 392.52- 394.51] For the fire calculation, the user
+[ 395.21- 402.64] does a one final check of all their net worth, cash flow and the assumptions to calculate their fireage.
+[ 405.73- 406.86] don't show the edits.
+[ 407.33- 408.68] and just move on directly.
+[ 409.29- 410.28] to the computation.
+[ 418.44- 422.35] Finney uses its proprietary models to calculate the fire edge.
+[ 423.08- 424.65] based on the data fetched.
+[ 428.45- 433.71] Finney uses its proprietary model to calculate the fire age based on the fetch data.
+[ 443.53- 445.61] The basic fire tells them about their
+[ 447.33- 449.42] about their lifestyle
+[ 450.89- 452.01] finishes them.
+[ 453.32- 458.86] two edges, one with their current base and how fast can they move.
+[ 459.91- 461.61] given a right plan.
+[ 462.09- 465.29] show this on the last screen hold that screen for longer
+[ 465.86- 470.03] and show those two edges popping out like we did in the 2 minute video.
+[ 471.27- 474.32] No need to show the graph when this happens.
+[ 477.00- 478.41] don't show the timeline
+[ 497.00- 498.54] you can ignore all of this
+[ 529.29- 530.38] The difference between
+[ 531.08- 533.80] the fire edge at your pace and with fini
+[ 586.63- 588.33] user sees their fire score
+[ 589.93- 591.50] and the areas where
+[ 592.13- 594.76] Their current portfolio needs attention.
+[ 596.23- 597.13] and also
+[ 597.80- 599.66] the areas where they are doing good.
+[ 603.11- 610.28] across foundations, investment portfolio and the risk and resilience of their investment portfolio.
+[ 614.76- 617.26] looking at their savings rate
+[ 620.52- 622.54] exposure to low growth assets.
+[ 623.05- 627.18] The user can then go ahead and book a free call.
+[ 627.88- 630.67] for a portfolio review with an expert advisor.
+[ 632.10- 634.32] selecting a time of their convenience
+[ 639.94- 641.55] and the calendar is shared.
+[ 642.34- 643.40] on their email.
+[ 648.23- 649.58] Once the call is booked,
+[ 650.92- 653.29] Users take Finnish paid advisory
+[ 668.93- 673.42] As a part of their fire plan users can also add
+[ 674.09- 678.28] their fire goes using other fire types such as secure fire.
+[ 680.87- 682.96] such as buying a home.
+[ 685.06- 686.28] buying a car
+[ 687.46- 688.97] or planning for their
+[ 689.51- 690.35] kids.
+[ 691.91- 692.81] Etc.
+[ 725.99- 728.68] Now directly show them that those who want to
+[ 734.60- 737.07] get help in achieving this fire faster.
+[ 745.54- 750.25] Users do a one final check before calculating their fire score.
+[ 751.88- 752.62] and C
+[ 757.48- 761.32] how soon they can get financially independent based on their
+[ 763.30- 766.25] current phase and with the right plan with Finney.
+[ 767.01- 770.54] including their lifestyle as well as life course.
+[ 773.25- 778.41] Now use the secure fire for this fire explanation about Yorpis and Finney.
+[ 779.21- 780.56] than just the
+[ 781.57- 783.34] details on the fire score.
+[ 784.65- 787.47] and then booking of the call which came earlier.
+[ 788.45- 791.18] we don't need to show net worth, cash flow, etc.
+[ 792.71- 797.39] directly then move to the parts which we have in 2 minute video where we say
+[ 797.86- 798.51] where
+[ 800.17- 806.80] They take a free review with the advisor and turn into a paid advisory client. Financial models create the plan.
+[ 808.45- 818.32] and expert advisors walk them through it and AI agents then execute the plan. And that's how Finney becomes the one-stop shop for your financial independence.

@@ -32,7 +32,14 @@
   .index button b { min-width: 26px; font-weight: 600; font-size: 11px; color: var(--fy-primary-300); font-variant-numeric: tabular-nums; }
   .index button:hover { background: var(--fy-neutral-100); }
   .index button[aria-current="true"] { background: var(--fy-success-50); color: var(--fy-primary-600); font-weight: 600; }
-  .index .tag-new { margin-left: auto; padding: 1px 6px; border-radius: 4px; background: var(--fy-warning-50); color: var(--fy-warning-700); font-size: 9px; font-weight: 600; text-transform: uppercase; letter-spacing: .04em; }
+  .index .tags { margin-left: auto; display: flex; gap: 4px; flex-shrink: 0; }
+  .index .tag-opt { padding: 0 5px; border: 1px dashed var(--fy-primary-300); border-radius: 4px; color: var(--fy-primary-400); font-size: 9px; font-weight: 600; text-transform: uppercase; letter-spacing: .04em; white-space: nowrap; }
+  .index .legend { display: flex; flex-wrap: wrap; gap: 6px 10px; align-items: center; margin: 0 0 6px; padding: 0 10px; font-size: 11px; color: var(--fy-neutral-500); }
+  .index .legend span { margin-left: 0; }
+  .index .legend .li { display: inline-flex; gap: 6px; align-items: center; white-space: nowrap; }
+  .why .opt-note { padding: 10px 12px; border: 1px dashed var(--fy-primary-300); border-radius: 10px; font-size: 12.5px; line-height: 1.5; color: var(--fy-primary-500); }
+  .why .opt-note b { color: var(--fy-primary-600); }
+  .index .tag-new { padding: 1px 6px; border-radius: 4px; background: var(--fy-warning-50); color: var(--fy-warning-700); font-size: 9px; font-weight: 600; text-transform: uppercase; letter-spacing: .04em; }
 
   .stage { display: grid; justify-items: center; gap: 14px; }
   .stage__crumb { font: 500 12px/1.4 var(--fy-font); color: var(--fy-primary-300); text-align: center; }
@@ -451,6 +458,7 @@ const add = (o) => S.push(o);
 
 /* ---------- A. Start & sign in ---------- */
 add({ id: 'redirect', flow: 'A. Start & sign in', title: 'Hand-off to Account Aggregator', isNew: true,
+  opt: ['Optional', 'ReBIT 4.2(i) says Finny <i>may</i> tell users they are being redirected to the AA (marked O). Recommended, not required. The “You’re on Finvu” notice on arrival (4.2(ii)) is still mandatory.'],
   clauses: ['4.2.i', '4.2.ii', '4.2.iii'],
   notes: ['Missing in the current flow. Before leaving Finny, tell people they are moving to Finvu, an RBI-regulated AA, and why.', 'Shows Finny → Finvu so the change of app is expected, not alarming.'],
   render: () => screen(`
@@ -618,7 +626,7 @@ add({ id: 'link-otp', flow: 'B. Find & link accounts', title: '6b. Confirm with 
     <div class="foot">${btn('Link account', 'consent')}<button class="link" data-go="consent" style="justify-self:center">Skip this account</button>${tagline}</div>`) });
 
 /* ---------- C. Consent ---------- */
-add({ id: 'consent', flow: 'C. Consent', title: '7. Consent (summary)', clauses: ['3.1.ii', '3.1.iii', '3.1.iv', '3.2.i', '3.2.iv', '3.2.v'],
+add({ id: 'consent', flow: 'C. Consent', title: '7. Consent (summary)', opt: ['Optional part', 'The “Listen” read-out is optional: ReBIT 3.1(v) says the AA Client <i>may</i> read consent fields aloud (marked O). The rest of the screen is mandatory.'], clauses: ['3.1.ii', '3.1.iii', '3.1.iv', '3.2.i', '3.2.iv', '3.2.v'],
   notes: ['All 8 mandatory fields are visible before the decision: start, expiry, fetch type, FI types, requester, purpose, data period, frequency.', 'Every field has an ⓘ with its plain-language meaning; Profile, Summary and Transactions get a superscript explainer.', '“View all details” expands on the same screen (no separate page).', 'Approve and Reject are the same size; neither is pre-selected. Optional “Listen” reads the mandatory fields aloud.'],
   render: () => screen(`${aabar()}
     <div class="scroll pad stack-4" style="padding-bottom:12px">
@@ -992,7 +1000,8 @@ add({ id: 'devices', flow: 'G. Profile, safety & help', title: 'Registered devic
     </div>
     <div class="foot foot--plain">${tagline}</div>`) });
 
-add({ id: 'notify', flow: 'G. Profile, safety & help', title: 'Notification preferences', isNew: true, clauses: ['4.3.i', '4.3.iii', '4.3.iv', '4.3.vi'],
+add({ id: 'notify', flow: 'G. Profile, safety & help', title: 'Notification preferences', isNew: true,
+  opt: ['Optional part', 'The data-fetch summary and its frequency are optional: ReBIT 4.3(v) says the FI-U <i>may</i> send it (marked O). Default-on notifications and channel choice (4.3(vi)) are mandatory.'], clauses: ['4.3.i', '4.3.iii', '4.3.iv', '4.3.vi'],
   notes: ['All notifications on by default; user can choose channels and summary frequency.', 'Consent changes always notify by SMS (labelled required).'],
   render: () => screen(`${aabar()}
     <div class="scroll pad stack-4" style="padding-bottom:16px">
@@ -1080,10 +1089,10 @@ const hist = [];
 const $ = (q, r = document) => r.querySelector(q);
 
 function renderIndex() {
-  let html = '', flow = '';
+  let html = '<p class="legend"><span class="li"><span class="tag-new">New</span> new screen</span><span class="li"><span class="tag-opt">Optional</span> not required by ReBIT</span></p>', flow = '';
   S.forEach((s, i) => {
     if (s.flow !== flow) { flow = s.flow; html += `<h2>${flow}</h2>`; }
-    html += `<button type="button" data-jump="${s.id}" aria-current="${s.id === cur}"><b>${String(i + 1).padStart(2, '0')}</b>${s.title}${s.isNew ? '<span class="tag-new">New</span>' : ''}</button>`;
+    html += `<button type="button" data-jump="${s.id}" aria-current="${s.id === cur}"><b>${String(i + 1).padStart(2, '0')}</b>${s.title}<span class="tags">${s.opt ? `<span class="tag-opt" title="${s.opt[0]}">${s.opt[0]}</span>` : ''}${s.isNew ? '<span class="tag-new">New</span>' : ''}</span></button>`;
   });
   $('#index').innerHTML = html;
 }
@@ -1092,6 +1101,7 @@ function renderWhy() {
   $('#why').innerHTML = `<span class="label">${s.isNew ? 'New screen' : 'Improved from your design'}</span>
     <h3>${s.title}</h3>
     <ul>${s.notes.map(n => `<li>${n}</li>`).join('')}</ul>
+    ${s.opt ? `<p class="opt-note"><b>${s.opt[0]}.</b> ${s.opt[1]}</p>` : ''}
     <span class="label">ReBIT AA standard <small>· tap a clause to read it</small></span>
     <div class="clauses">${s.clauses.map(c => `<button type="button" data-clause="${c}" aria-expanded="false">§${c}</button>`).join('')}</div>
     <div class="clause-panel" id="clause-panel" hidden></div>`;

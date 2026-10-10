@@ -947,7 +947,23 @@
   .center { text-align: center; }
   .sb { display: flex; justify-content: space-between; padding: 12px 20px 4px; font: 600 12px/1 var(--fy-font); color: var(--fy-text-primary); }
   .sb i { font-style: normal; letter-spacing: 2px; }
-  .aabar { display: grid; grid-template-columns: 40px 1fr 40px; align-items: center; padding: 2px 8px; min-height: 48px; }
+  .aa-toast { position: relative; display: flex; gap: 8px; align-items: flex-start; padding: 10px 10px 10px 12px; border-radius: 12px; background: var(--fy-primary-600); color: #fff; font: 400 12px/1.45 var(--fy-font); box-shadow: 0 8px 20px rgba(1,35,30,.25); animation: fy-toast-in .35s ease-out; }
+  .aa-toast > svg { flex: none; width: 18px; height: 18px; margin-top: 1px; }
+  .aa-toast button { flex: none; display: grid; place-items: center; width: 24px; height: 24px; padding: 0; border: 0; border-radius: 50%; background: none; color: #fff; cursor: pointer; }
+  .aa-toast button svg { width: 14px; height: 14px; }
+  @keyframes fy-toast-in { from { opacity: 0; transform: translateY(-8px); } }
+  @media (prefers-reduced-motion: reduce) { .aa-toast { animation: none; } }
+  .agree { display: flex; gap: 10px; align-items: flex-start; font: 400 12px/1.45 var(--fy-font); color: var(--fy-primary-500); cursor: pointer; }
+  .agree .fy-checkbox { margin-top: 1px; border-radius: 5px; }
+  .agree .link { padding: 0; font-size: 12px; }
+  .autoread svg { flex: none; width: 18px; height: 18px; color: var(--fy-primary-400); }
+  .autoread .decide .fy-btn { height: 40px; font-size: 13px; }
+  .bank-search { gap: 8px; padding-left: 12px; }
+  .bank-search svg { flex: none; width: 18px; height: 18px; color: var(--fy-primary-300); }
+  .revoke-note { display: flex; gap: 8px; align-items: center; margin: 0; font: 400 12px/1.4 var(--fy-font); color: var(--fy-primary-500); }
+  .revoke-note svg { flex: none; width: 16px; height: 16px; color: var(--fy-primary-400); }
+  .aabar__end { display: flex; justify-content: flex-end; }
+  .aabar { display: grid; grid-template-columns: 80px 1fr 80px; align-items: center; padding: 2px 8px; min-height: 48px; }
   .aabar__mid { justify-self: center; }
   .aa-chip { display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px 4px 4px; border-radius: 999px; background: var(--fy-white); box-shadow: var(--fy-shadow-card); font: 600 12px/1 var(--fy-font); color: var(--fy-primary-600); }
   .aa-chip__mark { display: grid; place-items: center; width: 22px; height: 22px; border-radius: 50%; background: var(--fy-primary-600); color: #fff; font-size: 11px; font-weight: 700; }
@@ -1152,6 +1168,7 @@
   <symbol id="i-help" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><circle cx="12" cy="12" r="8.5"/><path d="M9.6 9.6a2.5 2.5 0 1 1 3.4 2.3c-.6.3-1 .8-1 1.5v.6M12 16.8v.1"/></symbol>
   <symbol id="i-key" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><circle cx="8" cy="14" r="4"/><path d="m11 11 8-8M16 6l2.5 2.5M14 8l2 2"/></symbol>
   <symbol id="i-trash" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 7h15M9.5 7V4.5h5V7M6.5 7l1 13h9l1-13M10 11v5M14 11v5"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4.5 4.5"/></symbol>
   <symbol id="i-msg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M4 5.5h16v11H9l-5 4Z"/></symbol>
 </defs></svg>
 
@@ -1260,6 +1277,10 @@ const BANKS = [
   { id: 'fed1', bank: 'Federal Bank', type: 'Savings', num: '••••4705', mark: 'F', color: '#1C3F94', fi: 'Bank accounts' },
   { id: 'fed2', bank: 'Federal Bank', type: 'Savings', num: '••••8459', mark: 'F', color: '#1C3F94', fi: 'Bank accounts' },
 ];
+const FIPS = [
+  { bank: 'Axis Bank', mark: 'A', color: '#97144D', linked: true }, { bank: 'Federal Bank', mark: 'F', color: '#1C3F94' }, { bank: 'HDFC Bank', mark: 'H', color: '#004C8F', linked: true },
+  { bank: 'ICICI Bank', mark: 'I', color: '#B02A30' }, { bank: 'State Bank of India', mark: 'S', color: '#2D5BA9' }, { bank: 'Yes Bank', mark: 'Y', color: '#00518F', down: true },
+];
 const MF = [ { id: 'cams', bank: 'CAMS', type: 'Mutual funds', num: '8 folios', mark: 'C', color: '#0B6E4F', fi: 'Mutual funds' }, { id: 'kfin', bank: 'KFintech', type: 'Mutual funds', num: '5 folios', mark: 'K', color: '#2A4B9B', fi: 'Mutual funds' } ];
 const EQ = [ { id: 'cdsl', bank: 'CDSL', type: 'Demat', num: '••••2210', mark: 'C', color: '#1D4E89', fi: 'Stocks & ETF' }, { id: 'nsdl', bank: 'NSDL', type: 'Demat', num: '••••0981', mark: 'N', color: '#5A2D82', fi: 'Stocks & ETF' } ];
 
@@ -1289,19 +1310,20 @@ const CTYPE = {
  * ============================================================ */
 const ic = (n, cls = '') => `<svg class="${cls}" aria-hidden="true"><use href="#i-${n}"/></svg>`;
 const sb = (dark) => `<div class="sb" ${dark ? 'style="color:#fff"' : ''}><span>9:41</span><i>●●● ▮</i></div>`;
-const aabar = ({ back = true, close = false, help = true } = {}) => `
+const aabar = ({ back = true, close = false, help = true, exit = true } = {}) => `
   <div class="aabar">
     ${back ? `<button class="fy-icon-btn" data-back aria-label="Back">${ic('back')}</button>` : close ? `<button class="fy-icon-btn" data-back aria-label="Close">${ic('close')}</button>` : '<span></span>'}
     <span class="aabar__mid"><span class="aa-chip"><span class="aa-chip__mark">f</span>Finvu <small>· AA</small></span></span>
-    ${help ? `<button class="fy-icon-btn" data-go="help" aria-label="Help and complaints">${ic('help')}</button>` : '<span></span>'}
+    <span class="aabar__end">${help ? `<button class="fy-icon-btn" data-go="help" aria-label="Help and complaints">${ic('help')}</button>` : ''}${exit ? `<button class="fy-icon-btn" data-exit aria-label="Exit to Finny">${ic('close')}</button>` : ''}</span>
   </div>`;
 const finnybar = (title = '') => `
   <div class="aabar">
     <button class="fy-icon-btn" data-back aria-label="Back">${ic('back')}</button>
     <span class="aabar__mid" style="font:600 15px/1 var(--fy-font);color:var(--fy-primary-600)">${title}</span><span></span>
   </div>`;
-const tagline = `<p class="tagline"><b>Finvu</b>, an RBI regulated NBFC-Account Aggregator</p>`;
+const tagline = `<p class="tagline">Powered by <b>Finvu</b>, an RBI Regulated NBFC-AA</p>`;
 const art = (n, v = '') => `<span class="fy-art ${v}">${ic(n)}</span>`;
+const agree = () => `<label class="agree"><input type="checkbox" class="fy-checkbox" data-agree><span>I agree to Finvu’s <button type="button" class="link" data-doc="terms">Terms &amp; Conditions</button> and <button type="button" class="link" data-doc="privacy">Privacy Policy</button></span></label>`;
 const btn = (label, go, v = 'primary', extra = '') => `<button type="button" class="fy-btn fy-btn--${v}" ${go ? `data-go="${go}"` : ''} ${extra}>${label}</button>`;
 const logo = (a) => `<span class="logo" style="color:${a.color}">${a.mark}</span>`;
 const fieldRow = (k, value) => { const [label, , ex] = FIELDS[k]; return `<dt>${label}<button class="info-btn" data-field="${k}" aria-label="What is ${label}?">${ic('info')}</button></dt><dd>${value ?? ex}</dd>`; };
@@ -1337,9 +1359,10 @@ add({ id: 'redirect', flow: '§2.2 · §4.2 Onboarding & sign-in', title: 'Hand-
     <div class="foot foot--plain pad">${btn('Continue to Finvu', 'intro')}<button class="link" data-back style="justify-self:center">Not now</button></div>${tagline}`, { main: true }) });
 
 add({ id: 'intro', flow: '§2.2 · §4.2 Onboarding & sign-in', title: '1. Intro', clauses: ['4.2.iii', '4.2.iv', '4.1.ii'],
-  notes: ['AA name at the top and the RBI tagline at the bottom on every AA screen.', 'Four trust points reduced to short, scannable lines with a clear “revoke anytime” promise.', 'Language switcher in reach on the first screen.'],
+  notes: ['A pop-up confirms the user is now on Finvu, the AA managing their consent (4.2.ii).', 'AA name at the top and the RBI tagline at the bottom on every AA screen.', 'Four trust points reduced to short, scannable lines with a clear “revoke anytime” promise.', 'Language switcher in reach on the first screen.'],
   render: () => screen(`${aabar()}
     <div class="scroll pad stack-4">
+      <div class="aa-toast" role="status">${ic('shield')}<span><b>You’re now on Finvu</b>, the RBI-regulated Account Aggregator that manages your consent.</span><button type="button" data-dismiss aria-label="Dismiss">${ic('close')}</button></div>
       ${art('bank')}
       <h1 class="title">Let’s analyse your data</h1>
       <p class="lede">We’ll fetch your bank accounts &amp; investments using an RBI-authorised Account Aggregator.</p>
@@ -1354,18 +1377,21 @@ add({ id: 'intro', flow: '§2.2 · §4.2 Onboarding & sign-in', title: '1. Intro
     <div class="foot">${btn('Continue', 'otp')}${tagline}</div>`, { main: true }) });
 
 add({ id: 'otp', flow: '§2.2 · §4.2 Onboarding & sign-in', title: '2. Verify mobile (SIM binding)', clauses: ['5.1.i', '5.1.ii', '1.6.1', '1.6.3'],
-  notes: ['OTP is read automatically from the SMS sent from this SIM; manual entry is disabled during SIM binding.', 'Digits are masked (●) as required for OTPs and PINs.', 'Clear status: reading → verified, with a countdown instead of a dead “Verify” button.'],
+  notes: ['Asks before auto-reading the OTP; the user can allow it or type the OTP themselves.', 'Explicit, unticked agreement to Finvu’s Terms and Privacy Policy; Continue stays disabled until ticked.', 'Digits are masked (●) as required for OTPs and PINs.', 'Clear status: reading → verified, with a countdown instead of a dead “Verify” button.'],
   render: () => screen(`${aabar()}
     <div class="scroll pad stack-4">
       ${art('mobile')}
       <h1 class="title title--sm">Signing in to Finvu</h1>
       <p class="lede">We sent a 6-digit OTP to <b>${USER.mobile}</b> <button class="fy-tag" data-go="otp-change">edit</button></p>
-      <div class="banner banner--info">${ic('sms')}<span><b>SIM verification:</b> keep this SIM in your phone and mobile data on. We’ll read the OTP automatically.</span></div>
-      ${otpCells([1,2,5,2,6,''], '', 'sim')}
-      <span class="fy-status-pill" style="justify-self:start"><span class="fy-spinner"></span>Reading OTP from SMS…</span>
+      <div class="card stack autoread" data-autoread>
+        <div class="row" style="align-items:flex-start">${ic('sms')}<span class="small" style="color:var(--fy-primary-500)"><b>Allow Finvu to read this OTP from SMS?</b><br>Finvu reads only the OTP sent to ${USER.mobile}, nothing else. Keep this SIM in your phone.</span></div>
+        <div class="decide"><button type="button" class="fy-btn fy-btn--reject" data-manual>Type it myself</button><button type="button" class="fy-btn fy-btn--approve" data-allow>Allow</button></div>
+      </div>
+      ${otpCells([], '', 'sim')}
+      <span class="fy-status-pill" style="justify-self:start" data-reading hidden><span class="fy-spinner"></span>Reading OTP from SMS…</span>
       <p class="fy-timer">Didn’t get it? Resend in <b>00:59</b></p>
     </div>
-    <div class="foot">${btn('Verified · Continue', 'existing')}<p class="lock" style="margin:0">${ic('lock')}By continuing you agree to Finvu’s Terms and Privacy Policy</p>${tagline}</div>`) });
+    <div class="foot">${agree()}${btn('Verify and continue', 'existing', 'primary', 'data-needs-agree disabled')}${tagline}</div>`) });
 
 add({ id: 'existing', flow: '§2.2 · §4.2 Onboarding & sign-in', title: '3. Existing Finvu account', clauses: ['2.2.i', '2.2.ii', '4.2.vi'],
   notes: ['Detects an existing AA account before creating a new one and shows the VUA prominently.', 'Second factor (PIN) is asked on the same screen for returning users: 2FA = SIM-bound OTP + PIN.', 'Clear alternative: “This isn’t me” leads to recovery, not a dead end.'],
@@ -1393,7 +1419,7 @@ add({ id: 'new-vua', flow: '§2.2 · §4.2 Onboarding & sign-in', title: '3b. Ne
       <label class="fy-field"><span class="fy-field__label">Set a 4-digit PIN</span></label>
       <div class="fy-otp otp-mask" style="grid-template-columns:repeat(4,48px);justify-content:start;gap:14px" data-otp>${[0,1,2,3].map(i => `<input class="fy-otp__cell" style="width:48px" id="np${i}" type="password" inputmode="numeric" maxlength="1" placeholder=" " aria-label="PIN digit ${i+1}">`).join('')}</div>
     </div>
-    <div class="foot">${btn('Create account', 'identifiers')}${tagline}</div>`) });
+    <div class="foot">${agree()}${btn('Create account', 'identifiers', 'primary', 'data-needs-agree disabled')}${tagline}</div>`) });
 
 add({ id: 'recover', flow: '§2.2 · §4.2 Onboarding & sign-in', title: 'Recover account / reset PIN', isNew: true, clauses: ['2.2.iv'],
   notes: ['Recovery by verifying the registered mobile, available in-app or through support.', 'Support contact shown as selectable text.'],
@@ -1409,7 +1435,7 @@ add({ id: 'recover', flow: '§2.2 · §4.2 Onboarding & sign-in', title: 'Recove
 
 /* ---------- B. Find & link accounts ---------- */
 add({ id: 'identifiers', flow: '§2.1 Account discovery & linking', title: '4. Add identifiers (optional)', clauses: ['2.1.i', '2.1.ii', '3.2.ix'],
-  notes: ['Up to two mobile numbers; PAN and date of birth are optional and unticked by default.', 'Each identifier says what it unlocks (“finds accounts not linked to your mobile”).', 'Primary action changes to “Find accounts” and works with just the verified mobile.'],
+  notes: ['Data minimisation: only PAN is offered here, because Finny asked for mutual funds and stocks. Date of birth is asked only if no accounts are found.', 'Up to two mobile numbers; PAN is unticked by default.', 'Each identifier says what it unlocks (“finds accounts not linked to your mobile”).', 'Primary action changes to “Find accounts” and works with just the verified mobile.'],
   render: () => screen(`${aabar()}
     <div class="scroll pad stack-4">
       <h1 class="title title--sm">Find more of your accounts</h1>
@@ -1417,12 +1443,27 @@ add({ id: 'identifiers', flow: '§2.1 Account discovery & linking', title: '4. A
       <div class="card card--flush">
         <label class="acct"><span class="logo">${ic('mobile')}</span><span class="acct__text"><span class="acct__name">Mobile number</span><span class="acct__meta">${USER.mobile} · Verified</span></span><span class="fy-check">${ic('check')}</span></label>
         <label class="acct" data-go="add-mobile"><span class="logo">${ic('mobile')}</span><span class="acct__text"><span class="acct__name">Add a second mobile</span><span class="acct__meta">You can link up to 2 numbers</span></span>${ic('chev-right','fy-chevron')}</label>
-        <label class="acct"><span class="logo">${ic('idcard')}</span><span class="acct__text"><span class="acct__name">PAN</span><span class="acct__meta">Finds investments linked to PAN</span></span><input class="fy-checkbox" type="checkbox" aria-label="Use PAN"></label>
-        <label class="acct"><span class="logo">${ic('cake')}</span><span class="acct__text"><span class="acct__name">Date of birth</span><span class="acct__meta">Finds more deposit accounts</span></span><input class="fy-checkbox" type="checkbox" aria-label="Use date of birth"></label>
+        <label class="acct"><span class="logo">${ic('idcard')}</span><span class="acct__text"><span class="acct__name">PAN · ${USER.pan}</span><span class="acct__meta">Needed only to find the mutual funds and stocks Finny asked for</span></span><input class="fy-checkbox" type="checkbox" aria-label="Use PAN"></label>
       </div>
       <div class="banner banner--info">${ic('info')}<span>Identifiers are only used to find your accounts. They aren’t shared with Finny.</span></div>
     </div>
-    <div class="foot">${btn('Find my accounts', 'discovering')}${tagline}</div>`) });
+    <div class="foot">${btn('Next: choose your banks', 'fip-select')}${tagline}</div>`) });
+
+add({ id: 'fip-select', flow: '§2.1 Account discovery & linking', title: '4c. Choose your banks', isNew: true, clauses: ['4.1.vii', '3.2.ix', '4.1.viii'],
+  notes: ['No auto-discovery across banks: the user picks the banks to ask (Sahamati Code of Conduct). Nothing is pre-selected.', 'Mutual funds and demat accounts are found automatically through the registrars and depositories, and the screen says so.', 'A bank that is down is flagged before the search, not after it fails.'],
+  render: () => screen(`${aabar()}
+    <div class="scroll pad stack-4" style="padding-bottom:16px">
+      <h1 class="title title--sm">Which banks do you use?</h1>
+      <p class="lede">We’ll only ask the banks you choose for your accounts.</p>
+      <label class="fy-input bank-search">${ic('search')}<input placeholder="Search 112 banks" aria-label="Search banks"></label>
+      <div class="card card--flush">
+        ${FIPS.map(f => f.down
+          ? `<div class="acct" aria-disabled="true" style="opacity:.6">${logo(f)}<span class="acct__text"><span class="acct__name">${f.bank}</span><span class="acct__meta">Temporarily unavailable · try later</span></span><span class="pill pill--warn">Down</span></div>`
+          : `<label class="acct">${logo(f)}<span class="acct__text"><span class="acct__name">${f.bank}</span>${f.linked ? '<span class="acct__meta">You have linked accounts here</span>' : ''}</span><input class="fy-checkbox" type="checkbox" data-bank aria-label="Search ${f.bank}"></label>`).join('')}
+      </div>
+      <div class="banner banner--info">${ic('info')}<span><b>Mutual funds and stocks are found automatically.</b> We check CAMS, KFintech, CDSL and NSDL with your mobile and PAN.</span></div>
+    </div>
+    <div class="foot">${btn('Choose banks to search', 'discovering', 'primary', 'data-countbanks disabled')}${tagline}</div>`) });
 
 add({ id: 'add-mobile', flow: '§2.1 Account discovery & linking', title: '4b. Add a second mobile', isNew: true, clauses: ['2.1.i', '5.1.iii'],
   notes: ['Second number must also be SIM-bound, so the user is told to insert that SIM first.', 'Hard limit of two numbers stated upfront.'],
@@ -1436,24 +1477,24 @@ add({ id: 'add-mobile', flow: '§2.1 Account discovery & linking', title: '4b. A
     <div class="foot">${btn('Verify number', 'identifiers')}${tagline}</div>`) });
 
 add({ id: 'discovering', flow: '§2.1 Account discovery & linking', title: '5. Discovering accounts', clauses: ['4.1.viii', '4.1.vii'],
-  notes: ['Live progress with counts per institution type instead of a static list.', 'The list of institutions being searched is visible (transparency on FIPs).', 'Auto-advances; nothing to tap.'],
+  notes: ['Says which banks are being asked (the ones the user chose) and that mutual funds and demat accounts are auto-discovered.', 'Live progress with counts per institution type instead of a static list.', 'The list of institutions being searched is visible (transparency on FIPs).', 'Auto-advances; nothing to tap.'],
   render: () => screen(`${aabar({ back: false, help: true })}
     <div class="scroll pad stack-4 center" style="padding-top:20px">
       ${art('question')}
       <h1 class="title title--sm">Searching for your accounts</h1>
-      <p class="lede">Checking 112 banks and institutions. This takes a few seconds.</p>
+      <p class="lede">Asking the 2 banks you chose. Mutual funds and demat accounts are being found automatically.</p>
       <div class="progress" style="width:100%;--p:62%"><i></i></div>
       <ul class="steps" style="justify-self:stretch;text-align:left">
-        <li class="done"><i>${ic('check')}</i>Bank accounts · 3 found</li>
-        <li class="now"><i></i>Mutual funds &amp; investments</li>
-        <li><i></i>Insurance, NPS &amp; loans</li>
+        <li class="done"><i>${ic('check')}</i>Your banks (Axis, Federal) · 3 found</li>
+        <li class="now"><i></i>Mutual funds · auto-discovered via CAMS, KFintech</li>
+        <li><i></i>Demat &amp; stocks · auto-discovered via CDSL, NSDL</li>
       </ul>
       <button class="link small" data-go="fip-list">See all institutions searched</button>
     </div>
     <div class="foot foot--plain">${btn('Show results', 'select')}${tagline}</div>`) });
 
 add({ id: 'select', flow: '§2.1 Account discovery & linking', title: '6. Choose accounts to link', clauses: ['3.2.ix', '3.2.viii', '4.1.ii'],
-  notes: ['Fixed: no account is pre-selected. The current design pre-ticks Axis Bank, which the standard disallows.', '“Select all” per group for speed, and the button counts what you picked.', 'Only FI types Finny asked for are shown (deposits, MF, equities).'],
+  notes: ['Accounts already linked to Finvu are shown as “Already linked”, so people don’t link them twice.', 'Fixed: no account is pre-selected. The current design pre-ticks Axis Bank, which the standard disallows.', '“Select all” per group for speed, and the button counts what you picked.', 'Only FI types Finny asked for are shown (deposits, MF, equities).'],
   render: () => screen(`${aabar()}
     <div class="scroll pad stack-4" style="padding-bottom:16px">
       <h1 class="title title--sm">Choose accounts to share</h1>
@@ -1461,6 +1502,7 @@ add({ id: 'select', flow: '§2.1 Account discovery & linking', title: '6. Choose
       <div class="card card--flush" data-groupbox>
         <div class="grp-head">Bank accounts · ${BANKS.length} found <button class="link" data-selectall>Select all</button></div>
         ${BANKS.map(b => acctRow(b)).join('')}
+        ${acctRow({ bank: 'HDFC Bank', type: 'Savings', num: '••••1120', mark: 'H', color: '#004C8F' }, { checkbox: false, status: '<span class="pill pill--ok">Already linked</span>' })}
       </div>
       <div class="card card--flush" data-groupbox>
         <div class="grp-head">Mutual funds · ${MF.length} found <button class="link" data-selectall>Select all</button></div>
@@ -1489,7 +1531,7 @@ add({ id: 'link-otp', flow: '§2.1 Account discovery & linking', title: '6b. Con
 
 /* ---------- C. Consent ---------- */
 add({ id: 'consent', flow: '§3.1–3.2 Consent management', title: '7. Consent (summary)', opt: ['Optional part', 'The “Listen” read-out is optional: ReBIT 3.1(v) says the AA Client <i>may</i> read consent fields aloud (marked O). The rest of the screen is mandatory.'], clauses: ['3.1.ii', '3.1.iii', '3.1.iv', '3.2.i', '3.2.iv', '3.2.v'],
-  notes: ['All 8 mandatory fields are visible before the decision: start, expiry, fetch type, FI types, requester, purpose, data period, frequency.', 'Every field has an ⓘ with its plain-language meaning; Profile, Summary and Transactions get a superscript explainer.', '“View all details” expands on the same screen (no separate page).', 'Approve and Reject are the same size; neither is pre-selected. Optional “Listen” reads the mandatory fields aloud.'],
+  notes: ['All 8 mandatory fields are visible before the decision: start, expiry, fetch type, FI types, requester, purpose, data period, frequency.', 'Every field has an ⓘ with its plain-language meaning; Profile, Summary and Transactions get a superscript explainer.', '“View all details” expands on the same screen (no separate page).', 'Approve and Reject are the same size; neither is pre-selected. Optional “Listen” reads the mandatory fields aloud.', 'L1 says the consent can be revoked anytime; L2 lists complaint routes to Finny, Finvu and the Data Protection Board.'],
   render: () => screen(`${aabar()}
     <div class="scroll pad stack-4" style="padding-bottom:12px">
       <div class="row row--between"><h1 class="title title--sm">Consent request</h1><button class="listen" data-speak>${ic('mic')}Listen</button></div>
@@ -1510,11 +1552,12 @@ add({ id: 'consent', flow: '§3.1–3.2 Consent management', title: '7. Consent 
             <button class="link small" style="justify-self:start;padding:0" data-go="help">How to withdraw this consent</button>
             <button class="link small" style="justify-self:start;padding:0" data-go="help">Complain to Finny (the requester)</button>
             <button class="link small" style="justify-self:start;padding:0" data-go="help">Complain to Finvu (the AA)</button>
+            <button class="link small" style="justify-self:start;padding:0" data-go="help">Complain to the Data Protection Board</button>
           </div>
         </details>
       </div>
     </div>
-    <div class="foot"><div class="decide"><button class="fy-btn fy-btn--reject" data-go="reject">Reject</button><button class="fy-btn fy-btn--approve" data-go="consent-otp">Approve</button></div>${tagline}</div>`) });
+    <div class="foot"><p class="revoke-note">${ic('revoke')}<span>You can revoke this consent anytime from <b>Finvu → Your consents</b>.</span></p><div class="decide"><button class="fy-btn fy-btn--reject" data-go="reject">Reject</button><button class="fy-btn fy-btn--approve" data-go="consent-otp">Approve</button></div>${tagline}</div>`) });
 
 add({ id: 'field-info', flow: '§3.1–3.2 Consent management', title: '7b. What does this field mean?', isNew: true, clauses: ['3.1.iii', '3.1.vi'],
   notes: ['Tap any ⓘ on the consent screen to get the meaning and an example in plain language.', 'Opens as a sheet so the person never loses their place.'],
@@ -1522,7 +1565,7 @@ add({ id: 'field-info', flow: '§3.1–3.2 Consent management', title: '7b. What
     <div class="sheet-host"><div class="fy-sheet" role="dialog" aria-label="Field meaning"><div class="handle"></div>
       <div class="fy-sheet__head fy-sheet__head--plain" style="padding-bottom:4px"><button class="fy-icon-btn fy-sheet__close" data-back aria-label="Close">${ic('close')}</button><p class="fy-sheet__title" style="font-size:20px">Data use (consent mode)</p></div>
       <div class="sheet-body"><div class="meaning"><span>Whether Finny only <b>views</b> your data or <b>stores</b> it for the consent period.</span><span><b>In this request:</b> Store, for 30 days after each fetch.</span></div>
-      <p class="lede small">After the data life ends Finny may keep records only as required by law. You can revoke this consent anytime.</p>${btn('Got it', null, 'secondary', 'data-back')}</div></div></div>`) });
+      <p class="lede small">After the data life ends Finny may keep records only as required by law. You can revoke this consent anytime.</p>${btn('Got it', null, 'secondary', 'data-back')}${tagline}</div></div></div>`) });
 
 add({ id: 'multi', flow: '§3.1–3.2 Consent management', title: '7c. Two consents, decided separately', isNew: true, clauses: ['3.1.iv', '3.2.iii', '3.2.vi'],
   notes: ['When an app asks for two purposes, each consent is its own card with its own Approve / Reject.', 'The final button stays disabled until each consent has a decision.'],
@@ -1713,7 +1756,7 @@ add({ id: 'dashboard', flow: '§3.2–3.3 Consent control & audit trail', title:
           <dl class="kv"><dt>Last fetched</dt><dd>${last}</dd><dt>Next fetch</dt><dd>${next}</dd><dt>Accounts</dt><dd>3</dd></dl>
         </button>`).join('')}
     </div>
-    <div class="foot"><nav class="fy-bnb" style="margin:0 -16px;box-shadow:none"><a aria-current="page" data-go="dashboard">${ic('doc')}Consents</a><a data-go="linked">${ic('bank')}Accounts</a><a data-go="activity">${ic('clock')}Activity</a><a data-go="profile">${ic('user')}Profile</a></nav></div>`, { main: true }) });
+    <div class="foot"><nav class="fy-bnb" style="margin:0 -16px;box-shadow:none"><a aria-current="page" data-go="dashboard">${ic('doc')}Consents</a><a data-go="linked">${ic('bank')}Accounts</a><a data-go="activity">${ic('clock')}Activity</a><a data-go="profile">${ic('user')}Profile</a></nav>${tagline}</div>`, { main: true }) });
 
 add({ id: 'consent-detail', flow: '§3.2–3.3 Consent control & audit trail', title: '17b. Consent details & controls', isNew: true, clauses: ['3.2.ii', '3.2.x', '3.3.i'],
   notes: ['Pause, Resume and Revoke are all here, each with a confirmation step.', 'Data-fetch history for this consent (what was fetched, when, from whom).', 'Link to the immutable audit trail.'],
@@ -1738,7 +1781,7 @@ add({ id: 'pause', flow: '§3.2–3.3 Consent control & audit trail', title: '17
       <div class="sheet-body">
         <p class="eyebrow">Resume automatically</p>
         <div class="seg" style="--n:3" data-group><button aria-pressed="false">In 1 month</button><button aria-pressed="false">In 3 months</button><button aria-pressed="true">Never</button></div>
-        <div class="decide"><button class="fy-btn fy-btn--reject" data-back>Cancel</button><button class="fy-btn fy-btn--approve" data-go="paused">Pause</button></div>
+        <div class="decide"><button class="fy-btn fy-btn--reject" data-back>Cancel</button><button class="fy-btn fy-btn--approve" data-go="paused">Pause</button></div>${tagline}
       </div></div></div>`) });
 
 add({ id: 'paused', flow: '§3.2–3.3 Consent control & audit trail', title: '17d. Paused state', isNew: true, clauses: ['3.2.ii', '4.3.iii'],
@@ -1783,7 +1826,7 @@ add({ id: 'activity', flow: '§3.2–3.3 Consent control & audit trail', title: 
       </ul></div>
       <p class="lock" style="margin:0">${ic('lock')}This log is tamper-proof and can’t be edited.</p>
     </div>
-    <div class="foot"><nav class="fy-bnb" style="margin:0 -16px;box-shadow:none"><a data-go="dashboard">${ic('doc')}Consents</a><a data-go="linked">${ic('bank')}Accounts</a><a aria-current="page" data-go="activity">${ic('clock')}Activity</a><a data-go="profile">${ic('user')}Profile</a></nav></div>`, { main: true }) });
+    <div class="foot"><nav class="fy-bnb" style="margin:0 -16px;box-shadow:none"><a data-go="dashboard">${ic('doc')}Consents</a><a data-go="linked">${ic('bank')}Accounts</a><a aria-current="page" data-go="activity">${ic('clock')}Activity</a><a data-go="profile">${ic('user')}Profile</a></nav>${tagline}</div>`, { main: true }) });
 
 /* ---------- F. Linked accounts ---------- */
 add({ id: 'linked', flow: '§2.1 Linked accounts & delinking', title: 'Linked accounts', isNew: true, clauses: ['2.1', '3.2.x'],
@@ -1794,7 +1837,7 @@ add({ id: 'linked', flow: '§2.1 Linked accounts & delinking', title: 'Linked ac
       <div class="card card--flush">${[...BANKS, MF[0], EQ[0]].map((a, i) => `<div class="acct" data-go="${i === 0 ? 'delink' : 'delink'}">${logo(a)}<span class="acct__text"><span class="acct__name">${a.bank}</span><span class="acct__meta">${a.type} ${a.num}</span></span><span class="pill ${i < 1 || i > 2 ? 'pill--ok' : 'pill--mute'}">${i < 1 || i > 2 ? '1 consent' : 'No consent'}</span>${ic('chev-right','fy-chevron')}</div>`).join('')}</div>
       <button class="fy-add-link" data-go="identifiers">Find more accounts</button>
     </div>
-    <div class="foot"><nav class="fy-bnb" style="margin:0 -16px;box-shadow:none"><a data-go="dashboard">${ic('doc')}Consents</a><a aria-current="page" data-go="linked">${ic('bank')}Accounts</a><a data-go="activity">${ic('clock')}Activity</a><a data-go="profile">${ic('user')}Profile</a></nav></div>`, { main: true }) });
+    <div class="foot"><nav class="fy-bnb" style="margin:0 -16px;box-shadow:none"><a data-go="dashboard">${ic('doc')}Consents</a><a aria-current="page" data-go="linked">${ic('bank')}Accounts</a><a data-go="activity">${ic('clock')}Activity</a><a data-go="profile">${ic('user')}Profile</a></nav>${tagline}</div>`, { main: true }) });
 
 add({ id: 'delink', flow: '§2.1 Linked accounts & delinking', title: '19. Delink account (blocked)', clauses: ['2.1', '4.1.viii'],
   notes: ['Standard: all active consents on the account must be revoked before delinking. The screen lists them with a revoke action, instead of letting the user fail later.', 'Delink button stays disabled until the list is empty.'],
@@ -1847,7 +1890,7 @@ add({ id: 'profile', flow: '§4 User experience: profile, notifications & help',
         <a data-go="close-account">${ic('trash')}<span style="color:var(--fy-error-700)">Close Finvu account</span>${ic('chev-right','fy-chevron')}</a>
       </div>
     </div>
-    <div class="foot"><nav class="fy-bnb" style="margin:0 -16px;box-shadow:none"><a data-go="dashboard">${ic('doc')}Consents</a><a data-go="linked">${ic('bank')}Accounts</a><a data-go="activity">${ic('clock')}Activity</a><a aria-current="page" data-go="profile">${ic('user')}Profile</a></nav></div>`, { main: true }) });
+    <div class="foot"><nav class="fy-bnb" style="margin:0 -16px;box-shadow:none"><a data-go="dashboard">${ic('doc')}Consents</a><a data-go="linked">${ic('bank')}Accounts</a><a data-go="activity">${ic('clock')}Activity</a><a aria-current="page" data-go="profile">${ic('user')}Profile</a></nav>${tagline}</div>`, { main: true }) });
 
 add({ id: 'devices', flow: '§4 User experience: profile, notifications & help', title: 'Registered devices', isNew: true, clauses: ['1.6.3.vi', '1.6.3.vii'],
   notes: ['Shows every bound device and active session with a remove action and the device limit.'],
@@ -1952,7 +1995,7 @@ const $ = (q, r = document) => r.querySelector(q);
 
 // Primary ReBIT clause for each screen, shown as its number in the screen list. A = Annexure 1.
 const REF = { redirect: '4.2.i', intro: '4.2.iii', otp: '5.1.i', existing: '2.2.ii', 'new-vua': '2.2.i', recover: '2.2.iv',
-  identifiers: '2.1.ii', 'add-mobile': '2.1.i', discovering: '4.1.viii', select: '3.2.ix', 'link-otp': '5.1.ii',
+  identifiers: '2.1.ii', 'add-mobile': '2.1.i', 'fip-select': '4.1.vii', discovering: '4.1.viii', select: '3.2.ix', 'link-otp': '5.1.ii',
   consent: '3.1.ii', 'field-info': '3.1.iii', multi: '3.2.vi', 'consent-otp': '3.2.iii', reject: '3.2.ii', rejected: '4.3.i',
   connecting: '4.1.viii', success: '4.3.i', 'no-accounts': '2.1.ii', partial: '4.1.viii', 'bank-down': '4.1.viii',
   expired: '3.2.vii', 'otp-failed': '4.1.viii', session: 'A1.2.1.v', 'new-device': 'A1.6.1.ii', unsafe: 'A1.2.1.ii',
@@ -2017,6 +2060,16 @@ function wire(root) {
     g.querySelectorAll(':scope > button').forEach(x => x.setAttribute('aria-pressed', String(x === b)));
   }));
   // Account picker: nothing preselected; button counts selections.
+  // Explicit agreement gates the button.
+  root.querySelectorAll('[data-agree]').forEach(c => c.addEventListener('change', () => root.querySelectorAll('[data-needs-agree]').forEach(b => { b.disabled = !c.checked; })));
+  root.querySelectorAll('[data-doc]').forEach(b => b.addEventListener('click', e => { e.preventDefault(); e.stopPropagation(); showDoc(root, b.dataset.doc); }));
+  // OTP auto-read only after the user allows it.
+  root.querySelectorAll('[data-allow]').forEach(b => b.addEventListener('click', () => { b.closest('[data-autoread]').hidden = true; const r = root.querySelector('[data-reading]'); if (r) r.hidden = false; }));
+  root.querySelectorAll('[data-manual]').forEach(b => b.addEventListener('click', () => { b.closest('[data-autoread]').hidden = true; root.querySelector('.fy-otp__cell')?.focus(); }));
+  root.querySelectorAll('[data-dismiss]').forEach(b => b.addEventListener('click', () => b.parentElement.remove()));
+  root.querySelectorAll('[data-exit]').forEach(b => b.addEventListener('click', () => showExit(root)));
+  const bankBtn = root.querySelector('[data-countbanks]');
+  root.querySelectorAll('[data-bank]').forEach(c => c.addEventListener('change', () => { const n = root.querySelectorAll('[data-bank]:checked').length; bankBtn.disabled = !n; bankBtn.textContent = n ? `Search ${n} bank${n > 1 ? 's' : ''}` : 'Choose banks to search'; }));
   const countBtn = root.querySelector('[data-count]');
   const recount = () => { if (!countBtn) return; const n = root.querySelectorAll('[data-pick]:checked').length; countBtn.disabled = !n; countBtn.textContent = n ? `Continue with ${n} account${n > 1 ? 's' : ''}` : 'Select accounts to continue'; };
   root.querySelectorAll('[data-pick]').forEach(c => c.addEventListener('change', recount));
@@ -2060,6 +2113,28 @@ function showField(root, k) {
   host.querySelectorAll('button').forEach(b => b.addEventListener('click', close));
   root.firstElementChild.appendChild(host);
   host.querySelector('button').focus();
+}
+
+function sheet(root, title, body) {
+  const host = document.createElement('div');
+  host.className = 'sheet-host';
+  host.innerHTML = `<div class="fy-sheet" role="dialog" aria-label="${title}"><div class="handle"></div>
+    <div class="fy-sheet__head fy-sheet__head--plain" style="padding-bottom:4px"><button class="fy-icon-btn fy-sheet__close" aria-label="Close">${ic('close')}</button><p class="fy-sheet__title" style="font-size:20px">${title}</p></div>
+    <div class="sheet-body">${body}</div></div>`;
+  const close = () => host.remove();
+  host.addEventListener('click', e => { if (e.target === host || e.target.closest('[data-close]') || e.target.closest('.fy-sheet__close')) close(); });
+  root.firstElementChild.appendChild(host);
+  host.querySelector('button').focus();
+  return host;
+}
+function showExit(root) {
+  const host = sheet(root, 'Leave Finvu?', `<p class="lede">Nothing will be shared with Finny. You can link your accounts later from Finny.</p>
+    <div class="decide"><button class="fy-btn fy-btn--reject" data-close>Stay</button><button class="fy-btn fy-btn--approve" data-exit-go>Exit to Finny</button></div>${tagline}`);
+  host.querySelector('[data-exit-go]').addEventListener('click', () => { host.remove(); go('redirect'); });
+}
+function showDoc(root, k) {
+  const [title, text] = k === 'terms' ? ['Terms & Conditions', 'Finvu’s terms for using the Account Aggregator: what Finvu does with your consent, your rights to pause, revoke and close your account, and how complaints are handled.'] : ['Privacy Policy', 'Finvu never reads or stores your financial data. It keeps only the details needed to run your account (name, verified mobile, optional email), masked wherever shown.'];
+  sheet(root, title, `<div class="meaning"><span>${text}</span><span class="muted">Full document opens here in the live app.</span></div><button class="fy-btn fy-btn--secondary" data-close>Close</button>`);
 }
 
 /* Gallery: every screen, static, grouped by flow. */
@@ -2108,15 +2183,15 @@ const FLOW = [
     ['existing', 'r', 'A.out', 'l', 'Continue'], ['new-vua', 'r', 'A.out', 'b', 'Create account'],
   ] },
   { id: 'B', name: 'Find & link accounts', title: '§2.1 Account discovery & linking', nodes: [
-    ['B.in', 'from', 0, 0, 'A'], ['identifiers', 'screen', 1, 0], ['discovering', 'screen', 2, 0], ['B.d1', 'dec', 3, 0, 'Accounts\nfound?'],
-    ['select', 'screen', 4, 0], ['link-otp', 'screen', 5, 0], ['B.out', 'to', 6, 0, 'C'],
-    ['add-mobile', 'screen', 1, 1], ['fip-list', 'screen', 2, 1], ['no-accounts', 'screen', 3, 1],
+    ['B.in', 'from', 0, 0, 'A'], ['identifiers', 'screen', 1, 0], ['fip-select', 'screen', 2, 0], ['discovering', 'screen', 3, 0], ['B.d1', 'dec', 4, 0, 'Accounts\nfound?'],
+    ['select', 'screen', 5, 0], ['link-otp', 'screen', 6, 0], ['B.out', 'to', 7, 0, 'C'],
+    ['add-mobile', 'screen', 1, 1], ['fip-list', 'screen', 3, 1], ['no-accounts', 'screen', 4, 1],
   ], edges: [
-    ['B.in', 'r', 'identifiers', 'l'], ['identifiers', 'r', 'discovering', 'l', 'Find my accounts'],
+    ['B.in', 'r', 'identifiers', 'l'], ['identifiers', 'r', 'fip-select', 'l', 'Next'], ['fip-select', 'r', 'discovering', 'l', 'Search banks'],
     ['identifiers', 'b-35', 'add-mobile', 't-35', 'Add a 2nd mobile', { anchor: 'end' }], ['add-mobile', 't+35', 'identifiers', 'b+35', 'Verified'],
     ['discovering', 'r', 'B.d1', 'l', 'Show results'], ['discovering', 'b', 'fip-list', 't', 'See institutions'],
     ['B.d1', 'r', 'select', 'l', 'Yes'], ['B.d1', 'b', 'no-accounts', 't', 'No'],
-    ['no-accounts', 'r-50', 'identifiers', 't', 'Search with PAN / DOB', { via: [['x', 4], ['y', -.08]], at: 'end' }],
+    ['no-accounts', 'r-50', 'identifiers', 't', 'Search with PAN / DOB', { via: [['x', 5], ['y', -.08]], at: 'end' }],
     ['select', 'b', 'no-accounts', 'r+50', 'Don’t see an account?'],
     ['select', 'r', 'link-otp', 'l', 'Select accounts'], ['link-otp', 'r', 'B.out', 'l', 'Link account'],
   ] },

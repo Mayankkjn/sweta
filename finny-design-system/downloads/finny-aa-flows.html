@@ -863,6 +863,61 @@
   .gallery__cap b { color: var(--fy-primary-300); font-weight: 600; margin-right: 6px; }
   [hidden] { display: none !important; }
 
+  /* ---------- Wireflow canvas ---------- */
+  .wf { position: relative; height: calc(100dvh - var(--topbar-h, 54px)); overflow: hidden; }
+  .wf-view { position: absolute; inset: 0; overflow: hidden; cursor: grab; touch-action: none; outline: none;
+    background-color: #EEF0EC; background-image: radial-gradient(circle, rgba(1,35,30,.16) 1px, transparent 1.2px); }
+  .wf-view.is-dragging { cursor: grabbing; }
+  .wf-world { position: absolute; left: 0; top: 0; transform-origin: 0 0; }
+  .wf-lane { position: absolute; border-radius: 28px; background: rgba(255,255,255,.55); border: 1px solid rgba(1,35,30,.06); }
+  .wf-lane h3 { position: absolute; left: 28px; top: 22px; margin: 0; font: 700 22px/1.2 var(--fy-font); color: var(--fy-primary-600); white-space: nowrap; }
+  .wf-lane h3 small { margin-left: 10px; font-weight: 500; font-size: 14px; color: var(--fy-primary-300); }
+  .wf-card { position: absolute; width: 180px; padding: 0; border: 0; background: none; text-align: left; cursor: pointer; font: inherit; }
+  .wf-phone { position: relative; width: 180px; height: 380px; border-radius: 20px; overflow: hidden; background: var(--fy-bg-page); box-shadow: 0 0 0 4px #0d1a17, 0 10px 24px rgba(1,35,30,.18); pointer-events: none; }
+  .wf-phone * { pointer-events: none !important; }
+  .wf-phone > .fy-screen { width: 360px; height: 760px; transform: scale(.5); transform-origin: 0 0; }
+  .wf-cap { display: flex; gap: 6px; align-items: baseline; margin-top: 12px; font: 500 13px/1.35 var(--fy-font); color: var(--fy-primary-500); }
+  .wf-cap b { flex: none; font-size: 11px; color: var(--fy-primary-300); }
+  .wf-card:focus-visible .wf-phone, .wf-card.is-sel .wf-phone { box-shadow: 0 0 0 4px #0d1a17, 0 0 0 9px var(--fy-primary-300), 0 14px 30px rgba(1,35,30,.25); }
+  .wf.has-sel .wf-card:not(.is-sel):not(.is-rel) { opacity: .35; }
+  .wf-wires { position: absolute; left: 0; top: 0; overflow: visible; pointer-events: none; }
+  .wf-wires path { fill: none; stroke: var(--fy-primary-300); stroke-width: 2; opacity: .5; }
+  .wf-wires path.cond { stroke: var(--fy-warning-700); stroke-dasharray: 7 6; opacity: .55; }
+  .wf-wires path.nav { stroke: var(--fy-neutral-400); stroke-dasharray: 2 5; opacity: .5; }
+  .wf-wires circle { fill: var(--fy-primary-300); opacity: .7; }
+  .wf.has-sel .wf-wires path, .wf.has-sel .wf-wires circle { opacity: .08; }
+  .wf.has-sel .wf-wires path.out { opacity: 1; stroke: var(--fy-primary-500); stroke-width: 3; }
+  .wf.has-sel .wf-wires path.in { opacity: 1; stroke: #B5651D; stroke-width: 3; }
+  .wf.has-sel .wf-wires circle.out { opacity: 1; fill: var(--fy-primary-500); }
+  .wf-wires text { display: none; font: 600 13px/1 var(--fy-font); paint-order: stroke; stroke: #fff; stroke-width: 5px; stroke-linejoin: round; }
+  .wf.has-sel .wf-wires text.out { display: block; fill: var(--fy-primary-600); }
+  .wf.has-sel .wf-wires text.in { display: block; fill: #8A4A12; }
+  .wf-hint, .wf-legend, .wf-tools, .wf-info { position: absolute; z-index: 2; background: #fff; border-radius: 12px; box-shadow: var(--fy-shadow-card); font: 400 12px/1.4 var(--fy-font); color: var(--fy-primary-500); }
+  .wf-hint { left: 16px; top: 16px; padding: 8px 12px; color: var(--fy-text-secondary); }
+  .wf-hint kbd { padding: 0 4px; border: 1px solid var(--fy-border-default); border-radius: 4px; font: inherit; font-size: 11px; }
+  .wf-legend { left: 16px; bottom: 16px; display: flex; flex-wrap: wrap; gap: 6px 14px; align-items: center; max-width: 560px; padding: 10px 14px; }
+  .wf-legend span { display: inline-flex; align-items: center; gap: 6px; }
+  .wf-legend small { flex-basis: 100%; color: var(--fy-text-secondary); }
+  .wf-legend label { display: inline-flex; align-items: center; gap: 6px; cursor: pointer; }
+  .ln { display: inline-block; width: 22px; height: 0; border-top: 3px solid var(--fy-primary-500); }
+  .ln--in { border-color: #B5651D; } .ln--cond { border-top-style: dashed; border-color: var(--fy-warning-700); }
+  .wf-tools { right: 16px; bottom: 16px; display: flex; padding: 4px; gap: 2px; }
+  .wf-tools button { min-width: 34px; height: 32px; padding: 0 8px; border: 0; border-radius: 8px; background: none; font: 600 13px/1 var(--fy-font); color: var(--fy-primary-600); cursor: pointer; font-variant-numeric: tabular-nums; }
+  .wf-tools button:hover { background: var(--fy-neutral-100); }
+  .wf-info { right: 16px; top: 16px; width: 290px; max-height: calc(100% - 92px); overflow: auto; padding: 14px 16px; display: grid; gap: 8px; }
+  .wf-info { position: absolute; }
+  .wf-x { position: absolute; right: 8px; top: 8px; width: 28px; height: 28px; border: 0; border-radius: 50%; background: none; font-size: 20px; line-height: 1; color: var(--fy-primary-400); cursor: pointer; }
+  .wf-x:hover { background: var(--fy-neutral-100); }
+  .wf-info .eyebrow:first-of-type { padding-right: 28px; }
+  .wf-info h4 { margin: 0; font: 600 15px/1.35 var(--fy-font); color: var(--fy-primary-600); }
+  .wf-info .eyebrow { margin: 0; }
+  .wf-info ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 4px; }
+  .wf-info li button { width: 100%; display: flex; gap: 6px; padding: 5px 8px; border: 0; border-radius: 6px; background: var(--fy-neutral-100); text-align: left; cursor: pointer; font: 400 12px/1.35 var(--fy-font); color: var(--fy-primary-600); }
+  .wf-info li button:hover { background: var(--fy-success-50); }
+  .wf-info li i { font-style: normal; color: var(--fy-text-secondary); }
+  .wf-info .open { height: 36px; border: 0; border-radius: 999px; background: var(--fy-primary-600); color: #fff; font: 600 13px/1 var(--fy-font); cursor: pointer; }
+  @media (max-width: 760px) { .wf-hint { display: none; } .wf-info { left: 16px; right: 16px; width: auto; top: auto; bottom: 64px; max-height: 45%; } .wf-legend { bottom: 64px; } .wf-info:not([hidden]) ~ .wf-legend { display: none; } }
+
   /* ---------- App-level additions built on Finny tokens ---------- */
   .scroll { flex: 1; min-height: 0; overflow-y: auto; overflow-x: hidden; }
   .pad { padding: 0 var(--fy-space-4); }
@@ -1093,6 +1148,7 @@
   <div class="topbar__brand">finny <span>Account Aggregator flows · built to the ReBIT AA standard (Apr 2026)</span></div>
   <div class="modes" role="group" aria-label="View">
     <button type="button" id="mode-proto" aria-pressed="true">Prototype</button>
+    <button type="button" id="mode-wire" aria-pressed="false">Wireflow</button>
     <button type="button" id="mode-all" aria-pressed="false">All screens</button>
   </div>
 </header>
@@ -1107,6 +1163,21 @@
   <aside class="pane why" id="why"></aside>
 </main>
 <main id="gallery" class="gallery" hidden></main>
+<main id="wire" class="wf" hidden>
+  <div class="wf-view" id="wf-view" tabindex="0" aria-label="Wireflow canvas. Drag or scroll to pan, Ctrl or Command plus scroll to zoom.">
+    <div class="wf-world" id="wf-world"></div>
+  </div>
+  <div class="wf-hint">Drag or scroll to pan · <kbd>Ctrl</kbd>/<kbd>⌘</kbd> + scroll to zoom · Click a screen to trace its wires · Double-click to open it</div>
+  <div class="wf-legend" aria-label="Legend">
+    <span><i class="ln ln--out"></i>Goes to</span><span><i class="ln ln--in"></i>Comes from</span><span><i class="ln ln--cond"></i>System trigger</span>
+    <label><input type="checkbox" id="wf-nav"> Tab bar links</label>
+    <small>Every screen also links to Help &amp; complaints from its header.</small>
+  </div>
+  <div class="wf-tools" role="group" aria-label="Zoom">
+    <button type="button" id="wf-out" aria-label="Zoom out">−</button><button type="button" id="wf-pct" aria-label="Reset to 100%">100%</button><button type="button" id="wf-in" aria-label="Zoom in">+</button><button type="button" id="wf-fit">Fit</button>
+  </div>
+  <aside class="wf-info" id="wf-info" hidden></aside>
+</main>
 
 <script>
 /* Verbatim clause text from ReBIT “Standards to enhance customer protection and user experience
@@ -1990,13 +2061,167 @@ function renderGallery() {
 document.addEventListener('click', e => { const j = e.target.closest('[data-jump]'); if (j) { hist.length = 0; go(j.dataset.jump); } });
 $('#prev').addEventListener('click', () => { const i = byId[cur].n; if (i > 0) go(S[i - 1].id); });
 $('#next').addEventListener('click', () => { const i = byId[cur].n; if (i < S.length - 1) go(S[i + 1].id); });
-const setMode = (all) => {
-  $('#mode-proto').setAttribute('aria-pressed', String(!all)); $('#mode-all').setAttribute('aria-pressed', String(all));
-  $('#proto').hidden = all; $('#gallery').hidden = !all;
-  if (all && !$('#gallery').innerHTML) renderGallery();
+const setMode = (mode) => {
+  [['proto', 'mode-proto'], ['wire', 'mode-wire'], ['gallery', 'mode-all']].forEach(([v, b]) => { $('#' + v).hidden = v !== mode; $('#' + b).setAttribute('aria-pressed', String(v === mode)); });
+  if (mode === 'gallery' && !$('#gallery').innerHTML) renderGallery();
+  if (mode === 'wire') openWire();
 };
-$('#mode-proto').addEventListener('click', () => setMode(false));
-$('#mode-all').addEventListener('click', () => setMode(true));
+$('#mode-proto').addEventListener('click', () => setMode('proto'));
+$('#mode-wire').addEventListener('click', () => setMode('wire'));
+$('#mode-all').addEventListener('click', () => setMode('gallery'));
+
+/* ============================================================
+ * Wireflow: every screen on a pannable canvas, one lane per ReBIT
+ * section, with wires drawn from the buttons that link screens.
+ * ============================================================ */
+// Screens reached by a system event rather than a tap: drawn as dashed wires.
+const WF_COND = [
+  ['otp', 'new-vua', 'No Finvu account yet'], ['otp', 'otp-failed', 'Wrong OTP 3 times'], ['otp', 'new-device', 'New phone detected'],
+  ['redirect', 'unsafe', 'Rooted / jailbroken device'], ['link-otp', 'multi', 'Two consents requested'],
+  ['connecting', 'partial', 'Some accounts failed'], ['connecting', 'bank-down', 'Bank not responding'],
+  ['dashboard', 'expired', 'Consent reaches expiry'], ['dashboard', 'session', 'Idle for 5 minutes'],
+];
+const WF = { built: false, x: 0, y: 0, k: .5, sel: null, edges: [], pos: {} };
+const WF_CW = 180, WF_CH = 380, WF_COL = 300, WF_LANE = 590, WF_PAD = 60;
+function buildWire() {
+  const world = $('#wf-world'), flows = [...new Set(S.map(s => s.flow))];
+  let html = '', maxCols = 0;
+  flows.forEach((f, li) => {
+    const list = S.filter(s => s.flow === f); maxCols = Math.max(maxCols, list.length);
+    const top = li * WF_LANE;
+    html += `<div class="wf-lane" style="left:0;top:${top}px;width:${list.length * WF_COL + WF_PAD * 2 - (WF_COL - WF_CW)}px;height:${WF_LANE - 50}px"><h3>${f}<small>${list.length} screens</small></h3></div>`;
+    list.forEach((s, ci) => {
+      const x = WF_PAD + ci * WF_COL, y = top + 80;
+      WF.pos[s.id] = { x, y };
+      html += `<div role="button" tabindex="0" class="wf-card" data-wf="${s.id}" style="left:${x}px;top:${y}px" aria-label="${REF[s.id]} ${s.title.replace(/^\d+[a-z]?\. /, '')}"><div class="wf-phone">${s.render()}</div><div class="wf-cap"><b>${REF[s.id]}</b>${s.title.replace(/^\d+[a-z]?\. /, '')}</div></div>`;
+    });
+  });
+  WF.w = maxCols * WF_COL + WF_PAD * 2; WF.h = flows.length * WF_LANE;
+  world.style.width = WF.w + 'px'; world.style.height = WF.h + 'px';
+  world.innerHTML = html + `<svg class="wf-wires" width="${WF.w}" height="${WF.h}" aria-hidden="true"></svg>`;
+  // Measure each link's button inside its screen at scale 1 so wires leave from the real tap target.
+  world.style.transform = 'none';
+  const wr = world.getBoundingClientRect(), seen = new Set();
+  world.querySelectorAll('.wf-card').forEach(card => {
+    const from = card.dataset.wf;
+    card.querySelectorAll('[data-go]').forEach(el => {
+      const to = el.dataset.go;
+      if (to === from || !byId[to] || el.matches('.fy-icon-btn[data-go="help"]')) return;
+      const kind = el.closest('.fy-bnb') ? 'nav' : 'out', key = from + '>' + to + kind;
+      if (seen.has(key)) return; seen.add(key);
+      const r = el.getBoundingClientRect(), name = el.querySelector('b, .acct__name, span')?.textContent || el.textContent;
+      WF.edges.push({ from, to, kind, label: (el.getAttribute('aria-label') || name || '').trim().replace(/\s+/g, ' ').slice(0, 34),
+        sx: r.right - wr.left - 4, sy: r.top + r.height / 2 - wr.top });
+    });
+  });
+  WF_COND.forEach(([from, to, label]) => { const p = WF.pos[from]; WF.edges.push({ from, to, kind: 'cond', label, sx: p.x + WF_CW, sy: p.y + 300 }); });
+  const inCount = {};
+  WF.edges.forEach(e => { const t = WF.pos[e.to], n = inCount[e.to] = (inCount[e.to] || 0) + 1; e.tx = t.x; e.ty = t.y + 24 + ((n - 1) % 10) * 14; });
+  drawWires();
+  world.addEventListener('click', e => { const c = e.target.closest('.wf-card'); if (WF.moved) return; selectWire(c ? c.dataset.wf : null); });
+  world.addEventListener('dblclick', e => { const c = e.target.closest('.wf-card'); if (c) openInProto(c.dataset.wf); });
+  world.addEventListener('keydown', e => { const c = e.target.closest('.wf-card'); if (!c || (e.key !== 'Enter' && e.key !== ' ')) return; e.preventDefault(); if (e.key === 'Enter' && WF.sel === c.dataset.wf) openInProto(c.dataset.wf); else selectWire(c.dataset.wf); });
+  $('#wf-nav').addEventListener('change', drawWires);
+  WF.built = true;
+}
+function drawWires() {
+  const showNav = $('#wf-nav').checked, svg = $('#wf-world .wf-wires');
+  let out = '<defs>' + [['a-out', 'var(--fy-primary-500)'], ['a-in', '#B5651D'], ['a-dim', 'var(--fy-primary-300)'], ['a-cond', 'var(--fy-warning-700)']]
+    .map(([id, c]) => `<marker id="${id}" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" style="fill:${c};stroke:none;opacity:1"/></marker>`).join('') + '</defs>';
+  WF.edges.forEach((e, i) => {
+    if (e.kind === 'nav' && !showNav) return;
+    const { sx, sy, tx, ty } = e, fwd = tx > sx + 40, dx = fwd ? Math.max(70, (tx - sx) * .45) : 160;
+    const d = `M${sx} ${sy} C${sx + dx} ${sy} ${tx - dx} ${ty} ${tx - 3} ${ty}`;
+    const role = WF.sel ? (e.from === WF.sel ? 'out' : e.to === WF.sel ? 'in' : '') : '';
+    const marker = role === 'out' ? 'a-out' : role === 'in' ? 'a-in' : e.kind === 'cond' ? 'a-cond' : 'a-dim';
+    const cls = [e.kind === 'out' ? '' : e.kind, role].join(' ').trim();
+    out += `<path class="${cls}" d="${d}" marker-end="url(#${marker})"/>`;
+    if (e.kind !== 'cond') out += `<circle class="${role}" cx="${sx}" cy="${sy}" r="4"/>`;
+    if (role) { const mx = .125 * sx + .375 * (sx + dx) + .375 * (tx - dx) + .125 * tx, my = .5 * sy + .5 * ty; out += `<text class="${role}" x="${mx}" y="${my - 6}" text-anchor="middle">${esc(e.label)}</text>`; }
+  });
+  svg.innerHTML = out;
+}
+const esc = t => String(t).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+function selectWire(id) {
+  WF.sel = id;
+  $('#wire').classList.toggle('has-sel', !!id);
+  const rel = new Set(id ? WF.edges.filter(e => (e.from === id || e.to === id) && (e.kind !== 'nav' || $('#wf-nav').checked)).flatMap(e => [e.from, e.to]) : []);
+  $('#wf-world').querySelectorAll('.wf-card').forEach(c => { c.classList.toggle('is-sel', c.dataset.wf === id); c.classList.toggle('is-rel', rel.has(c.dataset.wf)); });
+  drawWires();
+  const info = $('#wf-info');
+  if (!id) { info.hidden = true; return; }
+  const s = byId[id], vis = e => e.kind !== 'nav' || $('#wf-nav').checked;
+  const item = (e, other) => `<li><button type="button" data-wf-go="${other}"><b>${REF[other]}</b>${esc(byId[other].title.replace(/^\d+[a-z]?\. /, ''))} <i>· ${esc(e.label)}</i></button></li>`;
+  const outs = WF.edges.filter(e => e.from === id && vis(e)), ins = WF.edges.filter(e => e.to === id && vis(e));
+  info.innerHTML = `<button type="button" class="wf-x" aria-label="Close">×</button><p class="eyebrow">${REF[id]} · ${esc(s.flow)}</p><h4>${esc(s.title.replace(/^\d+[a-z]?\. /, ''))}</h4>
+    <p class="eyebrow">Goes to (${outs.length})</p><ul>${outs.map(e => item(e, e.to)).join('') || '<li class="muted small">End of flow</li>'}</ul>
+    <p class="eyebrow">Comes from (${ins.length})</p><ul>${ins.map(e => item(e, e.from)).join('') || '<li class="muted small">Entry point</li>'}</ul>
+    <button type="button" class="open">Open in prototype</button>`;
+  info.hidden = false;
+  info.querySelector('.open').addEventListener('click', () => openInProto(id));
+  info.querySelector('.wf-x').addEventListener('click', () => selectWire(null));
+  info.querySelectorAll('[data-wf-go]').forEach(b => b.addEventListener('click', () => { selectWire(b.dataset.wfGo); centerOn(b.dataset.wfGo); }));
+}
+function openInProto(id) { hist.length = 0; setMode('proto'); go(id); }
+function wfApply() {
+  $('#wf-world').style.transform = `translate(${WF.x}px, ${WF.y}px) scale(${WF.k})`;
+  const v = $('#wf-view'), g = 24 * WF.k;
+  v.style.backgroundSize = `${g}px ${g}px`; v.style.backgroundPosition = `${WF.x}px ${WF.y}px`;
+  $('#wf-pct').textContent = Math.round(WF.k * 100) + '%';
+}
+function wfZoomAt(cx, cy, k) { k = Math.min(2, Math.max(.08, k)); WF.x = cx - (cx - WF.x) * (k / WF.k); WF.y = cy - (cy - WF.y) * (k / WF.k); WF.k = k; wfApply(); }
+function wfFit() { const v = $('#wf-view').getBoundingClientRect(); const k = Math.min((v.width - 40) / WF.w, (v.height - 120) / WF.h); WF.k = Math.max(.08, k); WF.x = (v.width - WF.w * WF.k) / 2; WF.y = 70; wfApply(); }
+function centerOn(id) { const v = $('#wf-view').getBoundingClientRect(), p = WF.pos[id]; if (WF.k < .4) WF.k = .5; WF.x = v.width / 2 - (p.x + WF_CW / 2) * WF.k; WF.y = v.height / 2 - (p.y + WF_CH / 2) * WF.k; wfApply(); }
+function openWire() {
+  document.documentElement.style.setProperty('--topbar-h', $('.topbar').offsetHeight + 'px');
+  const first = !WF.built;
+  if (first) { buildWire(); wireCanvas(); }
+  if (cur && WF.sel !== cur) { selectWire(cur); }
+  if (first) { WF.k = .45; centerOn(cur || S[0].id); }
+  $('#wf-view').focus({ preventScroll: true });
+}
+function wireCanvas() {
+  const v = $('#wf-view'), pts = new Map(); let start = null, pinch = null;
+  v.addEventListener('pointerdown', e => {
+    if (e.button !== 0 && e.pointerType === 'mouse') return;
+    pts.set(e.pointerId, { x: e.clientX, y: e.clientY });
+    if (pts.size === 1) { start = { x: e.clientX, y: e.clientY, ox: WF.x, oy: WF.y }; WF.moved = false; }
+    if (pts.size === 2) { const [a, b] = [...pts.values()]; pinch = { d: Math.hypot(a.x - b.x, a.y - b.y), k: WF.k }; }
+  });
+  v.addEventListener('pointermove', e => {
+    if (!pts.has(e.pointerId)) return;
+    pts.set(e.pointerId, { x: e.clientX, y: e.clientY });
+    if (pts.size === 2 && pinch) { const [a, b] = [...pts.values()], r = v.getBoundingClientRect(); wfZoomAt((a.x + b.x) / 2 - r.left, (a.y + b.y) / 2 - r.top, pinch.k * Math.hypot(a.x - b.x, a.y - b.y) / pinch.d); WF.moved = true; return; }
+    if (!start) return;
+    const dx = e.clientX - start.x, dy = e.clientY - start.y;
+    if (!WF.moved && Math.hypot(dx, dy) < 4) return;
+    if (!WF.moved) { WF.moved = true; v.setPointerCapture(e.pointerId); v.classList.add('is-dragging'); }
+    WF.x = start.ox + dx; WF.y = start.oy + dy; wfApply();
+  });
+  const end = e => { pts.delete(e.pointerId); if (pts.size < 2) pinch = null; if (!pts.size) { start = null; v.classList.remove('is-dragging'); setTimeout(() => { WF.moved = false; }, 0); } };
+  v.addEventListener('pointerup', end); v.addEventListener('pointercancel', end);
+  v.addEventListener('wheel', e => {
+    e.preventDefault();
+    const r = v.getBoundingClientRect();
+    if (e.ctrlKey || e.metaKey) wfZoomAt(e.clientX - r.left, e.clientY - r.top, WF.k * Math.exp(-Math.max(-40, Math.min(40, e.deltaY)) * .01));
+    else { WF.x -= e.deltaX; WF.y -= e.deltaY; wfApply(); }
+  }, { passive: false });
+  v.addEventListener('keydown', e => {
+    const r = v.getBoundingClientRect(), step = 60;
+    if (e.key === '+' || e.key === '=') wfZoomAt(r.width / 2, r.height / 2, WF.k * 1.2);
+    else if (e.key === '-') wfZoomAt(r.width / 2, r.height / 2, WF.k / 1.2);
+    else if (e.key === '0') wfFit();
+    else if (e.key === 'Escape') selectWire(null);
+    else if (e.key.startsWith('Arrow') && e.target === v) { WF.x += e.key === 'ArrowLeft' ? step : e.key === 'ArrowRight' ? -step : 0; WF.y += e.key === 'ArrowUp' ? step : e.key === 'ArrowDown' ? -step : 0; wfApply(); }
+    else return;
+    e.preventDefault();
+  });
+  const mid = () => { const r = v.getBoundingClientRect(); return [r.width / 2, r.height / 2]; };
+  $('#wf-in').addEventListener('click', () => wfZoomAt(...mid(), WF.k * 1.25));
+  $('#wf-out').addEventListener('click', () => wfZoomAt(...mid(), WF.k / 1.25));
+  $('#wf-pct').addEventListener('click', () => wfZoomAt(...mid(), 1));
+  $('#wf-fit').addEventListener('click', wfFit);
+}
 
 /* ============================================================
  * Review comments: one thread per screen, kept in the artifact's shared db.

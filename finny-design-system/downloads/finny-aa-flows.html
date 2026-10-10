@@ -931,7 +931,6 @@
   .more { border-top: 1px dashed var(--fy-border-default); padding-top: 10px; }
   .more summary { list-style: none; cursor: pointer; display: flex; justify-content: center; gap: 4px; font: 600 12px/1.4 var(--fy-font); color: var(--fy-text-link); }
   .more summary::-webkit-details-marker { display: none; }
-  .more[open] summary .chev { transform: rotate(180deg); }
   .more .kv { margin-top: 10px; }
   .decide { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
   .decide .fy-btn { height: 44px; font-size: 15px; }
@@ -1401,7 +1400,7 @@ add({ id: 'consent', flow: 'C. Consent', title: '7. Consent (summary)', opt: ['O
         <hr class="divider">
         <p class="eyebrow">Accounts in this consent (3)</p>
         ${[BANKS[0], MF[0], EQ[0]].map(a => `<div class="row" style="gap:8px">${logo(a)}<span class="acct__text"><span class="acct__name">${a.bank}</span><span class="acct__meta">${a.type} ${a.num}</span></span></div>`).join('')}
-        <details class="more"><summary>View all details ${ic('chev-down','chev')}</summary>
+        <details class="more"><summary>View all details</summary>
           <dl class="kv">${fieldRow('fiu')}${fieldRow('mode')}${fieldRow('filter')}${fieldRow('life')}</dl>
           <div class="stack small" style="margin-top:10px">
             <button class="link small" style="justify-self:start;padding:0" data-go="help">How to withdraw this consent</button>

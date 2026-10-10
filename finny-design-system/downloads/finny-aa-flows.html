@@ -1215,7 +1215,7 @@ const S = [];
 const add = (o) => S.push(o);
 
 /* ---------- A. Start & sign in ---------- */
-add({ id: 'redirect', flow: 'A. Start & sign in', title: 'Hand-off to Account Aggregator', isNew: true,
+add({ id: 'redirect', flow: '§2.2 · §4.2 Onboarding & sign-in', title: 'Hand-off to Account Aggregator', isNew: true,
   opt: ['Optional', 'ReBIT 4.2(i) says Finny <i>may</i> tell users they are being redirected to the AA (marked O). Recommended, not required. The “You’re on Finvu” notice on arrival (4.2(ii)) is still mandatory.'],
   clauses: ['4.2.i', '4.2.ii', '4.2.iii'],
   notes: ['Missing in the current flow. Before leaving Finny, tell people they are moving to Finvu, an RBI-regulated AA, and why.', 'Shows Finny → Finvu so the change of app is expected, not alarming.'],
@@ -1232,7 +1232,7 @@ add({ id: 'redirect', flow: 'A. Start & sign in', title: 'Hand-off to Account Ag
     </div>
     <div class="foot foot--plain pad">${btn('Continue to Finvu', 'intro')}<button class="link" data-back style="justify-self:center">Not now</button></div>${tagline}`, { main: true }) });
 
-add({ id: 'intro', flow: 'A. Start & sign in', title: '1. Intro', clauses: ['4.2.iii', '4.2.iv', '4.1.ii'],
+add({ id: 'intro', flow: '§2.2 · §4.2 Onboarding & sign-in', title: '1. Intro', clauses: ['4.2.iii', '4.2.iv', '4.1.ii'],
   notes: ['AA name at the top and the RBI tagline at the bottom on every AA screen.', 'Four trust points reduced to short, scannable lines with a clear “revoke anytime” promise.', 'Language switcher in reach on the first screen.'],
   render: () => screen(`${aabar()}
     <div class="scroll pad stack-4">
@@ -1249,7 +1249,7 @@ add({ id: 'intro', flow: 'A. Start & sign in', title: '1. Intro', clauses: ['4.2
     </div>
     <div class="foot">${btn('Continue', 'otp')}${tagline}</div>`, { main: true }) });
 
-add({ id: 'otp', flow: 'A. Start & sign in', title: '2. Verify mobile (SIM binding)', clauses: ['5.1.i', '5.1.ii', '1.6.1', '1.6.3'],
+add({ id: 'otp', flow: '§2.2 · §4.2 Onboarding & sign-in', title: '2. Verify mobile (SIM binding)', clauses: ['5.1.i', '5.1.ii', '1.6.1', '1.6.3'],
   notes: ['OTP is read automatically from the SMS sent from this SIM; manual entry is disabled during SIM binding.', 'Digits are masked (●) as required for OTPs and PINs.', 'Clear status: reading → verified, with a countdown instead of a dead “Verify” button.'],
   render: () => screen(`${aabar()}
     <div class="scroll pad stack-4">
@@ -1263,7 +1263,7 @@ add({ id: 'otp', flow: 'A. Start & sign in', title: '2. Verify mobile (SIM bindi
     </div>
     <div class="foot">${btn('Verified · Continue', 'existing')}<p class="lock" style="margin:0">${ic('lock')}By continuing you agree to Finvu’s Terms and Privacy Policy</p>${tagline}</div>`) });
 
-add({ id: 'existing', flow: 'A. Start & sign in', title: '3. Existing Finvu account', clauses: ['2.2.i', '2.2.ii', '4.2.vi'],
+add({ id: 'existing', flow: '§2.2 · §4.2 Onboarding & sign-in', title: '3. Existing Finvu account', clauses: ['2.2.i', '2.2.ii', '4.2.vi'],
   notes: ['Detects an existing AA account before creating a new one and shows the VUA prominently.', 'Second factor (PIN) is asked on the same screen for returning users: 2FA = SIM-bound OTP + PIN.', 'Clear alternative: “This isn’t me” leads to recovery, not a dead end.'],
   render: () => screen(`${aabar()}
     <div class="scroll pad stack-4">
@@ -1277,7 +1277,7 @@ add({ id: 'existing', flow: 'A. Start & sign in', title: '3. Existing Finvu acco
     </div>
     <div class="foot">${btn('Continue', 'identifiers')}<button class="link" data-go="recover" style="justify-self:center">This isn’t me</button>${tagline}</div>`) });
 
-add({ id: 'new-vua', flow: 'A. Start & sign in', title: '3b. New user: create Finvu ID', isNew: true, clauses: ['2.2.i', '2.2', '5.1.i'],
+add({ id: 'new-vua', flow: '§2.2 · §4.2 Onboarding & sign-in', title: '3b. New user: create Finvu ID', isNew: true, clauses: ['2.2.i', '2.2', '5.1.i'],
   notes: ['For first-time users: suggest a VUA, let them edit it, check availability live.', 'Collects only the minimum profile (name, optional email); PIN set here completes 2FA.'],
   render: () => screen(`${aabar()}
     <div class="scroll pad stack-4">
@@ -1291,7 +1291,7 @@ add({ id: 'new-vua', flow: 'A. Start & sign in', title: '3b. New user: create Fi
     </div>
     <div class="foot">${btn('Create account', 'identifiers')}${tagline}</div>`) });
 
-add({ id: 'recover', flow: 'A. Start & sign in', title: 'Recover account / reset PIN', isNew: true, clauses: ['2.2.iv'],
+add({ id: 'recover', flow: '§2.2 · §4.2 Onboarding & sign-in', title: 'Recover account / reset PIN', isNew: true, clauses: ['2.2.iv'],
   notes: ['Recovery by verifying the registered mobile, available in-app or through support.', 'Support contact shown as selectable text.'],
   render: () => screen(`${aabar()}
     <div class="scroll pad stack-4">
@@ -1304,7 +1304,7 @@ add({ id: 'recover', flow: 'A. Start & sign in', title: 'Recover account / reset
     <div class="foot">${btn('Send OTP', 'otp')}${tagline}</div>`) });
 
 /* ---------- B. Find & link accounts ---------- */
-add({ id: 'identifiers', flow: 'B. Find & link accounts', title: '4. Add identifiers (optional)', clauses: ['2.1.i', '2.1.ii', '3.2.ix'],
+add({ id: 'identifiers', flow: '§2.1 Account discovery & linking', title: '4. Add identifiers (optional)', clauses: ['2.1.i', '2.1.ii', '3.2.ix'],
   notes: ['Up to two mobile numbers; PAN and date of birth are optional and unticked by default.', 'Each identifier says what it unlocks (“finds accounts not linked to your mobile”).', 'Primary action changes to “Find accounts” and works with just the verified mobile.'],
   render: () => screen(`${aabar()}
     <div class="scroll pad stack-4">
@@ -1320,7 +1320,7 @@ add({ id: 'identifiers', flow: 'B. Find & link accounts', title: '4. Add identif
     </div>
     <div class="foot">${btn('Find my accounts', 'discovering')}${tagline}</div>`) });
 
-add({ id: 'add-mobile', flow: 'B. Find & link accounts', title: '4b. Add a second mobile', isNew: true, clauses: ['2.1.i', '5.1.iii'],
+add({ id: 'add-mobile', flow: '§2.1 Account discovery & linking', title: '4b. Add a second mobile', isNew: true, clauses: ['2.1.i', '5.1.iii'],
   notes: ['Second number must also be SIM-bound, so the user is told to insert that SIM first.', 'Hard limit of two numbers stated upfront.'],
   render: () => screen(`${aabar()}
     <div class="scroll pad stack-4">
@@ -1331,7 +1331,7 @@ add({ id: 'add-mobile', flow: 'B. Find & link accounts', title: '4b. Add a secon
     </div>
     <div class="foot">${btn('Verify number', 'identifiers')}${tagline}</div>`) });
 
-add({ id: 'discovering', flow: 'B. Find & link accounts', title: '5. Discovering accounts', clauses: ['4.1.viii', '4.1.vii'],
+add({ id: 'discovering', flow: '§2.1 Account discovery & linking', title: '5. Discovering accounts', clauses: ['4.1.viii', '4.1.vii'],
   notes: ['Live progress with counts per institution type instead of a static list.', 'The list of institutions being searched is visible (transparency on FIPs).', 'Auto-advances; nothing to tap.'],
   render: () => screen(`${aabar({ back: false, help: true })}
     <div class="scroll pad stack-4 center" style="padding-top:20px">
@@ -1348,7 +1348,7 @@ add({ id: 'discovering', flow: 'B. Find & link accounts', title: '5. Discovering
     </div>
     <div class="foot foot--plain">${btn('Show results', 'select')}${tagline}</div>`) });
 
-add({ id: 'select', flow: 'B. Find & link accounts', title: '6. Choose accounts to link', clauses: ['3.2.ix', '3.2.viii', '4.1.ii'],
+add({ id: 'select', flow: '§2.1 Account discovery & linking', title: '6. Choose accounts to link', clauses: ['3.2.ix', '3.2.viii', '4.1.ii'],
   notes: ['Fixed: no account is pre-selected. The current design pre-ticks Axis Bank, which the standard disallows.', '“Select all” per group for speed, and the button counts what you picked.', 'Only FI types Finny asked for are shown (deposits, MF, equities).'],
   render: () => screen(`${aabar()}
     <div class="scroll pad stack-4" style="padding-bottom:16px">
@@ -1370,7 +1370,7 @@ add({ id: 'select', flow: 'B. Find & link accounts', title: '6. Choose accounts 
     </div>
     <div class="foot">${btn('Select accounts to continue', 'link-otp', 'primary', 'data-count disabled')}${tagline}</div>`) });
 
-add({ id: 'link-otp', flow: 'B. Find & link accounts', title: '6b. Confirm with bank OTP', isNew: true, clauses: ['5.1.ii', '4.1.viii'],
+add({ id: 'link-otp', flow: '§2.1 Account discovery & linking', title: '6b. Confirm with bank OTP', isNew: true, clauses: ['5.1.ii', '4.1.viii'],
   notes: ['Some banks need their own OTP to link. Shown as a queue (“1 of 2”) so people know how many are left.', 'Masked digits, inline error and resend.'],
   render: () => screen(`${aabar()}
     <div class="scroll pad stack-4">
@@ -1384,7 +1384,7 @@ add({ id: 'link-otp', flow: 'B. Find & link accounts', title: '6b. Confirm with 
     <div class="foot">${btn('Link account', 'consent')}<button class="link" data-go="consent" style="justify-self:center">Skip this account</button>${tagline}</div>`) });
 
 /* ---------- C. Consent ---------- */
-add({ id: 'consent', flow: 'C. Consent', title: '7. Consent (summary)', opt: ['Optional part', 'The “Listen” read-out is optional: ReBIT 3.1(v) says the AA Client <i>may</i> read consent fields aloud (marked O). The rest of the screen is mandatory.'], clauses: ['3.1.ii', '3.1.iii', '3.1.iv', '3.2.i', '3.2.iv', '3.2.v'],
+add({ id: 'consent', flow: '§3.1–3.2 Consent management', title: '7. Consent (summary)', opt: ['Optional part', 'The “Listen” read-out is optional: ReBIT 3.1(v) says the AA Client <i>may</i> read consent fields aloud (marked O). The rest of the screen is mandatory.'], clauses: ['3.1.ii', '3.1.iii', '3.1.iv', '3.2.i', '3.2.iv', '3.2.v'],
   notes: ['All 8 mandatory fields are visible before the decision: start, expiry, fetch type, FI types, requester, purpose, data period, frequency.', 'Every field has an ⓘ with its plain-language meaning; Profile, Summary and Transactions get a superscript explainer.', '“View all details” expands on the same screen (no separate page).', 'Approve and Reject are the same size; neither is pre-selected. Optional “Listen” reads the mandatory fields aloud.'],
   render: () => screen(`${aabar()}
     <div class="scroll pad stack-4" style="padding-bottom:12px">
@@ -1412,7 +1412,7 @@ add({ id: 'consent', flow: 'C. Consent', title: '7. Consent (summary)', opt: ['O
     </div>
     <div class="foot"><div class="decide"><button class="fy-btn fy-btn--reject" data-go="reject">Reject</button><button class="fy-btn fy-btn--approve" data-go="consent-otp">Approve</button></div>${tagline}</div>`) });
 
-add({ id: 'field-info', flow: 'C. Consent', title: '7b. What does this field mean?', isNew: true, clauses: ['3.1.iii', '3.1.vi'],
+add({ id: 'field-info', flow: '§3.1–3.2 Consent management', title: '7b. What does this field mean?', isNew: true, clauses: ['3.1.iii', '3.1.vi'],
   notes: ['Tap any ⓘ on the consent screen to get the meaning and an example in plain language.', 'Opens as a sheet so the person never loses their place.'],
   render: () => screen(`${aabar()}<div class="scroll pad" style="opacity:.4"><h1 class="title title--sm">Consent request</h1></div>
     <div class="sheet-host"><div class="fy-sheet" role="dialog" aria-label="Field meaning"><div class="handle"></div>
@@ -1420,7 +1420,7 @@ add({ id: 'field-info', flow: 'C. Consent', title: '7b. What does this field mea
       <div class="sheet-body"><div class="meaning"><span>Whether Finny only <b>views</b> your data or <b>stores</b> it for the consent period.</span><span><b>In this request:</b> Store, for 30 days after each fetch.</span></div>
       <p class="lede small">After the data life ends Finny may keep records only as required by law. You can revoke this consent anytime.</p>${btn('Got it', null, 'secondary', 'data-back')}</div></div></div>`) });
 
-add({ id: 'multi', flow: 'C. Consent', title: '7c. Two consents, decided separately', isNew: true, clauses: ['3.1.iv', '3.2.iii', '3.2.vi'],
+add({ id: 'multi', flow: '§3.1–3.2 Consent management', title: '7c. Two consents, decided separately', isNew: true, clauses: ['3.1.iv', '3.2.iii', '3.2.vi'],
   notes: ['When an app asks for two purposes, each consent is its own card with its own Approve / Reject.', 'The final button stays disabled until each consent has a decision.'],
   render: () => screen(`${aabar()}
     <div class="scroll pad stack-4" style="padding-bottom:12px">
@@ -1435,7 +1435,7 @@ add({ id: 'multi', flow: 'C. Consent', title: '7c. Two consents, decided separat
     </div>
     <div class="foot">${btn('Decide on both to continue', 'consent-otp', 'primary', 'data-allgate disabled')}${tagline}</div>`) });
 
-add({ id: 'consent-otp', flow: 'C. Consent', title: '7d. Confirm consent', isNew: true, clauses: ['3.2.iii', '5.1.i', '5.1.ii'],
+add({ id: 'consent-otp', flow: '§3.1–3.2 Consent management', title: '7d. Confirm consent', isNew: true, clauses: ['3.2.iii', '5.1.i', '5.1.ii'],
   notes: ['Approval is its own deliberate step, confirmed with the user’s Finvu PIN, not bundled with linking.', 'Restates what is being approved in one line.'],
   render: () => screen(`${aabar()}
     <div class="scroll pad stack-4">
@@ -1447,7 +1447,7 @@ add({ id: 'consent-otp', flow: 'C. Consent', title: '7d. Confirm consent', isNew
     </div>
     <div class="foot">${btn('Approve consent', 'connecting')}${tagline}</div>`) });
 
-add({ id: 'reject', flow: 'C. Consent', title: '9. Reject confirmation', clauses: ['3.2.ii', '4.1.viii'],
+add({ id: 'reject', flow: '§3.1–3.2 Consent management', title: '9. Reject confirmation', clauses: ['3.2.ii', '4.1.viii'],
   notes: ['Honest consequence in one sentence, no guilt-tripping.', 'Both actions equal weight; “Go back” returns to the request unchanged.'],
   render: () => screen(`${aabar()}
     <div class="scroll pad stack-4 center" style="padding-top:24px">
@@ -1457,7 +1457,7 @@ add({ id: 'reject', flow: 'C. Consent', title: '9. Reject confirmation', clauses
     </div>
     <div class="foot"><div class="decide"><button class="fy-btn fy-btn--reject" data-back>Go back</button><button class="fy-btn fy-btn--danger" data-go="rejected">Reject</button></div>${tagline}</div>`) });
 
-add({ id: 'rejected', flow: 'C. Consent', title: '9b. Consent rejected', isNew: true, clauses: ['4.3.i', '4.3.iii'],
+add({ id: 'rejected', flow: '§3.1–3.2 Consent management', title: '9b. Consent rejected', isNew: true, clauses: ['4.3.i', '4.3.iii'],
   notes: ['Confirms the outcome and the SMS/email the user will get.', 'Offers the manual path back in Finny.'],
   render: () => screen(`${aabar({ back: false })}
     <div class="scroll pad stack-4 center" style="padding-top:40px">
@@ -1467,7 +1467,7 @@ add({ id: 'rejected', flow: 'C. Consent', title: '9b. Consent rejected', isNew: 
     </div>
     <div class="foot">${btn('Back to Finny', 'redirect')}<button class="link" data-go="consent" style="justify-self:center">Review the request again</button>${tagline}</div>`) });
 
-add({ id: 'connecting', flow: 'C. Consent', title: '10. Connecting accounts', clauses: ['4.1.viii'],
+add({ id: 'connecting', flow: '§3.1–3.2 Consent management', title: '10. Connecting accounts', clauses: ['4.1.viii'],
   notes: ['Four honest steps with live status; the current one animates.', 'Reassurance line at the bottom, not a spinner alone.'],
   render: () => screen(`${aabar({ back: false })}
     <div class="scroll pad stack-4 center" style="padding-top:30px">
@@ -1483,7 +1483,7 @@ add({ id: 'connecting', flow: 'C. Consent', title: '10. Connecting accounts', cl
     </div>
     <div class="foot foot--plain">${btn('Continue', 'success')}<p class="lock" style="margin:0">${ic('lock')}Your data stays encrypted. Finvu can’t read it.</p>${tagline}</div>`) });
 
-add({ id: 'success', flow: 'C. Consent', title: '11. Success', clauses: ['4.3.i', '4.3.ii', '3.2.x'],
+add({ id: 'success', flow: '§3.1–3.2 Consent management', title: '11. Success', clauses: ['4.3.i', '4.3.ii', '3.2.x'],
   notes: ['Summary of what was linked and what consent is active, with a direct path to manage it.', 'Mentions the notification sent, so the SMS isn’t a surprise.'],
   render: () => screen(`${aabar({ back: false })}
     <div class="scroll pad stack-4 center" style="padding-top:24px">
@@ -1496,7 +1496,7 @@ add({ id: 'success', flow: 'C. Consent', title: '11. Success', clauses: ['4.3.i'
     <div class="foot">${btn('Continue to Finny', 'redirect')}<button class="link" data-go="dashboard" style="justify-self:center">Manage consent</button>${tagline}</div>`) });
 
 /* ---------- D. Edge cases ---------- */
-add({ id: 'no-accounts', flow: 'D. Edge cases', title: '12. No accounts found', clauses: ['2.1.ii', '4.1.viii'],
+add({ id: 'no-accounts', flow: '§4.1.viii · §5 Errors, feedback & security', title: '12. No accounts found', clauses: ['2.1.ii', '4.1.viii'],
   notes: ['Explains why (number mismatch) and offers the identifiers that actually help.', 'Lets the user retry with a different number or continue without accounts.'],
   render: () => screen(`${aabar()}
     <div class="scroll pad stack-4">
@@ -1511,7 +1511,7 @@ add({ id: 'no-accounts', flow: 'D. Edge cases', title: '12. No accounts found', 
     </div>
     <div class="foot">${btn('Search again', 'discovering')}<button class="link" data-go="redirect" style="justify-self:center">Add accounts manually in Finny</button>${tagline}</div>`) });
 
-add({ id: 'partial', flow: 'D. Edge cases', title: '13. Partial failure', clauses: ['4.1.viii', '1.1.5'],
+add({ id: 'partial', flow: '§4.1.viii · §5 Errors, feedback & security', title: '13. Partial failure', clauses: ['4.1.viii', '1.1.5'],
   notes: ['Leads with what worked (16 linked), then lists the 2 that didn’t with a per-row retry.', 'Plain error reason, never a raw error code.'],
   render: () => screen(`${aabar()}
     <div class="scroll pad stack-4">
@@ -1524,7 +1524,7 @@ add({ id: 'partial', flow: 'D. Edge cases', title: '13. Partial failure', clause
     </div>
     <div class="foot">${btn('Continue with 16 accounts', 'success')}${tagline}</div>`) });
 
-add({ id: 'bank-down', flow: 'D. Edge cases', title: '14. Bank unavailable', clauses: ['4.1.viii', '4.3.i'],
+add({ id: 'bank-down', flow: '§4.1.viii · §5 Errors, feedback & security', title: '14. Bank unavailable', clauses: ['4.1.viii', '4.3.i'],
   notes: ['Offers to notify when the bank is back instead of only “try later”.', 'Continue without this bank stays available.'],
   render: () => screen(`${aabar()}
     <div class="scroll pad stack-4 center" style="padding-top:24px">
@@ -1535,7 +1535,7 @@ add({ id: 'bank-down', flow: 'D. Edge cases', title: '14. Bank unavailable', cla
     </div>
     <div class="foot">${btn('Try again', 'connecting')}<button class="link" data-go="success" style="justify-self:center">Continue without this bank</button>${tagline}</div>`) });
 
-add({ id: 'expired', flow: 'D. Edge cases', title: '15. Consent expired', clauses: ['3.2.vii', '3.3.ii'],
+add({ id: 'expired', flow: '§4.1.viii · §5 Errors, feedback & security', title: '15. Consent expired', clauses: ['3.2.vii', '3.3.ii'],
   notes: ['Explains that a renewal is a new consent request (artefacts are immutable) and shows what will change.', 'Old consent details reachable from here.'],
   render: () => screen(`${aabar()}
     <div class="scroll pad stack-4 center" style="padding-top:20px">
@@ -1546,7 +1546,7 @@ add({ id: 'expired', flow: 'D. Edge cases', title: '15. Consent expired', clause
     </div>
     <div class="foot">${btn('Review new request', 'consent')}<button class="link" data-go="consent-detail" style="justify-self:center">View expired consent</button>${tagline}</div>`) });
 
-add({ id: 'otp-failed', flow: 'D. Edge cases', title: '16. OTP failed', clauses: ['4.1.viii', '5.1.ii'],
+add({ id: 'otp-failed', flow: '§4.1.viii · §5 Errors, feedback & security', title: '16. OTP failed', clauses: ['4.1.viii', '5.1.ii'],
   notes: ['Shows attempts left and a cool-down instead of a blank error.', 'Masked cells highlight red; error text says what to do next.'],
   render: () => screen(`${aabar()}
     <div class="scroll pad stack-4">
@@ -1559,7 +1559,7 @@ add({ id: 'otp-failed', flow: 'D. Edge cases', title: '16. OTP failed', clauses:
     </div>
     <div class="foot">${btn('Verify', null, 'primary', 'disabled')}<button class="link" data-go="otp" style="justify-self:center">Resend OTP</button>${tagline}</div>`) });
 
-add({ id: 'session', flow: 'D. Edge cases', title: 'Session timed out', isNew: true, clauses: ['1.2.1.v', '5.1.i'],
+add({ id: 'session', flow: '§4.1.viii · §5 Errors, feedback & security', title: 'Session timed out', isNew: true, clauses: ['1.2.1.v', '5.1.i'],
   notes: ['After inactivity the AA client asks for the PIN again.', 'Nothing in progress is lost.'],
   render: () => screen(`${aabar({ back: false })}
     <div class="scroll pad stack-4 center" style="padding-top:30px">
@@ -1570,7 +1570,7 @@ add({ id: 'session', flow: 'D. Edge cases', title: 'Session timed out', isNew: t
     </div>
     <div class="foot">${btn('Unlock', 'dashboard')}${tagline}</div>`) });
 
-add({ id: 'new-device', flow: 'D. Edge cases', title: 'New device detected', isNew: true, clauses: ['1.6.1.ii', '1.6.3.v', '1.6.3.vii'],
+add({ id: 'new-device', flow: '§4.1.viii · §5 Errors, feedback & security', title: 'New device detected', isNew: true, clauses: ['1.6.1.ii', '1.6.3.v', '1.6.3.vii'],
   notes: ['Signing in on an unregistered phone triggers an extra check and shows the device limit.', 'User sees which device will be replaced.'],
   render: () => screen(`${aabar()}
     <div class="scroll pad stack-4">
@@ -1585,7 +1585,7 @@ add({ id: 'new-device', flow: 'D. Edge cases', title: 'New device detected', isN
     </div>
     <div class="foot">${btn('Verify and register', 'otp')}<button class="link" data-back style="justify-self:center">Cancel</button>${tagline}</div>`) });
 
-add({ id: 'unsafe', flow: 'D. Edge cases', title: 'Device not secure', isNew: true, clauses: ['1.2.1.ii', '1.4.3.iii'],
+add({ id: 'unsafe', flow: '§4.1.viii · §5 Errors, feedback & security', title: 'Device not secure', isNew: true, clauses: ['1.2.1.ii', '1.4.3.iii'],
   notes: ['Rooted or jailbroken phones are blocked, with a plain explanation and a safe alternative.'],
   render: () => screen(`${aabar({ back: false })}
     <div class="scroll pad stack-4 center" style="padding-top:40px">
@@ -1596,7 +1596,7 @@ add({ id: 'unsafe', flow: 'D. Edge cases', title: 'Device not secure', isNew: tr
     <div class="foot">${btn('Back to Finny', 'redirect', 'secondary')}${tagline}</div>`) });
 
 /* ---------- E. Manage consents ---------- */
-add({ id: 'dashboard', flow: 'E. Manage consents', title: '17. Your consents (dashboard)', clauses: ['3.2.x', '3.2.ii', '4.2.vi'],
+add({ id: 'dashboard', flow: '§3.2–3.3 Consent control & audit trail', title: '17. Your consents (dashboard)', clauses: ['3.2.x', '3.2.ii', '4.2.vi'],
   notes: ['Tabs by state: Active, Paused, Ended (expired / revoked / rejected).', 'Each card shows purpose, last fetch and next fetch, the snapshot the standard asks for.', 'VUA shown at the top of the dashboard.'],
   render: () => screen(`${aabar({ back: false })}
     <div class="scroll pad stack-4" style="padding-bottom:16px">
@@ -1611,7 +1611,7 @@ add({ id: 'dashboard', flow: 'E. Manage consents', title: '17. Your consents (da
     </div>
     <div class="foot"><nav class="fy-bnb" style="margin:0 -16px;box-shadow:none"><a aria-current="page" data-go="dashboard">${ic('doc')}Consents</a><a data-go="linked">${ic('bank')}Accounts</a><a data-go="activity">${ic('clock')}Activity</a><a data-go="profile">${ic('user')}Profile</a></nav></div>`, { main: true }) });
 
-add({ id: 'consent-detail', flow: 'E. Manage consents', title: '17b. Consent details & controls', isNew: true, clauses: ['3.2.ii', '3.2.x', '3.3.i'],
+add({ id: 'consent-detail', flow: '§3.2–3.3 Consent control & audit trail', title: '17b. Consent details & controls', isNew: true, clauses: ['3.2.ii', '3.2.x', '3.3.i'],
   notes: ['Pause, Resume and Revoke are all here, each with a confirmation step.', 'Data-fetch history for this consent (what was fetched, when, from whom).', 'Link to the immutable audit trail.'],
   render: () => screen(`${aabar()}
     <div class="scroll pad stack-4" style="padding-bottom:16px">
@@ -1626,7 +1626,7 @@ add({ id: 'consent-detail', flow: 'E. Manage consents', title: '17b. Consent det
     </div>
     <div class="foot"><div class="decide"><button class="fy-btn fy-btn--secondary" data-go="pause">${ic('pause','')} Pause</button><button class="fy-btn fy-btn--danger-outline" data-go="revoke">Revoke</button></div>${tagline}</div>`) });
 
-add({ id: 'pause', flow: 'E. Manage consents', title: '17c. Pause consent', isNew: true, clauses: ['3.2.ii', '4.3.iii'],
+add({ id: 'pause', flow: '§3.2–3.3 Consent control & audit trail', title: '17c. Pause consent', isNew: true, clauses: ['3.2.ii', '4.3.iii'],
   notes: ['Pause is reversible and says so; user can choose an auto-resume date.', 'Revoke is offered as the permanent alternative.'],
   render: () => screen(`${aabar()}<div class="scroll" style="opacity:.35"></div>
     <div class="sheet-host"><div class="fy-sheet" role="dialog" aria-label="Pause consent"><div class="handle"></div>
@@ -1637,7 +1637,7 @@ add({ id: 'pause', flow: 'E. Manage consents', title: '17c. Pause consent', isNe
         <div class="decide"><button class="fy-btn fy-btn--reject" data-back>Cancel</button><button class="fy-btn fy-btn--approve" data-go="paused">Pause</button></div>
       </div></div></div>`) });
 
-add({ id: 'paused', flow: 'E. Manage consents', title: '17d. Paused state', isNew: true, clauses: ['3.2.ii', '4.3.iii'],
+add({ id: 'paused', flow: '§3.2–3.3 Consent control & audit trail', title: '17d. Paused state', isNew: true, clauses: ['3.2.ii', '4.3.iii'],
   notes: ['Clear paused status with a single prominent Resume.', 'Confirmation SMS/email mentioned.'],
   render: () => screen(`${aabar()}
     <div class="scroll pad stack-4">
@@ -1647,7 +1647,7 @@ add({ id: 'paused', flow: 'E. Manage consents', title: '17d. Paused state', isNe
     </div>
     <div class="foot"><div class="decide"><button class="fy-btn fy-btn--approve" data-go="consent-detail">${ic('resume')} Resume</button><button class="fy-btn fy-btn--danger-outline" data-go="revoke">Revoke</button></div>${tagline}</div>`) });
 
-add({ id: 'revoke', flow: 'E. Manage consents', title: '17e. Revoke consent', isNew: true, clauses: ['3.2.ii', '3.3.ii', '4.3.iii'],
+add({ id: 'revoke', flow: '§3.2–3.3 Consent control & audit trail', title: '17e. Revoke consent', isNew: true, clauses: ['3.2.ii', '3.3.ii', '4.3.iii'],
   notes: ['Permanent action: explains consequences, offers Pause instead, confirms with PIN.', 'States what happens to data already shared (data life).'],
   render: () => screen(`${aabar()}
     <div class="scroll pad stack-4">
@@ -1664,7 +1664,7 @@ add({ id: 'revoke', flow: 'E. Manage consents', title: '17e. Revoke consent', is
     </div>
     <div class="foot"><div class="decide"><button class="fy-btn fy-btn--reject" data-back>Keep consent</button><button class="fy-btn fy-btn--danger" data-go="dashboard">Revoke</button></div>${tagline}</div>`) });
 
-add({ id: 'activity', flow: 'E. Manage consents', title: '18. Consent activity (audit trail)', clauses: ['3.3.i', '3.3.ii', '4.3.i'],
+add({ id: 'activity', flow: '§3.2–3.3 Consent control & audit trail', title: '18. Consent activity (audit trail)', clauses: ['3.3.i', '3.3.ii', '4.3.i'],
   notes: ['Tamper-proof log of every request, approval, pause, resume, revoke, link and fetch, with timestamps and actor.', 'Filter by type; entries can’t be edited or deleted (stated on screen).'],
   render: () => screen(`${aabar()}
     <div class="scroll pad stack-4" style="padding-bottom:16px">
@@ -1682,7 +1682,7 @@ add({ id: 'activity', flow: 'E. Manage consents', title: '18. Consent activity (
     <div class="foot"><nav class="fy-bnb" style="margin:0 -16px;box-shadow:none"><a data-go="dashboard">${ic('doc')}Consents</a><a data-go="linked">${ic('bank')}Accounts</a><a aria-current="page" data-go="activity">${ic('clock')}Activity</a><a data-go="profile">${ic('user')}Profile</a></nav></div>`, { main: true }) });
 
 /* ---------- F. Linked accounts ---------- */
-add({ id: 'linked', flow: 'F. Linked accounts', title: 'Linked accounts', isNew: true, clauses: ['2.1', '3.2.x'],
+add({ id: 'linked', flow: '§2.1 Linked accounts & delinking', title: 'Linked accounts', isNew: true, clauses: ['2.1', '3.2.x'],
   notes: ['Every linked account with how many consents use it, so delinking consequences are visible upfront.'],
   render: () => screen(`${aabar({ back: false })}
     <div class="scroll pad stack-4" style="padding-bottom:16px">
@@ -1692,7 +1692,7 @@ add({ id: 'linked', flow: 'F. Linked accounts', title: 'Linked accounts', isNew:
     </div>
     <div class="foot"><nav class="fy-bnb" style="margin:0 -16px;box-shadow:none"><a data-go="dashboard">${ic('doc')}Consents</a><a aria-current="page" data-go="linked">${ic('bank')}Accounts</a><a data-go="activity">${ic('clock')}Activity</a><a data-go="profile">${ic('user')}Profile</a></nav></div>`, { main: true }) });
 
-add({ id: 'delink', flow: 'F. Linked accounts', title: '19. Delink account (blocked)', clauses: ['2.1', '4.1.viii'],
+add({ id: 'delink', flow: '§2.1 Linked accounts & delinking', title: '19. Delink account (blocked)', clauses: ['2.1', '4.1.viii'],
   notes: ['Standard: all active consents on the account must be revoked before delinking. The screen lists them with a revoke action, instead of letting the user fail later.', 'Delink button stays disabled until the list is empty.'],
   render: () => screen(`${aabar()}
     <div class="scroll pad stack-4">
@@ -1703,7 +1703,7 @@ add({ id: 'delink', flow: 'F. Linked accounts', title: '19. Delink account (bloc
     </div>
     <div class="foot">${btn('Delink account', null, 'primary', 'disabled')}<button class="link" data-go="delink-ready" style="justify-self:center">Preview after revoking →</button>${tagline}</div>`) });
 
-add({ id: 'delink-ready', flow: 'F. Linked accounts', title: '19b. Delink: verify', isNew: true, clauses: ['2.1'],
+add({ id: 'delink-ready', flow: '§2.1 Linked accounts & delinking', title: '19b. Delink: verify', isNew: true, clauses: ['2.1'],
   notes: ['Once no consents remain, delinking needs authentication with the same verified identifier used to link (mobile OTP).'],
   render: () => screen(`${aabar()}
     <div class="scroll pad stack-4">
@@ -1715,7 +1715,7 @@ add({ id: 'delink-ready', flow: 'F. Linked accounts', title: '19b. Delink: verif
     </div>
     <div class="foot">${btn('Delink Axis Bank', 'delinked', 'danger')}${tagline}</div>`) });
 
-add({ id: 'delinked', flow: 'F. Linked accounts', title: '19c. Delinked', isNew: true, clauses: ['4.3.i'],
+add({ id: 'delinked', flow: '§2.1 Linked accounts & delinking', title: '19c. Delinked', isNew: true, clauses: ['4.3.i'],
   notes: ['Confirms and logs the action; notification sent.'],
   render: () => screen(`${aabar({ back: false })}
     <div class="scroll pad stack-4 center" style="padding-top:40px">
@@ -1726,7 +1726,7 @@ add({ id: 'delinked', flow: 'F. Linked accounts', title: '19c. Delinked', isNew:
     <div class="foot">${btn('Back to accounts', 'linked')}${tagline}</div>`) });
 
 /* ---------- G. Profile, safety & help ---------- */
-add({ id: 'profile', flow: 'G. Profile, safety & help', title: 'Profile & VUA', isNew: true, clauses: ['2.2', '4.2.vi', '4.1.vi'],
+add({ id: 'profile', flow: '§4 User experience: profile, notifications & help', title: 'Profile & VUA', isNew: true, clauses: ['2.2', '4.2.vi', '4.1.vi'],
   notes: ['VUA prominent with copy; masked personal details.', 'One place for numbers, devices, notifications, language, help and account closure.'],
   render: () => screen(`${aabar({ back: false })}
     <div class="scroll pad stack-4" style="padding-bottom:16px">
@@ -1745,7 +1745,7 @@ add({ id: 'profile', flow: 'G. Profile, safety & help', title: 'Profile & VUA', 
     </div>
     <div class="foot"><nav class="fy-bnb" style="margin:0 -16px;box-shadow:none"><a data-go="dashboard">${ic('doc')}Consents</a><a data-go="linked">${ic('bank')}Accounts</a><a data-go="activity">${ic('clock')}Activity</a><a aria-current="page" data-go="profile">${ic('user')}Profile</a></nav></div>`, { main: true }) });
 
-add({ id: 'devices', flow: 'G. Profile, safety & help', title: 'Registered devices', isNew: true, clauses: ['1.6.3.vi', '1.6.3.vii'],
+add({ id: 'devices', flow: '§4 User experience: profile, notifications & help', title: 'Registered devices', isNew: true, clauses: ['1.6.3.vi', '1.6.3.vii'],
   notes: ['Shows every bound device and active session with a remove action and the device limit.'],
   render: () => screen(`${aabar()}
     <div class="scroll pad stack-4">
@@ -1758,7 +1758,7 @@ add({ id: 'devices', flow: 'G. Profile, safety & help', title: 'Registered devic
     </div>
     <div class="foot foot--plain">${tagline}</div>`) });
 
-add({ id: 'notify', flow: 'G. Profile, safety & help', title: 'Notification preferences', isNew: true,
+add({ id: 'notify', flow: '§4 User experience: profile, notifications & help', title: 'Notification preferences', isNew: true,
   opt: ['Optional part', 'The data-fetch summary and its frequency are optional: ReBIT 4.3(v) says the FI-U <i>may</i> send it (marked O). Default-on notifications and channel choice (4.3(vi)) are mandatory.'], clauses: ['4.3.i', '4.3.iii', '4.3.iv', '4.3.vi'],
   notes: ['All notifications on by default; user can choose channels and summary frequency.', 'Consent changes always notify by SMS (labelled required).'],
   render: () => screen(`${aabar()}
@@ -1775,7 +1775,7 @@ add({ id: 'notify', flow: 'G. Profile, safety & help', title: 'Notification pref
     </div>
     <div class="foot foot--plain">${tagline}</div>`) });
 
-add({ id: 'language', flow: 'G. Profile, safety & help', title: 'Language', isNew: true, clauses: ['4.1.vi'],
+add({ id: 'language', flow: '§4 User experience: profile, notifications & help', title: 'Language', isNew: true, clauses: ['4.1.vi'],
   notes: ['Regional language options, each written in its own script.'],
   render: () => screen(`${aabar()}
     <div class="scroll pad stack-4">
@@ -1784,7 +1784,7 @@ add({ id: 'language', flow: 'G. Profile, safety & help', title: 'Language', isNe
     </div>
     <div class="foot">${btn('Save', 'profile')}${tagline}</div>`) });
 
-add({ id: 'help', flow: 'G. Profile, safety & help', title: 'Help & complaints', isNew: true, clauses: ['4.2.vii', '4.2.viii', '3.1 (complaints)'],
+add({ id: 'help', flow: '§4 User experience: profile, notifications & help', title: 'Help & complaints', isNew: true, clauses: ['4.2.vii', '4.2.viii', '3.1 (complaints)'],
   notes: ['Grievance redressal matrix and officer details shown prominently, contact info as selectable text.', 'Raise and track a complaint in-app; Data Protection Board slot reserved for when it opens.'],
   render: () => screen(`${aabar()}
     <div class="scroll pad stack-4" style="padding-bottom:16px">
@@ -1803,7 +1803,7 @@ add({ id: 'help', flow: 'G. Profile, safety & help', title: 'Help & complaints',
     </div>
     <div class="foot foot--plain">${tagline}</div>`) });
 
-add({ id: 'complaint', flow: 'G. Profile, safety & help', title: 'Raise a complaint', isNew: true, clauses: ['4.2.viii'],
+add({ id: 'complaint', flow: '§4 User experience: profile, notifications & help', title: 'Raise a complaint', isNew: true, clauses: ['4.2.viii'],
   notes: ['Pre-filled consent reference, category chips and a tracking ID on submit.'],
   render: () => screen(`${aabar()}
     <div class="scroll pad stack-4">
@@ -1815,7 +1815,7 @@ add({ id: 'complaint', flow: 'G. Profile, safety & help', title: 'Raise a compla
     </div>
     <div class="foot">${btn('Submit complaint', 'help')}${tagline}</div>`) });
 
-add({ id: 'close-account', flow: 'G. Profile, safety & help', title: 'Close Finvu account', isNew: true, clauses: ['2.2.iii'],
+add({ id: 'close-account', flow: '§4 User experience: profile, notifications & help', title: 'Close Finvu account', isNew: true, clauses: ['2.2.iii'],
   notes: ['Closing revokes every active consent and delinks every account. The screen lists exactly what will happen before the user confirms.'],
   render: () => screen(`${aabar()}
     <div class="scroll pad stack-4">
@@ -1827,7 +1827,7 @@ add({ id: 'close-account', flow: 'G. Profile, safety & help', title: 'Close Finv
     </div>
     <div class="foot"><div class="decide"><button class="fy-btn fy-btn--reject" data-back>Keep account</button><button class="fy-btn fy-btn--danger" data-gate-btn disabled data-go="redirect">Close account</button></div>${tagline}</div>`) });
 
-add({ id: 'fip-list', flow: 'G. Profile, safety & help', title: 'Institutions on Finvu', isNew: true, clauses: ['4.1.vii'],
+add({ id: 'fip-list', flow: '§4 User experience: profile, notifications & help', title: 'Institutions on Finvu', isNew: true, clauses: ['4.1.vii'],
   notes: ['Searchable list of all FIPs available through the AA, for transparency.'],
   render: () => screen(`${aabar()}
     <div class="scroll pad stack-4" style="padding-bottom:16px">

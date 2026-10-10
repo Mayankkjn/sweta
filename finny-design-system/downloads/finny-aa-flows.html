@@ -791,10 +791,10 @@
   .index h2 { margin: 14px 10px 6px; font: 600 11px/1.3 var(--fy-font); letter-spacing: .08em; text-transform: uppercase; color: var(--fy-primary-300); }
   .index h2:first-child { margin-top: 2px; }
   .index button { display: flex; gap: 8px; align-items: baseline; width: 100%; padding: 7px 10px; border: 0; border-radius: 8px; background: none; text-align: left; cursor: pointer; font: 400 13px/1.35 var(--fy-font); color: var(--fy-primary-500); }
-  .index button b { min-width: 26px; font-weight: 600; font-size: 11px; color: var(--fy-primary-300); font-variant-numeric: tabular-nums; }
+  .index button b { min-width: 58px; flex: none; font-weight: 600; font-size: 11px; color: var(--fy-primary-300); font-variant-numeric: tabular-nums; }
   .index button:hover { background: var(--fy-neutral-100); }
   .index button[aria-current="true"] { background: var(--fy-success-50); color: var(--fy-primary-600); font-weight: 600; }
-  .index .tags { margin-left: auto; display: flex; gap: 4px; flex-shrink: 0; }
+  .index .tags { margin-left: auto; display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 4px; max-width: 96px; flex-shrink: 0; }
   .index .tag-opt { padding: 0 5px; border: 1px dashed var(--fy-primary-300); border-radius: 4px; color: var(--fy-primary-400); font-size: 9px; font-weight: 600; text-transform: uppercase; letter-spacing: .04em; white-space: nowrap; }
   .why .opt-note { padding: 10px 12px; border: 1px dashed var(--fy-primary-300); border-radius: 10px; font-size: 12.5px; line-height: 1.5; color: var(--fy-primary-500); }
   .why .opt-note b { color: var(--fy-primary-600); }
@@ -1846,11 +1846,20 @@ let cur = 'redirect';
 const hist = [];
 const $ = (q, r = document) => r.querySelector(q);
 
+// Primary ReBIT clause for each screen, shown as its number in the screen list. A = Annexure 1.
+const REF = { redirect: '4.2.i', intro: '4.2.iii', otp: '5.1.i', existing: '2.2.ii', 'new-vua': '2.2.i', recover: '2.2.iv',
+  identifiers: '2.1.ii', 'add-mobile': '2.1.i', discovering: '4.1.viii', select: '3.2.ix', 'link-otp': '5.1.ii',
+  consent: '3.1.ii', 'field-info': '3.1.iii', multi: '3.2.vi', 'consent-otp': '3.2.iii', reject: '3.2.ii', rejected: '4.3.i',
+  connecting: '4.1.viii', success: '4.3.i', 'no-accounts': '2.1.ii', partial: '4.1.viii', 'bank-down': '4.1.viii',
+  expired: '3.2.vii', 'otp-failed': '4.1.viii', session: 'A1.2.1.v', 'new-device': 'A1.6.1.ii', unsafe: 'A1.2.1.ii',
+  dashboard: '3.2.x', 'consent-detail': '3.2.ii', pause: '3.2.ii', paused: '3.2.ii', revoke: '3.2.ii', activity: '3.3.i',
+  linked: '2.1', delink: '2.1', 'delink-ready': '2.1', delinked: '2.1', profile: '2.2', devices: 'A1.6.3.vi',
+  notify: '4.3.vi', language: '4.1.vi', help: '4.2.vii', complaint: '4.2.viii', 'close-account': '2.2.iii', 'fip-list': '4.1.vii' };
 function renderIndex() {
   let html = '', flow = '';
   S.forEach((s, i) => {
     if (s.flow !== flow) { flow = s.flow; html += `<h2>${flow}</h2>`; }
-    html += `<button type="button" data-jump="${s.id}" aria-current="${s.id === cur}"><b>${String(i + 1).padStart(2, '0')}</b>${s.title}<span class="tags">${s.opt ? `<span class="tag-opt" title="${s.opt[0]}">${s.opt[0]}</span>` : ''}${s.isNew ? '<span class="tag-new">New</span>' : ''}</span></button>`;
+    html += `<button type="button" data-jump="${s.id}" aria-current="${s.id === cur}"><b title="${REF[s.id][0] === 'A' ? 'Annexure ' + REF[s.id].slice(1) : 'ReBIT clause ' + REF[s.id]}">${REF[s.id]}</b>${s.title.replace(/^\d+[a-z]?\. /, '')}<span class="tags">${s.opt ? `<span class="tag-opt" title="${s.opt[0]}">${s.opt[0]}</span>` : ''}${s.isNew ? '<span class="tag-new">New</span>' : ''}</span></button>`;
   });
   $('#index').innerHTML = html;
 }

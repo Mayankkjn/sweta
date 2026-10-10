@@ -42,13 +42,12 @@
   .stage__crumb { font: 500 12px/1.4 var(--fy-font); color: var(--fy-primary-300); text-align: center; }
   .stage__crumb b { color: var(--fy-primary-600); font-weight: 600; }
   .stage__nav { display: flex; gap: 10px; }
-  .stage__nav #comment-screen { background: var(--fy-primary-600); border-color: var(--fy-primary-600); color: #fff; }
   .stage__nav button { height: 34px; padding: 0 14px; border: 1px solid var(--fy-neutral-300); border-radius: 999px; background: #fff; cursor: pointer; font-size: 12px; font-weight: 500; color: var(--fy-primary-500); }
 
   .phone { position: relative; width: 360px; max-width: 100%; height: 760px; border-radius: 32px; overflow: hidden; background: var(--fy-bg-page); box-shadow: 0 0 0 10px #0d1a17, 0 24px 60px rgba(1,35,30,.35); }
   .phone > .fy-screen { height: 100%; }
 
-  .why { position: sticky; top: 76px; padding: 18px 18px 20px; display: grid; gap: 14px; }
+  .why { position: sticky; top: 76px; max-height: calc(100vh - 96px); overflow: auto; padding: 18px 18px 20px; display: grid; gap: 14px; }
   .why h3 { margin: 0; font: 600 16px/1.35 var(--fy-font); color: var(--fy-primary-600); }
   .why p { margin: 0; font-size: 13px; line-height: 1.55; color: var(--fy-text-secondary); }
   .why ul { margin: 0; padding-left: 18px; display: grid; gap: 8px; font-size: 13px; line-height: 1.5; color: var(--fy-primary-500); }
@@ -67,6 +66,28 @@
   .clause-panel__x:hover { background: rgba(3,104,90,.1); }
   .clause-panel blockquote { margin: 0; font: 400 12.5px/1.6 var(--fy-font); color: var(--fy-primary-600); }
   .clause-panel small { font: 400 10px/1.4 var(--fy-font); color: var(--fy-text-secondary); }
+  .index .tag-cmt { display: inline-flex; align-items: center; gap: 3px; padding: 0 5px; border-radius: 4px; background: var(--fy-primary-600); color: #fff; font-size: 9px; font-weight: 600; }
+  .index .tag-cmt svg { width: 10px; height: 10px; }
+  .why .cm { display: grid; gap: 10px; padding-top: 14px; border-top: 1px solid var(--fy-border-subtle); }
+  .why .cm[hidden] { display: none; }
+  .cm-list { display: grid; gap: 12px; margin: 0; padding: 0; list-style: none; }
+  .cm-list li { display: grid; grid-template-columns: 26px minmax(0, 1fr); gap: 8px; }
+  .cm-list img { width: 26px; height: 26px; border-radius: 50%; background: var(--fy-neutral-200); }
+  .cm-head { display: flex; align-items: baseline; gap: 6px; font-size: 12px; }
+  .cm-head b { font-weight: 600; color: var(--fy-primary-600); }
+  .cm-head time { color: var(--fy-neutral-400); font-size: 11px; }
+  .cm-del { margin-left: auto; padding: 0; border: 0; background: none; font: 500 11px/1 var(--fy-font); color: var(--fy-neutral-400); cursor: pointer; }
+  .cm-del:hover { color: var(--fy-error-700); }
+  .cm-list p { margin: 2px 0 0; font-size: 13px; line-height: 1.5; color: var(--fy-primary-500); white-space: pre-wrap; overflow-wrap: anywhere; }
+  .cm-form { display: grid; gap: 8px; }
+  .cm-form[hidden], .cm-msg:empty { display: none; }
+  .cm-form textarea { width: 100%; resize: vertical; padding: 8px 10px; border: 1px solid var(--fy-border-default); border-radius: 10px; font: 400 13px/1.45 var(--fy-font); color: var(--fy-primary-600); background: #fff; }
+  .cm-form textarea:focus { outline: 2px solid var(--fy-border-focus); outline-offset: 1px; }
+  .cm-row { display: flex; align-items: center; gap: 8px; }
+  .cm-note { flex: 1; font-size: 11px; color: var(--fy-text-secondary); }
+  .cm-form button { height: 32px; padding: 0 16px; border: 0; border-radius: 999px; background: var(--fy-primary-600); color: #fff; font: 600 12px/1 var(--fy-font); cursor: pointer; }
+  .cm-form button:disabled { opacity: .4; cursor: default; }
+  .cm-msg { margin: 0; font-size: 12px; color: var(--fy-text-secondary); }
   .why .label { font: 600 11px/1 var(--fy-font); letter-spacing: .08em; text-transform: uppercase; color: var(--fy-primary-300); }
 
   .gallery { max-width: 1400px; margin: 0 auto; padding: 24px 20px 60px; display: grid; gap: 36px; }
@@ -223,7 +244,7 @@
 
   @media (max-width: 1180px) {
     .proto { grid-template-columns: 240px minmax(0, 1fr); }
-    .why { grid-column: 1 / -1; position: static; }
+    .why { grid-column: 1 / -1; position: static; max-height: none; }
   }
   @media (max-width: 760px) {
     .proto { grid-template-columns: minmax(0, 1fr); padding: 12px 16px; }
@@ -319,7 +340,7 @@
   <section class="stage" aria-live="polite">
     <div class="stage__crumb" id="crumb"></div>
     <div class="phone" id="phone"></div>
-    <div class="stage__nav"><button type="button" id="prev">← Previous</button><button type="button" id="comment-screen" hidden>Comment on this screen</button><button type="button" id="next">Next →</button></div>
+    <div class="stage__nav"><button type="button" id="prev">← Previous</button><button type="button" id="next">Next →</button></div>
   </section>
   <aside class="pane why" id="why"></aside>
 </main>
@@ -1098,7 +1119,7 @@ function renderIndex() {
   let html = '', flow = '';
   S.forEach((s, i) => {
     if (s.flow !== flow) { flow = s.flow; html += `<h2>${flow}</h2>`; }
-    html += `<button type="button" data-jump="${s.id}" aria-current="${s.id === cur}"><b title="${REF[s.id][0] === 'A' ? 'Annexure ' + REF[s.id].slice(1) : 'ReBIT clause ' + REF[s.id]}">${REF[s.id]}</b>${s.title.replace(/^\d+[a-z]?\. /, '')}<span class="tags">${s.opt ? `<span class="tag-opt" title="${s.opt[0]}">${s.opt[0]}</span>` : ''}${s.isNew ? '<span class="tag-new">New</span>' : ''}</span></button>`;
+    html += `<button type="button" data-jump="${s.id}" aria-current="${s.id === cur}"><b title="${REF[s.id][0] === 'A' ? 'Annexure ' + REF[s.id].slice(1) : 'ReBIT clause ' + REF[s.id]}">${REF[s.id]}</b>${s.title.replace(/^\d+[a-z]?\. /, '')}<span class="tags">${typeof CM !== 'undefined' && cmFor(s.id).length ? `<span class="tag-cmt" title="${cmFor(s.id).length} comment${cmFor(s.id).length > 1 ? 's' : ''}">${ic('msg')}${cmFor(s.id).length}</span>` : ''}${s.opt ? `<span class="tag-opt" title="${s.opt[0]}">${s.opt[0]}</span>` : ''}${s.isNew ? '<span class="tag-new">New</span>' : ''}</span></button>`;
   });
   $('#index').innerHTML = html;
 }
@@ -1110,8 +1131,9 @@ function renderWhy() {
     ${s.opt ? `<p class="opt-note"><b>${s.opt[0]}.</b> ${s.opt[1]}</p>` : ''}
     <span class="label">ReBIT AA standard <small>· tap a clause to read it</small></span>
     <div class="clauses">${s.clauses.map(c => `<button type="button" data-clause="${c}" aria-expanded="false">§${c}</button>`).join('')}</div>
-    <div class="clause-panel" id="clause-panel" hidden></div>`;
-  wireClauses();
+    <div class="clause-panel" id="clause-panel" hidden></div>
+    <section class="cm" id="cmts"></section>`;
+  wireClauses(); renderComments();
   $('#crumb').innerHTML = `${s.flow} · <b>${s.title}</b> · ${s.n + 1} of ${S.length}`;
 }
 // Tap a clause chip to show its verbatim text right below the chips; tap again to close.
@@ -1214,16 +1236,85 @@ const setMode = (all) => {
 $('#mode-proto').addEventListener('click', () => setMode(false));
 $('#mode-all').addEventListener('click', () => setMode(true));
 
-// Comments live in the artifact's shared comment store; this button just opens the composer on the current screen.
-(async () => {
-  const comments = await window.claude?.use?.('comments');
-  if (!comments) return;
-  const btn = $('#comment-screen');
-  btn.hidden = false;
-  btn.addEventListener('click', async () => {
-    try { await comments.openComposer({ element: $('#phone').firstElementChild }); }
-    catch (e) { if (['unavailable', 'not_granted', 'forbidden', 'capability_disabled', 'capability_removed'].includes(e?.code)) btn.hidden = true; }
+/* ============================================================
+ * Review comments: one thread per screen, kept in the artifact's shared db.
+ * Doc: comments/<auto id> = { screen, text, author (user id), at (ms) }.
+ * ============================================================ */
+const CM = { db: null, user: null, me: null, all: [], names: {}, canWrite: null, state: 'loading' };
+const cmFor = id => CM.all.filter(c => c.screen === id);
+const ago = t => { const m = Math.round((Date.now() - t) / 60000); return m < 1 ? 'just now' : m < 60 ? m + ' min ago' : m < 1440 ? Math.round(m / 60) + ' h ago' : new Date(t).toLocaleDateString('en-IN', { day: 'numeric', month: 'short' }); };
+async function cmNames() {
+  const ids = [...new Set(CM.all.map(c => c.author).filter(Boolean))].filter(i => !CM.names[i]);
+  if (!ids.length || !CM.user) return;
+  const ps = await CM.user.profiles(ids);
+  ids.forEach(i => { CM.names[i] = ps[i] || { name: '', avatarUrl: '' }; });
+}
+function renderComments() {
+  const box = $('#cmts'); if (!box) return;
+  if (CM.state === 'off') { box.hidden = true; return; }
+  const list = cmFor(cur);
+  box.innerHTML = `<span class="label">Comments${list.length ? ' · ' + list.length : ''}</span>
+    <ol class="cm-list"></ol>
+    <form class="cm-form" hidden><textarea rows="3" maxlength="2000" placeholder="Add a comment on this screen" aria-label="Comment on this screen"></textarea>
+    <div class="cm-row"><small class="cm-note" aria-live="polite"></small><button type="submit" disabled>Post</button></div></form>
+    <p class="cm-msg"></p>`;
+  const ol = box.querySelector('.cm-list'), form = box.querySelector('form'), ta = form.querySelector('textarea'), post = form.querySelector('button'), msg = box.querySelector('.cm-msg');
+  if (CM.state === 'loading') msg.textContent = 'Loading comments…';
+  else if (CM.state === 'signedout') msg.textContent = 'Sign in to claude.ai to see and add comments.';
+  else if (CM.state === 'error') msg.textContent = 'Comments could not load right now. Reload to try again.';
+  else if (!list.length) msg.textContent = 'No comments on this screen yet.';
+  list.forEach(c => {
+    const p = CM.names[c.author] || {}, li = document.createElement('li');
+    li.innerHTML = `<img alt=""><div><div class="cm-head"><b></b><time></time></div><p></p></div>`;
+    const img = li.querySelector('img'); if (p.avatarUrl) img.src = p.avatarUrl; else img.style.visibility = 'hidden';
+    li.querySelector('b').textContent = c.author === CM.me ? 'You' : (p.name || 'Someone');
+    li.querySelector('time').textContent = ago(c.at);
+    li.querySelector('p').textContent = c.text;
+    if (c.author === CM.me || CM.owner) {
+      const del = document.createElement('button'); del.type = 'button'; del.className = 'cm-del'; del.textContent = 'Delete';
+      del.addEventListener('click', async () => {
+        if (!confirm('Delete this comment?')) return;
+        del.disabled = true;
+        try { await CM.db.doc('comments/' + c.id).delete(); } catch (e) { del.disabled = false; }
+      });
+      li.querySelector('.cm-head').appendChild(del);
+    }
+    ol.appendChild(li);
   });
+  if (CM.state !== 'ready') return;
+  if (CM.canWrite === false) { msg.textContent = (list.length ? '' : 'No comments on this screen yet. ') + 'Your access lets you read comments but not add them.'; return; }
+  form.hidden = false;
+  ta.value = CM.drafts?.[cur] || '';
+  post.disabled = !ta.value.trim();
+  ta.addEventListener('input', () => { (CM.drafts ||= {})[cur] = ta.value; post.disabled = !ta.value.trim(); });
+  form.addEventListener('submit', async e => {
+    e.preventDefault();
+    const text = ta.value.trim(); if (!text) return;
+    post.disabled = true; ta.disabled = true;
+    const note = form.querySelector('.cm-note'); note.textContent = 'Posting…';
+    try {
+      await CM.db.collection('comments').add({ screen: cur, text, author: CM.me, at: Date.now() });
+      CM.drafts[cur] = '';
+    } catch (err) {
+      ta.disabled = false; post.disabled = false;
+      if (err?.code === 'invalid_argument') { CM.canWrite = false; renderComments(); return; }
+      note.textContent = err?.code === 'quota_exceeded' ? 'The comment store is full.' : 'Not posted. Try again.';
+    }
+  });
+}
+(async () => {
+  if (!window.claude?.use) { CM.state = 'off'; renderComments(); return; }   // opened as a plain file: no shared store
+  const [db, user] = await Promise.all([claude.use('db'), claude.use('user')]);
+  if (!db) { CM.state = 'signedout'; renderComments(); return; }
+  CM.db = db; CM.user = user;
+  if (user) { const m = await user.me(); CM.me = m.id; CM.owner = m.isOwner; CM.canWrite = await user.can('data.write'); }
+  if (!CM.me) CM.canWrite = false;
+  db.collection('comments').orderBy('at').onSnapshot(async snap => {
+    CM.all = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+    CM.state = 'ready';
+    await cmNames();
+    renderIndex(); renderComments();
+  }, () => { CM.state = 'error'; renderComments(); });
 })();
 
 const start = (location.hash || '').slice(1);

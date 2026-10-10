@@ -107,29 +107,37 @@
     background-color: #EEF0EC; background-image: radial-gradient(circle, rgba(1,35,30,.16) 1px, transparent 1.2px); }
   .wf-view.is-dragging { cursor: grabbing; }
   .wf-world { position: absolute; left: 0; top: 0; transform-origin: 0 0; }
-  .wf-lane { position: absolute; border-radius: 28px; background: rgba(255,255,255,.55); border: 1px solid rgba(1,35,30,.06); }
-  .wf-lane h3 { position: absolute; left: 28px; top: 22px; margin: 0; font: 700 22px/1.2 var(--fy-font); color: var(--fy-primary-600); white-space: nowrap; }
-  .wf-lane h3 small { margin-left: 10px; font-weight: 500; font-size: 14px; color: var(--fy-primary-300); }
-  .wf-card { position: absolute; width: 180px; padding: 0; border: 0; background: none; text-align: left; cursor: pointer; font: inherit; }
-  .wf-phone { position: relative; width: 180px; height: 380px; border-radius: 20px; overflow: hidden; background: var(--fy-bg-page); box-shadow: 0 0 0 4px #0d1a17, 0 10px 24px rgba(1,35,30,.18); pointer-events: none; }
+  .wf-lane { position: absolute; border-radius: 28px; background: rgba(255,255,255,.6); border: 1px solid rgba(1,35,30,.07); }
+  .wf-lane h3 { position: absolute; left: 28px; top: 24px; margin: 0; font: 700 24px/1.2 var(--fy-font); color: var(--fy-primary-600); white-space: nowrap; }
+  .wf-lane h3 small { margin-left: 12px; font-weight: 500; font-size: 15px; color: var(--fy-primary-300); }
+  .wf-node { position: absolute; box-sizing: border-box; }
+  .wf-card { cursor: pointer; }
+  .wf-cap { display: flex; gap: 6px; align-items: baseline; height: 40px; overflow: hidden; font: 600 13px/1.3 var(--fy-font); color: var(--fy-primary-600); }
+  .wf-cap b { flex: none; font-size: 11px; color: var(--fy-primary-300); }
+  .wf-phone { position: relative; width: 180px; height: 380px; border-radius: 20px; overflow: hidden; background: var(--fy-bg-page); box-shadow: 0 0 0 3px #0d1a17, 0 8px 20px rgba(1,35,30,.16); pointer-events: none; }
   .wf-phone * { pointer-events: none !important; }
   .wf-phone > .fy-screen { width: 360px; height: 760px; transform: scale(.5); transform-origin: 0 0; }
-  .wf-cap { display: flex; gap: 6px; align-items: baseline; margin-top: 12px; font: 500 13px/1.35 var(--fy-font); color: var(--fy-primary-500); }
-  .wf-cap b { flex: none; font-size: 11px; color: var(--fy-primary-300); }
-  .wf-card:focus-visible .wf-phone, .wf-card.is-sel .wf-phone { box-shadow: 0 0 0 4px #0d1a17, 0 0 0 9px var(--fy-primary-300), 0 14px 30px rgba(1,35,30,.25); }
-  .wf.has-sel .wf-card:not(.is-sel):not(.is-rel) { opacity: .35; }
+  .wf-card:focus-visible .wf-phone, .wf-card.is-sel .wf-phone { box-shadow: 0 0 0 3px #0d1a17, 0 0 0 8px var(--fy-primary-300), 0 14px 30px rgba(1,35,30,.25); }
+  .wf-term { display: grid; place-content: center; padding: 6px 14px; border-radius: 999px; text-align: center; font: 600 13px/1.3 var(--fy-font); }
+  .wf-term span, .wf-link span { display: block; font: 600 9px/1.4 var(--fy-font); letter-spacing: .08em; text-transform: uppercase; opacity: .75; }
+  .wf-term--start, .wf-term--end { background: var(--fy-primary-600); color: #fff; }
+  .wf-term--event { background: var(--fy-warning-50); color: var(--fy-warning-700); border: 2px dashed var(--fy-warning-700); }
+  .wf-link { display: grid; place-content: center; padding: 6px 14px; border: 2px solid var(--fy-primary-400); border-radius: 12px; background: #fff; font: 600 13px/1.3 var(--fy-font); color: var(--fy-primary-600); cursor: pointer; text-align: center; }
+  .wf-link:hover { background: var(--fy-success-50); }
+  .wf.has-sel .wf-node:not(.is-sel):not(.is-rel) { opacity: .3; }
   .wf-wires { position: absolute; left: 0; top: 0; overflow: visible; pointer-events: none; }
-  .wf-wires path { fill: none; stroke: var(--fy-primary-300); stroke-width: 2; opacity: .5; }
-  .wf-wires path.cond { stroke: var(--fy-warning-700); stroke-dasharray: 7 6; opacity: .55; }
-  .wf-wires path.nav { stroke: var(--fy-neutral-400); stroke-dasharray: 2 5; opacity: .5; }
-  .wf-wires circle { fill: var(--fy-primary-300); opacity: .7; }
-  .wf.has-sel .wf-wires path, .wf.has-sel .wf-wires circle { opacity: .08; }
-  .wf.has-sel .wf-wires path.out { opacity: 1; stroke: var(--fy-primary-500); stroke-width: 3; }
-  .wf.has-sel .wf-wires path.in { opacity: 1; stroke: #B5651D; stroke-width: 3; }
-  .wf.has-sel .wf-wires circle.out { opacity: 1; fill: var(--fy-primary-500); }
-  .wf-wires text { display: none; font: 600 13px/1 var(--fy-font); paint-order: stroke; stroke: #fff; stroke-width: 5px; stroke-linejoin: round; }
-  .wf.has-sel .wf-wires text.out { display: block; fill: var(--fy-primary-600); }
-  .wf.has-sel .wf-wires text.in { display: block; fill: #8A4A12; }
+  .wf-wires .edge path { fill: none; stroke: var(--fy-primary-500); stroke-width: 2; }
+  .wf-wires .edge.ev path { stroke: var(--fy-warning-700); stroke-dasharray: 8 6; }
+  .wf-wires .edge text { font: 500 13px/1 var(--fy-font); fill: var(--fy-primary-500); paint-order: stroke; stroke: #F4F6F2; stroke-width: 6px; stroke-linejoin: round; }
+  .wf-wires .ah { stroke: none; } .ah--n { fill: var(--fy-primary-500); } .ah--out { fill: var(--fy-primary-400); } .ah--in { fill: #B5651D; } .ah--ev { fill: var(--fy-warning-700); }
+  .wf.has-sel .wf-wires .edge { opacity: .15; }
+  .wf.has-sel .wf-wires .edge.out, .wf.has-sel .wf-wires .edge.in { opacity: 1; }
+  .wf.has-sel .wf-wires .edge.out path { stroke: var(--fy-primary-400); stroke-width: 3.5; }
+  .wf.has-sel .wf-wires .edge.in path { stroke: #B5651D; stroke-width: 3.5; }
+  .wf.has-sel .wf-wires .edge.out text, .wf.has-sel .wf-wires .edge.in text { font-weight: 700; fill: var(--fy-primary-600); }
+  .wf-wires .dec polygon { fill: #fff; stroke: var(--fy-primary-500); stroke-width: 2; }
+  .wf-wires .dec text { font: 600 14px/1 var(--fy-font); fill: var(--fy-primary-600); }
+  .wf.has-sel .wf-wires .dec:not(.is-rel) { opacity: .3; }
   .wf-hint, .wf-legend, .wf-tools, .wf-info { position: absolute; z-index: 2; background: #fff; border-radius: 12px; box-shadow: var(--fy-shadow-card); font: 400 12px/1.4 var(--fy-font); color: var(--fy-primary-500); }
   .wf-hint { left: 16px; top: 16px; padding: 8px 12px; color: var(--fy-text-secondary); }
   .wf-hint kbd { padding: 0 4px; border: 1px solid var(--fy-border-default); border-radius: 4px; font: inherit; font-size: 11px; }
@@ -137,8 +145,11 @@
   .wf-legend span { display: inline-flex; align-items: center; gap: 6px; }
   .wf-legend small { flex-basis: 100%; color: var(--fy-text-secondary); }
   .wf-legend label { display: inline-flex; align-items: center; gap: 6px; cursor: pointer; }
-  .ln { display: inline-block; width: 22px; height: 0; border-top: 3px solid var(--fy-primary-500); }
-  .ln--in { border-color: #B5651D; } .ln--cond { border-top-style: dashed; border-color: var(--fy-warning-700); }
+  .lg { display: inline-block; width: 16px; height: 12px; border-radius: 3px; border: 2px solid #0d1a17; background: #fff; }
+  .lg--dec { width: 12px; height: 12px; border-radius: 0; border-color: var(--fy-primary-500); transform: rotate(45deg) scale(.85); }
+  .lg--term { width: 22px; border-radius: 999px; border: 0; background: var(--fy-primary-600); }
+  .lg--event { width: 22px; border-radius: 999px; border: 2px dashed var(--fy-warning-700); background: var(--fy-warning-50); }
+  .lg--link { width: 22px; border-color: var(--fy-primary-400); }
   .wf-tools { right: 16px; bottom: 16px; display: flex; padding: 4px; gap: 2px; }
   .wf-tools button { min-width: 34px; height: 32px; padding: 0 8px; border: 0; border-radius: 8px; background: none; font: 600 13px/1 var(--fy-font); color: var(--fy-primary-600); cursor: pointer; font-variant-numeric: tabular-nums; }
   .wf-tools button:hover { background: var(--fy-neutral-100); }
@@ -405,11 +416,11 @@
   <div class="wf-view" id="wf-view" tabindex="0" aria-label="Wireflow canvas. Drag or scroll to pan, Ctrl or Command plus scroll to zoom.">
     <div class="wf-world" id="wf-world"></div>
   </div>
-  <div class="wf-hint">Drag or scroll to pan · <kbd>Ctrl</kbd>/<kbd>⌘</kbd> + scroll to zoom · Click a screen to trace its wires · Double-click to open it</div>
+  <div class="wf-hint">Drag or scroll to pan · <kbd>Ctrl</kbd>/<kbd>⌘</kbd> + scroll to zoom · Click a screen to trace its path · Double-click to open it</div>
   <div class="wf-legend" aria-label="Legend">
-    <span><i class="ln ln--out"></i>Goes to</span><span><i class="ln ln--in"></i>Comes from</span><span><i class="ln ln--cond"></i>System trigger</span>
-    <label><input type="checkbox" id="wf-nav"> Tab bar links</label>
-    <small>Every screen also links to Help &amp; complaints from its header.</small>
+    <span><i class="lg lg--screen"></i>Screen</span><span><i class="lg lg--dec"></i>Decision</span><span><i class="lg lg--term"></i>Start / end</span>
+    <span><i class="lg lg--event"></i>System event</span><span><i class="lg lg--link"></i>Links to another flow</span>
+    <small>Selected screen: <b style="color:var(--fy-primary-400)">next steps</b> and <b style="color:#B5651D">previous steps</b>. Help &amp; complaints is reachable from every screen’s header.</small>
   </div>
   <div class="wf-tools" role="group" aria-label="Zoom">
     <button type="button" id="wf-out" aria-label="Zoom out">−</button><button type="button" id="wf-pct" aria-label="Reset to 100%">100%</button><button type="button" id="wf-in" aria-label="Zoom in">+</button><button type="button" id="wf-fit">Fit</button>
@@ -1309,96 +1320,258 @@ $('#mode-wire').addEventListener('click', () => setMode('wire'));
 $('#mode-all').addEventListener('click', () => setMode('gallery'));
 
 /* ============================================================
- * Wireflow: every screen on a pannable canvas, one lane per ReBIT
- * section, with wires drawn from the buttons that link screens.
+ * Wireflow: the user flow as a flowchart on a pannable canvas, one
+ * board per flow, with decisions, start/end points and system events.
  * ============================================================ */
-// Screens reached by a system event rather than a tap: drawn as dashed wires.
-const WF_COND = [
-  ['otp', 'new-vua', 'No Finvu account yet'], ['otp', 'otp-failed', 'Wrong OTP 3 times'], ['otp', 'new-device', 'New phone detected'],
-  ['redirect', 'unsafe', 'Rooted / jailbroken device'], ['link-otp', 'multi', 'Two consents requested'],
-  ['connecting', 'partial', 'Some accounts failed'], ['connecting', 'bank-down', 'Bank not responding'],
-  ['dashboard', 'expired', 'Consent reaches expiry'], ['dashboard', 'session', 'Idle for 5 minutes'],
+// The user flow as a flowchart, one board per flow. Grid units: c = column, r = row (rows may be negative).
+// Node: [id, type, c, r, text]. Types: screen (id = screen id), dec (decision), start, end, event (system event),
+// to / from (connector to another board; text = board id). Edge: [from, side, to, side, label, opts].
+// Sides: l r t b, with an optional pixel offset ("b-30"). opts.via: [['x'|'y', grid value], ...] to route around nodes;
+// opts.kind: 'event' (dashed); opts.at: 'end' puts the label just before the arrow.
+const FLOW = [
+  { id: 'A', name: 'Sign-in', title: '§2.2 · §4.2 Onboarding & sign-in', nodes: [
+    ['A.start', 'start', 0, 0, 'Finny: user taps\nConnect accounts'], ['redirect', 'screen', 1, 0], ['A.d1', 'dec', 2, 0, 'Device\nsecure?'],
+    ['intro', 'screen', 3, 0], ['otp', 'screen', 4, 0], ['A.d2', 'dec', 5, 0, 'OTP\ncorrect?'], ['A.d3', 'dec', 6, 0, 'Finvu account\nexists?'],
+    ['existing', 'screen', 7, 0], ['A.out', 'to', 8, 0, 'B'],
+    ['A.ev', 'event', 3, -1, 'Login from\na new phone'], ['new-device', 'screen', 4, -1], ['recover', 'screen', 7, -1],
+    ['unsafe', 'screen', 2, 1], ['otp-failed', 'screen', 5, 1], ['new-vua', 'screen', 6, 1], ['A.end', 'end', 2, 2, 'Back in Finny'],
+  ], edges: [
+    ['A.start', 'r', 'redirect', 'l'], ['redirect', 'r', 'A.d1', 'l', 'Continue to Finvu'],
+    ['A.d1', 'r', 'intro', 'l', 'Yes'], ['A.d1', 'b', 'unsafe', 't', 'No: rooted device'], ['unsafe', 'b', 'A.end', 't', 'Back to Finny'],
+    ['intro', 'r', 'otp', 'l', 'Continue'], ['A.ev', 'r', 'new-device', 'l', '', { kind: 'event' }], ['new-device', 'b', 'otp', 't', 'Verify and register'],
+    ['otp', 'r', 'A.d2', 'l', 'Enter OTP'], ['A.d2', 'r', 'A.d3', 'l', 'Yes'], ['A.d2', 'b', 'otp-failed', 't', 'No, 3 times'],
+    ['otp-failed', 'l', 'otp', 'b', 'Resend OTP'],
+    ['A.d3', 'r', 'existing', 'l', 'Yes'], ['A.d3', 'b', 'new-vua', 't', 'No'],
+    ['existing', 't', 'recover', 'b', 'Forgot PIN / not me'], ['recover', 'l', 'otp', 't+45', 'Send OTP', { via: [['x', 5], ['y', -.08]] }],
+    ['existing', 'r', 'A.out', 'l', 'Continue'], ['new-vua', 'r', 'A.out', 'b', 'Create account'],
+  ] },
+  { id: 'B', name: 'Find & link accounts', title: '§2.1 Account discovery & linking', nodes: [
+    ['B.in', 'from', 0, 0, 'A'], ['identifiers', 'screen', 1, 0], ['discovering', 'screen', 2, 0], ['B.d1', 'dec', 3, 0, 'Accounts\nfound?'],
+    ['select', 'screen', 4, 0], ['link-otp', 'screen', 5, 0], ['B.out', 'to', 6, 0, 'C'],
+    ['add-mobile', 'screen', 1, 1], ['fip-list', 'screen', 2, 1], ['no-accounts', 'screen', 3, 1],
+  ], edges: [
+    ['B.in', 'r', 'identifiers', 'l'], ['identifiers', 'r', 'discovering', 'l', 'Find my accounts'],
+    ['identifiers', 'b-35', 'add-mobile', 't-35', 'Add a 2nd mobile', { anchor: 'end' }], ['add-mobile', 't+35', 'identifiers', 'b+35', 'Verified'],
+    ['discovering', 'r', 'B.d1', 'l', 'Show results'], ['discovering', 'b', 'fip-list', 't', 'See institutions'],
+    ['B.d1', 'r', 'select', 'l', 'Yes'], ['B.d1', 'b', 'no-accounts', 't', 'No'],
+    ['no-accounts', 'r-50', 'identifiers', 't', 'Search with PAN / DOB', { via: [['x', 4], ['y', -.08]], at: 'end' }],
+    ['select', 'b', 'no-accounts', 'r+50', 'Don’t see an account?'],
+    ['select', 'r', 'link-otp', 'l', 'Select accounts'], ['link-otp', 'r', 'B.out', 'l', 'Link account'],
+  ] },
+  { id: 'C', name: 'Consent', title: '§3.1–3.2 Consent management', nodes: [
+    ['C.in', 'from', 0, 0, 'B'], ['C.d1', 'dec', 1, 0, 'More than\none consent?'], ['consent', 'screen', 2, 0], ['C.d2', 'dec', 3, 0, 'Approve or\nreject?'],
+    ['consent-otp', 'screen', 4, 0], ['connecting', 'screen', 5, 0], ['C.d3', 'dec', 6, 0, 'All accounts\nlinked?'], ['success', 'screen', 7, 0],
+    ['C.end', 'end', 8, 0, 'Back in Finny'],
+    ['field-info', 'screen', 2, -1], ['bank-down', 'screen', 6, -1], ['C.out', 'to', 8, -1, 'D'],
+    ['multi', 'screen', 1, 1], ['reject', 'screen', 3, 1], ['partial', 'screen', 6, 1], ['rejected', 'screen', 3, 2],
+  ], edges: [
+    ['C.in', 'r', 'C.d1', 'l'], ['C.d1', 'r', 'consent', 'l', 'No, one'], ['C.d1', 'b', 'multi', 't', 'Yes'],
+    ['multi', 'b', 'consent-otp', 'b-30', 'Decide on each', { via: [['y', 1.92]], at: 'end' }],
+    ['consent', 't', 'field-info', 'b', 'Tap ⓘ on a field'], ['consent', 'r', 'C.d2', 'l'],
+    ['C.d2', 'r', 'consent-otp', 'l', 'Approve'], ['C.d2', 'b', 'reject', 't', 'Reject'], ['reject', 'b', 'rejected', 't', 'Confirm reject'],
+    ['rejected', 'l', 'consent', 'b', 'Review again'], ['rejected', 'r', 'C.end', 'b', 'Back to Finny'],
+    ['consent-otp', 'r', 'connecting', 'l', 'Approve consent'], ['connecting', 'r', 'C.d3', 'l'],
+    ['C.d3', 'r', 'success', 'l', 'Yes'], ['C.d3', 'b', 'partial', 't', 'Some failed'], ['C.d3', 't', 'bank-down', 'b', 'Bank not responding', { kind: 'event' }],
+    ['bank-down', 'l', 'connecting', 't', 'Try again'], ['bank-down', 'r', 'success', 't-30', 'Continue without it', { at: 'end', anchor: 'end' }],
+    ['partial', 'l', 'connecting', 'b', 'Retry'], ['partial', 'r', 'success', 'b', 'Continue with the rest'],
+    ['success', 'r', 'C.end', 'l', 'Continue to Finny'], ['success', 't+30', 'C.out', 'l', 'Manage consent'],
+  ] },
+  { id: 'D', name: 'Manage consents', title: '§3.2–3.3 Consent control & audit trail', nodes: [
+    ['D.in', 'from', 0, 0, 'C'], ['dashboard', 'screen', 1, 0], ['consent-detail', 'screen', 2, 0], ['D.d1', 'dec', 3, 0, 'Pause or\nrevoke?'],
+    ['pause', 'screen', 4, 0], ['paused', 'screen', 5, 0],
+    ['D.ev1', 'event', 0, -1, 'Idle for\n5 minutes'], ['session', 'screen', 1, -1], ['D.ev2', 'event', 3, -1, 'Consent end\ndate reached'],
+    ['expired', 'screen', 4, -1], ['D.out', 'to', 5, -1, 'C'],
+    ['activity', 'screen', 2, 1], ['revoke', 'screen', 3, 1],
+  ], edges: [
+    ['D.in', 'r', 'dashboard', 'l'], ['D.ev1', 'r', 'session', 'l', '', { kind: 'event' }], ['session', 'b', 'dashboard', 't', 'Unlock'],
+    ['dashboard', 'r', 'consent-detail', 'l', 'Open a consent'], ['dashboard', 'b+30', 'activity', 'l', 'Activity tab'],
+    ['consent-detail', 'b', 'activity', 't', 'Full activity log'], ['consent-detail', 'r', 'D.d1', 'l'],
+    ['D.d1', 'r', 'pause', 'l', 'Pause'], ['D.d1', 'b', 'revoke', 't', 'Revoke'], ['pause', 'r', 'paused', 'l', 'Confirm pause'],
+    ['paused', 't', 'consent-detail', 't+35', 'Resume', { via: [['y', -.02]], at: 'end' }],
+    ['D.ev2', 'r', 'expired', 'l', '', { kind: 'event' }],
+    ['expired', 'b', 'consent-detail', 't-35', 'View expired consent', { via: [['y', -.12]], at: 'end' }],
+    ['expired', 'r', 'D.out', 'l', 'Review new request'],
+    ['paused', 'b', 'revoke', 'r', 'Revoke'], ['revoke', 'b', 'dashboard', 'b-30', 'Confirm revoke', { via: [['y', 1.92]], at: 'end' }],
+  ] },
+  { id: 'E', name: 'Linked accounts', title: '§2.1 Linked accounts & delinking', nodes: [
+    ['E.in', 'from', 0, 0, 'D', 'Accounts tab'], ['linked', 'screen', 1, 0], ['E.d1', 'dec', 2, 0, 'Active consents\non account?'],
+    ['delink-ready', 'screen', 3, 0], ['delinked', 'screen', 4, 0],
+    ['E.out2', 'to', 1, 1, 'B', 'Find more accounts'], ['delink', 'screen', 2, 1], ['E.out', 'to', 2, 2, 'D', 'Revoke consents'],
+  ], edges: [
+    ['E.in', 'r', 'linked', 'l'], ['linked', 'r', 'E.d1', 'l', 'Tap an account'], ['E.d1', 'r', 'delink-ready', 'l', 'No'],
+    ['E.d1', 'b', 'delink', 't', 'Yes'], ['delink', 'b', 'E.out', 't', 'Revoke first'], ['delink', 'r', 'delink-ready', 'b', 'After revoking'],
+    ['delink-ready', 'r', 'delinked', 'l', 'Delink'], ['delinked', 't', 'linked', 't', 'Back to accounts', { via: [['y', -.08]], at: 'end' }],
+    ['linked', 'b', 'E.out2', 't', 'Find more accounts'],
+  ] },
+  { id: 'F', name: 'Profile & help', title: '§4 User experience: profile, notifications & help', nodes: [
+    ['F.in', 'from', 0, 1, 'D', 'Profile tab'], ['profile', 'screen', 1, 1],
+    ['devices', 'screen', 2, 0], ['notify', 'screen', 2, 1], ['language', 'screen', 2, 2],
+    ['help', 'screen', 3, 0], ['complaint', 'screen', 4, 0], ['F.out', 'to', 3, 1, 'B', 'Add a mobile'],
+    ['close-account', 'screen', 3, 2], ['F.end', 'end', 4, 2, 'Back in Finny'],
+  ], edges: [
+    ['F.in', 'r', 'profile', 'l'],
+    ['profile', 'r', 'devices', 'l', 'Devices', { at: 'end' }], ['profile', 'r', 'notify', 'l', 'Notifications', { at: 'end' }],
+    ['profile', 'r', 'language', 'l', 'Language', { at: 'end' }],
+    ['profile', 'b', 'help', 'l', 'Help & complaints', { via: [['y', 2.92], ['x', 3]], at: 'end' }],
+    ['profile', 'b', 'F.out', 'l', 'Mobile numbers', { via: [['y', 2.92], ['x', 3]], at: 'end' }],
+    ['profile', 'b', 'close-account', 'l', 'Close account', { via: [['y', 2.92], ['x', 3]], at: 'end' }],
+    ['help', 'r', 'complaint', 'l', 'Raise a complaint'], ['close-account', 'r', 'F.end', 'l', 'Confirm close'],
+  ] },
 ];
-const WF = { built: false, x: 0, y: 0, k: .5, sel: null, edges: [], pos: {} };
-const WF_CW = 180, WF_CH = 380, WF_COL = 300, WF_LANE = 590, WF_PAD = 60;
+const WF = { built: false, x: 0, y: 0, k: .45, sel: null, nodes: {}, edges: [] };
+const FC = { COL: 340, ROW: 560, HEAD: 76, PAD: 24 };
+const esc = t => String(t).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+const shortTitle = id => byId[id].title.replace(/^\d+[a-z]?\. /, '');
+const boardOf = id => FLOW.find(b => b.id === id);
+function nodeText(n) {
+  if (n.type === 'screen') return shortTitle(n.id);
+  if (n.type === 'to') return n.label || 'To ' + boardOf(n.text).name;
+  if (n.type === 'from') return n.label || 'From ' + boardOf(n.text).name;
+  return n.text.replace(/\n/g, ' ');
+}
+function layoutFlow() {
+  let top = 0, maxW = 0;
+  FLOW.forEach(b => {
+    const rows = b.nodes.map(n => n[3]), cols = b.nodes.map(n => n[2]);
+    b.minRow = Math.min(...rows); b.maxRow = Math.max(...rows);
+    b.top = top; b.left = 0;
+    b.w = (Math.max(...cols) + 1) * FC.COL + FC.PAD * 2; b.h = FC.HEAD + (b.maxRow - b.minRow + 1) * FC.ROW;
+    b.gx = v => b.left + FC.PAD + v * FC.COL; b.gy = v => b.top + FC.HEAD + (v - b.minRow) * FC.ROW;
+    b.nodes.forEach(([id, type, c, r, text, label]) => {
+      const cx = b.gx(c + .5), cy = b.gy(r) + 270;
+      const [w, h] = type === 'screen' ? [180, 420] : type === 'dec' ? [196, 150] : [196, 66];
+      const y = type === 'screen' ? b.gy(r) + 40 : cy - h / 2;
+      WF.nodes[id] = { id, type, text, label, board: b, cx, cy, x: cx - w / 2, y, w, h };
+    });
+    top += b.h + 90; maxW = Math.max(maxW, b.w);
+  });
+  WF.w = maxW; WF.h = top;
+}
+function port(n, side) {
+  const s = side[0], off = +(side.slice(1) || 0);
+  if (n.type === 'screen') {
+    const my = n.y + 40 + 190;   // middle of the phone, below the caption
+    return s === 'l' ? [n.x, my + off, -1, 0] : s === 'r' ? [n.x + n.w, my + off, 1, 0] : s === 't' ? [n.cx + off, n.y, 0, -1] : [n.cx + off, n.y + n.h, 0, 1];
+  }
+  return s === 'l' ? [n.x, n.cy + off, -1, 0] : s === 'r' ? [n.x + n.w, n.cy + off, 1, 0] : s === 't' ? [n.cx + off, n.y, 0, -1] : [n.cx + off, n.y + n.h, 0, 1];
+}
+function routeEdge(e) {
+  const a = WF.nodes[e.from], z = WF.nodes[e.to], b = a.board, ST = 22;
+  const [ax, ay, adx, ady] = port(a, e.fs), [zx, zy, zdx, zdy] = port(z, e.ts);
+  const p0 = { x: ax, y: ay }, p1 = { x: ax + adx * ST, y: ay + ady * ST }, q1 = { x: zx + zdx * ST, y: zy + zdy * ST }, q0 = { x: zx, y: zy };
+  const pts = [p0, p1];
+  let cur = p1;
+  if (e.via) e.via.forEach(([ax2, v]) => { cur = ax2 === 'x' ? { x: b.gx(v), y: cur.y } : { x: cur.x, y: b.gy(v) }; pts.push(cur); });
+  if (cur.x !== q1.x && cur.y !== q1.y) {
+    const aH = adx !== 0, zH = zdx !== 0;
+    if (e.via) pts.push(zH ? { x: cur.x, y: q1.y } : { x: q1.x, y: cur.y });
+    else if (aH && zH) { const m = (cur.x + q1.x) / 2; pts.push({ x: m, y: cur.y }, { x: m, y: q1.y }); }
+    else if (!aH && !zH) { const m = (cur.y + q1.y) / 2; pts.push({ x: cur.x, y: m }, { x: q1.x, y: m }); }
+    else if (aH) pts.push({ x: q1.x, y: cur.y });
+    else pts.push({ x: cur.x, y: q1.y });
+  }
+  pts.push(q1, q0);
+  // Drop repeated and collinear points, then round the corners.
+  const P = pts.filter((p, i) => !i || p.x !== pts[i - 1].x || p.y !== pts[i - 1].y)
+    .filter((p, i, arr) => i === 0 || i === arr.length - 1 || !((arr[i - 1].x === p.x && p.x === arr[i + 1].x) || (arr[i - 1].y === p.y && p.y === arr[i + 1].y)));
+  let d = `M${P[0].x} ${P[0].y}`;
+  for (let i = 1; i < P.length - 1; i++) {
+    const p = P[i], pr = P[i - 1], nx = P[i + 1];
+    const r = Math.min(14, Math.hypot(p.x - pr.x, p.y - pr.y) / 2, Math.hypot(nx.x - p.x, nx.y - p.y) / 2);
+    const ux = Math.sign(p.x - pr.x), uy = Math.sign(p.y - pr.y), vx = Math.sign(nx.x - p.x), vy = Math.sign(nx.y - p.y);
+    d += ` L${p.x - ux * r} ${p.y - uy * r} Q${p.x} ${p.y} ${p.x + vx * r} ${p.y + vy * r}`;
+  }
+  d += ` L${P[P.length - 1].x} ${P[P.length - 1].y}`;
+  e.d = d;
+  // Label: beside the line just after a decision, just before the arrow when asked, else on the longest run.
+  let seg;
+  if (e.at === 'end') seg = [P[P.length - 2], P[P.length - 1]];
+  else if (a.type === 'dec') seg = [P[0], P[1]];
+  else { let best = 0; for (let i = 0; i < P.length - 1; i++) { const L = Math.hypot(P[i + 1].x - P[i].x, P[i + 1].y - P[i].y); if (L > best) { best = L; seg = [P[i], P[i + 1]]; } } }
+  const [s0, s1] = seg, horiz = s0.y === s1.y;
+  if (a.type === 'dec' && e.at !== 'end') e.lab = horiz ? { x: s0.x + 10 * Math.sign(s1.x - s0.x || 1), y: s0.y - 9, anchor: s1.x < s0.x ? 'end' : 'start' } : { x: s0.x + 10, y: s0.y + 26 * Math.sign(s1.y - s0.y || 1) + 4, anchor: 'start' };
+  else if (e.at === 'end' && horiz) e.lab = { x: s1.x - 10 * Math.sign(s1.x - s0.x || 1), y: s0.y - 9, anchor: s1.x > s0.x ? 'end' : 'start' };
+  else e.lab = horiz ? { x: (s0.x + s1.x) / 2, y: s0.y - 9, anchor: 'middle' } : { x: s0.x + (e.anchor === 'end' ? -9 : 9), y: (s0.y + s1.y) / 2 + 4, anchor: e.anchor || 'start' };
+}
 function buildWire() {
-  const world = $('#wf-world'), flows = [...new Set(S.map(s => s.flow))];
-  let html = '', maxCols = 0;
-  flows.forEach((f, li) => {
-    const list = S.filter(s => s.flow === f); maxCols = Math.max(maxCols, list.length);
-    const top = li * WF_LANE;
-    html += `<div class="wf-lane" style="left:0;top:${top}px;width:${list.length * WF_COL + WF_PAD * 2 - (WF_COL - WF_CW)}px;height:${WF_LANE - 50}px"><h3>${f}<small>${list.length} screens</small></h3></div>`;
-    list.forEach((s, ci) => {
-      const x = WF_PAD + ci * WF_COL, y = top + 80;
-      WF.pos[s.id] = { x, y };
-      html += `<div role="button" tabindex="0" class="wf-card" data-wf="${s.id}" style="left:${x}px;top:${y}px" aria-label="${REF[s.id]} ${s.title.replace(/^\d+[a-z]?\. /, '')}"><div class="wf-phone">${s.render()}</div><div class="wf-cap"><b>${REF[s.id]}</b>${s.title.replace(/^\d+[a-z]?\. /, '')}</div></div>`;
-    });
+  layoutFlow();
+  FLOW.forEach(b => b.edges.forEach(([from, fs, to, ts, label = '', o = {}]) => WF.edges.push({ from, fs, to, ts, label, ...o })));
+  WF.edges.forEach(routeEdge);
+  let html = '';
+  FLOW.forEach(b => { html += `<div class="wf-lane" style="left:${b.left}px;top:${b.top}px;width:${b.w}px;height:${b.h}px"><h3>${esc(b.title)}<small>${esc(b.name)}</small></h3></div>`; });
+  html += `<svg class="wf-wires" width="${WF.w}" height="${WF.h}" aria-hidden="true"><defs>${['n', 'out', 'in', 'ev'].map(k => `<marker id="wf-a-${k}" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" class="ah ah--${k}"/></marker>`).join('')}</defs><g id="wf-edges"></g><g id="wf-decs"></g></svg>`;
+  Object.values(WF.nodes).forEach(n => {
+    const st = `left:${n.x}px;top:${n.y}px;width:${n.w}px;height:${n.h}px`;
+    if (n.type === 'screen') html += `<div role="button" tabindex="0" class="wf-node wf-card" data-wf="${n.id}" style="${st}" aria-label="${REF[n.id]} ${esc(shortTitle(n.id))}"><div class="wf-cap"><b>${REF[n.id]}</b>${esc(shortTitle(n.id))}</div><div class="wf-phone">${byId[n.id].render()}</div></div>`;
+    else if (n.type === 'start' || n.type === 'end') html += `<div class="wf-node wf-term wf-term--${n.type}" style="${st}"><span>${n.type === 'start' ? 'Start' : 'End'}</span>${esc(n.text).replace(/\n/g, '<br>')}</div>`;
+    else if (n.type === 'event') html += `<div class="wf-node wf-term wf-term--event" style="${st}"><span>System event</span>${esc(n.text).replace(/\n/g, '<br>')}</div>`;
+    else if (n.type === 'to' || n.type === 'from') html += `<button type="button" class="wf-node wf-link wf-link--${n.type}" data-link="${n.id}" style="${st}"><span>${n.type === 'to' ? 'Continues in' : 'Comes from'}</span>${n.type === 'from' ? '← ' : ''}${esc(n.label || boardOf(n.text).name)}${n.type === 'to' ? ' →' : ''}</button>`;
   });
-  WF.w = maxCols * WF_COL + WF_PAD * 2; WF.h = flows.length * WF_LANE;
+  const world = $('#wf-world');
   world.style.width = WF.w + 'px'; world.style.height = WF.h + 'px';
-  world.innerHTML = html + `<svg class="wf-wires" width="${WF.w}" height="${WF.h}" aria-hidden="true"></svg>`;
-  // Measure each link's button inside its screen at scale 1 so wires leave from the real tap target.
-  world.style.transform = 'none';
-  const wr = world.getBoundingClientRect(), seen = new Set();
-  world.querySelectorAll('.wf-card').forEach(card => {
-    const from = card.dataset.wf;
-    card.querySelectorAll('[data-go]').forEach(el => {
-      const to = el.dataset.go;
-      if (to === from || !byId[to] || el.matches('.fy-icon-btn[data-go="help"]')) return;
-      const kind = el.closest('.fy-bnb') ? 'nav' : 'out', key = from + '>' + to + kind;
-      if (seen.has(key)) return; seen.add(key);
-      const r = el.getBoundingClientRect(), name = el.querySelector('b, .acct__name, span')?.textContent || el.textContent;
-      WF.edges.push({ from, to, kind, label: (el.getAttribute('aria-label') || name || '').trim().replace(/\s+/g, ' ').slice(0, 34),
-        sx: r.right - wr.left - 4, sy: r.top + r.height / 2 - wr.top });
-    });
-  });
-  WF_COND.forEach(([from, to, label]) => { const p = WF.pos[from]; WF.edges.push({ from, to, kind: 'cond', label, sx: p.x + WF_CW, sy: p.y + 300 }); });
-  const inCount = {};
-  WF.edges.forEach(e => { const t = WF.pos[e.to], n = inCount[e.to] = (inCount[e.to] || 0) + 1; e.tx = t.x; e.ty = t.y + 24 + ((n - 1) % 10) * 14; });
+  world.innerHTML = html;
+  $('#wf-decs').innerHTML = Object.values(WF.nodes).filter(n => n.type === 'dec').map(n => {
+    const lines = n.text.split('\n');
+    return `<g class="dec"><polygon points="${n.cx},${n.y} ${n.x + n.w},${n.cy} ${n.cx},${n.y + n.h} ${n.x},${n.cy}"/>${lines.map((t, i) => `<text x="${n.cx}" y="${n.cy + (i - (lines.length - 1) / 2) * 17 + 5}" text-anchor="middle">${esc(t)}</text>`).join('')}</g>`;
+  }).join('');
   drawWires();
-  world.addEventListener('click', e => { const c = e.target.closest('.wf-card'); if (WF.moved) return; selectWire(c ? c.dataset.wf : null); });
+  world.addEventListener('click', e => {
+    if (WF.moved) return;
+    const l = e.target.closest('[data-link]');
+    if (l) { const n = WF.nodes[l.dataset.link], target = n.type === 'to' ? boardOf(n.text).nodes.find(x => x[1] === 'from')[0] : FLOW.find(b => b.id === n.text).nodes.find(x => x[1] === 'to' && x[4] === n.board.id)?.[0]; if (target) centerOn(target); return; }
+    const c = e.target.closest('.wf-card'); selectWire(c ? c.dataset.wf : null);
+  });
   world.addEventListener('dblclick', e => { const c = e.target.closest('.wf-card'); if (c) openInProto(c.dataset.wf); });
   world.addEventListener('keydown', e => { const c = e.target.closest('.wf-card'); if (!c || (e.key !== 'Enter' && e.key !== ' ')) return; e.preventDefault(); if (e.key === 'Enter' && WF.sel === c.dataset.wf) openInProto(c.dataset.wf); else selectWire(c.dataset.wf); });
-  $('#wf-nav').addEventListener('change', drawWires);
   WF.built = true;
 }
-function drawWires() {
-  const showNav = $('#wf-nav').checked, svg = $('#wf-world .wf-wires');
-  let out = '<defs>' + [['a-out', 'var(--fy-primary-500)'], ['a-in', '#B5651D'], ['a-dim', 'var(--fy-primary-300)'], ['a-cond', 'var(--fy-warning-700)']]
-    .map(([id, c]) => `<marker id="${id}" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" style="fill:${c};stroke:none;opacity:1"/></marker>`).join('') + '</defs>';
-  WF.edges.forEach((e, i) => {
-    if (e.kind === 'nav' && !showNav) return;
-    const { sx, sy, tx, ty } = e, fwd = tx > sx + 40, dx = fwd ? Math.max(70, (tx - sx) * .45) : 160;
-    const d = `M${sx} ${sy} C${sx + dx} ${sy} ${tx - dx} ${ty} ${tx - 3} ${ty}`;
-    const role = WF.sel ? (e.from === WF.sel ? 'out' : e.to === WF.sel ? 'in' : '') : '';
-    const marker = role === 'out' ? 'a-out' : role === 'in' ? 'a-in' : e.kind === 'cond' ? 'a-cond' : 'a-dim';
-    const cls = [e.kind === 'out' ? '' : e.kind, role].join(' ').trim();
-    out += `<path class="${cls}" d="${d}" marker-end="url(#${marker})"/>`;
-    if (e.kind !== 'cond') out += `<circle class="${role}" cx="${sx}" cy="${sy}" r="4"/>`;
-    if (role) { const mx = .125 * sx + .375 * (sx + dx) + .375 * (tx - dx) + .125 * tx, my = .5 * sy + .5 * ty; out += `<text class="${role}" x="${mx}" y="${my - 6}" text-anchor="middle">${esc(e.label)}</text>`; }
+// Edges touching the selected screen, followed through decisions to the next screen either way.
+function traced(id) {
+  const out = new Set(), inn = new Set(), walk = (n, dir, set) => WF.edges.forEach((e, i) => {
+    if ((dir === 'out' ? e.from : e.to) !== n || set.has(i)) return;
+    set.add(i); const next = WF.nodes[dir === 'out' ? e.to : e.from]; if (next.type === 'dec') walk(next.id, dir, set);
   });
-  svg.innerHTML = out;
+  walk(id, 'out', out); walk(id, 'in', inn);
+  return { out, inn };
 }
-const esc = t => String(t).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+function drawWires() {
+  const t = WF.sel ? traced(WF.sel) : { out: new Set(), inn: new Set() };
+  $('#wf-edges').innerHTML = WF.edges.map((e, i) => {
+    const role = t.out.has(i) ? 'out' : t.inn.has(i) ? 'in' : '', ev = e.kind === 'event';
+    return `<g class="edge ${role}${ev ? ' ev' : ''}"><path d="${e.d}" marker-end="url(#wf-a-${role || (ev ? 'ev' : 'n')})"/>${e.label ? `<text x="${e.lab.x}" y="${e.lab.y}" text-anchor="${e.lab.anchor}">${esc(e.label)}</text>` : ''}</g>`;
+  }).join('');
+}
 function selectWire(id) {
+  if (id && !WF.nodes[id]) id = null;
   WF.sel = id;
   $('#wire').classList.toggle('has-sel', !!id);
-  const rel = new Set(id ? WF.edges.filter(e => (e.from === id || e.to === id) && (e.kind !== 'nav' || $('#wf-nav').checked)).flatMap(e => [e.from, e.to]) : []);
-  $('#wf-world').querySelectorAll('.wf-card').forEach(c => { c.classList.toggle('is-sel', c.dataset.wf === id); c.classList.toggle('is-rel', rel.has(c.dataset.wf)); });
+  const t = id ? traced(id) : { out: new Set(), inn: new Set() }, rel = new Set();
+  [...t.out, ...t.inn].forEach(i => { rel.add(WF.edges[i].from); rel.add(WF.edges[i].to); });
+  $('#wf-world').querySelectorAll('.wf-node').forEach(c => { const nid = c.dataset.wf || c.dataset.link; c.classList.toggle('is-sel', nid === id); c.classList.toggle('is-rel', rel.has(nid)); });
+  $('#wf-decs').querySelectorAll('.dec').forEach((g, i) => g.classList.toggle('is-rel', rel.has(Object.values(WF.nodes).filter(n => n.type === 'dec')[i].id)));
   drawWires();
   const info = $('#wf-info');
   if (!id) { info.hidden = true; return; }
-  const s = byId[id], vis = e => e.kind !== 'nav' || $('#wf-nav').checked;
-  const item = (e, other) => `<li><button type="button" data-wf-go="${other}"><b>${REF[other]}</b>${esc(byId[other].title.replace(/^\d+[a-z]?\. /, ''))} <i>· ${esc(e.label)}</i></button></li>`;
-  const outs = WF.edges.filter(e => e.from === id && vis(e)), ins = WF.edges.filter(e => e.to === id && vis(e));
-  info.innerHTML = `<button type="button" class="wf-x" aria-label="Close">×</button><p class="eyebrow">${REF[id]} · ${esc(s.flow)}</p><h4>${esc(s.title.replace(/^\d+[a-z]?\. /, ''))}</h4>
-    <p class="eyebrow">Goes to (${outs.length})</p><ul>${outs.map(e => item(e, e.to)).join('') || '<li class="muted small">End of flow</li>'}</ul>
-    <p class="eyebrow">Comes from (${ins.length})</p><ul>${ins.map(e => item(e, e.from)).join('') || '<li class="muted small">Entry point</li>'}</ul>
+  // Summarise each traced path as "via decision → choice → next node".
+  const steps = (dir) => {
+    const list = [], walk = (n, via) => WF.edges.forEach(e => {
+      if ((dir === 'out' ? e.from : e.to) !== n) return;
+      const o = WF.nodes[dir === 'out' ? e.to : e.from], how = [...via, e.label].filter(Boolean);
+      if (o.type === 'dec') walk(o.id, dir === 'out' ? [...how, o.text.replace(/\n/g, ' ')] : [o.text.replace(/\n/g, ' '), ...how]);
+      else list.push({ o, how: how.join(' → ') });
+    });
+    walk(id, []); return list;
+  };
+  const item = ({ o, how }) => `<li><button type="button" data-wf-go="${o.id}">${o.type === 'screen' ? `<b>${REF[o.id]}</b>` : ''}${esc(nodeText(o))}${how ? ` <i>· ${esc(how)}</i>` : ''}</button></li>`;
+  const outs = steps('out'), ins = steps('in');
+  info.innerHTML = `<button type="button" class="wf-x" aria-label="Close">×</button><p class="eyebrow">${REF[id]} · ${esc(byId[id].flow)}</p><h4>${esc(shortTitle(id))}</h4>
+    <p class="eyebrow">Next (${outs.length})</p><ul>${outs.map(item).join('') || '<li class="muted small">End of flow</li>'}</ul>
+    <p class="eyebrow">Before (${ins.length})</p><ul>${ins.map(item).join('') || '<li class="muted small">Entry point</li>'}</ul>
     <button type="button" class="open">Open in prototype</button>`;
   info.hidden = false;
   info.querySelector('.open').addEventListener('click', () => openInProto(id));
   info.querySelector('.wf-x').addEventListener('click', () => selectWire(null));
-  info.querySelectorAll('[data-wf-go]').forEach(b => b.addEventListener('click', () => { selectWire(b.dataset.wfGo); centerOn(b.dataset.wfGo); }));
+  info.querySelectorAll('[data-wf-go]').forEach(b => b.addEventListener('click', () => { const n = WF.nodes[b.dataset.wfGo]; if (n.type === 'screen') selectWire(n.id); centerOn(n.id); }));
 }
 function openInProto(id) { hist.length = 0; setMode('proto'); go(id); }
 function wfApply() {
@@ -1409,7 +1582,7 @@ function wfApply() {
 }
 function wfZoomAt(cx, cy, k) { k = Math.min(2, Math.max(.08, k)); WF.x = cx - (cx - WF.x) * (k / WF.k); WF.y = cy - (cy - WF.y) * (k / WF.k); WF.k = k; wfApply(); }
 function wfFit() { const v = $('#wf-view').getBoundingClientRect(); const k = Math.min((v.width - 40) / WF.w, (v.height - 120) / WF.h); WF.k = Math.max(.08, k); WF.x = (v.width - WF.w * WF.k) / 2; WF.y = 70; wfApply(); }
-function centerOn(id) { const v = $('#wf-view').getBoundingClientRect(), p = WF.pos[id]; if (WF.k < .4) WF.k = .5; WF.x = v.width / 2 - (p.x + WF_CW / 2) * WF.k; WF.y = v.height / 2 - (p.y + WF_CH / 2) * WF.k; wfApply(); }
+function centerOn(id) { const v = $('#wf-view').getBoundingClientRect(), n = WF.nodes[id]; if (!n) return; if (WF.k < .4) WF.k = .45; WF.x = v.width / 2 - n.cx * WF.k; WF.y = v.height / 2 - (n.y + n.h / 2) * WF.k; wfApply(); }
 function openWire() {
   document.documentElement.style.setProperty('--topbar-h', $('.topbar').offsetHeight + 'px');
   const first = !WF.built;

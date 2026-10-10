@@ -796,9 +796,6 @@
   .index button[aria-current="true"] { background: var(--fy-success-50); color: var(--fy-primary-600); font-weight: 600; }
   .index .tags { margin-left: auto; display: flex; gap: 4px; flex-shrink: 0; }
   .index .tag-opt { padding: 0 5px; border: 1px dashed var(--fy-primary-300); border-radius: 4px; color: var(--fy-primary-400); font-size: 9px; font-weight: 600; text-transform: uppercase; letter-spacing: .04em; white-space: nowrap; }
-  .index .legend { display: flex; flex-wrap: wrap; gap: 6px 10px; align-items: center; margin: 0 0 6px; padding: 0 10px; font-size: 11px; color: var(--fy-neutral-500); }
-  .index .legend span { margin-left: 0; }
-  .index .legend .li { display: inline-flex; gap: 6px; align-items: center; white-space: nowrap; }
   .why .opt-note { padding: 10px 12px; border: 1px dashed var(--fy-primary-300); border-radius: 10px; font-size: 12.5px; line-height: 1.5; color: var(--fy-primary-500); }
   .why .opt-note b { color: var(--fy-primary-600); }
   .index .tag-new { padding: 1px 6px; border-radius: 4px; background: var(--fy-warning-50); color: var(--fy-warning-700); font-size: 9px; font-weight: 600; text-transform: uppercase; letter-spacing: .04em; }
@@ -1851,7 +1848,7 @@ const hist = [];
 const $ = (q, r = document) => r.querySelector(q);
 
 function renderIndex() {
-  let html = '<p class="legend"><span class="li"><span class="tag-new">New</span> new screen</span><span class="li"><span class="tag-opt">Optional</span> not required by ReBIT</span></p>', flow = '';
+  let html = '', flow = '';
   S.forEach((s, i) => {
     if (s.flow !== flow) { flow = s.flow; html += `<h2>${flow}</h2>`; }
     html += `<button type="button" data-jump="${s.id}" aria-current="${s.id === cur}"><b>${String(i + 1).padStart(2, '0')}</b>${s.title}<span class="tags">${s.opt ? `<span class="tag-opt" title="${s.opt[0]}">${s.opt[0]}</span>` : ''}${s.isNew ? '<span class="tag-new">New</span>' : ''}</span></button>`;

@@ -993,6 +993,59 @@
   .acc3--err .link { margin-left: auto; }
   .or3 { margin: 0; text-align: center; font-size: 12px; color: var(--fy-neutral-400); }
 
+  /* ---------- v2 visual design · board 2 ---------- */
+  .v2 .fy-screen { background: linear-gradient(180deg, #E2F0E9 0%, #F4F7F5 36%, #F4F7F5 100%); }
+  .v2 .title--plain { color: var(--fy-primary-600); }
+  .ill2 { width: 120px; height: 120px; justify-self: center; }
+  .ill2--lg { width: 136px; height: 136px; }
+  .ill2--sm { width: 100px; height: 100px; }
+  .bar2 { width: 140px; height: 4px; margin-top: 24px; border-radius: 4px; background: var(--fy-neutral-200); overflow: hidden; }
+  .bar2 i { display: block; width: 40%; height: 100%; border-radius: inherit; background: var(--fy-primary-400); animation: fy-bar2 1.6s ease-in-out infinite; }
+  @keyframes fy-bar2 { 0% { transform: translateX(-100%); } 100% { transform: translateX(260%); } }
+  .pill2 { display: inline-flex; align-items: center; gap: 8px; padding: 10px 18px; border-radius: 999px; background: #E6F3EC; font: 500 13px/1 var(--fy-font); color: var(--fy-primary-600); }
+  .ring2 { display: inline-block; width: 14px; height: 14px; border-radius: 50%; border: 2px solid var(--fy-primary-300); border-top-color: transparent; animation: fy-spin .9s linear infinite; }
+  .scan2 .ring2 { width: 34px; height: 34px; border-width: 3px; border-color: var(--fy-primary-400); border-right-color: transparent; justify-self: center; margin-top: 10px; }
+  @media (prefers-reduced-motion: reduce) { .bar2 i, .ring2 { animation: none; } }
+  .scan2 { display: grid; gap: 4px; justify-items: center; margin-top: 36px; text-align: center; }
+  .scan2 b { font: 600 17px/1.3 var(--fy-font); color: var(--fy-primary-400); }
+  .scan2 span { font: 400 12.5px/1.5 var(--fy-font); color: var(--fy-text-secondary); }
+  .os-sheet2 { position: absolute; left: 0; right: 0; bottom: 0; display: grid; justify-items: center; gap: 8px; padding: 22px 18px 14px; border-radius: 22px 22px 0 0; background: #fff; font: 400 14px/1.4 system-ui, sans-serif; color: #1b1b1b; text-align: center; }
+  .os-sheet2 b { font-size: 16px; }
+  .os-sheet2 small { color: #5f6368; }
+  .grp3__sub { display: flex; justify-content: space-between; align-items: center; padding: 10px 0 2px; font: 500 14px/1.3 var(--fy-font); color: var(--fy-primary-600); }
+  .grp3__sub .link.muted { color: var(--fy-neutral-400); }
+  .grp3 header .chev2 { color: var(--fy-primary-500); font-size: 14px; }
+  .grp3--row header, .grp3--row .acc3 { border-bottom: 0; }
+  .nps2 { display: grid; place-items: center; width: 30px; height: 30px; border-radius: 50%; background: #2E9C7A; color: #fff; font: 700 14px/1 var(--fy-font); }
+  .bank-hero .bank-mark { width: 62px; height: 62px; font-size: 26px; box-shadow: 0 6px 16px rgba(1,35,30,.1); }
+  .chips2 { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; }
+  .chips2 span { display: inline-flex; align-items: center; gap: 6px; padding: 6px 12px; border-radius: 999px; background: #fff; box-shadow: var(--fy-shadow-card); font: 500 12px/1 var(--fy-font); color: var(--fy-primary-600); }
+  .chips2 .bank-mark { width: 18px; height: 18px; font-size: 9px; border: 0; }
+  .ccgrp { display: grid; gap: 10px; padding: 12px; border-radius: 16px; background: #fff; box-shadow: var(--fy-shadow-card); }
+  .ccgrp > header { display: flex; align-items: center; gap: 10px; }
+  .ccgrp > header svg { width: 22px; height: 22px; color: var(--fy-primary-400); }
+  .ccgrp > header b { flex: 1; font: 600 15px/1.3 var(--fy-font); color: var(--fy-primary-600); }
+  .cc { display: grid; gap: 10px; padding: 12px; border: 1px solid var(--fy-border-subtle); border-radius: 12px; background: #fff; }
+  .cc > header { display: flex; align-items: center; gap: 10px; padding-bottom: 10px; border-bottom: 1px dashed var(--fy-border-subtle); }
+  .cc-sel { margin-left: auto; cursor: pointer; }
+  .cc-sel input { position: absolute; opacity: 0; pointer-events: none; }
+  .cc-sel:has(input:checked) .tick3 { border-color: #2E9C7A; background: #2E9C7A; color: #fff; }
+  .cc-sel:has(input:focus-visible) { outline: 2px solid var(--fy-border-focus); outline-offset: 2px; border-radius: 50%; }
+  .cc[data-state] .cc-sel { visibility: hidden; }
+  .cc[data-state="ok"] { border-color: var(--fy-success-700); }
+  .cc[data-state="no"] { border-color: var(--fy-error-600); }
+  .cc-purpose { margin: 0; font: 500 13.5px/1.4 var(--fy-font); color: var(--fy-primary-600); }
+  .cc-purpose small { display: block; font: 400 11px/1.3 var(--fy-font); color: var(--fy-text-secondary); }
+  .cc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px 12px; margin: 0; padding: 12px; border-radius: 10px; background: var(--fy-neutral-100); }
+  .cc-grid dt { font: 400 11px/1.3 var(--fy-font); color: var(--fy-text-secondary); }
+  .cc-grid dd { margin: 2px 0 0; font: 500 12.5px/1.35 var(--fy-font); color: var(--fy-primary-600); }
+  .cc-more { justify-self: center; padding: 0; color: var(--fy-text-secondary); font-weight: 500; }
+  .cc .decide .fy-btn { height: 40px; font-size: 14px; }
+  .menu a .help-finny { flex: none; width: 32px; height: 32px; border-radius: 8px; font-size: 9px; }
+  [data-ccbulk] .fy-btn:disabled { opacity: .45; cursor: default; }
+  .help2 { display: grid; grid-template-columns: 1fr 100px; align-items: center; }
+  .help2 .title { font-size: 26px; }
+
   /* ---------- Wireflow canvas ---------- */
   .wf { position: relative; height: calc(100dvh - var(--topbar-h, 54px)); overflow: hidden; }
   .wf-view { position: absolute; inset: 0; overflow: hidden; cursor: grab; touch-action: none; outline: none;
@@ -1451,10 +1504,10 @@ const aabar1 = ({ back = true, close = false, help = true, exit = true } = {}) =
   </div>`;
 // v2 (tech sheet S.no 4): Finvu logo and name top-left, Finny only as small "Requested by Finny".
 // v2 header per the visual design: back arrow left, Finvu logo centred.
-const aabar2 = ({ back = true, logo = true } = {}) => `
+const aabar2 = ({ back = true, logo = true, help = true } = {}) => `
   <div class="aabar aabar--v2">
     ${back ? `<button class="fy-icon-btn" data-back aria-label="Back">${ic('back')}</button>` : '<span></span>'}
-    <span class="aabar__mid">${logo ? finvuLogo(26) : ''}</span><span></span>
+    <span class="aabar__mid">${logo ? finvuLogo(26) : ''}</span>${help ? `<button class="fy-icon-btn" data-go="v2-help" aria-label="Help and complaints">${ic('info')}</button>` : '<span></span>'}
   </div>`;
 const aabar = (o) => VER === 'v2' ? aabar2(o) : aabar1(o);
 const finnybar = (title = '') => `
@@ -2167,14 +2220,14 @@ const discoverySteps = `<div class="progress" style="width:100%;--p:55%"><i></i>
 const finnyHead = (title) => `<div class="aabar"><button class="fy-icon-btn" data-back aria-label="Back">${ic('back')}</button><span class="aabar__mid" style="font:600 15px/1 var(--fy-font);color:var(--fy-primary-600)">${title}</span><span></span></div>`;
 
 const V2 = [
-  { flow: 'Finny · hand-off (§4.2.i)', ids: ['v2-redirect', 'v2-redirect-a'] },
-  { flow: '§5.1 Sign in to Finvu (2FA)', ids: ['v2-intro', 'v2-sna', 'v2-otp', 'v2-otp-error', 'v2-register', 'v2-register-full', 'v2-remove-device', 'v2-bind-intro', 'v2-biometric', 'v2-otp-nosdk', 'v2-pin-create', 'v2-pin-enter', 'v2-pin-error', 'v2-forgot-pin', 'v2-reset-pin', 'v2-reset-done', 'v2-unsafe'] },
-  { flow: '§2.1–2.2 Discovery & linking', ids: ['v2-welcome-back', 'v2-create-id', 'v2-fip-select', 'v2-no-accounts', 'v2-no-accounts-b', 'v2-missing', 'add-mobile', 'fip-list', 'v2-select', 'v2-link-otp', 'v2-link-error'] },
-  { flow: '§3.1–3.2 Consent & outcomes', ids: ['v2-consents', 'v2-viewmore', 'field-info', 'connecting', 'success', 'v2-partial', 'v2-declined', 'help'] },
+  { flow: 'Finny · hand-off (§4.2.i)', ids: ['v2-redirect'] },
+  { flow: '§5.1 Sign in to Finvu (2FA)', ids: ['v2-onfinvu', 'v2-sna', 'v2-otp', 'v2-otp-error', 'v2-register', 'v2-register-full', 'v2-remove-device', 'v2-bind-intro', 'v2-biometric', 'v2-otp-nosdk', 'v2-pin-create', 'v2-pin-enter', 'v2-pin-error', 'v2-forgot-pin', 'v2-reset-pin', 'v2-reset-done', 'v2-unsafe'] },
+  { flow: '§2.1–2.2 Discovery & linking', ids: ['v2-welcome-confirm', 'v2-welcome-back', 'v2-welcome-new', 'v2-no-accounts', 'v2-missing', 'add-mobile', 'fip-list', 'v2-select', 'v2-link-otp', 'v2-link-error'] },
+  { flow: '§3.1–3.2 Consent & outcomes', ids: ['v2-consents', 'v2-viewmore', 'v2-approved', 'v2-partial', 'v2-declined', 'v2-help'] },
   { flow: 'Finny · after linking (§3.2, §4.2.vi)', ids: ['v2-finny-profile'] },
 ];
 // Where a reused v1 screen links to something v2 drops, it lands on the v2 equivalent instead.
-const V2_ALIAS = { redirect: 'v2-finny-profile', dashboard: 'v2-finny-profile', identifiers: 'v2-missing', discovering: 'v2-welcome-back', otp: 'v2-otp',
+const V2_ALIAS = { help: 'v2-help', success: 'v2-approved', connecting: 'v2-approved', 'field-info': 'v2-viewmore', 'v2-intro': 'v2-onfinvu', 'v2-fip-select': 'v2-welcome-back', 'v2-create-id': 'v2-welcome-new', redirect: 'v2-finny-profile', dashboard: 'v2-finny-profile', identifiers: 'v2-missing', discovering: 'v2-welcome-back', otp: 'v2-otp',
   select: 'v2-select', 'no-accounts': 'v2-no-accounts', 'link-otp': 'v2-link-otp', consent: 'v2-consents', recover: 'v2-forgot-pin', unsafe: 'v2-unsafe' };
 const T = (n, ...more) => `Tech sheet S.no ${n}${more.length ? ', ' + more.join(', ') : ''}`;
 
@@ -2189,45 +2242,6 @@ add({ id: 'v2-finny-consents', title: 'Finny: consents before Finvu', isNew: tru
         <dl class="kv" style="font-size:12px"><dt>Data</dt><dd>${c.types}</dd><dt>History</dt><dd>${c.range}</dd><dt>Fetched</dt><dd>Up to once a day</dd></dl></div>`).join('')}
     </div>
     <div class="foot">${btn('Continue to Finvu', 'v2-redirect')}</div>`, { main: true }) });
-
-add({ id: 'v2-sna', title: 'Verifying your number (SNA)', isNew: true, clauses: ['4.2.ii', '5.1.i', '4.2.iii'],
-  notes: [T(1) + ': “You’re now on Finvu” pop-up when the user lands in the AA client; dismisses on tap or after a few seconds.', T(2) + ': factor 1 is a silent network check. No input needed.', T(4) + ': Finvu logo and name top-left, “Requested by Finny” smaller; tagline at the bottom.'],
-  render: () => screen(`${aabar({ back: false })}
-    <div class="scroll pad stack-4">
-      <div class="aa-toast" role="status" data-autodismiss>${ic('shield')}<span><b>You’re now on Finvu</b>, an RBI regulated Account Aggregator. Finvu manages your consent.</span><button type="button" data-dismiss aria-label="Dismiss">${ic('close')}</button></div>
-      <div class="center stack-4" style="padding-top:28px">
-        ${art('mobile')}
-        <h1 class="title title--sm">Verifying your number</h1>
-        <p class="lede">Verifying your number with your mobile network.</p>
-        <span class="fy-status-pill" style="justify-self:center"><span class="fy-spinner"></span>Checking ${USER.mobile}</span>
-        <div class="banner banner--info" style="text-align:left">${ic('info')}<span>Keep mobile data on. Wi-Fi alone can’t verify your SIM.</span></div>
-      </div>
-    </div>
-    <div class="foot foot--plain"><div class="proto-row">${sim('Verified · first time on this phone', 'v2-register')}${sim('Verified · returning', 'v2-biometric')}${sim('Couldn’t verify', 'v2-otp')}</div>${tagline}</div>`) });
-
-add({ id: 'v2-bind-intro', title: 'Secure Finvu on this phone', isNew: true, clauses: ['5.1.i', '1.6.1'],
-  notes: [T(2) + ': factor 2 is device binding. First login on a phone shows this explainer, then the system biometric prompt.', 'No screen lock on the phone, or the user prefers not to: PIN instead.'],
-  render: () => screen(`${aabar()}
-    <div class="scroll pad stack-4 center" style="padding-top:28px">
-      ${art('finger')}
-      <h1 class="title title--sm">Secure Finvu on this phone with your fingerprint or face</h1>
-      <p class="lede">You’ll use it each time you sign in to Finvu. Your fingerprint or face stays on this phone; Finvu never sees it.</p>
-    </div>
-    <div class="foot">${btn('Continue', 'v2-biometric')}<button class="link" data-go="v2-pin-create" style="justify-self:center">Use a PIN instead</button>${tagline}</div>`) });
-
-add({ id: 'v2-biometric', title: 'Biometric prompt', isNew: true, clauses: ['5.1.i'],
-  notes: [T(2) + ': the system biometric prompt over a loader. Returning users come straight here.', 'Cancel, a failed match or no screen lock moves to PIN.'],
-  render: () => screen(`${aabar()}
-    <div class="scroll pad stack-4 center" style="padding-top:60px;opacity:.5">
-      <span class="fy-status-pill" style="justify-self:center"><span class="fy-spinner"></span>Waiting for fingerprint or face…</span>
-    </div>
-    <div class="sheet-host os-host"><div class="os-prompt" role="dialog" aria-label="Biometric prompt">
-      <b>Finvu</b><span>Confirm it’s you</span>
-      <span class="os-finger">${ic('finger')}</span>
-      <small>Touch the fingerprint sensor</small>
-      <div class="os-actions"><button type="button" data-go="v2-pin-enter">Cancel</button><button type="button" data-go="v2-pin-enter">Use PIN</button></div>
-    </div>
-    <div class="proto-row" style="position:absolute;top:56px;left:0;right:0">${sim('Biometric verified', 'v2-welcome-back')}</div></div>`) });
 
 add({ id: 'v2-pin-create', title: 'Create a Finvu PIN', isNew: true, clauses: ['5.1.i', '5.1.ii'],
   notes: [T(2) + ': first time, when biometric isn’t available or is declined. Box count from inputSpec.pinLength.', 'Masked with an eye icon to reveal.'],
@@ -2293,35 +2307,12 @@ function tile2(a) {
   return `<label class="tile2"><input type="checkbox" data-pick aria-label="Select ${a.bank} ${a.num}">${logo(a)}<span class="acct__text"><span class="acct__name">${a.bank}</span><span class="acct__meta">${a.type} ${a.num}</span>${a.linked ? '<span class="pill pill--ok" style="justify-self:start;margin-top:3px">Already linked with Finvu</span>' : ''}</span><span class="tick2">${ic('check')}</span></label>`;
 }
 
-add({ id: 'v2-link-otp', title: 'Bank linking OTP', isNew: true, clauses: ['5.1.ii', '4.1.viii'],
-  notes: [T(2) + ': linking OTP masked with an eye to reveal.', T(9) + ': the timer resets for each bank; an empty or failed response opens the error sheet instead of hanging.'],
-  render: () => screen(`${aabar()}
-    <div class="scroll pad stack-4">
-      <div class="row row--between"><span class="fy-step">Linking 1 of 2</span><span class="pill pill--mute">Federal Bank next</span></div>
-      <div class="row">${logo(BANKS[0])}<div><b style="font:600 15px/1.3 var(--fy-font);color:var(--fy-primary-600)">Axis Bank</b><div class="acct__meta">Savings ••••8538</div></div></div>
-      <h1 class="title title--sm">Enter the OTP from Axis Bank</h1>
-      <p class="lede">Axis Bank sent an OTP to ${USER.mobile} to confirm linking.</p>
-      ${cells(6, 'lk2')}
-      <p class="fy-timer">Didn’t get it? Resend in <b>00:30</b></p>
-    </div>
-    <div class="foot">${btn('Link account', 'v2-consents')}<div class="proto-row">${sim('Bank didn’t respond', 'v2-link-error')}</div>${tagline}</div>`) });
-
 add({ id: 'v2-link-error', title: 'Linking error sheet', isNew: true, clauses: ['4.1.viii', '1.1.5'],
   notes: [T(9) + ': error bottom sheet after a linking OTP fails or returns nothing; the user can retry or skip that bank.', 'No internal error text.'],
   render: () => screen(`${aabar()}<div class="scroll pad" style="opacity:.35"><h1 class="title title--sm">Enter the OTP from Federal Bank</h1></div>
     <div class="sheet-host"><div class="fy-sheet" role="dialog" aria-label="Couldn’t link"><div class="handle"></div>
       <div class="fy-sheet__head fy-sheet__head--plain">${art('alert', 'fy-art--error')}<p class="fy-sheet__title" style="font-size:20px">Couldn’t link Federal Bank</p><p class="fy-sheet__sub" style="font-size:13px">Federal Bank didn’t respond to the OTP request. Try again, or skip it and link it later from Finny.</p></div>
       <div class="sheet-body"><div class="decide"><button class="fy-btn fy-btn--reject" data-go="v2-consents">Skip this bank</button><button class="fy-btn fy-btn--approve" data-go="v2-link-otp">Try again</button></div>${tagline}</div></div></div>`) });
-
-add({ id: 'v2-consents', title: 'Consents: approve each', isNew: true, clauses: ['3.1.ii', '3.1.iv', '3.2.iv', '3.2.v', '3.2.vi', '3.2.i'],
-  notes: [T(12) + ': one card per consent (deposits, investments), each with its own equal Reject and Approve, nothing preselected. No “Approve all”.', T(13) + ': all 8 mandatory fields stay on the card, grouped into four short rows (what is shared and for how long, how often, validity, recipient). Purpose leads in plain words with the CT004 text and code 101 under it; field meanings moved to View details.', 'After a tap the card shows Approved or Rejected; Continue appears once every card has a decision. Mixed decisions are supported.'],
-  render: () => screen(`${aabar()}
-    <div class="scroll pad stack-4" style="padding-bottom:16px">
-      <h1 class="title title--sm">2 consent requests from Finny</h1>
-      <p class="lede">Approve or reject each one. Finny uses only what you approve.</p>
-      ${CONSENTS2.map(consentCard2).join('')}
-    </div>
-    <div class="foot"><p class="small muted" style="margin:0;text-align:center" data-left2>Decide on both consents to continue</p>${btn('Continue', 'v2-partial', 'primary', 'data-continue2 hidden')}${tagline}</div>`) });
 
 add({ id: 'v2-viewmore', title: 'View more (consent details)', isNew: true, clauses: ['3.1.vi', '3.1.iii', '4.2.viii'],
   notes: [T(13) + ': bottom sheet with data filter, consent mode, consent type (with superscript notes), accounts (masked), data life, how to withdraw, and complaint routes to Finny, Finvu and the Data Protection Board.', T(18) + ': Finvu’s Grievance Redressal Officer and complaint page.', T(17) + ': where to revoke, pause or resume.'],
@@ -2347,27 +2338,6 @@ add({ id: 'v2-viewmore', title: 'View more (consent details)', isNew: true, clau
           <p class="small muted" style="margin:0"><b>Data Protection Board:</b> available once the Board’s reporting channel opens.</p></div>
         ${tagline}
       </div></div></div>`) });
-
-add({ id: 'v2-partial', title: 'Partly approved', isNew: true, clauses: ['4.1.viii', '3.2.iii'],
-  notes: [T(14) + ': new outcome when some consents are approved and some rejected.'],
-  render: () => screen(`${aabar({ back: false })}
-    <div class="scroll pad stack-4 center" style="padding-top:36px">
-      ${art('check-circle')}
-      <h1 class="title title--sm">You approved 1 of 2 consents</h1>
-      <p class="lede">Finny will use only the approved data.</p>
-      <div class="card stack" style="text-align:left"><div class="row row--between"><span class="small">Bank accounts</span><span class="pill pill--ok">Approved</span></div><div class="row row--between"><span class="small">Investments</span><span class="pill pill--err">Rejected</span></div></div>
-    </div>
-    <div class="foot">${btn('Continue to Finny', 'v2-finny-profile')}<button class="link" data-go="v2-consents" style="justify-self:center">Review the rejected consent</button>${tagline}</div>`) });
-
-add({ id: 'v2-declined', title: 'Consents declined', isNew: true, clauses: ['4.1.viii', '3.2.ii'],
-  notes: [T(14) + ': the declined page (today the route shows PageNotFound).'],
-  render: () => screen(`${aabar({ back: false })}
-    <div class="scroll pad stack-4 center" style="padding-top:40px">
-      ${art('revoke', 'fy-art--error')}
-      <h1 class="title title--sm">Consents declined</h1>
-      <p class="lede">No data was shared with Finny. You can connect your accounts again anytime from Finny.</p>
-    </div>
-    <div class="foot">${btn('Back to Finny', 'v2-finny-profile')}<button class="link" data-go="v2-consents" style="justify-self:center">Review the requests again</button>${tagline}</div>`) });
 
 add({ id: 'v2-finny-profile', title: 'Finny profile: linked accounts', isNew: true, clauses: ['4.2.vi', '3.2.ii', '3.2.x'],
   notes: [T(3) + ': “Your Finvu ID” under the profile.', T(17) + ': paused, revoked and expired consents are handled in Finny (no stale data shown as live, Reconnect offered); revoke, pause, resume, delink and account closure point to Finvu’s web app.', T(16) + ': explains Finvu’s notifications and where to change them.'],
@@ -2398,43 +2368,6 @@ const deviceRow = (name, meta, del = false) => `<div class="dev-row"><span class
 const BANKLOGO = { icici: ['#F37E20', 'i'], kotak: ['#ED1C24', 'k'], axis: ['#97144D', 'A'], hdfc: ['#ED232A', 'H'] };
 const bankMark = (k) => `<span class="bank-mark" style="--c:${BANKLOGO[k][0]}">${BANKLOGO[k][1]}</span>`;
 
-add({ id: 'v2-redirect', title: 'Moving to Finvu (option B)', isNew: true, clauses: ['4.2.i', '4.2.iii'],
-  notes: ['Visual design: hand-off option B. Finny and Finvu marks, “Moving to Finvu for secure data sharing.”', T(1) + ': says where the user is going and why; promises the return to Finny.'],
-  render: () => screen(`<div class="aabar aabar--v2"><button class="fy-icon-btn" data-back aria-label="Back">${ic('back')}</button><span></span><span></span></div>
-    <div class="scroll pad stack-4 center handoff3" style="align-content:center">
-      <div class="handoff3__marks">${finnyTile()}<span class="swap">⇆</span>${finvuTile()}</div>
-      <h1 class="title">Moving to Finvu for secure data sharing.</h1>
-      <p class="lede">Finvu is an <b>RBI-regulated Account Aggregator</b>. It finds your accounts and asks for your consent. Finny never sees your bank login.</p>
-      <div class="banner banner--info" style="text-align:left">${ic('shield')}<span>You’ll come back to Finny automatically when you’re done.</span></div>
-    </div>
-    <div class="foot foot--plain"><div class="proto-row">${sim('Finvu opens · Auth SDK', 'v2-intro')}${sim('Finvu opens · no SDK', 'v2-otp-nosdk')}</div>${tagline}</div>`, { bg: 'background:linear-gradient(180deg,#E3F1EA 0%,#fff 46%)' }) });
-
-add({ id: 'v2-redirect-a', title: 'Connect to account aggregator (option A)', isNew: true, opt: ['Alternative', 'The designer offered this as an alternative to option B (“OR” on the board). Pick one.'], clauses: ['4.2.i'],
-  notes: ['Visual design: hand-off option A. Short headline with three trust points at the bottom.'],
-  render: () => screen(`<div class="aabar aabar--v2"><button class="fy-icon-btn" data-back aria-label="Back">${ic('back')}</button><span></span><span></span></div>
-    <div class="scroll pad stack-4 center handoff3" style="align-content:center">
-      <div class="handoff3__marks">${finnyTile()}<span class="swap">⇆</span>${finvuTile()}</div>
-      <h1 class="title">Lets, connect to account aggregator</h1>
-      <p class="lede" style="color:var(--fy-primary-400)">to fetch your <b>stocks</b> &amp; <b>ETFs</b></p>
-    </div>
-    <div class="foot foot--plain"><div class="trust3"><span>${ic('shield')}Read-only access</span><span>${ic('lock')}100% encrypted</span><span>${ic('building')}SEBI regulated</span></div><div class="proto-row">${sim('Finvu opens', 'v2-intro')}</div></div>`, { bg: 'background:linear-gradient(180deg,#E3F1EA 0%,#fff 46%)' }) });
-
-add({ id: 'v2-intro', title: 'Let’s analyse your data', isNew: true, clauses: ['4.2.ii', '4.2.iii', '4.1.ii'],
-  notes: ['Visual design: first Finvu screen. Finvu logo top-centre, four trust points, plant illustration.', T(1) + ': the “You’re now on Finvu” pop-up shows here, on landing in the AA client.'],
-  render: () => screen(`${aabar()}
-    <div class="scroll pad stack-4">
-      <div class="aa-toast" role="status" data-autodismiss>${ic('shield')}<span><b>You’re now on Finvu</b>, an RBI regulated Account Aggregator. Finvu manages your consent.</span><button type="button" data-dismiss aria-label="Dismiss">${ic('close')}</button></div>
-      <div class="intro3"><h1 class="title" style="font-size:30px">Let’s analyse your data..</h1>${illPlant()}</div>
-      <p class="lede">We will be fetching your bank accounts &amp; investments using RBI authorised entity</p>
-      <ul class="fy-features feat3">
-        <li><span class="fy-features__icon">${ic('shield')}</span>RBI Authorised Account Aggregator</li>
-        <li><span class="fy-features__icon">${ic('lock')}</span>Cannot read or store your data</li>
-        <li><span class="fy-features__icon">${ic('share')}</span>Share only what you want</li>
-        <li><span class="fy-features__icon">${ic('eye-off')}</span>Will not be shared with third party</li>
-      </ul>
-    </div>
-    <div class="foot"><div class="proto-row">${sim('Device check fails', 'v2-unsafe')}</div>${btn('Continue', 'v2-sna')}${tagline}</div>`) });
-
 add({ id: 'v2-unsafe', title: 'This phone can’t be used for Finvu', isNew: true, clauses: ['1.4.3.iii'],
   notes: ['Visual design: warning illustration, plain reason, way back to Finny.', T(21) + ': shown when the Auth SDK blocks rooted or jailbroken phones.'],
   render: () => screen(`${aabar({ back: false })}
@@ -2444,35 +2377,6 @@ add({ id: 'v2-unsafe', title: 'This phone can’t be used for Finvu', isNew: tru
       <p class="lede">It looks rooted or modified, which puts your financial data at risk. Use Finvu on another phone or on the web at <b>finvu.in</b>.</p>
     </div>
     <div class="foot">${btn('Back to Finny', 'v2-finny-profile')}${tagline}</div>`) });
-
-add({ id: 'v2-otp', title: 'Signing in to Finvu (OTP)', isNew: true, clauses: ['5.1.i', '5.1.ii', '4.1.viii'],
-  notes: ['Visual design: centred Finvu logo, “Signing in to Finvu”, underlined OTP boxes above the number pad.', T(2) + ' / login diagram: the OTP fallback when the network check fails. Digits are masked with an eye to reveal (ReBIT 5.1(ii)); the designer’s board shows plain digits.'],
-  render: () => screen(`${aabar({ logo: false })}
-    <div class="scroll pad stack-4 center signin3">
-      ${finvuLogo(40)}
-      <h1 class="title">Signing in to Finvu</h1>
-      <p class="lede">We sent a 6-digit OTP to <b>${USER.mobile}</b> <button class="fy-tag" type="button">edit</button></p>
-      <p class="small" style="margin:0;color:var(--fy-warning-700)">We couldn’t verify your number automatically.</p>
-      ${otpLine(6, 'otp3')}
-      <p class="fy-timer" style="text-align:center">Didn’t get it? Resend in <b>00:59</b></p>
-      ${btn('Verify', 'v2-register')}
-    </div>
-    <div class="proto-row" style="padding:6px 0">${sim('Returning on this phone', 'v2-biometric')}${sim('Wrong OTP', 'v2-otp-error')}</div>
-    ${keypad()}`) });
-
-add({ id: 'v2-otp-error', title: 'OTP incorrect', isNew: true, clauses: ['4.1.viii', '5.1.ii'],
-  notes: ['Visual design: digits and message in red, “Entered OTP is incorrect, please retry.”', T(2) + ': attempts left; if a resend is refused the earlier code still works.'],
-  render: () => screen(`${aabar({ logo: false })}
-    <div class="scroll pad stack-4 center signin3">
-      ${finvuLogo(40)}
-      <h1 class="title">Signing in to Finvu</h1>
-      <p class="lede">We sent a 6-digit OTP to <b>${USER.mobile}</b> <button class="fy-tag" type="button">edit</button></p>
-      ${otpLine(6, 'otp3e', [1, 2, 5, 2, 6, 9], 'fy-otp--error')}
-      <p class="fy-field-error" style="text-align:center">Entered OTP is incorrect, please retry. 2 attempts left.</p>
-      <p class="fy-timer" style="text-align:center">Resend in <b>00:59</b></p>
-      ${btn('Verify', 'v2-register')}
-    </div>
-    ${keypad()}`) });
 
 add({ id: 'v2-otp-nosdk', title: 'Signing in to Finvu (no SDK)', isNew: true, clauses: ['5.1.i', '5.1.ii'],
   notes: ['Login diagram A: without the Auth SDK, factor 1 is an OTP to the registered mobile, then the Finvu PIN.', 'Visual design: same sign-in layout as the OTP fallback.'],
@@ -2553,77 +2457,247 @@ add({ id: 'v2-reset-done', title: 'PIN updated', isNew: true, clauses: ['2.2.iv'
       <h1 class="title">Your Finvu PIN is updated</h1>
       <p class="lede">Sign in to Finvu again with your new PIN.</p>
     </div>
-    <div class="foot">${btn('Sign in again', 'v2-intro')}${tagline}</div>`) });
+    <div class="foot">${btn('Sign in again', 'v2-onfinvu')}${tagline}</div>`) });
 
-add({ id: 'v2-welcome-back', title: 'Welcome back', isNew: true, clauses: ['2.2.ii', '4.2.vi'],
-  notes: ['Visual design: centred greeting with the Finvu ID in a pill; Continue and “This isn’t me”.', T(3) + ': tells existing users their Finvu account already exists and shows the VUA.'],
+/* ---------- v2 visual design · board 2 (“AA flow happy & edge cases”): 3D-style illustrations ---------- */
+const BLOB = '<ellipse cx="60" cy="66" rx="40" ry="30" fill="#BFE6D6" opacity=".55"/>';
+const ill2 = {
+  phoneShield: () => `<svg class="ill2" viewBox="0 0 120 120" aria-hidden="true"><defs><linearGradient id="ps1" x1="0" x2="1"><stop offset="0" stop-color="#0C5A47"/><stop offset="1" stop-color="#3FA07F"/></linearGradient><linearGradient id="ps2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#7FDAB8"/><stop offset="1" stop-color="#2E9C7A"/></linearGradient></defs><ellipse cx="58" cy="108" rx="34" ry="5" fill="#000" opacity=".08"/><rect x="34" y="14" width="40" height="80" rx="9" transform="rotate(-12 54 54)" fill="#E3ECE8" /><rect x="37" y="17" width="34" height="74" rx="7" transform="rotate(-12 54 54)" fill="url(#ps1)"/><path d="M80 52l20 7v14c0 12-9 20-20 24-11-4-20-12-20-24V59Z" fill="url(#ps2)" stroke="#E9FBF3" stroke-width="2.5"/><path d="M71 75l7 7 13-14" fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
+  finger: () => `<svg class="ill2" viewBox="0 0 120 120" aria-hidden="true"><defs><radialGradient id="fg1" cx="40%" cy="35%"><stop offset="0" stop-color="#fff"/><stop offset="1" stop-color="#E4EFEA"/></radialGradient></defs>${BLOB}<circle cx="64" cy="54" r="36" fill="url(#fg1)" stroke="#D2E6DC"/><g fill="none" stroke="#0E6B55" stroke-width="3.2" stroke-linecap="round"><path d="M50 40a18 18 0 0 1 30 4"/><path d="M46 52a19 19 0 0 1 36-6"/><path d="M52 70c3-5 4-10 4-15a8 8 0 0 1 16 0c0 8-2 15-5 21"/><path d="M60 74c2-6 3-12 3-19"/><path d="M75 70c1-4 2-8 2-12"/><path d="M45 64c1-3 1-6 1-9"/></g></svg>`,
+  phoneNo: () => `<svg class="ill2" viewBox="0 0 120 120" aria-hidden="true"><defs><linearGradient id="pn1" x1="0" x2="1"><stop offset="0" stop-color="#0C5A47"/><stop offset="1" stop-color="#4FB08D"/></linearGradient></defs>${BLOB}<rect x="38" y="16" width="40" height="80" rx="9" transform="rotate(-18 58 56)" fill="#E3ECE8"/><rect x="41" y="19" width="34" height="74" rx="7" transform="rotate(-18 58 56)" fill="url(#pn1)"/><circle cx="80" cy="70" r="17" fill="#fff"/><circle cx="80" cy="70" r="14" fill="none" stroke="#F0525E" stroke-width="6"/><path d="M70 60l20 20" stroke="#F0525E" stroke-width="6"/></svg>`,
+  shieldOk: () => `<svg class="ill2 ill2--lg" viewBox="0 0 120 120" aria-hidden="true"><defs><linearGradient id="so1" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#D8F3E8"/><stop offset="1" stop-color="#7FC9AE"/></linearGradient></defs><ellipse cx="60" cy="108" rx="28" ry="5" fill="#000" opacity=".08"/><path d="M60 12l38 13v27c0 25-17 43-38 52-21-9-38-27-38-52V25Z" fill="url(#so1)" stroke="#5DB596" stroke-width="2.5"/><path d="M60 22l29 10v20c0 19-13 33-29 40-16-7-29-21-29-40V32Z" fill="#fff" opacity=".35"/><path d="M42 58l12 12 24-26" fill="none" stroke="#0C5A47" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
+  phoneOtp: () => `<svg class="ill2" viewBox="0 0 120 120" aria-hidden="true">${BLOB}<rect x="34" y="18" width="40" height="78" rx="9" transform="rotate(-14 54 57)" fill="#E9F1EE" stroke="#A9C9BC" stroke-width="2"/><rect x="38" y="22" width="32" height="70" rx="6" transform="rotate(-14 54 57)" fill="#F7FBF9"/><rect x="52" y="44" width="44" height="24" rx="8" fill="#fff" stroke="#CFE3DA" stroke-width="2"/><g fill="#0C5A47"><circle cx="62" cy="56" r="2.6"/><circle cx="70" cy="56" r="2.6"/><circle cx="78" cy="56" r="2.6"/><circle cx="86" cy="56" r="2.6"/></g><circle cx="88" cy="30" r="10" fill="#2E9C7A"/><rect x="83.5" y="29" width="9" height="7" rx="1.5" fill="#fff"/><path d="M85.5 29v-2.5a2.5 2.5 0 0 1 5 0V29" fill="none" stroke="#fff" stroke-width="1.6"/></svg>`,
+  bank: () => `<svg class="ill2" viewBox="0 0 120 120" aria-hidden="true">${BLOB}<path d="M30 46 58 30l28 16Z" fill="#9A8F84"/><rect x="32" y="46" width="52" height="5" fill="#B9AFA4"/><g fill="#D9D2CA"><rect x="36" y="52" width="7" height="24"/><rect x="47" y="52" width="7" height="24"/><rect x="58" y="52" width="7" height="24"/><rect x="69" y="52" width="7" height="24"/></g><rect x="29" y="76" width="58" height="6" rx="1.5" fill="#9A8F84"/><circle cx="88" cy="32" r="14" fill="#E63946"/><rect x="86" y="23" width="4" height="12" rx="2" fill="#fff"/><circle cx="88" cy="39.5" r="2.2" fill="#fff"/></svg>`,
+  help: () => `<svg class="ill2 ill2--sm" viewBox="0 0 120 120" aria-hidden="true"><rect x="40" y="46" width="62" height="44" rx="12" fill="#9FD3BE"/><rect x="16" y="34" width="60" height="40" rx="14" fill="#FBF7EF" stroke="#E7DECF" stroke-width="2"/><g fill="#0C5A47"><circle cx="34" cy="54" r="4"/><circle cx="46" cy="54" r="4"/><circle cx="58" cy="54" r="4"/></g><circle cx="88" cy="28" r="16" fill="#0E6B55"/><path d="M83 23a5 5 0 1 1 7 4.5c-1.5.8-2 1.8-2 3.5M88 36v.5" fill="none" stroke="#fff" stroke-width="3.2" stroke-linecap="round"/></svg>`,
+};
+const loaderRing = () => `<span class="ring2" aria-hidden="true"></span>`;
+const CONS3 = [
+  { grp: 'Bank accounts', icon: 'bank', items: [{ k: 'axis', name: 'Axis Bank', acct: 'Savings ••••453', type: 'Bank account' }, { k: 'icici', name: 'ICICI Bank', acct: 'Savings ••••734', type: 'Bank account' }] },
+  { grp: 'Mutual funds', icon: 'sprout', items: [{ k: 'axis', name: 'CAMS · Axis Bluechip', acct: 'Folio ••••453', type: 'Mutual funds' }] },
+];
+const ccCard = (c, id) => `
+  <article class="cc" data-cc="${id}">
+    <header>${bankMark(c.k)}<span class="acct__text"><span class="acct__name">${c.name}</span><span class="acct__meta">${c.acct}</span></span>
+      <label class="cc-sel"><input type="checkbox" data-ccsel aria-label="Select ${c.name} ${c.acct}"><span class="tick3">${ic('check')}</span></label></header>
+    <p class="cc-purpose"><small>Purpose</small>Wealth management &amp; advisory services</p>
+    <dl class="cc-grid">
+      <div><dt>Valid from</dt><dd>16 Jul ’26 – 16 Jul ’27</dd></div><div><dt>Fetched monthly</dt><dd>Last 6 months data</dd></div>
+      <div><dt>Type</dt><dd>${c.type}</dd></div><div><dt>Requested by</dt><dd>Finny</dd></div>
+    </dl>
+    <button type="button" class="link small cc-more" data-go="v2-viewmore">See more details ˅</button>
+    <div class="decide" data-ccbox><button type="button" class="fy-btn fy-btn--reject" data-ccd="no">Reject</button><button type="button" class="fy-btn fy-btn--approve" data-ccd="ok">Approve</button></div>
+  </article>`;
+const accRow = (k, n, m, linked) => `<label class="acc3">${bankMark(k)}<span class="acct__text"><span class="acct__name">${n}</span><span class="acct__meta">${m}</span>${linked ? '<span class="pill pill--ok" style="justify-self:start;margin-top:3px">Already linked with Finvu</span>' : ''}</span><input type="checkbox" data-pick aria-label="Select ${n} ${m}"><span class="tick3">${ic('check')}</span></label>`;
+
+add({ id: 'v2-redirect', title: 'Lets, connect to account aggregator', isNew: true, clauses: ['4.2.i', '4.2.iii'],
+  notes: ['Board 2: Finny and Finvu marks with a loading bar while Finvu opens; trust points at the bottom.', T(1) + ': tells the user where they are going (optional under 4.2(i)).'],
+  render: () => screen(`<div class="aabar aabar--v2"><button class="fy-icon-btn" data-back aria-label="Back">${ic('back')}</button><span></span><span></span></div>
+    <div class="scroll pad stack-4 center handoff3" style="align-content:center">
+      <div class="handoff3__marks">${finnyTile()}<span class="swap">⇆</span>${finvuTile()}</div>
+      <h1 class="title">Lets, connect to account aggregator</h1>
+      <p class="lede" style="color:var(--fy-primary-400)">to fetch your <b>stocks</b> &amp; <b>ETFs</b></p>
+      <div class="bar2" aria-label="Opening Finvu"><i></i></div>
+    </div>
+    <div class="foot foot--plain"><div class="trust3"><span>${ic('shield')}Read-only access</span><span>${ic('lock')}100% encrypted</span><span>${ic('building')}SEBI regulated</span></div><div class="proto-row">${sim('Finvu opens · Auth SDK', 'v2-onfinvu')}${sim('no SDK', 'v2-otp-nosdk')}</div></div>`) });
+
+add({ id: 'v2-onfinvu', title: 'You are now on Finvu', isNew: true, clauses: ['4.2.ii', '4.2.iii'],
+  notes: ['Board 2: a full-screen notice when the AA client opens, in place of the earlier pop-up.', T(1) + ': ReBIT 4.2(ii) requires telling users they are on the AA’s platform.'],
+  render: () => screen(`<div class="aabar aabar--v2"><button class="fy-icon-btn" data-back aria-label="Back">${ic('back')}</button><span></span><span></span></div>
+    <div class="scroll pad stack-4 center" style="align-content:center">
+      ${finvuTile()}
+      <h1 class="title">You are now on Finvu</h1>
+      <p class="lede" style="color:var(--fy-primary-400)">An RBI regulated Account Aggregator.<br>Finvu manages your consent.</p>
+    </div>
+    <div class="foot foot--plain"><div class="proto-row">${sim('Continue', 'v2-sna')}${sim('Device check fails', 'v2-unsafe')}</div>${tagline}</div>`) });
+
+add({ id: 'v2-sna', title: 'Verifying your number', isNew: true, clauses: ['5.1.i', '4.2.iii'],
+  notes: ['Board 2: phone-and-shield illustration with the number being checked.', T(2) + ': factor 1 is a silent network check; no input.'],
+  render: () => screen(`${aabar({ back: false })}
+    <div class="scroll pad stack-4 center" style="align-content:center">
+      ${ill2.phoneShield()}
+      <h1 class="title">Verifying your number</h1>
+      <p class="lede">Verifying your number with your mobile network.</p>
+      <span class="pill2">${loaderRing()}Checking ${USER.mobile}</span>
+    </div>
+    <div class="foot foot--plain"><div class="proto-row">${sim('Verified · first time on this phone', 'v2-register')}${sim('Verified · returning', 'v2-biometric')}${sim('Couldn’t verify', 'v2-otp')}</div>${tagline}</div>`) });
+
+add({ id: 'v2-bind-intro', title: 'Secure Finvu with your fingerprint or face', isNew: true, clauses: ['5.1.i', '1.6.1'],
+  notes: ['Board 2: fingerprint illustration and a short explainer before the system prompt.', T(2) + ': factor 2 is device binding.'],
   render: () => screen(`${aabar()}
     <div class="scroll pad stack-4 center" style="align-content:center">
-      <h1 class="title title--plain">Welcome back<br><span class="title-grad">Alex Morgan!</span></h1>
+      ${ill2.finger()}
+      <h1 class="title">Secure Finvu with your fingerprint or face.</h1>
+      <p class="lede">Use to sign in to Finvu. Your fingerprint or face remains on this phone; Finvu never sees it.</p>
+    </div>
+    <div class="foot">${btn('Continue', 'v2-biometric')}<button class="link" data-go="v2-pin-create" style="justify-self:center">Use a PIN instead</button>${tagline}</div>`) });
+
+add({ id: 'v2-biometric', title: 'Biometric prompt', isNew: true, clauses: ['5.1.i'],
+  notes: ['Board 2: the system prompt slides up over the dimmed explainer.', 'Cancel or Use PIN goes to the PIN step.'],
+  render: () => screen(`${aabar()}
+    <div class="scroll pad stack-4 center" style="align-content:center;opacity:.35">${ill2.finger()}<h1 class="title">Secure Finvu with your fingerprint or face.</h1></div>
+    <div class="sheet-host"><div class="os-sheet2" role="dialog" aria-label="Biometric prompt">
+      <b>Finvu</b><span>Confirm it’s you</span><span class="os-finger">${ic('finger')}</span><small>Touch the fingerprint sensor</small>
+      <div class="os-actions"><button type="button" data-go="v2-pin-enter">Cancel</button><button type="button" data-go="v2-pin-enter">Use PIN</button></div>
+      <div class="proto-row">${sim('Biometric verified', 'v2-welcome-back')}</div>
+    </div></div>`) });
+
+add({ id: 'v2-otp', title: 'Signing in to Finvu (OTP)', isNew: true, clauses: ['5.1.i', '5.1.ii', '4.1.viii'],
+  notes: ['Board 2: phone-with-OTP illustration above “Signing in to Finvu”.', 'OTP fallback when the network check fails. Masked with an eye to reveal (ReBIT 5.1(ii)).'],
+  render: () => screen(`${aabar()}
+    <div class="scroll pad stack-4 center signin3">
+      ${ill2.phoneOtp()}
+      <h1 class="title title--plain">Signing in to Finvu</h1>
+      <p class="lede">We sent a 6-digit OTP to <b>${USER.mobile}</b> <button class="fy-tag" type="button">edit</button></p>
+      ${otpLine(6, 'otp3')}
+      <p class="fy-timer" style="text-align:center">Didn’t get it? Resend in <b>00:59</b></p>
+      ${btn('Verify', 'v2-register')}
+    </div>
+    <div class="proto-row" style="padding:6px 0">${sim('Returning on this phone', 'v2-biometric')}${sim('Wrong OTP', 'v2-otp-error')}</div>
+    ${keypad()}`) });
+
+add({ id: 'v2-otp-error', title: 'OTP incorrect', isNew: true, clauses: ['4.1.viii', '5.1.ii'],
+  notes: ['Board 2: red digits and “Entered OTP is incorrect, please retry.”', 'Attempts left added.'],
+  render: () => screen(`${aabar()}
+    <div class="scroll pad stack-4 center signin3">
+      ${ill2.phoneOtp()}
+      <h1 class="title title--plain">Signing in to Finvu</h1>
+      <p class="lede">We sent a 6-digit OTP to <b>${USER.mobile}</b> <button class="fy-tag" type="button">edit</button></p>
+      ${otpLine(6, 'otp3e', [1, 2, 5, 2, 6, 9], 'fy-otp--error')}
+      <p class="fy-field-error" style="text-align:center">Entered OTP is incorrect, please retry. 2 attempts left.</p>
+      <p class="fy-timer" style="text-align:center">Resend in <b>00:59</b></p>
+      ${btn('Verify', 'v2-register')}
+    </div>
+    ${keypad()}`) });
+
+add({ id: 'v2-welcome-confirm', title: 'Welcome: confirm it’s you', isNew: true, clauses: ['2.2.ii', '4.2.vi'],
+  notes: ['Board 2 (edge case): greets the account holder with their Finvu ID before scanning; “This isn’t me” starts recovery.', T(3) + ': existing account highlighted before onboarding (ReBIT 2.2(ii)).'],
+  render: () => screen(`${aabar()}
+    <div class="scroll pad stack-4 center" style="align-content:center">
+      <h1 class="title title--plain">Welcome<br><span class="title-grad">Alex Morgan!</span></h1>
       <p class="lede">You already have a Finvu account linked to this number.</p>
       <div class="vua-pill"><small>Your Finvu ID (VUA)</small><b>morgan.a@finvu</b></div>
     </div>
-    <div class="foot">${btn('Continue', 'v2-fip-select')}<button class="link" data-go="v2-forgot-pin" style="justify-self:center">This isn’t me</button>${tagline}</div>`) });
+    <div class="foot">${btn('Continue', 'v2-welcome-back')}<button class="link" data-go="v2-forgot-pin" style="justify-self:center">This isn’t me</button>${tagline}</div>`) });
 
-add({ id: 'v2-create-id', title: 'Create your Finvu ID', isNew: true, clauses: ['2.2.i', '4.2.vi'],
-  notes: ['Visual design: new users choose a Finvu ID (VUA) with a live availability check, and agree to Finvu’s Terms & Privacy Policy.', T(3) + ': new users are welcomed with their VUA.'],
+add({ id: 'v2-welcome-back', title: 'Welcome back · scanning', isNew: true, clauses: ['2.2.ii', '4.2.vi', '4.1.viii'],
+  notes: ['Board 2: “Welcome back” with the Finvu ID while accounts are scanned automatically (no bank picker).', T(3) + ' and ' + T(7) + ': discovery runs on defined parameters, no user input.'],
   render: () => screen(`${aabar()}
-    <div class="scroll pad stack-4">
-      <h1 class="title">Create your Finvu ID</h1>
-      <p class="lede">Your ID (VUA) is how banks and apps identify your Account Aggregator account.</p>
-      <label class="fy-field"><span class="fy-field__label">Finvu ID</span><span class="fy-input"><input value="morgan.a" aria-label="Finvu ID"><span class="muted small" style="padding-right:12px">@finvu</span></span><span class="fy-field__helper" style="color:var(--fy-success-700)">✓ Available</span></label>
+    <div class="scroll pad stack-4 center" style="align-content:center">
+      <h1 class="title title--plain">Welcome back<br><span class="title-grad">Alex Morgan!</span></h1>
+      <div class="vua-pill"><small>Your Finvu ID (VUA)</small><b>morgan.a@finvu</b></div>
+      <div class="scan2"><b>Scanning your accounts…</b><span>You already have a Finvu account linked to this number.</span>${loaderRing()}</div>
     </div>
-    <div class="foot"><p class="small" style="margin:0;text-align:center;color:var(--fy-primary-500)">By continuing, you agree to Finvu’s <b>Terms &amp; Conditions</b> &amp; <b>Privacy Policy</b></p>${btn('Create account', 'v2-fip-select')}${tagline}</div>`) });
+    <div class="foot foot--plain"><div class="proto-row">${sim('Accounts found', 'v2-select')}${sim('None found', 'v2-no-accounts')}</div>${tagline}</div>`) });
 
-add({ id: 'v2-fip-select', title: 'Which banks do you use?', isNew: true, clauses: ['4.1.vii', '3.2.ix'],
-  notes: ['Visual design: search across banks, MF, stocks and NPS; pick banks to ask, nothing preselected.', 'Differs from tech sheet S.no 7 (“defined params, no user input”); the designer added this step. Confirm which applies.'],
-  render: () => screen(`${aabar({ logo: false })}
-    <div class="scroll pad stack-4" style="padding-bottom:16px">
-      <h1 class="title">Which banks do you use?</h1>
-      <p class="lede">We’ll only ask the banks you choose for your accounts.</p>
-      <label class="fy-input bank-search"><input placeholder="Search for banks, MF, Stocks or NPS" aria-label="Search"><span style="padding-right:12px;display:grid">${ic('search')}</span></label>
-      <p class="small muted" style="margin:0">All banks</p>
-      <div class="banklist">${['HDFC Bank', 'ICICI Bank', 'Axis Bank', 'Kotak Bank'].map((b, i) => `<label class="bankrow">${bankMark(['hdfc', 'icici', 'axis', 'kotak'][i])}<span>${b}</span><input type="checkbox" data-bank aria-label="Search ${b}"><span class="tick3">${ic('check')}</span></label>`).join('')}</div>
+add({ id: 'v2-welcome-new', title: 'Welcome · scanning (new user)', isNew: true, clauses: ['4.2.vi', '4.1.viii'],
+  notes: ['Board 2 (edge case): new users are greeted with the Finvu ID created for them while scanning runs.', 'The board reuses “You already have a Finvu account” here; copy adjusted for a new account.'],
+  render: () => screen(`${aabar()}
+    <div class="scroll pad stack-4 center" style="align-content:center">
+      <h1 class="title title--plain">Welcome<br><span class="title-grad">Alex Morgan!</span></h1>
+      <p class="lede">Your Finvu account is ready.</p>
+      <div class="vua-pill"><small>Your Finvu ID (VUA)</small><b>morgan.a@finvu</b></div>
+      <div class="scan2"><b>Scanning your accounts…</b><span>Looking for accounts linked to ${USER.mobile}.</span>${loaderRing()}</div>
     </div>
-    <div class="foot">${btn('Choose banks to search', 'v2-select', 'primary', 'data-countbanks disabled')}<div class="proto-row">${sim('None found', 'v2-no-accounts')}</div>${tagline}</div>`) });
+    <div class="foot foot--plain"><div class="proto-row">${sim('Accounts found', 'v2-select')}</div>${tagline}</div>`) });
 
 add({ id: 'v2-no-accounts', title: 'We couldn’t find accounts', isNew: true, clauses: ['4.1.viii', '2.1.ii'],
-  notes: ['Visual design: bank illustration with an alert badge, likely reason, Search again or add accounts manually in Finny.'],
-  render: () => screen(`${aabar({ logo: false })}
+  notes: ['Board 2: bank illustration, ask for the PAN-linked number; sign in with another number or try again.'],
+  render: () => screen(`${aabar()}
     <div class="scroll pad stack-4 center" style="align-content:center">
-      ${illBank()}
-      <h1 class="title">We couldn’t find accounts on ${USER.mobile}</h1>
-      <p class="lede">Your bank may have a different number or your PAN on record.</p>
+      ${ill2.bank()}
+      <h1 class="title title--plain">We couldn’t find accounts on ${USER.mobile}</h1>
+      <p class="lede">Please make sure you have used your PAN linked number</p>
+      <button class="link small" data-go="v2-missing" style="justify-self:center">Missing accounts? Add details</button>
     </div>
-    <div class="foot">${btn('Search again', 'v2-missing')}<button class="link" data-go="v2-finny-profile" style="justify-self:center">Add accounts manually in Finny</button><div class="proto-row">${sim('Variant B', 'v2-no-accounts-b')}</div>${tagline}</div>`) });
-
-add({ id: 'v2-no-accounts-b', title: 'We couldn’t find accounts (variant B)', isNew: true, opt: ['Alternative', 'Second version of the empty state on the designer’s board: asks the user to sign in with their PAN-linked number.'], clauses: ['4.1.viii'],
-  notes: ['Visual design: variant asking for the PAN-linked number, with Try again or sign in with another number.'],
-  render: () => screen(`<div class="aabar aabar--v2"><button class="fy-icon-btn" data-back aria-label="Back">${ic('back')}</button><span></span><span></span></div>
-    <div class="scroll pad stack-4 center" style="align-content:center">
-      ${illBank()}
-      <h1 class="title">We couldn’t find accounts on ${USER.mobile}</h1>
-      <p class="lede" style="font-size:15px">Please make sure you have used your PAN linked number</p>
-    </div>
-    <div class="foot foot--plain"><button class="link" data-go="v2-fip-select" style="justify-self:center;text-decoration:underline">Try Again</button><p class="or3">or</p>${btn('Login with another number', 'v2-intro')}</div>`) });
+    <div class="foot">${btn('Login with another number', 'v2-onfinvu')}<button class="fy-btn fy-btn--reject" data-go="v2-welcome-back">Try again</button></div>`) });
 
 add({ id: 'v2-select', title: 'We have discovered your accounts', isNew: true, clauses: ['3.2.ix', '3.2.viii', '2.2.ii', '4.1.viii'],
-  notes: ['Visual design: accounts grouped in collapsible cards by type with a check per account, and “View consent”.', T(10) + ': nothing preselected (ReBIT 3.2(ix)); the designer’s board shows every account ticked, so this keeps them unticked until tapped. Group header tick selects the group.', T(3) + ' and ' + T(9) + ': already-linked tag and a failed-bank row.'],
-  render: () => screen(`${aabar({ logo: false })}
+  notes: ['Board 2: one card per account type with a count and “Select all / Unselect all”; Stocks & ETF and NPS collapsed.', T(10) + ': nothing preselected; the board shows both the empty and the all-selected state.', T(3) + ' and ' + T(9) + ': already-linked tag and a failed-bank row.'],
+  render: () => screen(`${aabar()}
     <div class="scroll pad stack-4" style="padding-bottom:16px">
       <h1 class="title" style="text-align:center">We have discovered your accounts</h1>
       <p class="lede" style="text-align:center">Select the account you want to provide consent to fetch data</p>
-      <section class="grp3" data-groupbox>
-        <header>${ic('bank')}<b>Bank accounts</b><button type="button" class="link small" data-selectall>Select all</button></header>
-        ${[['icici', 'ICICI bank', 'Savings ••••734'], ['icici', 'ICICI bank', 'Fixed deposit ••••124'], ['kotak', 'Kotak bank', 'Savings ••••133'], ['kotak', 'Kotak bank', 'Fixed deposit ••••443'], ['axis', 'Axis Bank', 'Savings ••••453', true]]
-          .map(([k, n, m, linked]) => `<label class="acc3">${bankMark(k)}<span class="acct__text"><span class="acct__name">${n}</span><span class="acct__meta">${m}</span>${linked ? '<span class="pill pill--ok" style="justify-self:start;margin-top:3px">Already linked with Finvu</span>' : ''}</span><input type="checkbox" data-pick aria-label="Select ${n} ${m}"><span class="tick3">${ic('check')}</span></label>`).join('')}
+      <section class="grp3" data-grp2>
+        <header>${ic('bank')}<b>Bank accounts</b><span class="chev2">˄</span></header>
+        <div class="grp3__sub"><span>4 accounts</span><button type="button" class="link small" data-all2>Select all</button></div>
+        ${accRow('icici', 'ICICI bank', 'Savings ••••734')}${accRow('icici', 'ICICI bank', 'Fixed deposit ••••124')}${accRow('kotak', 'Kotak bank', 'Savings ••••133')}${accRow('axis', 'Axis Bank', 'Savings ••••453', true)}
         <div class="acc3 acc3--err">${bankMark('hdfc')}<span class="acct__text"><span class="acct__name">We couldn’t reach HDFC Bank</span><span class="acct__meta">Your accounts there may be missing</span></span><button type="button" class="link small">Try again</button></div>
+        <button type="button" class="link small" style="justify-self:center">View less</button>
       </section>
-      <section class="grp3 grp3--closed" data-groupbox><header>${ic('chart')}<b>Stocks &amp; ETF</b><button type="button" class="link small" data-selectall>Select all</button></header>
-        <label class="acc3">${bankMark('axis')}<span class="acct__text"><span class="acct__name">CDSL</span><span class="acct__meta">Demat ••••2210</span></span><input type="checkbox" data-pick aria-label="Select CDSL"><span class="tick3">${ic('check')}</span></label></section>
+      <section class="grp3 grp3--row" data-grp2><header>${ic('chart')}<b>Stocks &amp; ETF</b>${bankMark('axis')}<span class="chev2">˅</span></header></section>
+      <section class="grp3 grp3--row" data-grp2><label class="acc3" style="padding:4px 0"><span class="nps2">₹</span><span class="acct__text"><span class="acct__name" style="font-size:15px">NPS</span></span><input type="checkbox" data-pick aria-label="Select NPS"><span class="tick3">${ic('check')}</span></label></section>
       <button class="link small" data-go="v2-missing" style="justify-self:center">Missing accounts?</button>
     </div>
-    <div class="foot">${btn('Select accounts to continue', 'v2-link-otp', 'primary', 'data-count disabled')}${tagline}</div>`) });
+    <div class="foot">${btn('Continue', 'v2-link-otp', 'primary', 'data-count2 disabled')}${tagline}</div>`) });
+
+add({ id: 'v2-link-otp', title: 'Link your Axis accounts', isNew: true, clauses: ['5.1.ii', '4.1.viii'],
+  notes: ['Board 2: bank logo, the accounts being linked as chips, masked OTP with an eye, resend timer.', 'The board shows 1, 2 and 3 account chips; this uses 2. Placed after account selection and before consent, as linking needs the bank OTP first.'],
+  render: () => screen(`${aabar()}
+    <div class="scroll pad stack-4 center" style="padding-top:24px">
+      <span class="bank-hero">${bankMark('axis')}</span>
+      <h1 class="title title--plain">Link your Axis accounts</h1>
+      <p class="lede">Please enter OTP sent to +91 ******1002</p>
+      <div class="chips2"><span>${bankMark('axis')}Savings ••••453</span><span>${bankMark('axis')}Savings ••••453</span></div>
+      ${otpLine(6, 'lk3', [4, 1, 8, 2, 7, 3])}
+      <p class="fy-timer" style="text-align:center">Didn’t get it? Resend in <b>00:30</b></p>
+    </div>
+    <div class="foot">${btn('Link account', 'v2-consents')}<div class="proto-row">${sim('Bank didn’t respond', 'v2-link-error')}</div>${tagline}</div>`) });
+
+add({ id: 'v2-consents', title: 'Consent requests from Finny', isNew: true, clauses: ['3.1.ii', '3.1.iv', '3.2.iv', '3.2.v', '3.2.vi', '3.2.i'],
+  notes: ['Board 2: one consent card per account, grouped by type, each with its purpose, validity, fetch frequency, type and requester, “See more details”, and its own equal Reject and Approve.', 'Select cards (or a group’s “Select all”) to use Reject all / Approve all on the selection. Tech sheet S.no 12 lists “Approve all” as still in discussion with Finfactor (ReBIT 3.2(vi)); per-card buttons stay.', 'Once every card is decided, Continue routes to approved, partly approved or declined.'],
+  render: () => screen(`${aabar()}
+    <div class="scroll pad stack-4" style="padding-bottom:16px">
+      <h1 class="title">${CONS3.reduce((n, g) => n + g.items.length, 0)} Consent Requests from Finny</h1>
+      <p class="lede"><b>Approve or reject each one.</b> Finny uses only what you approve.</p>
+      ${CONS3.map((g, gi) => `<section class="ccgrp" data-ccgrp><header>${ic(g.icon)}<b>${g.grp}</b><button type="button" class="link small" data-ccall>Select all</button></header>${g.items.map((c, i) => ccCard(c, gi + '-' + i)).join('')}</section>`).join('')}
+    </div>
+    <div class="foot"><div class="decide" data-ccbulk><button class="fy-btn fy-btn--reject" data-ccb="no" disabled>Reject all</button><button class="fy-btn fy-btn--approve" data-ccb="ok" disabled>Approve all</button></div>${btn('Continue', 'v2-approved', 'primary', 'data-cccont hidden')}${tagline}</div>`) });
+
+add({ id: 'v2-approved', title: 'Consents approved', isNew: true, clauses: ['4.1.viii', '3.2.iii'],
+  notes: ['Board 2: shield illustration, count approved, then back to Finny automatically.', T(14) + ': approved outcome.'],
+  render: () => screen(`${aabar({ back: false })}
+    <div class="scroll pad stack-4 center" style="align-content:center">
+      ${ill2.shieldOk()}
+      <h1 class="title title--plain">Consents approved</h1>
+      <p class="lede" style="font-size:17px;color:var(--fy-primary-600)">3 of 3</p>
+    </div>
+    <div class="foot foot--plain"><p class="small" style="margin:0;text-align:center;color:var(--fy-primary-600)">You will now be redirected to <b>Finny</b></p><div class="proto-row">${sim('Back in Finny', 'v2-finny-profile')}</div></div>`) });
+
+add({ id: 'v2-partial', title: 'Partly approved', isNew: true, clauses: ['4.1.viii', '3.2.iii'],
+  notes: [T(14) + ': some consents approved, some rejected. Styled to match board 2.'],
+  render: () => screen(`${aabar({ back: false })}
+    <div class="scroll pad stack-4 center" style="align-content:center">
+      ${ill2.shieldOk()}
+      <h1 class="title title--plain">You approved 2 of 3 consents</h1>
+      <p class="lede">Finny will use only the approved data.</p>
+      <div class="card stack" style="text-align:left;width:100%"><div class="row row--between"><span class="small">Axis Bank · Savings ••••453</span><span class="pill pill--ok">Approved</span></div><div class="row row--between"><span class="small">ICICI Bank · Savings ••••734</span><span class="pill pill--ok">Approved</span></div><div class="row row--between"><span class="small">CAMS · Folio ••••453</span><span class="pill pill--err">Rejected</span></div></div>
+    </div>
+    <div class="foot">${btn('Continue to Finny', 'v2-finny-profile')}<button class="link" data-go="v2-consents" style="justify-self:center">Review the rejected consent</button>${tagline}</div>`) });
+
+add({ id: 'v2-declined', title: 'Consents declined', isNew: true, clauses: ['4.1.viii', '3.2.ii'],
+  notes: ['Board 2: phone-with-block illustration; Back to Finny or review the requests again.', T(14) + ': the declined page.'],
+  render: () => screen(`${aabar({ back: false })}
+    <div class="scroll pad stack-4 center" style="align-content:center">
+      ${ill2.phoneNo()}
+      <h1 class="title title--plain">Consents declined</h1>
+      <p class="lede">No data was shared with Finny. You can connect your accounts again anytime from Finny.</p>
+    </div>
+    <div class="foot">${btn('Back to Finny', 'v2-finny-profile')}<button class="link" data-go="v2-consents" style="justify-self:center">Review the requests again</button>${tagline}</div>`) });
+
+add({ id: 'v2-help', title: 'Help & complaints', isNew: true, clauses: ['4.2.vii', '4.2.viii', '3.1 (complaints)'],
+  notes: ['Board 2: illustrated header, raise a complaint, what a consent is, grievance redressal (support, grievance officer, email, RBI Ombudsman), complaint about Finny, Data Protection Board.', T(18) + ': Finvu’s Grievance Redressal Officer and complaint route.'],
+  render: () => screen(`<div class="aabar aabar--v2"><button class="fy-icon-btn" data-back aria-label="Back">${ic('back')}</button><span></span><span></span></div>
+    <div class="scroll pad stack-4" style="padding-bottom:16px">
+      <div class="help2"><div><p class="eyebrow">Finvu</p><h1 class="title title--plain">Help &amp; complaints</h1><p class="lede">We’re here to help.</p></div>${ill2.help()}</div>
+      <div class="card card--flush menu"><a>${ic('doc')}<span>Raise a complaint<small>Track it here · reply within 7 days</small></span>${ic('chev-right', 'fy-chevron')}</a><a data-go="v2-viewmore">${ic('help')}<span>What is a consent?<small>How Account Aggregators work</small></span>${ic('chev-right', 'fy-chevron')}</a></div>
+      <p class="eyebrow">Grievance redressal</p>
+      <div class="card card--flush menu"><a>${ic('phone')}<span><small>Level 1 · Support</small>1800 123 4567</span></a><a>${ic('user')}<span><small>Level 2 · Grievance officer</small>R. Mehta</span></a><a>${ic('msg')}<span><small>Email</small>grievance@finvu.in</span></a><a>${ic('info')}<span>Not resolved in 30 days?<small>Escalate to the RBI Ombudsman at cms.rbi.org.in.</small></span>${ic('chev-right', 'fy-chevron')}</a></div>
+      <p class="eyebrow">Complaint about the requester</p>
+      <div class="card card--flush menu"><a><span class="fiu__mark help-finny">finny</span><span>Finny<small>support@finny.app</small></span>${ic('chev-right', 'fy-chevron')}</a></div>
+      <p class="eyebrow">Data Protection Board</p>
+      <div class="card card--flush menu"><a>${ic('bank')}<span><small>Available once the Board’s reporting channel opens.</small></span></a></div>
+    </div>
+    <div class="foot foot--plain">${tagline}</div>`) });
 
 const V2_IDS = V2.flatMap(g => g.ids);
 // Tech sheet "Design needed = No": whole screens, and screens with one such block.
@@ -2653,7 +2727,7 @@ const REF = { redirect: '4.2.i', intro: '4.2.iii', otp: '5.1.i', existing: '2.2.
   notify: '4.3.vi', language: '4.1.vi', help: '4.2.vii', complaint: '4.2.viii', 'close-account': '2.2.iii', 'fip-list': '4.1.vii' };
 Object.assign(REF, { 'v2-finny-consents': '3.1.iv', 'v2-redirect': '4.2.i', 'v2-unsafe': 'A1.4.3.iii', 'v2-sna': '4.2.ii', 'v2-otp': '5.1.i', 'v2-otp-error': '4.1.viii',
   'v2-bind-intro': '5.1.i', 'v2-biometric': '5.1.i', 'v2-pin-create': '5.1.ii', 'v2-pin-enter': '5.1.ii', 'v2-pin-error': '4.1.viii', 'v2-forgot-pin': '2.2.iv',
-  'v2-login-failed': 'A1.1.5', 'v2-redirect-a': '4.2.i', 'v2-intro': '4.2.ii', 'v2-register': 'A1.6.3.vi', 'v2-register-full': 'A1.6.3.vi', 'v2-remove-device': 'A1.6.3.vii', 'v2-create-id': '2.2.i', 'v2-fip-select': '4.1.vii', 'v2-no-accounts': '4.1.viii', 'v2-no-accounts-b': '4.1.viii', 'v2-otp-nosdk': '5.1.i', 'v2-reset-pin': '2.2.iv', 'v2-reset-done': '2.2.iv', 'v2-welcome-back': '2.2.ii', 'v2-welcome-new': '4.2.vi', 'v2-missing': '2.1.ii', 'v2-select': '3.2.ix', 'v2-link-otp': '5.1.ii',
+  'v2-login-failed': 'A1.1.5', 'v2-redirect-a': '4.2.i', 'v2-intro': '4.2.ii', 'v2-onfinvu': '4.2.ii', 'v2-welcome-confirm': '2.2.ii', 'v2-approved': '4.1.viii', 'v2-help': '4.2.viii', 'v2-register': 'A1.6.3.vi', 'v2-register-full': 'A1.6.3.vi', 'v2-remove-device': 'A1.6.3.vii', 'v2-create-id': '2.2.i', 'v2-fip-select': '4.1.vii', 'v2-no-accounts': '4.1.viii', 'v2-no-accounts-b': '4.1.viii', 'v2-otp-nosdk': '5.1.i', 'v2-reset-pin': '2.2.iv', 'v2-reset-done': '2.2.iv', 'v2-welcome-back': '2.2.ii', 'v2-welcome-new': '4.2.vi', 'v2-missing': '2.1.ii', 'v2-select': '3.2.ix', 'v2-link-otp': '5.1.ii',
   'v2-link-error': '4.1.viii', 'v2-consents': '3.2.vi', 'v2-viewmore': '3.1.vi', 'v2-partial': '4.1.viii', 'v2-declined': '3.2.ii', 'v2-finny-profile': '4.2.vi' });
 function renderIndex() {
   let html = '', flow = '';
@@ -2752,6 +2826,39 @@ function wire(root) {
     d.querySelector('button').addEventListener('click', () => { delete card.dataset.state; d.remove(); box.hidden = false; sync2(); });
     box.after(d); sync2();
   })));
+  // v2 board 2: account groups with Select all / Unselect all, Continue counts the selection.
+  const c2 = root.querySelector('[data-count2]');
+  const re2 = () => { if (!c2) return; const n = root.querySelectorAll('[data-pick]:checked').length; c2.disabled = !n; c2.textContent = n ? `Continue with ${n} account${n > 1 ? 's' : ''}` : 'Continue';
+    root.querySelectorAll('[data-all2]').forEach(b => { const cs = [...b.closest('[data-grp2]').querySelectorAll('[data-pick]')]; b.textContent = cs.every(c => c.checked) ? 'Unselect all' : 'Select all'; b.classList.toggle('muted', cs.every(c => c.checked)); }); };
+  if (c2) { root.querySelectorAll('[data-pick]').forEach(c => c.addEventListener('change', re2));
+    root.querySelectorAll('[data-all2]').forEach(b => b.addEventListener('click', () => { const cs = [...b.closest('[data-grp2]').querySelectorAll('[data-pick]')]; const all = cs.every(c => c.checked); cs.forEach(c => { c.checked = !all; }); re2(); })); }
+  // v2 board 2: consent cards. Each card has its own Reject / Approve; selected cards can be decided together.
+  const ccs = [...root.querySelectorAll('[data-cc]')];
+  if (ccs.length) {
+    const bulk = [...root.querySelectorAll('[data-ccb]')], cont = root.querySelector('[data-cccont]');
+    const sync = () => {
+      const sel = ccs.filter(c => !c.dataset.state && c.querySelector('[data-ccsel]').checked);
+      bulk.forEach(b => { b.disabled = !sel.length; b.textContent = (b.dataset.ccb === 'ok' ? 'Approve' : 'Reject') + (sel.length ? ` ${sel.length} selected` : ' all'); });
+      root.querySelectorAll('[data-ccall]').forEach(a => { const cs = [...a.closest('[data-ccgrp]').querySelectorAll('[data-cc]:not([data-state]) [data-ccsel]')]; a.textContent = cs.length && cs.every(c => c.checked) ? 'Unselect all' : 'Select all'; });
+      const st = ccs.map(c => c.dataset.state), done = st.every(Boolean);
+      root.querySelector('[data-ccbulk]').hidden = done; cont.hidden = !done;
+      cont.dataset.go = st.every(x => x === 'ok') ? 'v2-approved' : st.every(x => x === 'no') ? 'v2-declined' : 'v2-partial';
+    };
+    const decide = (card, ok) => {
+      card.dataset.state = ok ? 'ok' : 'no'; card.querySelector('[data-ccsel]').checked = false;
+      const box = card.querySelector('[data-ccbox]'); box.hidden = true;
+      const d = document.createElement('div'); d.className = 'decision decision--' + (ok ? 'ok' : 'no');
+      d.innerHTML = `${ok ? '✓ Approved' : '✕ Rejected'} <button type="button" class="link small" style="margin-left:6px">Change</button>`;
+      d.querySelector('button').addEventListener('click', () => { delete card.dataset.state; d.remove(); box.hidden = false; sync(); });
+      box.after(d);
+    };
+    ccs.forEach(card => {
+      card.querySelectorAll('[data-ccd]').forEach(b => b.addEventListener('click', () => { decide(card, b.dataset.ccd === 'ok'); sync(); }));
+      card.querySelector('[data-ccsel]').addEventListener('change', sync);
+    });
+    root.querySelectorAll('[data-ccall]').forEach(a => a.addEventListener('click', () => { const cs = [...a.closest('[data-ccgrp]').querySelectorAll('[data-cc]:not([data-state]) [data-ccsel]')]; const all = cs.every(c => c.checked); cs.forEach(c => { c.checked = !all; }); sync(); }));
+    bulk.forEach(b => b.addEventListener('click', () => { ccs.filter(c => !c.dataset.state && c.querySelector('[data-ccsel]').checked).forEach(c => decide(c, b.dataset.ccb === 'ok')); sync(); }));
+  }
   const countBtn = root.querySelector('[data-count]');
   const recount = () => { if (!countBtn) return; const n = root.querySelectorAll('[data-pick]:checked').length; countBtn.disabled = !n; countBtn.textContent = n ? `Continue with ${n} account${n > 1 ? 's' : ''}` : 'Select accounts to continue'; };
   root.querySelectorAll('[data-pick]').forEach(c => c.addEventListener('change', recount));
@@ -2959,13 +3066,13 @@ const FLOW = [
 // v2 flowchart (tech scope). Same grammar as FLOW above.
 const FLOW2 = [
   { id: 'H', name: 'Hand-off', title: 'Finny · hand-off (§4.2.i)', nodes: [
-    ['H.start', 'start', 0, 0, 'User taps\nConnect accounts'], ['v2-redirect', 'screen', 1, 0], ['H.out', 'to', 2, 0, 'L'], ['v2-redirect-a', 'screen', 1, 1],
+    ['H.start', 'start', 0, 0, 'User taps\nConnect accounts'], ['v2-redirect', 'screen', 1, 0], ['H.out', 'to', 2, 0, 'L'],
   ], edges: [
-    ['H.start', 'r', 'v2-redirect', 'l', 'Option B'], ['H.start', 'b', 'v2-redirect-a', 'l', 'Option A'], ['v2-redirect', 'r', 'H.out', 'l', 'Finvu opens'], ['v2-redirect-a', 'r', 'H.out', 'b', 'Finvu opens'],
+    ['H.start', 'r', 'v2-redirect', 'l'], ['v2-redirect', 'r', 'H.out', 'l', 'Finvu opens'],
   ] },
   { id: 'L', name: 'Sign in', title: '§5.1 Sign in to Finvu (2FA): options and fallbacks', nodes: [
     ['v2-register-full', 'screen', 6, -1], ['v2-remove-device', 'screen', 7, -1],
-    ['L.in', 'from', 0, 0, 'H'], ['v2-intro', 'screen', 1, 0], ['L.d0', 'dec', 2, 0, 'Finvu Auth SDK\nembedded?'], ['v2-sna', 'screen', 3, 0], ['L.d1', 'dec', 4, 0, 'SNA\nsucceeded?'],
+    ['L.in', 'from', 0, 0, 'H'], ['v2-onfinvu', 'screen', 1, 0], ['L.d0', 'dec', 2, 0, 'Finvu Auth SDK\nembedded?'], ['v2-sna', 'screen', 3, 0], ['L.d1', 'dec', 4, 0, 'SNA\nsucceeded?'],
     ['L.d2', 'dec', 5, 0, 'First time on\nthis phone?'], ['v2-register', 'screen', 6, 0], ['v2-bind-intro', 'screen', 7, 0], ['v2-biometric', 'screen', 8, 0], ['L.d3', 'dec', 9, 0, 'Biometric\nsucceeded?'],
     ['L.out', 'to', 10, 0, 'DL', 'Success: Welcome →'],
     ['v2-otp-error', 'screen', 3, 1], ['v2-otp', 'screen', 4, 1],
@@ -2974,13 +3081,13 @@ const FLOW2 = [
     ['L.ev', 'event', 0, 4, 'SDK detects a rooted\nor jailbroken phone'], ['v2-unsafe', 'screen', 1, 4], ['L.end', 'end', 2, 4, 'Back in Finny'],
     ['v2-pin-error', 'screen', 9, 4], ['v2-forgot-pin', 'screen', 10, 4], ['v2-reset-pin', 'screen', 11, 4], ['v2-reset-done', 'screen', 12, 4],
   ], edges: [
-    ['L.in', 'r', 'v2-intro', 'l'], ['v2-intro', 'r', 'L.d0', 'l', 'Continue'], ['L.d0', 'r', 'v2-sna', 'l', 'Yes'], ['L.d0', 'b', 'v2-otp-nosdk', 't', 'No: OTP + PIN'],
+    ['L.in', 'r', 'v2-onfinvu', 'l'], ['v2-onfinvu', 'r', 'L.d0', 'l'], ['L.d0', 'r', 'v2-sna', 'l', 'Yes'], ['L.d0', 'b', 'v2-otp-nosdk', 't', 'No: OTP + PIN'],
     ['v2-sna', 'r', 'L.d1', 'l'], ['L.d1', 'r', 'L.d2', 'l', 'Yes'], ['L.d1', 'b', 'v2-otp', 't', 'No: no SIM, Wi-Fi only, data off'],
     ['v2-otp', 'l-40', 'v2-otp-error', 'r-40', 'Wrong OTP', { anchor: 'end' }], ['v2-otp-error', 'r+40', 'v2-otp', 'l+40', 'Retry'],
     ['v2-otp', 'r', 'L.d2', 'b', 'Verified'],
     ['L.d2', 'r', 'v2-register', 'l', 'Yes'], ['L.d2', 't', 'v2-biometric', 't', 'No', { via: [['y', -.05]], at: 'end' }],
     ['v2-register', 't', 'v2-register-full', 'b', 'At the 2-device limit'], ['v2-register-full', 'r', 'v2-remove-device', 'l', 'Remove one'], ['v2-remove-device', 'b', 'v2-bind-intro', 't', 'Removed'],
-    ['v2-register', 'r', 'v2-bind-intro', 'l', 'Verify and register'], ['v2-bind-intro', 'r', 'v2-biometric', 'l', 'Enrol'], ['v2-biometric', 'r', 'L.d3', 'l'],
+    ['v2-register', 'r', 'v2-bind-intro', 'l', 'Verify and register'], ['v2-bind-intro', 'r', 'v2-biometric', 'l', 'Continue'], ['v2-biometric', 'r', 'L.d3', 'l'],
     ['L.d3', 'r', 'L.out', 'l', 'Yes'], ['L.d3', 'b', 'L.d4', 't', 'No: failed, cancelled or no screen lock'],
     ['v2-otp-nosdk', 'r', 'L.d4', 'l', 'Verified'],
     ['L.d4', 'r', 'v2-pin-create', 'l', 'Yes'], ['v2-pin-create', 't', 'L.out', 'b', 'PIN created'], ['L.d4', 'b', 'v2-pin-enter', 't', 'No'],
@@ -2991,32 +3098,29 @@ const FLOW2 = [
     ['L.ev', 'r', 'v2-unsafe', 'l', '', { kind: 'event' }], ['v2-unsafe', 'r', 'L.end', 'l', 'Back to Finny'],
   ] },
   { id: 'DL', name: 'Discovery & linking', title: '§2.1–2.2 Discovery & linking', nodes: [
-    ['add-mobile', 'screen', 4, -1], ['v2-missing', 'screen', 5, -1], ['fip-list', 'screen', 6, -1],
-    ['DL.in', 'from', 0, 0, 'L'], ['DL.d1', 'dec', 1, 0, 'Existing Finvu\naccount?'], ['v2-welcome-back', 'screen', 2, 0], ['v2-fip-select', 'screen', 3, 0],
-    ['DL.d2', 'dec', 4, 0, 'Accounts\nfound?'], ['v2-select', 'screen', 5, 0], ['v2-link-otp', 'screen', 6, 0], ['DL.d3', 'dec', 7, 0, 'Bank\nlinked?'], ['DL.out', 'to', 8, 0, 'CO'],
-    ['v2-create-id', 'screen', 2, 1], ['v2-no-accounts', 'screen', 4, 1], ['v2-link-error', 'screen', 7, 1],
-    ['v2-no-accounts-b', 'screen', 4, 2], ['DL.relogin', 'to', 5, 2, 'L', 'Login with another number'],
+    ['add-mobile', 'screen', 5, -1], ['v2-missing', 'screen', 6, -1], ['fip-list', 'screen', 7, -1],
+    ['DL.in', 'from', 0, 0, 'L'], ['DL.d1', 'dec', 1, 0, 'Existing Finvu\naccount?'], ['v2-welcome-confirm', 'screen', 2, 0], ['v2-welcome-back', 'screen', 3, 0],
+    ['DL.d2', 'dec', 4, 0, 'Accounts\nfound?'], ['v2-select', 'screen', 6, 0], ['v2-link-otp', 'screen', 7, 0], ['DL.d3', 'dec', 8, 0, 'Bank\nlinked?'], ['DL.out', 'to', 9, 0, 'CO'],
+    ['v2-welcome-new', 'screen', 3, 1], ['v2-no-accounts', 'screen', 5, 1], ['v2-link-error', 'screen', 8, 1], ['DL.relogin', 'to', 6, 1, 'L', 'Login with another number'],
   ], edges: [
-    ['DL.in', 'r', 'DL.d1', 'l'], ['DL.d1', 'r', 'v2-welcome-back', 'l', 'Yes'], ['DL.d1', 'b', 'v2-create-id', 'l', 'No'],
-    ['v2-welcome-back', 'r', 'v2-fip-select', 'l', 'Continue'], ['v2-create-id', 'r', 'v2-fip-select', 'b-35', 'Create account'],
-    ['v2-fip-select', 'r', 'DL.d2', 'l', 'Search banks'], ['DL.d2', 'r', 'v2-select', 'l', 'Yes'], ['DL.d2', 'b', 'v2-no-accounts', 't', 'No'],
-    ['v2-no-accounts', 'l', 'v2-fip-select', 'b+35', 'Search again'], ['v2-no-accounts', 'b', 'v2-no-accounts-b', 't', 'Variant B'], ['v2-no-accounts-b', 'r', 'DL.relogin', 'l'],
+    ['DL.in', 'r', 'DL.d1', 'l'], ['DL.d1', 'r', 'v2-welcome-confirm', 'l', 'Yes'], ['DL.d1', 'b', 'v2-welcome-new', 'l', 'No'],
+    ['v2-welcome-confirm', 'r', 'v2-welcome-back', 'l', 'Continue'], ['v2-welcome-back', 'r', 'DL.d2', 'l', 'Scanning'], ['v2-welcome-new', 'r', 'DL.d2', 'b', 'Scanning'],
+    ['DL.d2', 'r', 'v2-select', 'l', 'Yes'], ['DL.d2', 't', 'v2-no-accounts', 't', 'No', { via: [['y', -.05], ['x', 5.5]], at: 'end' }],
+    ['v2-no-accounts', 'r', 'DL.relogin', 'l', 'Another number'], ['v2-no-accounts', 'b', 'v2-welcome-back', 'b', 'Try again', { via: [['y', 1.93]], at: 'end' }],
     ['v2-select', 't-35', 'v2-missing', 'b-35', 'Missing accounts?', { anchor: 'end' }], ['v2-missing', 'b+35', 'v2-select', 't+35', 'Search again'],
     ['v2-missing', 'l', 'add-mobile', 'r', 'Add a mobile'], ['v2-missing', 'r', 'fip-list', 'l', 'Institutions'],
     ['v2-select', 'r', 'v2-link-otp', 'l', 'Continue'], ['v2-link-otp', 'r', 'DL.d3', 'l'], ['DL.d3', 'r', 'DL.out', 'l', 'Yes'],
     ['DL.d3', 'b', 'v2-link-error', 't', 'No response'], ['v2-link-error', 'l', 'v2-link-otp', 'b', 'Try again'], ['v2-link-error', 'r', 'DL.out', 'b', 'Skip this bank'],
   ] },
   { id: 'CO', name: 'Consent', title: '§3.1–3.2 Consent & outcomes', nodes: [
-    ['help', 'screen', 1, -2], ['v2-viewmore', 'screen', 1, -1], ['v2-declined', 'screen', 2, -1],
-    ['CO.in', 'from', 0, 0, 'DL'], ['v2-consents', 'screen', 1, 0], ['CO.d1', 'dec', 2, 0, 'Decision on\nevery consent'], ['connecting', 'screen', 3, 0],
-    ['success', 'screen', 4, 0], ['CO.out', 'to', 5, 0, 'FP'],
-    ['field-info', 'screen', 1, 1], ['v2-partial', 'screen', 2, 1],
+    ['v2-help', 'screen', 1, -2], ['v2-viewmore', 'screen', 1, -1], ['v2-declined', 'screen', 2, -1],
+    ['CO.in', 'from', 0, 0, 'DL'], ['v2-consents', 'screen', 1, 0], ['CO.d1', 'dec', 2, 0, 'Decision on\nevery consent'], ['v2-approved', 'screen', 3, 0], ['CO.out', 'to', 4, 0, 'FP'],
+    ['v2-partial', 'screen', 2, 1],
   ], edges: [
-    ['CO.in', 'r', 'v2-consents', 'l'], ['v2-consents', 't', 'v2-viewmore', 'b', 'View more'], ['v2-viewmore', 't', 'help', 'b', 'Complain to Finvu'],
-    ['v2-consents', 'b', 'field-info', 't', 'ⓘ on a field'], ['v2-consents', 'r', 'CO.d1', 'l', 'Continue'],
-    ['CO.d1', 'r', 'connecting', 'l', 'All approved'], ['CO.d1', 't', 'v2-declined', 'b', 'All rejected'], ['CO.d1', 'b', 'v2-partial', 't', 'Some approved'],
-    ['connecting', 'r', 'success', 'l', 'Continue'], ['success', 'r', 'CO.out', 'l', 'Continue to Finny'],
-    ['v2-partial', 'r', 'CO.out', 'b', 'Continue to Finny'], ['v2-declined', 'r', 'CO.out', 't', 'Back to Finny'],
+    ['CO.in', 'r', 'v2-consents', 'l'], ['v2-consents', 't', 'v2-viewmore', 'b', 'See more details'], ['v2-viewmore', 't', 'v2-help', 'b', 'Complain to Finvu'],
+    ['v2-consents', 'r', 'CO.d1', 'l', 'Continue'],
+    ['CO.d1', 'r', 'v2-approved', 'l', 'All approved'], ['CO.d1', 't', 'v2-declined', 'b', 'All rejected'], ['CO.d1', 'b', 'v2-partial', 't', 'Some approved'],
+    ['v2-approved', 'r', 'CO.out', 'l', 'Redirect to Finny'], ['v2-partial', 'r', 'CO.out', 'b', 'Continue to Finny'], ['v2-declined', 'r', 'CO.out', 't', 'Back to Finny'],
   ] },
   { id: 'FP', name: 'Finny profile', title: 'Finny · after linking (§3.2, §4.2.vi)', nodes: [
     ['FP.in', 'from', 0, 0, 'CO'], ['v2-finny-profile', 'screen', 1, 0], ['FP.out', 'to', 2, 0, 'H', 'Reconnect'],

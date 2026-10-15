@@ -872,6 +872,8 @@
   .aa-brand__text { display: grid; line-height: 1.15; }
   .aa-brand__text b { font: 700 16px/1.1 var(--fy-font); color: var(--fy-primary-600); }
   .aa-brand__text small { font: 400 10px/1.3 var(--fy-font); color: var(--fy-text-secondary); }
+  .browserbar { display: flex; align-items: center; gap: 6px; margin: 0 12px 4px; padding: 6px 10px; border-radius: 999px; background: var(--fy-neutral-200); font: 400 11px/1 var(--fy-font); color: var(--fy-neutral-500); }
+  .browserbar svg { width: 11px; height: 11px; }
   .proto-row { display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; }
   .proto-chip { padding: 5px 10px; border: 1.5px dashed var(--fy-warning-700); border-radius: 999px; background: var(--fy-warning-50); color: var(--fy-warning-700); font: 600 11px/1 var(--fy-font); cursor: pointer; }
   .otp-wrap { display: flex; align-items: center; gap: 6px; }
@@ -2094,7 +2096,7 @@ const finnyHead = (title) => `<div class="aabar"><button class="fy-icon-btn" dat
 
 const V2 = [
   { flow: 'Finny · before Finvu (§4.2.i, §3.1.iv)', ids: ['v2-finny-consents', 'v2-redirect'] },
-  { flow: '§5.1 Sign in to Finvu (Auth SDK)', ids: ['v2-unsafe', 'v2-sna', 'v2-otp', 'v2-otp-error', 'v2-bind-intro', 'v2-biometric', 'v2-pin-create', 'v2-pin-enter', 'v2-pin-error', 'v2-forgot-pin', 'v2-login-failed'] },
+  { flow: '§5.1 Sign in to Finvu (2FA)', ids: ['v2-sna', 'v2-otp', 'v2-otp-error', 'v2-bind-intro', 'v2-biometric', 'v2-otp-nosdk', 'v2-pin-create', 'v2-pin-enter', 'v2-pin-error', 'v2-forgot-pin', 'v2-reset-pin', 'v2-reset-done', 'v2-unsafe'] },
   { flow: '§2.1–2.2 Discovery & linking', ids: ['v2-welcome-back', 'v2-welcome-new', 'v2-missing', 'add-mobile', 'fip-list', 'v2-select', 'v2-link-otp', 'v2-link-error'] },
   { flow: '§3.1–3.2 Consent & outcomes', ids: ['v2-consents', 'v2-viewmore', 'field-info', 'connecting', 'success', 'v2-partial', 'v2-declined', 'help'] },
   { flow: 'Finny · after linking (§3.2, §4.2.vi)', ids: ['v2-finny-profile'] },
@@ -2124,7 +2126,7 @@ add({ id: 'v2-redirect', title: 'Hand-off animation', isNew: true, clauses: ['4.
       <h1 class="title title--sm">Taking you to Finvu</h1>
       <p class="lede">Taking you to Finvu to find your accounts, link them and approve consent for Finny.</p>
     </div>
-    <div class="foot foot--plain pad"><div class="proto-row">${sim('Finvu opens', 'v2-sna')}</div></div>`, { main: true }) });
+    <div class="foot foot--plain pad"><div class="proto-row">${sim('Finvu opens · Auth SDK', 'v2-sna')}${sim('Finvu opens · no SDK', 'v2-otp-nosdk')}</div></div>`, { main: true }) });
 
 add({ id: 'v2-unsafe', title: 'Linking isn’t available on this device', isNew: true, clauses: ['1.4.3.iii'],
   notes: [T(21) + ': shown if the Auth SDK blocks rooted or jailbroken phones.', 'Short reason and a way back to Finny; no permission screens (granted at install).'],
@@ -2149,7 +2151,7 @@ add({ id: 'v2-sna', title: 'Verifying your number (SNA)', isNew: true, clauses: 
         <div class="banner banner--info" style="text-align:left">${ic('info')}<span>Keep mobile data on. Wi-Fi alone can’t verify your SIM.</span></div>
       </div>
     </div>
-    <div class="foot foot--plain"><div class="proto-row">${sim('Verified', 'v2-bind-intro')}${sim('Couldn’t verify', 'v2-otp')}</div>${tagline}</div>`) });
+    <div class="foot foot--plain"><div class="proto-row">${sim('Verified · first time on this phone', 'v2-bind-intro')}${sim('Verified · returning', 'v2-biometric')}${sim('Couldn’t verify', 'v2-otp')}</div>${tagline}</div>`) });
 
 add({ id: 'v2-otp', title: 'OTP fallback', isNew: true, clauses: ['5.1.i', '5.1.ii', '4.1.viii'],
   notes: [T(2) + ': if SNA fails (no SIM, Wi-Fi only, data off, carrier error) the user lands here with the reason.', 'Masked boxes with an eye icon to reveal; resend countdown from resendInfo.'],
@@ -2160,7 +2162,7 @@ add({ id: 'v2-otp', title: 'OTP fallback', isNew: true, clauses: ['5.1.i', '5.1.
       ${cells(6, 'otp2', [4, 8, 2, ''])}
       <p class="fy-timer">Didn’t get it? Resend OTP in <b>00:30</b></p>
     </div>
-    <div class="foot">${btn('Verify', 'v2-bind-intro')}<div class="proto-row">${sim('Wrong OTP', 'v2-otp-error')}</div>${tagline}</div>`) });
+    <div class="foot">${btn('Verify', 'v2-bind-intro')}<div class="proto-row">${sim('Returning on this phone', 'v2-biometric')}${sim('Wrong OTP', 'v2-otp-error')}</div>${tagline}</div>`) });
 
 add({ id: 'v2-otp-error', title: 'OTP error', isNew: true, clauses: ['4.1.viii', '5.1.ii'],
   notes: [T(2) + ': inline error with attempts left.', 'If a resend is refused, the field stays so the earlier code still works.'],
@@ -2210,7 +2212,7 @@ add({ id: 'v2-pin-create', title: 'Create a Finvu PIN', isNew: true, clauses: ['
     <div class="foot">${btn('Create PIN', 'v2-welcome-new')}${tagline}</div>`) });
 
 add({ id: 'v2-pin-enter', title: 'Enter your Finvu PIN', isNew: true, clauses: ['5.1.i', '5.1.ii', '2.2.iv'],
-  notes: [T(2) + ': returning users when biometric is cancelled, fails or isn’t set up.', '“Forgot PIN?” is the account recovery path (ReBIT 2.2(iv)).'],
+  notes: [T(2) + ', ' + 'login diagram: returning users when biometric failed, was cancelled or there is no screen lock; also after OTP on the no-SDK path.', '“Forgot PIN?” is the account recovery path (ReBIT 2.2(iv)).'],
   render: () => screen(`${aabar()}
     <div class="scroll pad stack-4">
       <h1 class="title title--sm">Enter your Finvu PIN</h1>
@@ -2230,18 +2232,54 @@ add({ id: 'v2-pin-error', title: 'PIN error and lockout', isNew: true, clauses: 
       <div class="banner banner--warn">${ic('lock')}<span>After one more wrong PIN, PIN sign-in is locked for 30 minutes. Reset your PIN to avoid this.</span></div>
       <button class="link" data-go="v2-forgot-pin" style="justify-self:start;padding-left:0">Forgot PIN?</button>
     </div>
-    <div class="foot">${btn('Try again', 'v2-pin-enter')}<div class="proto-row">${sim('Locked out', 'v2-login-failed')}</div>${tagline}</div>`) });
+    <div class="foot">${btn('Try again', 'v2-pin-enter')}${tagline}</div>`) });
 
-add({ id: 'v2-forgot-pin', title: 'Forgot PIN', isNew: true, clauses: ['2.2.iv'],
-  notes: [T(2) + ': reset by verifying the registered mobile by OTP, then setting a new PIN on Finvu.', 'Open with Finfactor: the SDK has no forgot-PIN today; email-only recovery may not meet 2.2(iv).', 'Support contact for manual recovery.'],
+add({ id: 'v2-forgot-pin', title: 'Forgot PIN: reset link sent', isNew: true, clauses: ['2.2.iv'],
+  notes: ['Login diagram D (not confirmed by Finfactor): tapping “Forgot PIN?” sends a reset link or code to the email registered with Finvu; Finvu handles it.', 'To confirm: ReBIT 2.2(iv) requires recovery to verify the registered mobile; email alone may not be enough.', 'Support contact for manual recovery.'],
   render: () => screen(`${aabar()}
     <div class="scroll pad stack-4">
-      ${art('key')}
-      <h1 class="title title--sm">Reset your Finvu PIN</h1>
-      <ol class="steps"><li class="now"><i></i>Verify your registered mobile ${USER.mobile} with an OTP</li><li><i></i>Set a new PIN on Finvu</li><li><i></i>Come back to Finny and sign in again</li></ol>
-      <div class="card stack"><p class="eyebrow">Can’t reset it?</p><p class="small" style="margin:0;color:var(--fy-primary-500)">Finvu support · 1800 123 4567 · support@finvu.in</p></div>
+      ${art('msg')}
+      <h1 class="title title--sm">Check your email</h1>
+      <p class="lede">We’ve sent a link to reset your Finvu PIN to the email registered with Finvu, <b>m•••@gmail.com</b>.</p>
+      <ol class="steps"><li class="done"><i>${ic('check')}</i>Reset link sent</li><li class="now"><i></i>Set a new PIN on Finvu’s page</li><li><i></i>Come back to Finny and sign in again</li></ol>
+      <p class="fy-timer">Didn’t get it? Resend link in <b>00:45</b></p>
+      <div class="card stack"><p class="eyebrow">No access to this email?</p><p class="small" style="margin:0;color:var(--fy-primary-500)">Finvu support · 1800 123 4567 · support@finvu.in</p></div>
     </div>
-    <div class="foot">${btn('Send OTP to ' + USER.mobile, 'v2-pin-create')}${tagline}</div>`) });
+    <div class="foot foot--plain"><div class="proto-row">${sim('Open the reset link', 'v2-reset-pin')}</div>${tagline}</div>`) });
+
+add({ id: 'v2-reset-pin', title: 'Set a new PIN on Finvu’s page', isNew: true, clauses: ['2.2.iv', '5.1.ii'],
+  notes: ['Login diagram D: the user sets a new PIN on Finvu’s own web page (opened from the email), outside Finny.', 'Masked entry with an eye to reveal.'],
+  render: () => screen(`<div class="browserbar">${ic('lock')}finvu.in/reset-pin</div>${aabar({ back: false, help: false, exit: false })}
+    <div class="scroll pad stack-4">
+      <h1 class="title title--sm">Set a new Finvu PIN</h1>
+      <p class="lede">For ${VUA2}</p>
+      <label class="fy-field"><span class="fy-field__label">New PIN</span></label>${cells(4, 'rp1', [7, 3, '', ''])}
+      <label class="fy-field"><span class="fy-field__label">Re-enter PIN</span></label>${cells(4, 'rp2')}
+    </div>
+    <div class="foot">${btn('Save new PIN', 'v2-reset-done')}${tagline}</div>`) });
+
+add({ id: 'v2-reset-done', title: 'PIN reset: back to Finny', isNew: true, clauses: ['2.2.iv'],
+  notes: ['Login diagram D: after the reset the user returns to Finny and logs in again, which restarts the login.'],
+  render: () => screen(`<div class="browserbar">${ic('lock')}finvu.in/reset-pin</div>${aabar({ back: false, help: false, exit: false })}
+    <div class="scroll pad stack-4 center" style="padding-top:40px">
+      ${art('check-circle')}
+      <h1 class="title title--sm">Your Finvu PIN is updated</h1>
+      <p class="lede">Go back to Finny and sign in to Finvu again with your new PIN.</p>
+    </div>
+    <div class="foot">${btn('Return to Finny', 'v2-redirect')}${tagline}</div>`) });
+
+add({ id: 'v2-otp-nosdk', title: 'OTP (without Auth SDK)', isNew: true, clauses: ['5.1.i', '5.1.ii'],
+  notes: ['Login diagram A: when the Finvu Auth SDK isn’t embedded, factor 1 is an OTP to the registered mobile.', 'Masked entry with an eye to reveal, resend timer, attempts left. Factor 2 is the Finvu PIN.'],
+  render: () => screen(`${aabar({ back: false })}
+    <div class="scroll pad stack-4">
+      <div class="aa-toast" role="status" data-autodismiss>${ic('shield')}<span><b>You’re now on Finvu</b>, an RBI regulated Account Aggregator. Finvu manages your consent.</span><button type="button" data-dismiss aria-label="Dismiss">${ic('close')}</button></div>
+      <h1 class="title title--sm">Sign in to Finvu</h1>
+      <p class="lede">Enter the OTP sent to your registered mobile <b>+91 ${USER.mobile}</b>.</p>
+      ${cells(6, 'otpn', [5, 1, ''])}
+      <p class="small muted" style="margin:0">3 attempts left</p>
+      <p class="fy-timer">Didn’t get it? Resend OTP in <b>00:30</b></p>
+    </div>
+    <div class="foot">${btn('Verify', 'v2-pin-enter')}<div class="proto-row">${sim('First time: no PIN yet', 'v2-pin-create')}</div>${tagline}</div>`) });
 
 add({ id: 'v2-login-failed', title: 'Sign-in failed', isNew: true, clauses: ['4.1.viii', '1.1.5'],
   notes: [T(2) + ': when login finally fails: Try again and Exit.', 'Plain reason, no internal error codes (Annex 1.1.5).'],
@@ -2427,7 +2465,7 @@ const REF = { redirect: '4.2.i', intro: '4.2.iii', otp: '5.1.i', existing: '2.2.
   notify: '4.3.vi', language: '4.1.vi', help: '4.2.vii', complaint: '4.2.viii', 'close-account': '2.2.iii', 'fip-list': '4.1.vii' };
 Object.assign(REF, { 'v2-finny-consents': '3.1.iv', 'v2-redirect': '4.2.i', 'v2-unsafe': 'A1.4.3.iii', 'v2-sna': '4.2.ii', 'v2-otp': '5.1.i', 'v2-otp-error': '4.1.viii',
   'v2-bind-intro': '5.1.i', 'v2-biometric': '5.1.i', 'v2-pin-create': '5.1.ii', 'v2-pin-enter': '5.1.ii', 'v2-pin-error': '4.1.viii', 'v2-forgot-pin': '2.2.iv',
-  'v2-login-failed': 'A1.1.5', 'v2-welcome-back': '2.2.ii', 'v2-welcome-new': '4.2.vi', 'v2-missing': '2.1.ii', 'v2-select': '3.2.ix', 'v2-link-otp': '5.1.ii',
+  'v2-login-failed': 'A1.1.5', 'v2-otp-nosdk': '5.1.i', 'v2-reset-pin': '2.2.iv', 'v2-reset-done': '2.2.iv', 'v2-welcome-back': '2.2.ii', 'v2-welcome-new': '4.2.vi', 'v2-missing': '2.1.ii', 'v2-select': '3.2.ix', 'v2-link-otp': '5.1.ii',
   'v2-link-error': '4.1.viii', 'v2-consents': '3.2.vi', 'v2-viewmore': '3.1.vi', 'v2-partial': '4.1.viii', 'v2-declined': '3.2.ii', 'v2-finny-profile': '4.2.vi' });
 function renderIndex() {
   let html = '', flow = '';
@@ -2735,26 +2773,30 @@ const FLOW2 = [
   ], edges: [
     ['H.start', 'r', 'v2-finny-consents', 'l'], ['v2-finny-consents', 'r', 'v2-redirect', 'l', 'Continue to Finvu'], ['v2-redirect', 'r', 'H.out', 'l', 'Finvu opens'],
   ] },
-  { id: 'L', name: 'Sign in', title: '§5.1 Sign in to Finvu (Auth SDK)', nodes: [
-    ['L.in', 'from', 0, 0, 'H'], ['L.d0', 'dec', 1, 0, 'Device\nintegrity OK?'], ['v2-sna', 'screen', 2, 0], ['L.d1', 'dec', 3, 0, 'Number verified\nautomatically?'],
-    ['L.d2', 'dec', 4, 0, 'Screen lock\nset up?'], ['L.d3', 'dec', 5, 0, 'First time on\nthis phone?'], ['v2-bind-intro', 'screen', 6, 0], ['v2-biometric', 'screen', 7, 0],
-    ['L.d4', 'dec', 8, 0, 'Biometric\nverified?'], ['L.out', 'to', 9, 0, 'DL'],
-    ['v2-unsafe', 'screen', 1, 1], ['v2-otp', 'screen', 3, 1], ['L.d5', 'dec', 4, 1, 'OTP\ncorrect?'], ['L.d6', 'dec', 8, 1, 'Has a\nFinvu PIN?'], ['v2-pin-create', 'screen', 9, 1],
-    ['L.end', 'end', 1, 2, 'Back in Finny'], ['v2-otp-error', 'screen', 4, 2], ['v2-pin-enter', 'screen', 8, 2], ['L.d7', 'dec', 9, 2, 'PIN\ncorrect?'], ['L.out2', 'to', 10, 2, 'DL'],
-    ['v2-forgot-pin', 'screen', 8, 3], ['v2-pin-error', 'screen', 9, 3],
-    ['v2-login-failed', 'screen', 9, 4], ['L.end2', 'end', 10, 4, 'Back in Finny'],
+  { id: 'L', name: 'Sign in', title: '§5.1 Sign in to Finvu (2FA): options and fallbacks', nodes: [
+    ['L.in', 'from', 0, 0, 'H'], ['L.d0', 'dec', 1, 0, 'Finvu Auth SDK\nembedded?'], ['v2-sna', 'screen', 2, 0], ['L.d1', 'dec', 3, 0, 'SNA\nsucceeded?'],
+    ['L.d2', 'dec', 4, 0, 'First time on\nthis phone?'], ['v2-bind-intro', 'screen', 5, 0], ['v2-biometric', 'screen', 6, 0], ['L.d3', 'dec', 7, 0, 'Biometric\nsucceeded?'],
+    ['L.out', 'to', 8, 0, 'DL', 'Success: Welcome →'],
+    ['v2-otp-error', 'screen', 2, 1], ['v2-otp', 'screen', 3, 1],
+    ['v2-otp-nosdk', 'screen', 1, 2], ['L.d4', 'dec', 7, 2, 'First time?'], ['v2-pin-create', 'screen', 8, 2],
+    ['v2-pin-enter', 'screen', 7, 3], ['L.d5', 'dec', 8, 3, 'Forgot PIN?'], ['L.out2', 'to', 9, 3, 'DL', 'Success: Welcome back →'], ['L.restart', 'to', 10, 3, 'L', 'Restart login'],
+    ['L.ev', 'event', 0, 4, 'SDK detects a rooted\nor jailbroken phone'], ['v2-unsafe', 'screen', 1, 4], ['L.end', 'end', 2, 4, 'Back in Finny'],
+    ['v2-pin-error', 'screen', 7, 4], ['v2-forgot-pin', 'screen', 8, 4], ['v2-reset-pin', 'screen', 9, 4], ['v2-reset-done', 'screen', 10, 4],
   ], edges: [
-    ['L.in', 'r', 'L.d0', 'l'], ['L.d0', 'r', 'v2-sna', 'l', 'Yes'], ['L.d0', 'b', 'v2-unsafe', 't', 'No: rooted'], ['v2-unsafe', 'b', 'L.end', 't', 'Back to Finny'],
-    ['v2-sna', 'r', 'L.d1', 'l'], ['L.d1', 'r', 'L.d2', 'l', 'Yes'], ['L.d1', 'b', 'v2-otp', 't', 'No: SNA failed'],
-    ['v2-otp', 'r', 'L.d5', 'l', 'Verify'], ['L.d5', 't', 'L.d2', 'b', 'Yes'], ['L.d5', 'b', 'v2-otp-error', 't', 'No'], ['v2-otp-error', 'l', 'v2-otp', 'b', 'Retry'],
-    ['L.d2', 'r', 'L.d3', 'l', 'Yes'], ['L.d2', 't', 'L.d6', 'l', 'No screen lock', { via: [['y', -.08], ['x', 8]], at: 'end' }],
-    ['L.d3', 'r', 'v2-bind-intro', 'l', 'Yes'], ['L.d3', 'b', 'v2-biometric', 'b', 'No, returning', { via: [['y', .93]], at: 'end' }],
-    ['v2-bind-intro', 'r', 'v2-biometric', 'l', 'Continue'], ['v2-biometric', 'r', 'L.d4', 'l'],
-    ['L.d4', 'r', 'L.out', 'l', 'Yes'], ['L.d4', 'b', 'L.d6', 't', 'No / cancelled'],
-    ['L.d6', 'r', 'v2-pin-create', 'l', 'No'], ['L.d6', 'b', 'v2-pin-enter', 't', 'Yes'], ['v2-pin-create', 't', 'L.out', 'b', 'Create PIN'],
-    ['v2-pin-enter', 'r', 'L.d7', 'l'], ['L.d7', 'r', 'L.out2', 'l', 'Yes'], ['L.d7', 'b', 'v2-pin-error', 't', 'No'],
-    ['v2-pin-error', 'l', 'v2-forgot-pin', 'r', 'Forgot PIN?'], ['v2-forgot-pin', 't', 'v2-pin-enter', 'b', 'New PIN set'],
-    ['v2-pin-error', 'b', 'v2-login-failed', 't', 'Locked out'], ['v2-login-failed', 'r', 'L.end2', 'l', 'Exit'],
+    ['L.in', 'r', 'L.d0', 'l'], ['L.d0', 'r', 'v2-sna', 'l', 'Yes'], ['L.d0', 'b', 'v2-otp-nosdk', 't', 'No: OTP + PIN'],
+    ['v2-sna', 'r', 'L.d1', 'l'], ['L.d1', 'r', 'L.d2', 'l', 'Yes'], ['L.d1', 'b', 'v2-otp', 't', 'No: no SIM, Wi-Fi only, data off'],
+    ['v2-otp', 'l-40', 'v2-otp-error', 'r-40', 'Wrong OTP', { anchor: 'end' }], ['v2-otp-error', 'r+40', 'v2-otp', 'l+40', 'Retry'],
+    ['v2-otp', 'r', 'L.d2', 'b', 'Verified'],
+    ['L.d2', 'r', 'v2-bind-intro', 'l', 'Yes'], ['L.d2', 't', 'v2-biometric', 't', 'No', { via: [['y', -.08]], at: 'end' }],
+    ['v2-bind-intro', 'r', 'v2-biometric', 'l', 'Enrol'], ['v2-biometric', 'r', 'L.d3', 'l'],
+    ['L.d3', 'r', 'L.out', 'l', 'Yes'], ['L.d3', 'b', 'L.d4', 't', 'No: failed, cancelled or no screen lock'],
+    ['v2-otp-nosdk', 'r', 'L.d4', 'l', 'Verified'],
+    ['L.d4', 'r', 'v2-pin-create', 'l', 'Yes'], ['v2-pin-create', 't', 'L.out', 'b', 'PIN created'], ['L.d4', 'b', 'v2-pin-enter', 't', 'No'],
+    ['v2-pin-enter', 'r', 'L.d5', 'l'], ['L.d5', 'r', 'L.out2', 'l', 'No (PIN correct)'], ['L.d5', 'b', 'v2-forgot-pin', 't', 'Yes'],
+    ['v2-pin-enter', 'b-35', 'v2-pin-error', 't-35', 'Wrong PIN', { anchor: 'end' }], ['v2-pin-error', 't+35', 'v2-pin-enter', 'b+35', 'Try again'],
+    ['v2-pin-error', 'r', 'v2-forgot-pin', 'l', 'Forgot PIN?'],
+    ['v2-forgot-pin', 'r', 'v2-reset-pin', 'l', 'Reset link'], ['v2-reset-pin', 'r', 'v2-reset-done', 'l', 'Save new PIN'], ['v2-reset-done', 't', 'L.restart', 'b', 'Returns to Finny'],
+    ['L.ev', 'r', 'v2-unsafe', 'l', '', { kind: 'event' }], ['v2-unsafe', 'r', 'L.end', 'l', 'Back to Finny'],
   ] },
   { id: 'DL', name: 'Discovery & linking', title: '§2.1–2.2 Discovery & linking', nodes: [
     ['add-mobile', 'screen', 2, -1], ['v2-missing', 'screen', 3, -1], ['fip-list', 'screen', 4, -1],

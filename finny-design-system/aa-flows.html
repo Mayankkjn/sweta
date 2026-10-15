@@ -125,6 +125,14 @@
   .kv.kv2 dd { align-self: start; }
   .consent2 { display: grid; gap: 10px; padding: 14px; border-radius: var(--fy-radius-md); background: #fff; box-shadow: var(--fy-shadow-card); }
   .consent2 header { display: grid; gap: 6px; justify-items: start; }
+  .consent2--lite { gap: 12px; }
+  .consent2--lite header { display: flex; align-items: center; justify-content: space-between; }
+  .purpose3 { margin: 0; font: 600 15px/1.35 var(--fy-font); color: var(--fy-primary-600); }
+  .purpose3 small { display: block; margin-top: 2px; font: 400 11.5px/1.4 var(--fy-font); color: var(--fy-text-secondary); }
+  .facts3 { display: grid; gap: 8px; margin: 0; padding: 12px; border-radius: 10px; background: var(--fy-neutral-100); }
+  .facts3 div { display: grid; grid-template-columns: 82px minmax(0, 1fr); gap: 8px; align-items: baseline; }
+  .facts3 dt { font: 400 12px/1.4 var(--fy-font); color: var(--fy-text-secondary); }
+  .facts3 dd { margin: 0; font: 600 13px/1.4 var(--fy-font); color: var(--fy-primary-600); }
   .consent2 header b { font: 700 17px/1.25 var(--fy-font); color: var(--fy-primary-600); }
   .purpose2 { display: block; padding: 10px; border-radius: 10px; background: var(--fy-success-50); font: 400 12.5px/1.45 var(--fy-font); color: var(--fy-primary-500); }
   .purpose2 small { display: block; margin-top: 2px; color: var(--fy-text-secondary); }
@@ -1373,20 +1381,18 @@ const CONSENTS2 = [
   { id: 'dep', name: 'Bank accounts', types: 'Bank deposits', range: 'Past 13 months', accts: 'Axis Bank Savings ••••8538, Federal Bank Savings ••••4705' },
   { id: 'inv', name: 'Investments', types: 'Mutual funds, stocks & ETFs, NPS', range: 'Up to 20 years', accts: 'CAMS 8 folios, KFintech 5 folios, CDSL Demat ••••2210' },
 ];
+// Consent card, simplified: the 8 mandatory fields in 4 short rows (ReBIT 3.1(ii)); meanings live behind ⓘ and View details.
 const consentCard2 = (c, i) => `
-  <article class="consent2" data-consent2="${c.id}">
-    <header><span class="pill pill--mute">Consent ${i + 1} of ${CONSENTS2.length}</span><b>${c.name}</b></header>
-    <div class="purpose2"><b>Purpose:</b> Wealth management / advisory services <span class="muted">· code 101</span><small>Finny uses it to calculate your FIRE age and build your plan.</small></div>
-    <dl class="kv kv2">
-      ${field2('Consent start', 'Finny can fetch data from', '15 Oct 2026')}
-      ${field2('Consent expiry', 'Finny can fetch data until (max 1 year)', '15 Oct 2027')}
-      ${field2('Fetch type', 'Data is fetched more than once', 'Periodic')}
-      ${field2('Data types', 'Kinds of accounts shared', c.types)}
-      ${field2('Requested by', 'Who receives the data', 'Finny')}
-      ${field2('Data range', 'Period of history shared', c.range)}
-      ${field2('Frequency', 'How often Finny can fetch', 'Up to once a day')}
+  <article class="consent2 consent2--lite" data-consent2="${c.id}">
+    <header><b>${c.name}</b><span class="pill pill--mute">${i + 1} of ${CONSENTS2.length}</span></header>
+    <p class="purpose3">To calculate your FIRE age<small>Wealth management / advisory services · code 101</small></p>
+    <dl class="facts3">
+      <div><dt>Shares</dt><dd>${c.types}, ${c.range.toLowerCase()}</dd></div>
+      <div><dt>How often</dt><dd>Periodic, up to once a day</dd></div>
+      <div><dt>Valid</dt><dd>15 Oct 2026 – 15 Oct 2027</dd></div>
+      <div><dt>Shared with</dt><dd>Finny</dd></div>
     </dl>
-    <button type="button" class="link small viewmore2" data-go="v2-viewmore">View more</button>
+    <button type="button" class="link small viewmore2" data-go="v2-viewmore">View details ›</button>
     <div class="decide" data-decide2><button type="button" class="fy-btn fy-btn--reject" data-d2="no">Reject</button><button type="button" class="fy-btn fy-btn--approve" data-d2="ok">Approve</button></div>
   </article>`;
 const discoverySteps = `<div class="progress" style="width:100%;--p:55%"><i></i></div>
@@ -1546,7 +1552,7 @@ add({ id: 'v2-link-error', title: 'Linking error sheet', isNew: true, clauses: [
       <div class="sheet-body"><div class="decide"><button class="fy-btn fy-btn--reject" data-go="v2-consents">Skip this bank</button><button class="fy-btn fy-btn--approve" data-go="v2-link-otp">Try again</button></div>${tagline}</div></div></div>`) });
 
 add({ id: 'v2-consents', title: 'Consents: approve each', isNew: true, clauses: ['3.1.ii', '3.1.iv', '3.2.iv', '3.2.v', '3.2.vi', '3.2.i'],
-  notes: [T(12) + ': one card per consent (deposits, investments), each with its own equal Reject and Approve, nothing preselected. No “Approve all”.', T(13) + ': all 8 fields on the card with a one-line description; purpose is the CT004 text with code 101 and Finny’s line under it.', 'After a tap the card shows Approved or Rejected; Continue appears once every card has a decision. Mixed decisions are supported.'],
+  notes: [T(12) + ': one card per consent (deposits, investments), each with its own equal Reject and Approve, nothing preselected. No “Approve all”.', T(13) + ': all 8 mandatory fields stay on the card, grouped into four short rows (what is shared and for how long, how often, validity, recipient). Purpose leads in plain words with the CT004 text and code 101 under it; field meanings moved to View details.', 'After a tap the card shows Approved or Rejected; Continue appears once every card has a decision. Mixed decisions are supported.'],
   render: () => screen(`${aabar()}
     <div class="scroll pad stack-4" style="padding-bottom:16px">
       <h1 class="title title--sm">2 consent requests from Finny</h1>
@@ -1562,6 +1568,9 @@ add({ id: 'v2-viewmore', title: 'View more (consent details)', isNew: true, clau
       <div class="fy-sheet__head fy-sheet__head--plain" style="padding-bottom:4px"><button class="fy-icon-btn fy-sheet__close" data-back aria-label="Close">${ic('close')}</button><p class="fy-sheet__title" style="font-size:19px">Consent details · Bank accounts</p></div>
       <div class="sheet-body">
         <dl class="kv kv2">
+          ${field2('Consent start · expiry', 'When Finny can start and must stop fetching (max 1 year)', '15 Oct 2026 · 15 Oct 2027')}
+          ${field2('Fetch type · frequency', 'Periodic means fetched more than once', 'Periodic · up to once a day')}
+          ${field2('Data types · range', 'Kinds of accounts and period of history shared', 'Bank deposits · past 13 months')}
           ${field2('Data filter', 'Filters applied to your data', 'None')}
           ${field2('Consent mode', 'Finny stores the data it fetches', 'Store')}
           ${field2('Consent type', 'What Finny can see', 'Profile<sup>1</sup> Summary<sup>2</sup> Transactions<sup>3</sup>')}

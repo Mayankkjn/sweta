@@ -110,6 +110,10 @@
   .aa-brand__text { display: grid; line-height: 1.15; }
   .aa-brand__text b { font: 700 16px/1.1 var(--fy-font); color: var(--fy-primary-600); }
   .aa-brand__text small { font: 400 10px/1.3 var(--fy-font); color: var(--fy-text-secondary); }
+  .tag-nd { display: inline-block; padding: 1px 6px; border-radius: 4px; background: var(--fy-neutral-200); color: var(--fy-neutral-500); font: 600 9px/1.5 var(--fy-font); text-transform: uppercase; letter-spacing: .04em; white-space: nowrap; vertical-align: 1px; }
+  .wf-cap .tag-nd { margin-left: 4px; }
+  .wf-card:has(.tag-nd) .wf-phone { opacity: .55; }
+  .why .nd-note { padding: 10px 12px; border-radius: 10px; background: var(--fy-neutral-100); font-size: 12.5px; line-height: 1.5; color: var(--fy-primary-500); }
   .browserbar { display: flex; align-items: center; gap: 6px; margin: 0 12px 4px; padding: 6px 10px; border-radius: 999px; background: var(--fy-neutral-200); font: 400 11px/1 var(--fy-font); color: var(--fy-neutral-500); }
   .browserbar svg { width: 11px; height: 11px; }
   .proto-row { display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; }
@@ -1680,6 +1684,10 @@ add({ id: 'v2-finny-profile', title: 'Finny profile: linked accounts', isNew: tr
     </div>`, { main: true }) });
 
 const V2_IDS = V2.flatMap(g => g.ids);
+// Tech sheet "Design needed = No": whole screens, and screens with one such block.
+const V2_NODESIGN = { 'v2-missing': 7, 'add-mobile': 7, 'fip-list': 7 };
+const V2_NODESIGN_PART = { 'v2-finny-profile': [16, 'the “Notifications from Finvu” block'] };
+const noDesign = id => VER === 'v2' && V2_NODESIGN[id];
 const verIds = () => VER === 'v2' ? V2_IDS : V1_IDS;
 const flowOf = id => VER === 'v2' ? (V2.find(g => g.ids.includes(id))?.flow || '') : (S.find(s => s.id === id)?.flow || '');
 const listScreens = () => verIds().map(id => S.find(s => s.id === id));
@@ -1709,7 +1717,7 @@ function renderIndex() {
   let html = '', flow = '';
   listScreens().forEach((s, i) => {
     if (flowOf(s.id) !== flow) { flow = flowOf(s.id); html += `<h2>${flow}</h2>`; }
-    html += `<button type="button" data-jump="${s.id}" aria-current="${s.id === cur}"><b title="${REF[s.id][0] === 'A' ? 'Annexure ' + REF[s.id].slice(1) : 'ReBIT clause ' + REF[s.id]}">${REF[s.id]}</b>${s.title.replace(/^\d+[a-z]?\. /, '')}<span class="tags">${typeof CM !== 'undefined' && cmFor(s.id).length ? `<span class="tag-cmt" title="${cmFor(s.id).length} comment${cmFor(s.id).length > 1 ? 's' : ''}">${ic('msg')}${cmFor(s.id).length}</span>` : ''}${s.opt ? `<span class="tag-opt" title="${s.opt[0]}">${s.opt[0]}</span>` : ''}${s.isNew ? '<span class="tag-new">New</span>' : ''}</span></button>`;
+    html += `<button type="button" data-jump="${s.id}" aria-current="${s.id === cur}"><b title="${REF[s.id][0] === 'A' ? 'Annexure ' + REF[s.id].slice(1) : 'ReBIT clause ' + REF[s.id]}">${REF[s.id]}</b>${s.title.replace(/^\d+[a-z]?\. /, '')}<span class="tags">${typeof CM !== 'undefined' && cmFor(s.id).length ? `<span class="tag-cmt" title="${cmFor(s.id).length} comment${cmFor(s.id).length > 1 ? 's' : ''}">${ic('msg')}${cmFor(s.id).length}</span>` : ''}${s.opt ? `<span class="tag-opt" title="${s.opt[0]}">${s.opt[0]}</span>` : ''}${noDesign(s.id) ? '<span class="tag-nd" title="Tech sheet: Design needed = No">No design</span>' : ''}${s.isNew && !noDesign(s.id) ? '<span class="tag-new">New</span>' : ''}</span></button>`;
   });
   $('#index').innerHTML = html;
 }
@@ -1719,6 +1727,8 @@ function renderWhy() {
     <h3>${s.title}</h3>
     <ul>${s.notes.map(n => `<li>${n}</li>`).join('')}</ul>
     ${s.opt ? `<p class="opt-note"><b>${s.opt[0]}.</b> ${s.opt[1]}</p>` : ''}
+    ${noDesign(s.id) ? `<p class="nd-note"><b>Design needed: No.</b> Tech sheet S.no ${V2_NODESIGN[s.id]} (FIP list and extra identifiers) marks this as not needing design. Shown for completeness of the flow.</p>` : ''}
+    ${VER === 'v2' && V2_NODESIGN_PART[s.id] ? `<p class="nd-note"><b>Partly no design.</b> Tech sheet S.no ${V2_NODESIGN_PART[s.id][0]} marks ${V2_NODESIGN_PART[s.id][1]} as Design needed: No.</p>` : ''}
     <span class="label">ReBIT AA standard <small>· tap a clause to read it</small></span>
     <div class="clauses">${s.clauses.map(c => `<button type="button" data-clause="${c}" aria-expanded="false">§${c}</button>`).join('')}</div>
     <div class="clause-panel" id="clause-panel" hidden></div>
@@ -1871,7 +1881,7 @@ function showDoc(root, k) {
 function renderGallery() {
   const flows = [...new Set(verIds().map(flowOf))];
   $('#gallery').innerHTML = `<div><h2>All ${verIds().length} screens · ${VER === 'v2' ? 'v2 · Tech scope' : 'v1 · Earlier'}</h2><p class="lede">Static view of every screen, grouped by flow. Switch to Prototype to click through.</p></div>` +
-    flows.map(f => `<section><h2 style="font-size:17px">${f}</h2><div class="gallery__row">${listScreens().filter(s => flowOf(s.id) === f).map(s => `<div class="gallery__item"><div class="phone">${s.render()}</div><div class="gallery__cap"><b>${REF[s.id]}</b>${s.title}${s.isNew ? ' · <span style="color:var(--fy-warning-700)">New</span>' : ''}</div></div>`).join('')}</div></section>`).join('');
+    flows.map(f => `<section><h2 style="font-size:17px">${f}</h2><div class="gallery__row">${listScreens().filter(s => flowOf(s.id) === f).map(s => `<div class="gallery__item"><div class="phone">${s.render()}</div><div class="gallery__cap"><b>${REF[s.id]}</b>${s.title}${noDesign(s.id) ? ' <span class="tag-nd">No design</span>' : s.isNew ? ' · <span style="color:var(--fy-warning-700)">New</span>' : ''}</div></div>`).join('')}</div></section>`).join('');
 }
 
 document.addEventListener('click', e => { const j = e.target.closest('[data-jump]'); if (j) { hist.length = 0; go(j.dataset.jump); } });
@@ -2157,7 +2167,7 @@ function buildWire() {
   html += `<svg class="wf-wires" width="${WF.w}" height="${WF.h}" aria-hidden="true"><defs>${['n', 'out', 'in', 'ev'].map(k => `<marker id="wf-a-${k}" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" class="ah ah--${k}"/></marker>`).join('')}</defs><g id="wf-edges"></g><g id="wf-decs"></g></svg>`;
   Object.values(WF.nodes).forEach(n => {
     const st = `left:${n.x}px;top:${n.y}px;width:${n.w}px;height:${n.h}px`;
-    if (n.type === 'screen') html += `<div role="button" tabindex="0" class="wf-node wf-card" data-wf="${n.id}" style="${st}" aria-label="${REF[n.id]} ${esc(shortTitle(n.id))}"><div class="wf-cap"><b>${REF[n.id]}</b>${esc(shortTitle(n.id))}</div><div class="wf-phone">${byId[n.id].render()}</div></div>`;
+    if (n.type === 'screen') html += `<div role="button" tabindex="0" class="wf-node wf-card" data-wf="${n.id}" style="${st}" aria-label="${REF[n.id]} ${esc(shortTitle(n.id))}"><div class="wf-cap"><b>${REF[n.id]}</b>${esc(shortTitle(n.id))}${noDesign(n.id) ? '<span class="tag-nd">No design</span>' : ''}</div><div class="wf-phone">${byId[n.id].render()}</div></div>`;
     else if (n.type === 'start' || n.type === 'end') html += `<div class="wf-node wf-term wf-term--${n.type}" style="${st}"><span>${n.type === 'start' ? 'Start' : 'End'}</span>${esc(n.text).replace(/\n/g, '<br>')}</div>`;
     else if (n.type === 'event') html += `<div class="wf-node wf-term wf-term--event" style="${st}"><span>System event</span>${esc(n.text).replace(/\n/g, '<br>')}</div>`;
     else if (n.type === 'to' || n.type === 'from') html += `<button type="button" class="wf-node wf-link wf-link--${n.type}" data-link="${n.id}" style="${st}"><span>${n.type === 'to' ? 'Continues in' : 'Comes from'}</span>${n.type === 'from' ? '← ' : ''}${esc(n.label || boardOf(n.text).name)}${n.type === 'to' ? ' →' : ''}</button>`;

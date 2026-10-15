@@ -1337,7 +1337,7 @@ const discoverySteps = `<div class="progress" style="width:100%;--p:55%"><i></i>
 const finnyHead = (title) => `<div class="aabar"><button class="fy-icon-btn" data-back aria-label="Back">${ic('back')}</button><span class="aabar__mid" style="font:600 15px/1 var(--fy-font);color:var(--fy-primary-600)">${title}</span><span></span></div>`;
 
 const V2 = [
-  { flow: 'Finny · before Finvu (§4.2.i, §3.1.iv)', ids: ['v2-finny-consents', 'v2-redirect'] },
+  { flow: 'Finny · hand-off (§4.2.i)', ids: ['v2-redirect'] },
   { flow: '§5.1 Sign in to Finvu (2FA)', ids: ['v2-sna', 'v2-otp', 'v2-otp-error', 'v2-bind-intro', 'v2-biometric', 'v2-otp-nosdk', 'v2-pin-create', 'v2-pin-enter', 'v2-pin-error', 'v2-forgot-pin', 'v2-reset-pin', 'v2-reset-done', 'v2-unsafe'] },
   { flow: '§2.1–2.2 Discovery & linking', ids: ['v2-welcome-back', 'v2-welcome-new', 'v2-missing', 'add-mobile', 'fip-list', 'v2-select', 'v2-link-otp', 'v2-link-error'] },
   { flow: '§3.1–3.2 Consent & outcomes', ids: ['v2-consents', 'v2-viewmore', 'field-info', 'connecting', 'success', 'v2-partial', 'v2-declined', 'help'] },
@@ -1675,7 +1675,7 @@ add({ id: 'v2-finny-profile', title: 'Finny profile: linked accounts', isNew: tr
       <p class="eyebrow">Linked accounts</p>
       <div class="card card--flush">
         ${[['Axis Bank', 'Savings ••••8538', '<span class="pill pill--ok">Active</span>'], ['CAMS', 'Mutual funds · data up to 02 Oct', '<span class="pill pill--warn">Paused on Finvu</span>'],
-           ['Federal Bank', 'Savings ••••4705 · consent expired', '<button class="link small" data-go="v2-finny-consents">Reconnect</button>'], ['CDSL', 'Demat ••••2210 · consent revoked', '<button class="link small" data-go="v2-finny-consents">Reconnect</button>']]
+           ['Federal Bank', 'Savings ••••4705 · consent expired', '<button class="link small" data-go="v2-redirect">Reconnect</button>'], ['CDSL', 'Demat ••••2210 · consent revoked', '<button class="link small" data-go="v2-redirect">Reconnect</button>']]
           .map(([n, m, s]) => `<div class="acct"><span class="acct__text"><span class="acct__name">${n}</span><span class="acct__meta">${m}</span></span>${s}</div>`).join('')}
       </div>
       <div class="card stack"><p class="eyebrow">Manage consents on Finvu</p><p class="small" style="margin:0;color:var(--fy-primary-500)">Revoke, pause or resume a consent, delink an account or close your Finvu account on Finvu’s consent dashboard.</p><button class="fy-btn fy-btn--secondary" type="button">Open Finvu dashboard</button></div>
@@ -2016,10 +2016,10 @@ const FLOW = [
 ];
 // v2 flowchart (tech scope). Same grammar as FLOW above.
 const FLOW2 = [
-  { id: 'H', name: 'Hand-off', title: 'Finny · before Finvu (§4.2.i, §3.1.iv)', nodes: [
-    ['H.start', 'start', 0, 0, 'User taps\nConnect accounts'], ['v2-finny-consents', 'screen', 1, 0], ['v2-redirect', 'screen', 2, 0], ['H.out', 'to', 3, 0, 'L'],
+  { id: 'H', name: 'Hand-off', title: 'Finny · hand-off (§4.2.i)', nodes: [
+    ['H.start', 'start', 0, 0, 'User taps\nConnect accounts'], ['v2-redirect', 'screen', 1, 0], ['H.out', 'to', 2, 0, 'L'],
   ], edges: [
-    ['H.start', 'r', 'v2-finny-consents', 'l'], ['v2-finny-consents', 'r', 'v2-redirect', 'l', 'Continue to Finvu'], ['v2-redirect', 'r', 'H.out', 'l', 'Finvu opens'],
+    ['H.start', 'r', 'v2-redirect', 'l'], ['v2-redirect', 'r', 'H.out', 'l', 'Finvu opens'],
   ] },
   { id: 'L', name: 'Sign in', title: '§5.1 Sign in to Finvu (2FA): options and fallbacks', nodes: [
     ['L.in', 'from', 0, 0, 'H'], ['L.d0', 'dec', 1, 0, 'Finvu Auth SDK\nembedded?'], ['v2-sna', 'screen', 2, 0], ['L.d1', 'dec', 3, 0, 'SNA\nsucceeded?'],

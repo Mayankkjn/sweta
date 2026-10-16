@@ -1,0 +1,344 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Analytics</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --rail:#262840;
+    --rail-active:#3a3d58;
+    --rail-icon:#e7e8f2;
+    --page:#fafafa;
+    --paper:#ffffff;
+    --ink-900:#3b3a52;
+    --ink-800:#2a2b3f;
+    --ink-600:#5f6075;
+    --ink-400:#8a8b9e;
+    --line:#e3e3ea;
+    --line-soft:#ececf2;
+    --brand:#ec5b13;
+    --blue:#1a6fe0;
+    --blue-bg:#f2f7ff;
+    --amber:#e6a100;
+    --card:#2a2b40;
+    --card-hover:#34364f;
+    --send:#8b8a9f;
+    --send-active:#ec5b13;
+    --radius-xl:24px;
+    --radius-lg:16px;
+    --radius-pill:999px;
+    --font:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --page:#14151f; --paper:#1b1c29; --ink-900:#ececf5; --ink-800:#f4f4fa;
+      --ink-600:#b3b4c6; --ink-400:#8a8ba0; --line:#2d2e40; --line-soft:#26273a;
+      --blue-bg:#16233b; --card:#2b2d46; --card-hover:#363957; --rail:#10111a; --rail-active:#262840;
+    }
+  }
+  :root[data-theme="dark"]{
+    --page:#14151f; --paper:#1b1c29; --ink-900:#ececf5; --ink-800:#f4f4fa;
+    --ink-600:#b3b4c6; --ink-400:#8a8ba0; --line:#2d2e40; --line-soft:#26273a;
+    --blue-bg:#16233b; --card:#2b2d46; --card-hover:#363957; --rail:#10111a; --rail-active:#262840;
+  }
+
+  *{box-sizing:border-box}
+  html,body{margin:0;height:100%}
+  body{font-family:var(--font);background:var(--page);color:var(--ink-800);-webkit-font-smoothing:antialiased}
+  button{font:inherit;color:inherit;cursor:pointer}
+  svg{display:block}
+
+  .app{display:flex;min-height:100vh}
+
+  /* ---------- Side rail ---------- */
+  .rail{
+    position:sticky;top:0;height:100vh;flex:0 0 64px;background:var(--rail);
+    display:flex;flex-direction:column;align-items:center;padding:20px 0 16px;gap:4px;
+  }
+  .rail .brand,.rail .app-switch{position:relative;width:40px;height:40px;display:grid;place-items:center;border-radius:10px;background:none;border:0}
+  .rail .corner{position:absolute;right:-2px;bottom:-4px;width:7px;height:7px;border-right:1.5px solid #fff;border-bottom:1.5px solid #fff}
+  .rail .sep{width:30px;height:1px;background:rgba(255,255,255,.18);margin:14px 0}
+  .rail .nav{display:flex;flex-direction:column;gap:4px;margin-top:10px}
+  .rail .nav button{
+    width:40px;height:40px;border:0;border-radius:8px;background:none;color:var(--rail-icon);
+    display:grid;place-items:center;transition:background .15s;
+  }
+  .rail .nav button:hover{background:rgba(255,255,255,.08)}
+  .rail .nav button[aria-current="page"]{background:var(--rail-active);color:var(--brand);box-shadow:inset 0 0 0 1px rgba(255,255,255,.06)}
+  .rail .spacer{flex:1}
+  .rail .avatar{width:30px;height:30px;border-radius:50%;border:2px solid #c2416b;background:linear-gradient(135deg,#f4c7a1,#b27a55);display:grid;place-items:center;font-size:11px;font-weight:600;color:#3b2417}
+  .rail .chat{position:relative;margin-top:16px;width:40px;height:40px;border:0;background:none;color:var(--rail-icon);display:grid;place-items:center}
+  .rail .chat .dot{position:absolute;top:8px;right:8px;width:7px;height:7px;border-radius:50%;background:#2f8cff}
+
+  /* ---------- Main ---------- */
+  main{flex:1;min-width:0;padding:96px 44px 48px}
+  .hero{max-width:780px;margin:0 auto;text-align:center}
+  .hero h1{
+    margin:0 0 40px;font-size:clamp(24px,3.4vw,36px);font-weight:600;letter-spacing:-.01em;color:var(--ink-900);
+    display:inline-flex;align-items:center;gap:14px;
+  }
+  .query{
+    position:relative;display:flex;align-items:center;background:var(--paper);
+    border:1px solid var(--line);border-radius:var(--radius-lg);padding:10px 14px 10px 22px;
+    box-shadow:0 6px 20px -14px rgba(40,40,70,.35);transition:border-color .15s,box-shadow .15s;
+  }
+  .query:focus-within{border-color:#c9c8d8;box-shadow:0 8px 26px -14px rgba(40,40,70,.45)}
+  .query input{flex:1;min-width:0;border:0;outline:0;background:none;font:inherit;font-size:16px;color:var(--ink-800);padding:10px 0}
+  .query input::placeholder{color:var(--ink-600)}
+  .send{
+    flex:0 0 36px;height:36px;border-radius:50%;border:0;background:var(--send);color:#fff;
+    display:grid;place-items:center;transition:background .15s,transform .1s;
+  }
+  .send:not(:disabled):hover{transform:translateY(-1px)}
+  .query.has-text .send{background:var(--send-active)}
+  .send:disabled{cursor:default}
+
+  .divider{display:flex;align-items:center;justify-content:center;gap:14px;margin:52px auto 30px;color:var(--ink-400);font-size:15px;max-width:380px}
+  .divider::before,.divider::after{content:"";flex:1;height:1px;background:linear-gradient(90deg,transparent,var(--line))}
+  .divider::after{background:linear-gradient(90deg,var(--line),transparent)}
+
+  .quick{display:flex;flex-wrap:wrap;justify-content:center;gap:12px}
+  .quick button{
+    display:inline-flex;align-items:center;gap:10px;padding:11px 20px;border-radius:var(--radius-pill);
+    border:1px solid var(--line-soft);background:var(--paper);color:var(--ink-800);font-size:16px;
+    box-shadow:0 2px 6px -3px rgba(40,40,70,.2);transition:border-color .15s,transform .1s;
+  }
+  .quick button:hover{border-color:#cfcfdc;transform:translateY(-1px)}
+
+  /* ---------- Reports panel ---------- */
+  .reports{
+    margin:60px auto 0;max-width:1240px;background:var(--paper);border:1px solid var(--line);
+    border-radius:var(--radius-xl);padding:34px 0 72px 34px;overflow:hidden;
+  }
+  .reports h2{margin:0 0 12px;font-size:23px;font-weight:600;color:var(--ink-800)}
+  .reports p{margin:0 0 26px;color:var(--ink-600);font-size:15.5px}
+  .tabs{display:flex;gap:8px;margin-bottom:30px;flex-wrap:wrap;padding-right:34px}
+  .tabs button{
+    padding:7px 22px;border-radius:var(--radius-pill);border:1px solid var(--line-soft);background:var(--paper);
+    color:var(--ink-600);font-size:15.5px;transition:all .15s;
+  }
+  .tabs button:hover{color:var(--ink-800)}
+  .tabs button[aria-selected="true"]{border:1.5px solid var(--blue);color:var(--blue);background:var(--blue-bg);font-weight:600}
+
+  .cards{
+    display:flex;gap:18px;overflow-x:auto;scroll-snap-type:x mandatory;padding-right:34px;
+    scrollbar-width:none;
+  }
+  .cards::-webkit-scrollbar{display:none}
+  .card{
+    flex:0 0 282px;height:162px;border-radius:12px;background:var(--card);color:#fff;
+    padding:18px;display:flex;flex-direction:column;justify-content:flex-end;scroll-snap-align:start;
+    border:0;text-align:left;position:relative;transition:background .15s,transform .15s;
+  }
+  .card:hover{background:var(--card-hover);transform:translateY(-2px)}
+  .card .tag{
+    position:absolute;top:14px;left:18px;font-size:11.5px;font-weight:500;letter-spacing:.02em;
+    color:rgba(255,255,255,.7);display:inline-flex;align-items:center;gap:6px;
+  }
+  .card .tag::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--tag,#7fd3a4)}
+  .card h3{margin:0 0 6px;font-size:22px;font-weight:600;line-height:1.2}
+  .card span{font-size:14px;color:rgba(255,255,255,.88)}
+  .empty{color:var(--ink-400);font-size:15px;padding:40px 0}
+
+  .toast{
+    position:fixed;left:50%;bottom:28px;transform:translate(-50%,20px);opacity:0;pointer-events:none;
+    background:var(--ink-800);color:var(--paper);padding:10px 18px;border-radius:10px;font-size:14px;
+    transition:all .25s;max-width:calc(100vw - 32px);
+  }
+  .toast.show{opacity:1;transform:translate(-50%,0)}
+
+  @media (max-width:720px){
+    .rail{flex-basis:52px;padding-top:14px}
+    .rail .nav button,.rail .brand,.rail .app-switch{width:36px;height:36px}
+    main{padding:56px 16px 32px}
+    .hero h1{gap:10px;margin-bottom:28px}
+    .quick button{font-size:14.5px;padding:9px 16px}
+    .reports{padding:24px 0 40px 20px;border-radius:18px}
+    .tabs,.cards{padding-right:20px}
+    .card{flex-basis:240px;height:140px}
+    .card h3{font-size:19px}
+  }
+</style>
+</head>
+<body>
+<div class="app">
+  <!-- Side rail -->
+  <nav class="rail" aria-label="Primary">
+    <button class="brand" aria-label="Home">
+      <svg width="28" height="24" viewBox="0 0 28 24" aria-hidden="true">
+        <path d="M2 9h4l1.6 7L10 9h3l2.4 7L18 2h4l-4.4 18h-3.4L12 13.2 9.8 20H6.4z" fill="#ec5b13"/>
+        <path d="M21 9.5h3.6L22 20h-3.6z" fill="#f59a23"/>
+      </svg>
+      <span class="corner"></span>
+    </button>
+    <div class="sep"></div>
+    <button class="app-switch" aria-label="Switch application">
+      <svg width="30" height="21" viewBox="0 0 30 21" aria-hidden="true">
+        <path d="M12.4 3.2A5.6 5.6 0 0 1 21.6 4a5 5 0 0 1 6.4 4.8 5 5 0 0 1-5 5H23a4.6 4.6 0 0 1-6.8 2.4A5 5 0 0 1 8 15.6a4.6 4.6 0 0 1-5.6-4.5A4.6 4.6 0 0 1 7.8 6.6a5.4 5.4 0 0 1 4.6-3.4z" fill="#1798c1"/>
+        <text x="15" y="11.6" text-anchor="middle" font-size="3.6" fill="#fff" font-family="Arial">cloud</text>
+      </svg>
+      <span class="corner"></span>
+    </button>
+    <div class="nav">
+      <button aria-current="page" aria-label="Analytics">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="4" width="14" height="17" rx="2"/><path d="M9 2.8h6v3H9zM9 16v-2M12 16v-5M15 16v-3"/></svg>
+      </button>
+      <button aria-label="Insights">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 17h6M10 20h4M12 6a5 5 0 0 0-3 9v2h6v-2a5 5 0 0 0-3-9zM12 2v1M4.5 5l.8.8M19.5 5l-.8.8M2.5 11.5h1M20.5 11.5h1"/></svg>
+      </button>
+      <button aria-label="Trends">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3v18h18"/><circle cx="8" cy="14" r="1.6"/><circle cx="12" cy="9" r="1.6"/><circle cx="15.5" cy="13" r="1.6"/><circle cx="19.5" cy="6" r="1.6"/><path d="M9 12.6l2-2.3M13.2 10.2l1.2 1.5M16.4 11.6l2.3-4"/></svg>
+      </button>
+      <button aria-label="Users">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="8" r="3.6"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0M15.5 4.6a3.6 3.6 0 0 1 0 6.8M18 14.4a6.5 6.5 0 0 1 3.5 5.6"/></svg>
+      </button>
+      <button aria-label="Settings">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg>
+      </button>
+    </div>
+    <div class="spacer"></div>
+    <div class="sep"></div>
+    <div class="avatar" aria-label="Profile">SJ</div>
+    <button class="chat" aria-label="Messages">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 13.5a2 2 0 0 1-2 2H8l-4 4V5.5a2 2 0 0 1 2-2h8"/><path d="M8 8.5h6M8 12h8"/></svg>
+      <span class="dot"></span>
+    </button>
+  </nav>
+
+  <main>
+    <section class="hero">
+      <h1>
+        <svg width="34" height="34" viewBox="0 0 34 34" aria-hidden="true">
+          <path d="M13 6c.9 6 3.4 8.5 9.4 9.4-6 .9-8.5 3.4-9.4 9.4-.9-6-3.4-8.5-9.4-9.4C9.6 14.5 12.1 12 13 6z" fill="#ec5b13"/>
+          <path d="M25 2c.45 3 1.7 4.25 4.7 4.7-3 .45-4.25 1.7-4.7 4.7-.45-3-1.7-4.25-4.7-4.7 3-.45 4.25-1.7 4.7-4.7z" fill="#ec5b13"/>
+        </svg>
+        What do you want to analyze?
+      </h1>
+
+      <form class="query" id="queryForm" autocomplete="off">
+        <input id="queryInput" type="text" placeholder="Type your query here..." aria-label="Query" />
+        <button class="send" id="sendBtn" type="submit" aria-label="Submit query" disabled>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+        </button>
+      </form>
+
+      <div class="divider">or create new</div>
+
+      <div class="quick">
+        <button type="button" data-prompt="Track usage of ">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ec5b13" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 17h6M10 20h4M12 6a5 5 0 0 0-3 9v2h6v-2a5 5 0 0 0-3-9zM12 2v1M4.5 5l.8.8M19.5 5l-.8.8M2.5 11.5h1M20.5 11.5h1"/></svg>
+          Track usage
+        </button>
+        <button type="button" data-prompt="Create content for ">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#e6a100" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 14a2 2 0 0 1-2 2H8l-4 4V6a2 2 0 0 1 2-2h13a2 2 0 0 1 2 2z"/><path d="M8 9h8M8 12.5h5"/></svg>
+          Create Content
+        </button>
+        <button type="button" data-prompt="Generate a report on ">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1a6fe0" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2.5H6.5a2 2 0 0 0-2 2v15a2 2 0 0 0 2 2h11a2 2 0 0 0 2-2V8z"/><path d="M14 2.5V8h5.5M9 17v-2M12 17v-4M15 17v-3"/></svg>
+          Generate Reports
+        </button>
+      </div>
+    </section>
+
+    <section class="reports" aria-labelledby="reportsTitle">
+      <h2 id="reportsTitle">Usage and ROI Reports</h2>
+      <p>Auto curated reports for to track usage and ROI of Whatfix content created.</p>
+
+      <div class="tabs" role="tablist">
+        <button role="tab" aria-selected="true" data-filter="all">All</button>
+        <button role="tab" aria-selected="false" data-filter="scheduled">Scheduled</button>
+        <button role="tab" aria-selected="false" data-filter="auto">Autogenrated</button>
+      </div>
+
+      <div class="cards" id="cards"></div>
+    </section>
+  </main>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+  const reports = [
+    { title: "SAP adoption report",  range: "Q1-Q3",         type: "scheduled" },
+    { title: "Pop up usage report",  range: "Jan’26-Jul’26", type: "auto" },
+    { title: "Ask AI adoption",      range: "Jan’26-Jul’26", type: "auto" },
+    { title: "Ask AI adoption",      range: "Jan’26-Jul’26", type: "scheduled" },
+    { title: "Task list completion", range: "Apr’26-Sep’26", type: "auto" },
+    { title: "Onboarding flow ROI",  range: "FY26",          type: "scheduled" }
+  ];
+
+  const cardsEl = document.getElementById("cards");
+  const toastEl = document.getElementById("toast");
+  let toastTimer;
+
+  function toast(msg){
+    toastEl.textContent = msg;
+    toastEl.classList.add("show");
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => toastEl.classList.remove("show"), 2200);
+  }
+
+  function renderCards(filter){
+    const list = reports.filter(r => filter === "all" || r.type === filter);
+    cardsEl.innerHTML = list.length ? "" : '<div class="empty">No reports yet.</div>';
+    list.forEach(r => {
+      const b = document.createElement("button");
+      b.className = "card";
+      b.type = "button";
+      if (filter !== "all") {
+        b.style.setProperty("--tag", r.type === "scheduled" ? "#7fb3ff" : "#7fd3a4");
+        b.innerHTML = `<div class="tag">${r.type === "scheduled" ? "Scheduled" : "Autogenerated"}</div>`;
+      }
+      b.insertAdjacentHTML("beforeend", `<h3></h3><span></span>`);
+      b.querySelector("h3").textContent = r.title;
+      b.querySelector("span").textContent = r.range;
+      b.addEventListener("click", () => toast(`Opening “${r.title}” · ${r.range}`));
+      cardsEl.appendChild(b);
+    });
+    cardsEl.scrollLeft = 0;
+  }
+
+  document.querySelectorAll(".tabs button").forEach(tab => {
+    tab.addEventListener("click", () => {
+      document.querySelectorAll(".tabs button").forEach(t => t.setAttribute("aria-selected", t === tab));
+      renderCards(tab.dataset.filter);
+    });
+  });
+
+  const form = document.getElementById("queryForm");
+  const input = document.getElementById("queryInput");
+  const send = document.getElementById("sendBtn");
+
+  function syncSend(){
+    const has = input.value.trim().length > 0;
+    send.disabled = !has;
+    form.classList.toggle("has-text", has);
+  }
+  input.addEventListener("input", syncSend);
+
+  form.addEventListener("submit", e => {
+    e.preventDefault();
+    const q = input.value.trim();
+    if (!q) return;
+    toast(`Analyzing: “${q}”`);
+    input.value = "";
+    syncSend();
+  });
+
+  document.querySelectorAll(".quick button").forEach(btn => {
+    btn.addEventListener("click", () => {
+      input.value = btn.dataset.prompt;
+      syncSend();
+      input.focus();
+      input.setSelectionRange(input.value.length, input.value.length);
+    });
+  });
+
+  renderCards("all");
+</script>
+</body>
+</html>

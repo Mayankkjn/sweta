@@ -1,0 +1,508 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Analytics</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --rail:#252638;
+    --rail-active:#3a3b52;
+    --rail-icon:#c9cad6;
+    --rail-line:#3b3c50;
+    --bg:#fafafa;
+    --surface:#ffffff;
+    --ink:#2e2f45;
+    --ink-soft:#5b5d72;
+    --ink-faint:#8d8fa1;
+    --line:#e4e5ec;
+    --line-soft:#eeeff3;
+    --card:#2b2c40;
+    --card-hover:#35364d;
+    --brand:#f26b1d;
+    --accent:#1366d6;
+    --accent-bg:#eef4fd;
+    --send:#8a8aa0;
+    --send-active:#2e2f45;
+    --shadow-input:0 1px 2px rgba(30,31,50,.04), 0 6px 18px -8px rgba(30,31,50,.12);
+    --font:"Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+  }
+  :root[data-theme="dark"]{
+    --bg:#15161f; --surface:#1d1e2b; --ink:#ecedf4; --ink-soft:#b2b4c6; --ink-faint:#85879b;
+    --line:#2f3042; --line-soft:#272836; --card:#2c2e45; --card-hover:#363852;
+    --accent:#6ea6ff; --accent-bg:#1e2a40; --send-active:#ecedf4;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#15161f; --surface:#1d1e2b; --ink:#ecedf4; --ink-soft:#b2b4c6; --ink-faint:#85879b;
+      --line:#2f3042; --line-soft:#272836; --card:#2c2e45; --card-hover:#363852;
+      --accent:#6ea6ff; --accent-bg:#1e2a40; --send-active:#ecedf4;
+    }
+  }
+
+  *{box-sizing:border-box;}
+  html,body{margin:0; padding:0;}
+  body{
+    font-family:var(--font);
+    background:var(--bg);
+    color:var(--ink);
+    -webkit-font-smoothing:antialiased;
+    min-height:100vh;
+  }
+  button,input{font-family:inherit;}
+  svg{display:block;}
+
+  /* ---------- Left rail ---------- */
+  .rail{
+    position:fixed; inset:0 auto 0 0;
+    width:72px;
+    background:var(--rail);
+    display:flex; flex-direction:column; align-items:center;
+    padding:20px 0 16px;
+    z-index:10;
+  }
+  .rail-group{display:flex; flex-direction:column; align-items:center; gap:6px; width:100%;}
+  .rail-sep{width:46px; height:1px; background:var(--rail-line); margin:14px 0;}
+  .rail-spacer{flex:1;}
+  .rail-btn{
+    position:relative;
+    width:46px; height:46px;
+    border:0; border-radius:10px;
+    background:transparent;
+    color:var(--rail-icon);
+    display:grid; place-items:center;
+    cursor:pointer;
+    transition:background .15s, color .15s;
+  }
+  .rail-btn:hover{background:rgba(255,255,255,.06); color:#fff;}
+  .rail-btn[aria-current="page"]{background:var(--rail-active); color:var(--brand);}
+  .rail-btn:focus-visible{outline:2px solid var(--brand); outline-offset:2px;}
+  .rail-btn .corner{
+    position:absolute; right:2px; bottom:2px;
+    width:8px; height:8px;
+    border-right:2px solid #fff; border-bottom:2px solid #fff;
+    border-bottom-right-radius:2px;
+    opacity:.9;
+  }
+  .rail-btn .dot{
+    position:absolute; top:9px; right:9px;
+    width:8px; height:8px; border-radius:50%;
+    background:#3b8cff; border:1.5px solid var(--rail);
+  }
+  .tip{
+    position:absolute; left:58px; top:50%; transform:translateY(-50%);
+    background:#11121c; color:#fff; font-size:12px; font-weight:500;
+    padding:6px 9px; border-radius:6px; white-space:nowrap;
+    pointer-events:none; opacity:0; transition:opacity .12s;
+  }
+  .rail-btn:hover .tip, .rail-btn:focus-visible .tip{opacity:1;}
+  .avatar{
+    width:34px; height:34px; border-radius:50%;
+    background:linear-gradient(140deg,#f1a277,#b9544a);
+    color:#fff; font-size:13px; font-weight:600;
+    display:grid; place-items:center;
+    box-shadow:0 0 0 2px #b9544a;
+  }
+
+  /* ---------- Main ---------- */
+  main{
+    margin-left:72px;
+    padding:96px 48px 64px;
+    max-width:1440px;
+  }
+  .hero{display:flex; flex-direction:column; align-items:center; text-align:center;}
+  .hero h1{
+    margin:0;
+    display:flex; align-items:center; gap:14px;
+    font-size:clamp(26px,3.4vw,40px);
+    font-weight:700;
+    letter-spacing:-.02em;
+    color:var(--ink);
+  }
+  .hero h1 svg{color:var(--brand); flex:none;}
+
+  .query{
+    position:relative;
+    width:100%; max-width:740px;
+    margin-top:40px;
+  }
+  .query input{
+    width:100%;
+    height:56px;
+    padding:0 64px 0 22px;
+    border:1px solid var(--line);
+    border-radius:12px;
+    background:var(--surface);
+    color:var(--ink);
+    font-size:16px;
+    box-shadow:var(--shadow-input);
+    transition:border-color .15s, box-shadow .15s;
+  }
+  .query input::placeholder{color:var(--ink-faint);}
+  .query input:focus{outline:none; border-color:#b9bbcc; box-shadow:0 0 0 4px rgba(46,47,69,.06), var(--shadow-input);}
+  .send{
+    position:absolute; right:10px; top:50%; transform:translateY(-50%);
+    width:36px; height:36px; border-radius:50%; border:0;
+    background:var(--send); color:#fff;
+    display:grid; place-items:center;
+    cursor:not-allowed;
+    transition:background .15s, transform .15s;
+  }
+  .send.ready{background:var(--send-active); color:var(--bg); cursor:pointer;}
+  .send.ready:hover{transform:translateY(-50%) scale(1.05);}
+  .send:focus-visible{outline:2px solid var(--accent); outline-offset:2px;}
+
+  .divider{
+    display:flex; align-items:center; gap:16px;
+    margin:36px 0 22px;
+    color:var(--ink-faint); font-size:15px;
+  }
+  .divider::before,.divider::after{
+    content:""; width:72px; height:1px;
+    background:linear-gradient(90deg,transparent,var(--line));
+  }
+  .divider::after{background:linear-gradient(90deg,var(--line),transparent);}
+
+  .actions{display:flex; flex-wrap:wrap; justify-content:center; gap:12px;}
+  .chip{
+    display:inline-flex; align-items:center; gap:10px;
+    height:40px; padding:0 18px 0 16px;
+    border:1px solid var(--line-soft); border-radius:999px;
+    background:var(--surface);
+    color:var(--ink);
+    font-size:15px; font-weight:500;
+    cursor:pointer;
+    box-shadow:0 1px 2px rgba(30,31,50,.04);
+    transition:border-color .15s, box-shadow .15s, transform .15s;
+  }
+  .chip:hover{border-color:var(--line); box-shadow:0 4px 12px -6px rgba(30,31,50,.2); transform:translateY(-1px);}
+  .chip:focus-visible{outline:2px solid var(--accent); outline-offset:2px;}
+  .chip .ic-track{color:var(--brand);}
+  .chip .ic-content{color:#e0a100;}
+  .chip .ic-report{color:var(--accent);}
+
+  /* ---------- Reports panel ---------- */
+  .reports{
+    margin-top:56px;
+    background:var(--surface);
+    border:1px solid var(--line);
+    border-radius:18px;
+    padding:34px 0 48px 36px;
+    overflow:hidden;
+  }
+  .reports h2{margin:0; font-size:24px; font-weight:600; letter-spacing:-.01em;}
+  .reports p{margin:10px 0 0; color:var(--ink-soft); font-size:16px; padding-right:36px;}
+
+  .tabs{display:flex; gap:8px; margin-top:24px; flex-wrap:wrap; padding-right:36px;}
+  .tab{
+    height:34px; padding:0 22px;
+    border-radius:999px;
+    border:1px solid var(--line-soft);
+    background:var(--surface);
+    color:var(--ink-soft);
+    font-size:15px;
+    cursor:pointer;
+    transition:all .15s;
+  }
+  .tab:hover{color:var(--ink); border-color:var(--line);}
+  .tab[aria-selected="true"]{border:1.5px solid var(--accent); color:var(--accent); font-weight:600; background:var(--accent-bg);}
+  .tab:focus-visible{outline:2px solid var(--accent); outline-offset:2px;}
+
+  .track{
+    display:flex; gap:18px;
+    margin-top:32px;
+    overflow-x:auto;
+    scroll-snap-type:x mandatory;
+    scroll-padding-left:0;
+    padding:2px 36px 6px 0;
+    scrollbar-width:none;
+  }
+  .track::-webkit-scrollbar{display:none;}
+  .card{
+    flex:0 0 300px;
+    height:174px;
+    scroll-snap-align:start;
+    border:0; border-radius:10px;
+    background:var(--card);
+    color:#fff;
+    text-align:left;
+    padding:20px;
+    display:flex; flex-direction:column; justify-content:space-between;
+    cursor:pointer;
+    position:relative; overflow:hidden;
+    transition:background .2s, transform .2s, box-shadow .2s;
+  }
+  .card:hover{background:var(--card-hover); transform:translateY(-2px); box-shadow:0 14px 26px -16px rgba(20,20,40,.6);}
+  .card:focus-visible{outline:2px solid var(--accent); outline-offset:3px;}
+  .card .badge{
+    align-self:flex-start;
+    font-size:11px; font-weight:600; letter-spacing:.04em; text-transform:uppercase;
+    padding:4px 8px; border-radius:6px;
+    background:rgba(255,255,255,.08); color:#c9cad9;
+    opacity:0; transform:translateY(-4px);
+    transition:opacity .2s, transform .2s;
+  }
+  .card:hover .badge, .card:focus-visible .badge{opacity:1; transform:none;}
+  .card .title{font-size:22px; font-weight:600; letter-spacing:-.01em; line-height:1.2;}
+  .card .range{margin-top:6px; font-size:14px; color:#d6d7e2;}
+  .card.hide{display:none;}
+  .empty{color:var(--ink-faint); font-size:15px; padding:40px 0; display:none;}
+
+  .toast{
+    position:fixed; left:50%; bottom:28px; transform:translate(-50%,20px);
+    background:#1f2030; color:#fff; font-size:14px;
+    padding:12px 18px; border-radius:10px;
+    box-shadow:0 12px 30px -10px rgba(0,0,0,.4);
+    opacity:0; pointer-events:none;
+    transition:opacity .2s, transform .2s;
+    max-width:calc(100% - 32px);
+  }
+  .toast.show{opacity:1; transform:translate(-50%,0);}
+
+  @media (prefers-reduced-motion: reduce){
+    *{transition:none !important;}
+  }
+
+  /* ---------- Small screens ---------- */
+  @media (max-width:720px){
+    .rail{width:56px; padding-top:14px;}
+    .rail-btn{width:40px; height:40px;}
+    .rail-sep{width:34px;}
+    .tip{display:none;}
+    main{margin-left:56px; padding:48px 16px 48px;}
+    .hero h1{gap:10px;}
+    .hero h1 svg{width:24px; height:24px;}
+    .query{margin-top:28px;}
+    .chip{font-size:14px; padding:0 14px;}
+    .reports{padding:24px 0 28px 20px; margin-top:40px;}
+    .reports p,.tabs{padding-right:20px;}
+    .track{padding-right:20px;}
+    .card{flex-basis:240px; height:150px;}
+    .card .title{font-size:19px;}
+  }
+</style>
+</head>
+<body>
+
+<nav class="rail" aria-label="Primary">
+  <div class="rail-group">
+    <button class="rail-btn" aria-label="Switch workspace">
+      <svg width="28" height="24" viewBox="0 0 28 24" aria-hidden="true">
+        <path d="M2 8l4 12 4-9 3 9L20 2" fill="none" stroke="#f26b1d" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M17 13l3-5 3 4 3-8" fill="none" stroke="#ffb100" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <span class="corner"></span>
+      <span class="tip">Workspace</span>
+    </button>
+  </div>
+  <div class="rail-sep"></div>
+  <div class="rail-group">
+    <button class="rail-btn" aria-label="Switch application">
+      <svg width="30" height="20" viewBox="0 0 30 20" aria-hidden="true">
+        <path d="M8 18a5.5 5.5 0 0 1-1-10.9A6.5 6.5 0 0 1 18.6 5a4.8 4.8 0 0 1 7.4 4.6A4.2 4.2 0 0 1 24 18Z" fill="#1798c1"/>
+        <text x="15" y="13.5" text-anchor="middle" font-size="4.6" font-family="Inter,Arial" font-style="italic" fill="#fff">cloud</text>
+      </svg>
+      <span class="corner"></span>
+      <span class="tip">Application</span>
+    </button>
+    <button class="rail-btn" aria-label="Analytics" aria-current="page" data-nav>
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <rect x="5" y="4" width="14" height="17" rx="2"/><path d="M9 2.5h6v3H9z"/><path d="M9 17v-3M12 17v-6M15 17v-4"/>
+      </svg>
+      <span class="tip">Analytics</span>
+    </button>
+    <button class="rail-btn" aria-label="Insights" data-nav>
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-3.6 10.8c.6.5 1 1.2 1 2V16h5.2v-.2c0-.8.4-1.5 1-2A6 6 0 0 0 12 3Z"/><path d="M3 9H1.5M22.5 9H21M5 3.5 4 2.5M19 3.5l1-1"/>
+      </svg>
+      <span class="tip">Insights</span>
+    </button>
+    <button class="rail-btn" aria-label="Trends" data-nav>
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M3 3v18h18"/><circle cx="8" cy="14" r="1.6"/><circle cx="12" cy="9" r="1.6"/><circle cx="16" cy="13" r="1.6"/><circle cx="20" cy="6" r="1.6"/><path d="m9 12.7 2-2.4M13.3 10l1.5 1.8M17 11.6l2.2-4.2"/>
+      </svg>
+      <span class="tip">Trends</span>
+    </button>
+    <button class="rail-btn" aria-label="Users" data-nav>
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <circle cx="9" cy="8" r="4"/><path d="M2 21a7 7 0 0 1 14 0"/><path d="M16 4.2a4 4 0 0 1 0 7.6M18.5 14.5A7 7 0 0 1 22 21"/>
+      </svg>
+      <span class="tip">Users</span>
+    </button>
+    <button class="rail-btn" aria-label="Settings" data-nav>
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1Z"/>
+      </svg>
+      <span class="tip">Settings</span>
+    </button>
+  </div>
+
+  <div class="rail-spacer"></div>
+  <div class="rail-sep"></div>
+  <div class="rail-group">
+    <button class="rail-btn" aria-label="Profile">
+      <span class="avatar">MJ</span>
+      <span class="tip">Profile</span>
+    </button>
+    <button class="rail-btn" aria-label="Messages, 1 unread">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M4 4h16v12H8l-4 4Z"/><path d="M8 9h8M8 12.5h5"/>
+      </svg>
+      <span class="dot"></span>
+      <span class="tip">Messages</span>
+    </button>
+  </div>
+</nav>
+
+<main>
+  <section class="hero">
+    <h1>
+      <svg width="34" height="34" viewBox="0 0 34 34" aria-hidden="true">
+        <path d="M13 9c.9 6 3 8.1 9 9-6 .9-8.1 3-9 9-.9-6-3-8.1-9-9 6-.9 8.1-3 9-9Z" fill="currentColor"/>
+        <path d="M25 3c.45 3 1.5 4.05 4.5 4.5-3 .45-4.05 1.5-4.5 4.5-.45-3-1.5-4.05-4.5-4.5 3-.45 4.05-1.5 4.5-4.5Z" fill="currentColor"/>
+      </svg>
+      What do you want to analyze?
+    </h1>
+
+    <form class="query" id="queryForm" autocomplete="off">
+      <label for="q" class="sr-only" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);">Query</label>
+      <input id="q" type="text" placeholder="Type your query here..." />
+      <button class="send" id="send" type="submit" aria-label="Submit query" disabled>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+      </button>
+    </form>
+
+    <div class="divider">or create new</div>
+
+    <div class="actions">
+      <button class="chip" data-action="Track usage">
+        <svg class="ic-track" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18h6M10 21h4M12 5a5 5 0 0 0-3 9c.6.5 1 1.2 1 2h4c0-.8.4-1.5 1-2a5 5 0 0 0-3-9Z"/><path d="M12 1.5V2.5M4 9H3M21 9h-1M6 3.5l.8.8M18 3.5l-.8.8"/></svg>
+        Track usage
+      </button>
+      <button class="chip" data-action="Create Content">
+        <svg class="ic-content" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h16v12H8l-4 4Z"/><path d="M8 9h8M8 12.5h5"/></svg>
+        Create Content
+      </button>
+      <button class="chip" data-action="Generate Reports">
+        <svg class="ic-report" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H6a1 1 0 0 0-1 1v16a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V8Z"/><path d="M14 3v5h5M9 17v-2M12 17v-4M15 17v-3"/></svg>
+        Generate Reports
+      </button>
+    </div>
+  </section>
+
+  <section class="reports" aria-labelledby="reportsTitle">
+    <h2 id="reportsTitle">Usage and ROI Reports</h2>
+    <p>Auto curated reports to track usage and ROI of Whatfix content created.</p>
+
+    <div class="tabs" role="tablist" aria-label="Report filter">
+      <button class="tab" role="tab" aria-selected="true" data-filter="all">All</button>
+      <button class="tab" role="tab" aria-selected="false" data-filter="scheduled">Scheduled</button>
+      <button class="tab" role="tab" aria-selected="false" data-filter="auto">Autogenerated</button>
+    </div>
+
+    <div class="track" id="track" role="tabpanel"></div>
+    <div class="empty" id="empty">No reports in this view yet.</div>
+  </section>
+</main>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+  const reports = [
+    { title: "SAP adoption report",     range: "Q1–Q3",           type: "scheduled" },
+    { title: "Pop up usage report",     range: "Jan’26–Jul’26",   type: "auto" },
+    { title: "Ask AI adoption",         range: "Jan’26–Jul’26",   type: "auto" },
+    { title: "Ask AI adoption",         range: "Jan’26–Jul’26",   type: "scheduled" },
+    { title: "Flow completion report",  range: "Apr’26–Sep’26",   type: "auto" },
+    { title: "Self-help engagement",    range: "Last 90 days",    type: "scheduled" },
+  ];
+  const labels = { scheduled: "Scheduled", auto: "Autogenerated" };
+
+  const track = document.getElementById("track");
+  const empty = document.getElementById("empty");
+  const toast = document.getElementById("toast");
+  let toastTimer;
+
+  function showToast(msg){
+    toast.textContent = msg;
+    toast.classList.add("show");
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => toast.classList.remove("show"), 2200);
+  }
+
+  reports.forEach(r => {
+    const card = document.createElement("button");
+    card.className = "card";
+    card.dataset.type = r.type;
+    card.innerHTML = `<span class="badge">${labels[r.type]}</span>
+      <span><div class="title">${r.title}</div><div class="range">${r.range}</div></span>`;
+    card.addEventListener("click", () => showToast(`Opening “${r.title}” · ${r.range}`));
+    track.appendChild(card);
+  });
+
+  // Filter tabs
+  document.querySelectorAll(".tab").forEach(tab => {
+    tab.addEventListener("click", () => {
+      document.querySelectorAll(".tab").forEach(t => t.setAttribute("aria-selected", t === tab));
+      const f = tab.dataset.filter;
+      let shown = 0;
+      track.querySelectorAll(".card").forEach(c => {
+        const hit = f === "all" || c.dataset.type === f;
+        c.classList.toggle("hide", !hit);
+        if (hit) shown++;
+      });
+      empty.style.display = shown ? "none" : "block";
+      track.scrollTo({ left: 0, behavior: "smooth" });
+    });
+  });
+
+  // Query box
+  const q = document.getElementById("q");
+  const send = document.getElementById("send");
+  q.addEventListener("input", () => {
+    const ok = q.value.trim().length > 0;
+    send.disabled = !ok;
+    send.classList.toggle("ready", ok);
+  });
+  document.getElementById("queryForm").addEventListener("submit", e => {
+    e.preventDefault();
+    const v = q.value.trim();
+    if (!v) return;
+    showToast(`Analyzing: “${v}”`);
+    q.value = "";
+    q.dispatchEvent(new Event("input"));
+  });
+
+  // Quick actions
+  document.querySelectorAll(".chip").forEach(chip =>
+    chip.addEventListener("click", () => showToast(`${chip.dataset.action} — coming soon`))
+  );
+
+  // Rail nav
+  document.querySelectorAll("[data-nav]").forEach(btn =>
+    btn.addEventListener("click", () => {
+      document.querySelectorAll("[data-nav]").forEach(b => b.removeAttribute("aria-current"));
+      btn.setAttribute("aria-current", "page");
+    })
+  );
+
+  // Drag-to-scroll the report carousel on desktop
+  let down = false, startX = 0, startLeft = 0, moved = false;
+  track.addEventListener("pointerdown", e => {
+    if (e.pointerType !== "mouse") return;
+    down = true; moved = false; startX = e.clientX; startLeft = track.scrollLeft;
+  });
+  window.addEventListener("pointermove", e => {
+    if (!down) return;
+    const dx = e.clientX - startX;
+    if (Math.abs(dx) > 4) { moved = true; track.style.scrollSnapType = "none"; }
+    track.scrollLeft = startLeft - dx;
+  });
+  window.addEventListener("pointerup", () => { down = false; track.style.scrollSnapType = ""; });
+  track.addEventListener("click", e => { if (moved) { e.stopPropagation(); e.preventDefault(); moved = false; } }, true);
+</script>
+</body>
+</html>

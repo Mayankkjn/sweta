@@ -248,10 +248,13 @@ const sections = [
     headers: { default: header(`${book.bookTitle} — ${book.bookSubtitle}  |  पाठ ${i + 1}: ${ch.title}`, ch.color) },
     footers: { default: footer(ch.color) },
     children: [
+      // keeps each chapter on a new page when the file is saved in the older .doc format
+      new Paragraph({ pageBreakBefore: true, spacing: { before: 0, after: 0, line: 240 }, children: [new TextRun({ text: "", size: 2 })] }),
       banner(`पाठ ${i + 1}` + (ch.type === "story" ? " • कहानी" : " • कविता"), ch.title, ch.color),
       ...(ch.type === "story" ? storyBody(ch) : poemBody(ch)),
       new Paragraph({ children: [new PageBreak()] }),
       ...exercisePage(ch, i),
+      new Paragraph({ children: [] }),
     ],
   })),
 ];

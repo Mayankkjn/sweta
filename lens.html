@@ -1129,7 +1129,7 @@ button:hover { filter: brightness(1.08); }
 }
 .variant-item:hover { border-color: #b9d3f6; }
 .variant-item.active { border-color: var(--bpmn-blue); background: #f5f9ff; }
-.variant-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; flex-wrap: wrap; }
+.variant-head { display: grid; grid-template-columns: 1fr auto; align-items: center; column-gap: 8px; row-gap: 6px; }
 .variant-title { display: flex; align-items: center; gap: 7px; min-width: 0; }
 .variant-name { font-size: 0.95rem; font-weight: 700; color: #1f2033; white-space: nowrap; }
 .variant-info { display: inline-flex; color: var(--text-tertiary); cursor: help; }
@@ -1137,9 +1137,8 @@ button:hover { filter: brightness(1.08); }
 .tooltip .variant-info-title { font-weight: 700; margin-bottom: 4px; }
 .tooltip .variant-info-path { line-height: 1.45; color: var(--text-secondary); }
 .tooltip .variant-info-story { line-height: 1.45; color: var(--text-primary); margin-top: 8px; padding-top: 8px; border-top: 1px solid var(--panel-border); }
-.variant-dot { width: 4px; height: 4px; border-radius: 50%; background: #8b8fa6; flex-shrink: 0; }
-.variant-pct-pill { font-size: 0.78rem; font-weight: 700; color: var(--bpmn-blue); background: #e8f1fd; border-radius: 8px; padding: 2px 8px; }
-.variant-meta { display: flex; align-items: center; gap: 8px; font-size: 0.76rem; color: #6b6f86; white-space: nowrap; }
+.variant-pct { font-size: 0.95rem; font-weight: 700; color: #1f2033; }
+.variant-meta { grid-column: 1 / -1; display: flex; align-items: center; gap: 8px; font-size: 0.76rem; color: #6b6f86; white-space: nowrap; }
 .variant-meta-item { display: inline-flex; align-items: center; gap: 4px; }
 .variant-meta-item svg { color: #8b8fa6; flex-shrink: 0; }
 .variant-meta-sep { width: 1px; height: 14px; background: #dcdde6; }
@@ -10384,10 +10383,9 @@ function renderVariantList(model) {
     <div class="variant-title">
       <span class="variant-name">Path ${v.rank}</span>
       <span class="variant-info" aria-label="Show path steps">${INFO_ICON_SVG}</span>
-      <span class="variant-dot"></span>
-      <span class="variant-pct-pill">${pctLabel(v.pct)}</span>
       ${v === model.fastestPath ? '<span class="fastest-badge" title="Fastest observed path">⚡ fastest</span>' : ''}
     </div>
+    <span class="variant-pct">${pctLabel(v.pct)}</span>
     <div class="variant-meta">
       <span class="variant-meta-item">${DOC_ICON_SVG}${pluralCases(v.count)}</span>
       <span class="variant-meta-sep"></span>

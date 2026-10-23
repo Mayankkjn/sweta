@@ -1259,6 +1259,8 @@ body.insights-expanded .map-zoom-control { display: flex; position: absolute; le
 .map-zoom-icon svg { flex-shrink: 0; }
 .map-zoom-sep { width: 1px; height: 20px; background: #dfdde7; margin: 0 4px; }
 .map-zoom-value { min-width: 40px; text-align: center; font-size: 13px; font-weight: 600; color: #3d3c52; }
+/* Filters opened from the dashboard sit at the right edge, over it. */
+body.insights-expanded #filter-panel { position: fixed; top: calc(var(--ins-expanded-top, 0px) + 16px); right: 16px; bottom: 16px; z-index: 20; box-shadow: 0 8px 28px rgba(24, 26, 51, 0.18); }
 body.insights-expanded .kpi-band,
 body.insights-expanded .floating-filters,
 body.insights-expanded .floating-legend { display: none !important; }

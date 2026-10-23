@@ -1214,7 +1214,7 @@ button:hover { filter: brightness(1.08); }
 .bpmn-app-generic-dot { fill: var(--bpmn-blue); }
 .bpmn-task-substep-arrow { fill: none; stroke: var(--bpmn-blue); stroke-width: 2px; stroke-linecap: round; stroke-linejoin: round; pointer-events: none; }
 .node.bpmn-task.selected .bpmn-task-box { stroke: var(--bpmn-blue); stroke-width: 1.6px; }
-.node.bpmn-task:hover .bpmn-task-box { stroke: var(--accent-ui); }
+.node.bpmn-task:hover .bpmn-task-box { stroke: var(--bpmn-blue); stroke-width: 1.4px; }
 .node.bpmn-task.has-substeps { cursor: pointer; }
 
 .bpmn-event-circle { fill: var(--card-bg); }
@@ -1244,10 +1244,13 @@ button:hover { filter: brightness(1.08); }
 .node.hover-focus .card-bg,
 .node.hover-focus .pill-bg,
 .node.hover-focus .diamond-shape,
-.node.hover-focus .bpmn-task-box,
 .node.hover-focus .bpmn-event-circle,
 .node.hover-focus .bpmn-gateway-shape {
   stroke: var(--accent-ui) !important;
+}
+.node.hover-focus .bpmn-task-box {
+  stroke: var(--bpmn-blue) !important;
+  stroke-width: 1.4px;
 }
 .edge.hover-focus .edge-path {
   stroke: var(--accent-ui) !important;

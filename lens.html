@@ -12678,8 +12678,17 @@ function updateDurationSliderUI() {
   const maxPct = ((Number(maxSlider.value) - rangeMin) / span) * 100;
   document.getElementById('duration-slider-range').style.left = `${minPct}%`;
   document.getElementById('duration-slider-range').style.width = `${Math.max(0, maxPct - minPct)}%`;
-  document.getElementById('filter-duration-min-label').textContent = formatDuration(Number(minSlider.value));
-  document.getElementById('filter-duration-max-label').textContent = formatDuration(Number(maxSlider.value));
+  document.getElementById('filter-duration-min-label').textContent = formatDurationWords(Number(minSlider.value));
+  document.getElementById('filter-duration-max-label').textContent = formatDurationWords(Number(maxSlider.value));
+}
+
+// Slider ends read in words: "45 m", "6 hrs", "3 days".
+function formatDurationWords(minutes) {
+  const trim = (n) => String(Math.round(n * 10) / 10);
+  if (minutes < 60) return `${Math.round(minutes)} m`;
+  if (minutes < 1440) { const h = trim(minutes / 60); return `${h} ${h === '1' ? 'hr' : 'hrs'}`; }
+  const d = trim(minutes / 1440);
+  return `${d} ${d === '1' ? 'day' : 'days'}`;
 }
 
 ['filter-duration-min-slider', 'filter-duration-max-slider'].forEach((id) => {

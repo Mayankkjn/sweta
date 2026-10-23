@@ -1165,11 +1165,13 @@ button:hover { filter: brightness(1.08); }
 .compare-badge-text.skipped { fill: var(--text-secondary); }
 
 /* ---- start / end pills ---- */
-.pill-bg { fill: var(--card-bg); stroke: var(--card-border); stroke-width: 1px; filter: drop-shadow(0 1px 2px rgba(24,26,51,0.08)); }
-.badge-start { fill: var(--flag-start-bg); }
-.badge-end { fill: var(--flag-end-bg); }
-.pill-label { fill: var(--text-primary); font-size: 13px; font-weight: 600; pointer-events: none; }
-.icon-flag line { stroke-width: 1.6px; stroke-linecap: round; }
+.pill-bg { fill: #fff; stroke: none; filter: drop-shadow(0 3.76px 22.55px rgba(0, 0, 0, 0.05)); }
+.badge-start { fill: #f0f9ff; }
+.badge-end { fill: #fef1f2; }
+.pill-label { fill: #525066; font-size: 15px; font-weight: 600; pointer-events: none; }
+.icon-pennant { fill: none; stroke-width: 1.05px; stroke-linecap: round; stroke-linejoin: round; pointer-events: none; }
+.icon-pennant.pennant-start { stroke: #0975d7; }
+.icon-pennant.pennant-end { stroke: var(--flag-end-fg); }
 
 /* ---- fork waypoint: a circular total, or (once it also folds in the
    fork's low-frequency minor branches) a collapsible circle whose chevron
@@ -8183,8 +8185,8 @@ function buildProcessModel(cases) {
 
 const TASK_W = 245;
 const TASK_H = 76;
-const PILL_W = 108;
-const PILL_H = 42;
+const PILL_W = 91;
+const PILL_H = 37.34;
 const DIAMOND_SIZE = 92;
 const COMPARE_BADGE_H = 22; // extra card height reserved for a fast-vs-typical badge
 
@@ -9783,11 +9785,12 @@ function drawTaskCard(g, { width: w, height: h, lines, metaText, bgClass, accent
     g.append('text').attr('class', 'task-card-meta').attr('x', TASK_CARD.metaX).attr('y', cy + 5.5).text(metaText);
   }
 }
-function appendFlagIcon(g, cx, cy, colorClass) {
-  const k = g.append('g').attr('class', `icon-flag ${colorClass}`);
-  k.append('line').attr('x1', cx - 3).attr('y1', cy - 6).attr('x2', cx - 3).attr('y2', cy + 6);
-  k.append('path').attr('d', `M${cx - 3},${cy - 6} L${cx + 5},${cy - 4} L${cx - 3},${cy - 1.5} Z`);
-  return k;
+// A pennant (pole plus triangular flag), drawn into a 15px box centred on
+// (cx, cy): the vector spans 33.33%–79.16% across and 12.5%–87.5% down.
+function appendPennantIcon(g, cx, cy, colorClass) {
+  return g.append('path').attr('class', `icon-pennant ${colorClass}`)
+    .attr('transform', `translate(${cx - 7.5}, ${cy - 7.5})`)
+    .attr('d', 'M5 13.13 V1.88 L11.87 5.63 L5 9.38');
 }
 
 function taskCardMetaText(n) {
@@ -9830,11 +9833,13 @@ function buildCompareBadge(g, n, p) {
 function buildPill(g, n, p) {
   const isStart = n.kind === 'start';
   g.append('rect').attr('class', 'pill-bg').attr('width', p.width).attr('height', p.height).attr('rx', p.height / 2);
-  const cx = 22;
+  // 11.28px left padding, a 22.55px ornament circle, a 5.64px gap, then the label.
+  const r = 11.28;
+  const cx = 11.28 + r;
   const cy = p.height / 2;
-  g.append('circle').attr('class', isStart ? 'badge-start' : 'badge-end').attr('cx', cx).attr('cy', cy).attr('r', 13);
-  appendFlagIcon(g, cx, cy, isStart ? 'flag-start' : 'flag-end');
-  g.append('text').attr('class', 'pill-label').attr('x', cx + 20).attr('y', cy + 5).text(n.label);
+  g.append('circle').attr('class', isStart ? 'badge-start' : 'badge-end').attr('cx', cx).attr('cy', cy).attr('r', r);
+  appendPennantIcon(g, cx, cy, isStart ? 'pennant-start' : 'pennant-end');
+  g.append('text').attr('class', 'pill-label').attr('x', cx + r + 5.64).attr('y', cy + 5.3).text(n.label);
 }
 
 // A fork's waypoint: a plain circular total when it's just multiple

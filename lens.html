@@ -705,7 +705,7 @@ body { --ins-filter-w: 378px; }
 #filter-panel input[type="checkbox"] { -webkit-appearance: none; appearance: none; flex-shrink: 0; width: 16px; height: 16px; margin: 3px 3px 3px 4px; border: 1px solid #8c899f; border-radius: 4px; background: #fff; cursor: pointer; }
 #filter-panel input[type="checkbox"]:checked { border-color: #0975d7; background: #0975d7 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'%3E%3Cpath d='M4.5 8.2 7 10.5l4.5-5' fill='none' stroke='white' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / 16px no-repeat; }
 #filter-panel input[type="checkbox"]:focus-visible { outline: 2px solid #0975d7; outline-offset: 1px; }
-.fp-task-list { gap: 16px; max-height: 212px; overflow-y: auto; }
+#filter-panel .fp-task-list { gap: 16px; max-height: 236px; overflow-y: auto; }
 .fp-task-list .filter-checklist-item, .fp-task-list .filter-checklist-item.checked { padding: 0; border: none; background: none; border-radius: 0; }
 .fp-task-list .filter-checklist-item-top { align-items: center; gap: 8px; }
 .fp-task-list .filter-checklist-item-top input[type="checkbox"] { margin: 3px 3px 3px 4px; }
@@ -713,8 +713,8 @@ body { --ins-filter-w: 378px; }
 #filter-panel .filter-checklist-item-count { padding: 3px 10px; border-radius: 100px; background: #f6f6f9; color: #8c899f; font-size: 12px; line-height: 10px; font-weight: 400; font-variant-numeric: tabular-nums; }
 
 /* Path cards: checkbox, path number, share and count, then outcome and time. */
-.fp-path-list { gap: 12px; max-height: 288px; overflow-y: auto; padding-right: 4px; }
-.fp-path-list.show-all { max-height: none; overflow: visible; padding-right: 0; }
+#filter-panel .fp-path-list { gap: 12px; max-height: 288px; overflow-y: auto; padding-right: 4px; }
+#filter-panel .fp-path-list.show-all { max-height: none; overflow: visible; padding-right: 0; }
 .fp-path-list::-webkit-scrollbar { width: 6px; }
 .fp-path-list::-webkit-scrollbar-thumb { background: #dfdde7; border-radius: 20px; }
 .fp-path-list .filter-checklist-item { padding: 10px 10px 10px; border: 1px solid #dfdde7; border-radius: 12px; background: #fff; display: flex; flex-direction: column; gap: 4px; }

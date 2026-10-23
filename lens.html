@@ -1204,8 +1204,8 @@ button:hover { filter: brightness(1.08); }
 
 /* ---- BPMN view ---- */
 .bpmn-node-layer, .bpmn-edge-layer, .bpmn-lane-layer { display: none; }
-.bpmn-task-box { fill: var(--bpmn-card-accent); stroke: none; filter: drop-shadow(0 3.2px 19px rgba(0, 0, 0, 0.05)); }
-.bpmn-task-face { fill: #fff; pointer-events: none; }
+.bpmn-task-box { fill: #fff; stroke: none; filter: drop-shadow(0 3.2px 19px rgba(0, 0, 0, 0.05)); }
+.bpmn-task-accent { fill: var(--bpmn-card-accent); pointer-events: none; }
 .bpmn-task-label { fill: var(--text-primary); font-size: 13px; font-weight: 600; pointer-events: none; }
 .bpmn-task-meta { fill: var(--text-secondary); font-size: 11.5px; pointer-events: none; }
 .bpmn-card-clock { fill: none; stroke: var(--text-secondary); stroke-width: 1.3px; stroke-linecap: round; stroke-linejoin: round; pointer-events: none; }
@@ -9393,16 +9393,15 @@ function appendBpmnClockIcon(g, x, y) {
 // line ("12m · 150 instances", or "N sub steps" for a subprocess) below.
 function buildBpmnTaskBox(g, n, p) {
   // Same shape as a CSS box with border-radius r and a thick left border:
-  // the full rounded card is filled in the accent colour, and a white face
-  // inset by the border width covers it, its left corners curving with the
-  // inner radius (r - border) horizontally and r vertically.
+  // the left band runs between the card's outer rounded corners and an
+  // inner edge curving with radius (r - border) horizontally, r vertically.
   const r = 8;
   const bw = 3;
   const w = p.width;
   const h = p.height;
   g.append('rect').attr('class', 'bpmn-task-box').attr('width', w).attr('height', h).attr('rx', r);
-  g.append('path').attr('class', 'bpmn-task-face')
-    .attr('d', `M${r},0 H${w - r} A${r},${r} 0 0 1 ${w},${r} V${h - r} A${r},${r} 0 0 1 ${w - r},${h} H${r} A${r - bw},${r} 0 0 1 ${bw},${h - r} V${r} A${r - bw},${r} 0 0 1 ${r},0 Z`);
+  g.append('path').attr('class', 'bpmn-task-accent')
+    .attr('d', `M${r},0 A${r},${r} 0 0 0 0,${r} V${h - r} A${r},${r} 0 0 0 ${r},${h} A${r - bw},${r} 0 0 1 ${bw},${h - r} V${r} A${r - bw},${r} 0 0 1 ${r},0 Z`);
 
   const lines = n.wrappedLines || wrapBpmnLabel(n.label, p.width - BPMN_CARD_TEXT_X - 18);
   const blockH = (lines.length - 1) * BPMN_CARD_LINE_H + (n.metaText ? 24 : 0);

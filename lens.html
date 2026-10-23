@@ -1248,6 +1248,7 @@ body.insights-expanded .map-zoom-control { display: flex; position: absolute; le
 .map-zoom-control button:hover { background: #f6f6f9; }
 .map-zoom-sep { width: 1px; height: 20px; background: #dfdde7; margin: 0 4px; }
 .map-zoom-value { min-width: 40px; text-align: center; font-size: 13px; font-weight: 600; color: #3d3c52; }
+body.insights-expanded .kpi-band,
 body.insights-expanded .floating-filters,
 body.insights-expanded .floating-legend { display: none !important; }
 body.insights-expanded .play-animation-wrap { top: 64px; }
@@ -10920,12 +10921,11 @@ function syncInsightsExpandedTop() {
 function setInsightsExpanded(on) {
   insightsDash.expanded = on;
   hideTooltip();
-  if (on) {
-    syncInsightsExpandedTop();
-    document.getElementById('insights-panel').classList.remove('hidden');
-  }
+  if (on) document.getElementById('insights-panel').classList.remove('hidden');
   document.body.classList.toggle('insights-expanded', on);
   document.getElementById('insights-panel').classList.toggle('expanded', on);
+  // The stats band hides while expanded, so measure after toggling.
+  if (on) syncInsightsExpandedTop();
   if (on) renderInsightsDashboard();
   requestAnimationFrame(fitToView);
 }

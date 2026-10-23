@@ -714,6 +714,7 @@ body { --ins-filter-w: 378px; }
 
 /* Path cards: checkbox, path number, share and count, then outcome and time. */
 .fp-path-list { gap: 12px; max-height: 288px; overflow-y: auto; padding-right: 4px; }
+.fp-path-list.show-all { max-height: none; overflow: visible; padding-right: 0; }
 .fp-path-list::-webkit-scrollbar { width: 6px; }
 .fp-path-list::-webkit-scrollbar-thumb { background: #dfdde7; border-radius: 20px; }
 .fp-path-list .filter-checklist-item { padding: 10px 10px 10px; border: 1px solid #dfdde7; border-radius: 12px; background: #fff; display: flex; flex-direction: column; gap: 4px; }
@@ -12499,6 +12500,7 @@ function renderFilterPanel(matchCountOverride) {
   // Selected paths always stay in view; the rest show past the first few
   // only once "View all" is on.
   pathMerged.style('display', (v, i) => (filterPathsShowAll || i < FILTER_PATH_PREVIEW || f.variantSignatures.has(v.signature) ? null : 'none'));
+  pathList.classed('show-all', filterPathsShowAll);
   d3.select('#filter-path-more').classed('hidden', base.variants.length <= FILTER_PATH_PREVIEW).text(filterPathsShowAll ? 'Show less' : 'View all');
 
   // A zero count says nothing, so only non-empty facets show a badge.

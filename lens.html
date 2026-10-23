@@ -1249,11 +1249,15 @@ button:hover { filter: brightness(1.08); }
 .node.hover-focus .bpmn-gateway-shape {
   stroke: var(--accent-ui) !important;
 }
-.edge.hover-focus .edge-path,
-.edge.hover-focus .bpmn-edge-path {
+.edge.hover-focus .edge-path {
   stroke: var(--accent-ui) !important;
   stroke-width: 2.4px !important;
 }
+.edge.hover-focus .bpmn-edge-path {
+  stroke: var(--bpmn-blue) !important;
+  stroke-width: 2.4px !important;
+}
+.edge.hover-focus .bpmn-edge-path[marker-end] { marker-end: url(#arrow-bpmn-happy); }
 
 /* ---- key insights ---- */
 .process-summary-text p { margin: 0 0 8px; font-size: 0.8rem; line-height: 1.55; color: var(--text-primary); }

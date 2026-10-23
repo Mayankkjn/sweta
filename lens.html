@@ -25,6 +25,8 @@
   --rework: #d17d2c;
   --rework-soft: #fbf0e2;
 
+  --bpmn-blue: #1a6fdc;
+
   --kind-info: #3568c4;
   --kind-info-soft: #dde8fb;
 
@@ -1085,7 +1087,8 @@ button:hover { filter: brightness(1.08); }
 .swatch.happy { background: var(--path-main); }
 .swatch.deviation { background: repeating-linear-gradient(90deg, var(--path-deviation) 0 4px, transparent 4px 7px); height: 2px; }
 .swatch.rework { background: repeating-linear-gradient(90deg, var(--rework) 0 4px, transparent 4px 7px); height: 2px; }
-.swatch.bpmn-sequence { background: var(--path-deviation); height: 2px; }
+.swatch.bpmn-happy { background: var(--bpmn-blue); height: 2px; }
+.swatch.bpmn-sequence { background: repeating-linear-gradient(90deg, #8b8fa6 0 2px, transparent 2px 5px); height: 2px; }
 .swatch.bpmn-message { background: repeating-linear-gradient(90deg, var(--path-deviation) 0 4px, transparent 4px 7px); height: 2px; }
 .swatch-circle {
   width: 12px;
@@ -1094,7 +1097,7 @@ button:hover { filter: brightness(1.08); }
   display: inline-block;
   flex-shrink: 0;
   background: var(--card-bg);
-  border: 1.6px solid var(--path-main);
+  border: 1.6px solid var(--bpmn-blue);
   box-sizing: border-box;
 }
 .swatch-circle.end { border-color: var(--flag-end-fg); border-width: 2.4px; }
@@ -1200,30 +1203,36 @@ button:hover { filter: brightness(1.08); }
 
 /* ---- BPMN view ---- */
 .bpmn-node-layer, .bpmn-edge-layer, .bpmn-lane-layer { display: none; }
-.bpmn-task-box { fill: var(--card-bg); stroke: #1f9d5c; stroke-width: 1.4px; filter: drop-shadow(0 1px 2px rgba(24,26,51,0.08)); }
-.bpmn-task-label { fill: var(--text-primary); font-size: 12px; font-weight: 600; text-anchor: middle; pointer-events: none; }
-.bpmn-task-substeps { fill: var(--text-tertiary); font-size: 10px; font-weight: 600; text-anchor: middle; pointer-events: none; }
-.bpmn-task-substep-arrow { fill: none; stroke: #1f9d5c; stroke-width: 2px; stroke-linecap: round; stroke-linejoin: round; pointer-events: none; }
-.node.bpmn-task.selected .bpmn-task-box { stroke: var(--path-main); stroke-width: 2.2px; }
+.bpmn-task-box { fill: var(--card-bg); stroke: #e8e9f1; stroke-width: 1px; filter: drop-shadow(0 2px 6px rgba(24,26,51,0.08)); }
+.bpmn-task-accent { fill: none; stroke: var(--bpmn-blue); stroke-width: 2px; pointer-events: none; }
+.bpmn-task-label { fill: var(--text-primary); font-size: 13px; font-weight: 600; pointer-events: none; }
+.bpmn-task-meta { fill: var(--text-secondary); font-size: 11.5px; pointer-events: none; }
+.bpmn-card-clock { fill: none; stroke: var(--text-secondary); stroke-width: 1.3px; stroke-linecap: round; stroke-linejoin: round; pointer-events: none; }
+.bpmn-app-icon { pointer-events: none; }
+.bpmn-app-generic { fill: none; stroke: var(--bpmn-blue); stroke-width: 1.5px; }
+.bpmn-app-generic-dot { fill: var(--bpmn-blue); }
+.bpmn-task-substep-arrow { fill: none; stroke: var(--bpmn-blue); stroke-width: 2px; stroke-linecap: round; stroke-linejoin: round; pointer-events: none; }
+.node.bpmn-task.selected .bpmn-task-box { stroke: var(--bpmn-blue); stroke-width: 1.6px; }
 .node.bpmn-task:hover .bpmn-task-box { stroke: var(--accent-ui); }
 .node.bpmn-task.has-substeps { cursor: pointer; }
 
 .bpmn-event-circle { fill: var(--card-bg); }
-.node.start .bpmn-event-circle { stroke: var(--path-main); stroke-width: 1.6px; }
-.node.end .bpmn-event-circle { stroke: var(--flag-end-fg); stroke-width: 2.6px; }
-.bpmn-event-label { fill: var(--text-secondary); font-size: 10.5px; font-weight: 600; text-anchor: middle; pointer-events: none; }
+.node.start .bpmn-event-circle { stroke: var(--bpmn-blue); stroke-width: 2.2px; }
+.node.end .bpmn-event-circle { stroke: var(--flag-end-fg); stroke-width: 2.2px; }
+.bpmn-event-label { fill: var(--text-primary); font-size: 12px; font-weight: 500; text-anchor: middle; pointer-events: none; }
 
-.bpmn-gateway-shape { fill: var(--card-bg); stroke: var(--text-tertiary); stroke-width: 1.4px; }
-.bpmn-gateway-mark { stroke: var(--text-secondary); stroke-width: 1.8px; stroke-linecap: round; }
+.bpmn-gateway-shape { fill: var(--card-bg); stroke: #9a9fb5; stroke-width: 1.4px; stroke-linejoin: round; }
+.bpmn-gateway-mark { stroke: #8b8fa6; stroke-width: 1.5px; stroke-linecap: round; }
 
-.bpmn-edge-path { fill: none; stroke: var(--path-deviation); stroke-width: 1.3px; }
-.edge.bpmn-happy .bpmn-edge-path { stroke: var(--path-main); stroke-width: 2px; }
-.edge.bpmn-message .bpmn-edge-path { stroke-dasharray: 5 4; }
+.bpmn-edge-path { fill: none; stroke: #8b8fa6; stroke-width: 1.6px; stroke-dasharray: 2 3.5; stroke-linecap: round; }
+.edge.bpmn-happy .bpmn-edge-path { stroke: var(--bpmn-blue); stroke-width: 2px; stroke-dasharray: none; }
+.edge.bpmn-happy.bpmn-to-end .bpmn-edge-path { stroke: var(--flag-end-fg); }
+.edge.bpmn-message .bpmn-edge-path { stroke-dasharray: 6 4; stroke-linecap: butt; }
 
-.bpmn-pool-border { fill: none; stroke: #e2e2ed; stroke-width: 1.4px; }
-.bpmn-pool-label-bg, .bpmn-lane-label-bg { fill: var(--bg); stroke: #e2e2ed; stroke-width: 1px; }
-.bpmn-pool-label { fill: var(--text-primary); font-size: 11px; font-weight: 700; }
-.bpmn-lane-label { fill: var(--text-secondary); font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.02em; }
+.bpmn-pool-border { fill: var(--card-bg); stroke: #e2e2ed; stroke-width: 1.2px; }
+.bpmn-pool-label-bg, .bpmn-lane-label-bg { fill: var(--card-bg); stroke: #e2e2ed; stroke-width: 1px; }
+.bpmn-pool-label { fill: var(--text-secondary); font-size: 12px; font-weight: 500; }
+.bpmn-lane-label { fill: var(--text-secondary); font-size: 12px; font-weight: 500; }
 .bpmn-lane-divider { stroke: #e2e2ed; stroke-width: 1px; }
 
 /* ---- hover highlight: every node/edge forward-reachable from the
@@ -2519,8 +2528,8 @@ body.structural-diagram #play-animation-btn {
 
     <div class="floating-legend" id="floating-legend-bpmn">
       <h3>Legend</h3>
-      <div class="legend-row"><span class="swatch happy"></span> Most common path</div>
-      <div class="legend-row"><span class="swatch bpmn-sequence"></span> Sequence flow</div>
+      <div class="legend-row"><span class="swatch bpmn-happy"></span> Most common path</div>
+      <div class="legend-row"><span class="swatch bpmn-sequence"></span> Deviation flow</div>
       <div class="legend-row"><span class="swatch bpmn-message"></span> Message flow</div>
       <div class="legend-row"><span class="swatch-circle start"></span> Start event</div>
       <div class="legend-row"><span class="swatch-circle end"></span> End event</div>
@@ -7179,6 +7188,7 @@ function generateEventLog(numCases = 500) {
 // available" placeholders a demo with no catalog at all would show.
 const DEMO_TASK_CATALOG = {
   'Create Request': {
+    app: 'Gmail',
     stage: 'Request Intake',
     description: 'The requester submits a new purchase request, specifying the item, quantity, and business justification.',
     subtypes: [
@@ -7188,6 +7198,7 @@ const DEMO_TASK_CATALOG = {
     ],
   },
   'Manager Approval': {
+    app: 'Workday',
     stage: 'Approval & Budget',
     description: "The requester's manager reviews the request and approves or rejects it based on budget authority and business need.",
     subtypes: [
@@ -7197,6 +7208,7 @@ const DEMO_TASK_CATALOG = {
     ],
   },
   'Budget Check': {
+    app: 'Google Sheets',
     stage: 'Approval & Budget',
     description: 'Finance verifies that sufficient budget is available in the relevant cost center before the purchase proceeds.',
     subtypes: [
@@ -7205,6 +7217,7 @@ const DEMO_TASK_CATALOG = {
     ],
   },
   'Vendor Selection': {
+    app: 'Workday',
     stage: 'Procurement',
     description: 'The buyer selects a vendor to fulfill the request, using an existing preferred vendor or sourcing a new one.',
     subtypes: [
@@ -7214,6 +7227,7 @@ const DEMO_TASK_CATALOG = {
     ],
   },
   'PO Creation': {
+    app: 'Google Sheets',
     stage: 'Procurement',
     description: 'A formal purchase order is generated and issued to the selected vendor.',
     subtypes: [
@@ -7222,6 +7236,7 @@ const DEMO_TASK_CATALOG = {
     ],
   },
   'Goods Receipt': {
+    app: 'Workday',
     stage: 'Fulfillment & Invoicing',
     description: 'The ordered goods or services are received and logged against the purchase order.',
     subtypes: [
@@ -7231,6 +7246,7 @@ const DEMO_TASK_CATALOG = {
     ],
   },
   'Invoice Match': {
+    app: 'Google Sheets',
     stage: 'Fulfillment & Invoicing',
     description: "The vendor's invoice is matched against the purchase order and goods receipt before payment is authorized.",
     subtypes: [
@@ -7239,6 +7255,7 @@ const DEMO_TASK_CATALOG = {
     ],
   },
   'Invoice Mismatch': {
+    app: 'Gmail',
     stage: 'Fulfillment & Invoicing',
     description: 'A discrepancy between the invoice, purchase order, or goods receipt is flagged for resolution before payment.',
     subtypes: [
@@ -7247,6 +7264,7 @@ const DEMO_TASK_CATALOG = {
     ],
   },
   'Payment': {
+    app: 'Workday',
     stage: 'Payment',
     description: 'The vendor is paid according to the agreed terms once the invoice is cleared.',
     subtypes: [
@@ -7256,6 +7274,7 @@ const DEMO_TASK_CATALOG = {
     ],
   },
   'Rejected': {
+    app: 'Gmail',
     stage: 'Exceptions',
     description: 'The request is declined by the approver and the process ends without a purchase being made.',
     subtypes: [
@@ -7265,6 +7284,7 @@ const DEMO_TASK_CATALOG = {
     ],
   },
   'Escalated to Finance Review': {
+    app: 'Gmail',
     stage: 'Exceptions',
     description: "A high-value or non-standard request is routed to finance for additional review beyond the manager's approval authority.",
     subtypes: [
@@ -7273,6 +7293,7 @@ const DEMO_TASK_CATALOG = {
     ],
   },
   'Escalated to Legal Review': {
+    app: 'Gmail',
     stage: 'Exceptions',
     description: 'The request is routed to legal for review of contract or compliance terms before proceeding.',
     subtypes: [
@@ -7281,6 +7302,7 @@ const DEMO_TASK_CATALOG = {
     ],
   },
   'Flagged as Duplicate Request': {
+    app: 'Workday',
     stage: 'Exceptions',
     description: 'The request is identified as a likely duplicate of an existing request and held for confirmation.',
     subtypes: [
@@ -7328,8 +7350,8 @@ const DEMO_SUBPROCESSES = {
 // extractTaskInsights() produces for a real task-catalog upload, populated
 // from DEMO_TASK_CATALOG — so the sample dataset's Task Detail panel shows
 // real Task Description / Task Subtype content instead of "Not available"
-// placeholders. canonicalReasoning/appId are left empty since this catalog
-// doesn't have real input/output prose or application data to back them.
+// placeholders. canonicalReasoning is left empty since this catalog
+// doesn't have real input/output prose to back it.
 function buildDemoTaskInsights(cases) {
   const byTaskName = new Map();
   Object.keys(DEMO_TASK_CATALOG).forEach((name) => {
@@ -7338,7 +7360,7 @@ function buildDemoTaskInsights(cases) {
       description: entry.description,
       canonicalReasoning: '',
       subtypes: entry.subtypes.map((s) => ({ id: s.id, name: s.name })),
-      appId: null,
+      appId: entry.app || null,
       stage: entry.stage || null,
       subprocessId: null,
       subStepCount: 0,
@@ -8240,7 +8262,9 @@ function addMarker(id, color) {
 addMarker('arrow-happy', '#1f9d5c');
 addMarker('arrow-deviation', '#9a9fb5');
 addMarker('arrow-rework', '#d17d2c');
-addMarker('arrow-bpmn', '#9a9fb5');
+addMarker('arrow-bpmn', '#8b8fa6');
+addMarker('arrow-bpmn-happy', '#1a6fdc');
+addMarker('arrow-bpmn-end', '#cf3550');
 
 const zoomBehavior = d3.zoom()
   .scaleExtent([0.2, 2.5])
@@ -8685,15 +8709,15 @@ function layout(renderGraph) {
 // catalog's authored stage), tasks are grouped into swimlanes by that
 // stage inside one labeled pool — otherwise it falls back to a single,
 // unlabeled lane rather than inventing a grouping the data doesn't have.
-const BPMN_TASK_W = 168;
-const BPMN_TASK_W_MAX = 260;
-const BPMN_TASK_H = 76;
+const BPMN_TASK_W = 210;
+const BPMN_TASK_W_MAX = 300;
+const BPMN_TASK_H = 74;
 const BPMN_EVENT_SIZE = 52;
 const BPMN_GATEWAY_SIZE = 50;
-const BPMN_MIN_LANE_HEIGHT = 140;
+const BPMN_MIN_LANE_HEIGHT = 150;
 const BPMN_LANE_STACK_GAP = 14; // vertical breathing room between stacked siblings sharing a lane+column
-const BPMN_POOL_LABEL_W = 26;
-const BPMN_LANE_LABEL_W = 26;
+const BPMN_POOL_LABEL_W = 30;
+const BPMN_LANE_LABEL_W = 30;
 const BPMN_EDGE_CORNER_RADIUS = 10;
 
 // Draws an elbow polyline with each interior corner rounded into a short
@@ -8841,8 +8865,9 @@ function renderBpmnBreadcrumb() {
 // Turns the DFG (model.nodes/edges, with .hidden already set by
 // applyThreshold) into a BPMN-shaped graph: real task/start/end nodes,
 // plus a synthetic exclusive-gateway node inserted right after any node
-// with more than one surviving outgoing edge, and another inserted right
-// before any node with more than one surviving incoming edge.
+// with more than one surviving outgoing edge. Merging flows converge
+// straight into their target task instead of through a join gateway, so
+// the map isn't doubled up with a diamond in front of every busy step.
 function buildBpmnGraph(model) {
   const visibleEdges = model.edges.filter((e) => !e.hidden && e.from !== e.to);
 
@@ -8857,55 +8882,35 @@ function buildBpmnGraph(model) {
 
   const nodeById = new Map(model.nodes.map((n) => [n.id, n]));
   const nodes = [];
-  const nodeIds = new Set();
   const touchedIds = new Set([...outMap.keys(), ...inMap.keys()]);
 
   touchedIds.forEach((id) => {
     const src = nodeById.get(id);
     if (!src) return;
-    nodeIds.add(id);
     const kind = id === START ? 'start' : id === END ? 'end' : 'bpmn-task';
     nodes.push({ id, kind, label: src.label, source: src });
   });
 
   const splitGatewayFor = new Map();
-  const joinGatewayFor = new Map();
+  const joinGatewayFor = new Map(); // always empty now — kept so bpmnHopSegments' lookup stays uniform
   touchedIds.forEach((id) => {
     if ((outMap.get(id) || []).length > 1) {
       const gwId = `gw-split-${id}`;
       nodes.push({ id: gwId, kind: 'gateway', label: 'X' });
       splitGatewayFor.set(id, gwId);
     }
-    if ((inMap.get(id) || []).length > 1) {
-      const gwId = `gw-join-${id}`;
-      nodes.push({ id: gwId, kind: 'gateway', label: 'X' });
-      joinGatewayFor.set(id, gwId);
-    }
   });
 
   const edges = [];
-  const linkedFromGateway = new Set();
-  const linkedToGateway = new Set();
+  splitGatewayFor.forEach((gw, id) => {
+    // The task -> its own split gateway hop sits on the happy path
+    // whenever any of the branches leaving that gateway does.
+    const onHappyPath = outMap.get(id).some((e) => e.onHappyPath);
+    edges.push({ from: id, to: gw, kind: onHappyPath ? 'happy' : 'deviation' });
+  });
   visibleEdges.forEach((e) => {
-    let from = e.from;
-    let to = e.to;
-    if (splitGatewayFor.has(e.from)) {
-      const gw = splitGatewayFor.get(e.from);
-      if (!linkedFromGateway.has(e.from)) {
-        edges.push({ from: e.from, to: gw, kind: 'link' });
-        linkedFromGateway.add(e.from);
-      }
-      from = gw;
-    }
-    if (joinGatewayFor.has(e.to)) {
-      const gw = joinGatewayFor.get(e.to);
-      if (!linkedToGateway.has(e.to)) {
-        edges.push({ from: gw, to: e.to, kind: 'link' });
-        linkedToGateway.add(e.to);
-      }
-      to = gw;
-    }
-    edges.push({ from, to, kind: e.onHappyPath ? 'happy' : 'deviation', sourceEdge: e });
+    const from = splitGatewayFor.has(e.from) ? splitGatewayFor.get(e.from) : e.from;
+    edges.push({ from, to: e.to, kind: e.onHappyPath ? 'happy' : 'deviation', sourceEdge: e });
   });
 
   return { nodes, edges, splitGatewayFor, joinGatewayFor };
@@ -8921,11 +8926,18 @@ function computeBpmnLanes(bpmnGraph) {
   const byTaskName = state.taskInsights && state.taskInsights.byTaskName;
   if (!byTaskName) return null;
 
+  // Lanes run top to bottom in the order the most common path reaches
+  // them (any stage it never touches follows after), so the main flow
+  // reads downward through the pool whatever order the graph's own node
+  // list happens to be in.
+  const happyIndex = new Map(((state.model && state.model.happyPath && state.model.happyPath.path) || []).map((t, i) => [t, i]));
+  const orderOf = (n) => (happyIndex.has(n.id) ? happyIndex.get(n.id) : Infinity);
+  const taskNodes = bpmnGraph.nodes.filter((n) => n.kind === 'bpmn-task').sort((a, b) => orderOf(a) - orderOf(b));
+
   const stageOrder = [];
   const stageByTaskId = new Map();
   let anyStage = false;
-  bpmnGraph.nodes.forEach((n) => {
-    if (n.kind !== 'bpmn-task') return;
+  taskNodes.forEach((n) => {
     const meta = byTaskName.get(n.id);
     const stage = meta && meta.stage;
     if (!stage) return;
@@ -8958,9 +8970,9 @@ function laneIndexForNode(n, lanes) {
 // to their own label instead of guessing from character count — one
 // offscreen canvas, reused across calls (font is set per call since it's
 // shared between the task-box font and the rotated lane-label font).
-const BPMN_TASK_LABEL_FONT = "600 12px -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif";
-const BPMN_LANE_LABEL_FONT = "700 10px -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif";
-const BPMN_SUBSTEP_FONT = "600 10px -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif";
+const BPMN_TASK_LABEL_FONT = "600 13px -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif";
+const BPMN_LANE_LABEL_FONT = "500 12px -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif";
+const BPMN_META_FONT = "400 11.5px -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif";
 let bpmnMeasureCtx = null;
 function measureBpmnLabelWidth(text, font = BPMN_TASK_LABEL_FONT) {
   if (!bpmnMeasureCtx) {
@@ -8975,7 +8987,7 @@ function measureBpmnLabelWidth(text, font = BPMN_TASK_LABEL_FONT) {
 // otherwise a long stage name like "Document & Communicate" overflows past
 // the lane's own divider lines into the lane above/below it.
 function bpmnLaneMinHeight(stage) {
-  return Math.ceil(measureBpmnLabelWidth(stage.toUpperCase(), BPMN_LANE_LABEL_FONT)) + 24;
+  return Math.ceil(measureBpmnLabelWidth(stage, BPMN_LANE_LABEL_FONT)) + 24;
 }
 
 // Greedy word-wrap by real measured width (not a fixed character count),
@@ -8998,24 +9010,25 @@ function wrapBpmnLabel(label, maxWidth) {
   return lines;
 }
 
-// A task box grows to fit its label (up to BPMN_TASK_W_MAX) rather than
-// wrapping a long name into a fixed 168px column and truncating it —
-// width first, from the label's natural (unwrapped) width, then lines and
-// height from wrapping at that width. A task with its own subprocess also
-// reserves a little extra height for its "N sub steps" subtitle line, and
-// the box widens to fit that subtitle too if it's the wider of the two.
-function sizeBpmnTaskBox(label, subtitle) {
+// A task card grows to fit its label (up to BPMN_TASK_W_MAX) rather than
+// wrapping a long name into a fixed column — width first, from the
+// label's natural (unwrapped) width or its meta line ("12m · 150
+// instances"), whichever is wider, then lines and height from wrapping at
+// that width. Text starts after the card's app-icon column.
+const BPMN_CARD_TEXT_X = 44;
+const BPMN_CARD_LINE_H = 17;
+function sizeBpmnTaskBox(label, metaText) {
   const natural = measureBpmnLabelWidth(label);
-  const subtitleWidth = subtitle ? measureBpmnLabelWidth(subtitle, BPMN_SUBSTEP_FONT) : 0;
-  const width = Math.max(BPMN_TASK_W, Math.min(BPMN_TASK_W_MAX, Math.ceil(Math.max(natural, subtitleWidth)) + 48));
-  const lines = wrapBpmnLabel(label, width - 24);
-  const height = Math.max(BPMN_TASK_H, 30 + lines.length * 14 + (subtitle ? 16 : 0));
+  const metaWidth = metaText ? measureBpmnLabelWidth(metaText, BPMN_META_FONT) : 0;
+  const width = Math.max(BPMN_TASK_W, Math.min(BPMN_TASK_W_MAX, Math.ceil(Math.max(natural, metaWidth + 14)) + BPMN_CARD_TEXT_X + 22));
+  const lines = wrapBpmnLabel(label, width - BPMN_CARD_TEXT_X - 18);
+  const height = Math.max(BPMN_TASK_H, 34 + lines.length * BPMN_CARD_LINE_H + (metaText ? 24 : 0));
   return { width, height, lines };
 }
 
 function layoutBpmn(bpmnGraph, lanes) {
   const g = new dagre.graphlib.Graph();
-  g.setGraph({ rankdir: 'LR', nodesep: 34, ranksep: 64, marginx: 30, marginy: 30 });
+  g.setGraph({ rankdir: 'LR', nodesep: 40, ranksep: 76, marginx: 30, marginy: 30 });
   g.setDefaultEdgeLabel(() => ({}));
 
   bpmnGraph.nodes.forEach((n) => {
@@ -9024,7 +9037,7 @@ function layoutBpmn(bpmnGraph, lanes) {
     if (n.kind === 'start' || n.kind === 'end') { width = BPMN_EVENT_SIZE; height = BPMN_EVENT_SIZE; }
     if (n.kind === 'gateway') { width = BPMN_GATEWAY_SIZE; height = BPMN_GATEWAY_SIZE; }
     if (n.kind === 'bpmn-task') {
-      const sized = sizeBpmnTaskBox(n.label, n.subtitleText);
+      const sized = sizeBpmnTaskBox(n.label, n.metaText);
       width = sized.width;
       height = sized.height;
       n.wrappedLines = sized.lines;
@@ -9106,196 +9119,298 @@ function layoutBpmn(bpmnGraph, lanes) {
     };
   }
 
-  // Every real node blocks a full-height vertical strip at its own X (its
-  // width plus a little clearance) — a long-distance edge (e.g. a rare
-  // exception branch jumping straight from an early gateway to a late
-  // node several ranks away) would otherwise bend through whichever
-  // unrelated node's rank its naive midpoint happened to land on, visibly
-  // clipping its corner. Merging those strips and taking the gaps between
-  // them gives every edge's vertical run somewhere genuinely clear to
-  // land, however many ranks it needs to jump.
-  const BPMN_BEND_CLEARANCE = 14;
-  const occupiedBands = Array.from(nodePos.values())
-    .map((p) => [p.x - p.width / 2 - BPMN_BEND_CLEARANCE, p.x + p.width / 2 + BPMN_BEND_CLEARANCE])
-    .sort((a, b) => a[0] - b[0]);
-  const mergedBands = [];
-  occupiedBands.forEach(([a, b]) => {
-    const last = mergedBands[mergedBands.length - 1];
-    if (last && a <= last[1]) last[1] = Math.max(last[1], b);
-    else mergedBands.push([a, b]);
-  });
-  const freeGaps = [];
-  for (let i = 0; i < mergedBands.length - 1; i++) {
-    freeGaps.push([mergedBands[i][1], mergedBands[i + 1][0]]);
-  }
-  // Finds whichever free gap between xa and xb sits closest to the
-  // preferred fractional position (t) along that span — null when they're
-  // close enough (adjacent ranks) that the plain ranksep gap between them
-  // is itself already clear, which the caller falls back to.
-  function freeGapBetween(xa, xb, t) {
-    const lo = Math.min(xa, xb);
-    const hi = Math.max(xa, xb);
-    const candidates = freeGaps.filter(([a, b]) => b > lo + 1 && a < hi - 1 && b - a > 4);
-    if (!candidates.length) return null;
-    const preferredX = xa + (xb - xa) * t;
-    let best = candidates[0];
-    let bestDist = Infinity;
-    candidates.forEach((g) => {
-      const dist = Math.abs((g[0] + g[1]) / 2 - preferredX);
-      if (dist < bestDist) { bestDist = dist; best = g; }
-    });
-    return best;
-  }
+  // ---- orthogonal edge routing ----
+  // Every edge leaves and enters a shape at one of its four side ports
+  // (a task card's edge midpoint, a gateway's diamond tip, an event's
+  // circle tip) and runs as right-angle segments between them. A handful
+  // of candidate routes is generated per edge — straight across, straight
+  // down, drop-then-run, run-then-drop, an elbow through a clear column,
+  // or out through a clear horizontal corridor (an empty lane, a lane
+  // boundary, or above/below everything) — and the cheapest one wins:
+  // anything crossing a node is effectively ruled out, then running along
+  // a line another edge already drew, then extra bends and length. Happy
+  // path edges are routed first so they claim the cleanest lines.
+  const portX = { left: (p) => p.x - p.width / 2, right: (p) => p.x + p.width / 2 };
+  const topY = (p) => p.y - p.height / 2;
+  const bottomY = (p) => p.y + p.height / 2;
 
-  // The free gap whose center sits closest to x, for a flyover's own
-  // vertical hop near one endpoint — unlike freeGapBetween this isn't
-  // bounded between two X's, since a flyover's hop just needs *some*
-  // clear column near its own end, not one on the way to the other end.
-  function nearestFreeGapX(x) {
-    if (!freeGaps.length) return null;
-    let best = freeGaps[0];
-    let bestDist = Infinity;
-    freeGaps.forEach((g) => {
-      const dist = Math.abs((g[0] + g[1]) / 2 - x);
-      if (dist < bestDist) { bestDist = dist; best = g; }
+  // Clear vertical columns: gaps between every node's own X extent.
+  const BEND_CLEARANCE = 14;
+  const mergeBands = (bands) => {
+    const merged = [];
+    bands.sort((a, b) => a[0] - b[0]).forEach(([a, b]) => {
+      const last = merged[merged.length - 1];
+      if (last && a <= last[1]) last[1] = Math.max(last[1], b);
+      else merged.push([a, b]);
     });
-    return best;
-  }
+    return merged;
+  };
+  const allPos = Array.from(nodePos.values());
+  const xBands = mergeBands(allPos.map((p) => [portX.left(p) - BEND_CLEARANCE, portX.right(p) + BEND_CLEARANCE]));
+  const freeColumns = [];
+  for (let i = 0; i < xBands.length - 1; i++) freeColumns.push([xBands[i][1], xBands[i + 1][0]]);
 
-  // Whether an axis-aligned segment (horizontal if y1===y2, vertical
-  // otherwise) passes through any node other than the edge's own two
-  // endpoints — the free-gap bend above clears the vertical run itself,
-  // but a laned diagram can still have a same-row sibling sitting between
-  // a far-off bend and the edge's own source/target, which the vertical
-  // fix alone can't see.
+  // Clear horizontal corridors: gaps between every node's own Y extent,
+  // lane boundaries, and just outside the whole diagram.
+  const yBands = mergeBands(allPos.map((p) => [topY(p) - 12, bottomY(p) + 12]));
+  const corridorYs = new Set();
+  for (let i = 0; i < yBands.length - 1; i++) corridorYs.add(Math.round((yBands[i][1] + yBands[i + 1][0]) / 2));
+  if (yBands.length) {
+    corridorYs.add(Math.round(yBands[0][0] - 10));
+    corridorYs.add(Math.round(yBands[yBands.length - 1][1] + 10));
+  }
+  if (laneMeta) {
+    laneMeta.laneTop.forEach((t, i) => { if (i > 0) corridorYs.add(Math.round(t)); });
+  }
+  const corridorCandidates = [];
+  corridorYs.forEach((y) => [0, -8, 8, -16, 16].forEach((d) => corridorCandidates.push(y + d)));
+
   function segmentHitsNode(x1, y1, x2, y2, excludeIds) {
     for (const [id, p] of nodePos) {
       if (excludeIds.has(id)) continue;
-      const bx0 = p.x - p.width / 2 - 2;
-      const bx1 = p.x + p.width / 2 + 2;
-      const by0 = p.y - p.height / 2 - 2;
-      const by1 = p.y + p.height / 2 + 2;
-      if (y1 === y2) {
+      const bx0 = portX.left(p) - 4;
+      const bx1 = portX.right(p) + 4;
+      const by0 = topY(p) - 4;
+      const by1 = bottomY(p) + 4;
+      if (Math.abs(y1 - y2) < 0.5) {
         if (y1 > by0 && y1 < by1 && Math.max(x1, x2) > bx0 && Math.min(x1, x2) < bx1) return true;
-      } else if (x1 === x2) {
+      } else if (Math.abs(x1 - x2) < 0.5) {
         if (x1 > bx0 && x1 < bx1 && Math.max(y1, y2) > by0 && Math.min(y1, y2) < by1) return true;
       }
     }
     return false;
   }
 
-  // The nearest lane boundary (including the pool's own top/bottom edge)
-  // to a given Y — every one of these sits in the gap between two lanes'
-  // real content, so it's always clear to route a horizontal flyover
-  // segment through, whichever lanes the edge's source and target are in.
-  function nearestLaneDividerY(y) {
-    if (!laneMeta) return null;
-    const dividers = laneMeta.laneTop.slice();
-    dividers.push(laneMeta.laneTop[laneMeta.laneTop.length - 1] + laneMeta.laneHeights[laneMeta.laneHeights.length - 1]);
-    let best = dividers[0];
-    let bestDist = Infinity;
-    dividers.forEach((d) => { const dist = Math.abs(d - y); if (dist < bestDist) { bestDist = dist; best = d; } });
-    return best;
+  // Segments already claimed by routed edges, so a later edge avoids
+  // running along exactly the same line as an unrelated one. Edges that
+  // share a source or a target may merge — that reads as one fork/join.
+  const claimed = [];
+  function overlapCount(points, fromId, toId) {
+    let n = 0;
+    for (let i = 0; i < points.length - 1; i++) {
+      const a = points[i];
+      const b = points[i + 1];
+      const horizontal = Math.abs(a.y - b.y) < 0.5;
+      claimed.forEach((c) => {
+        if (c.fromId === fromId || c.toId === toId) return;
+        if (horizontal && c.horizontal && Math.abs(c.at - a.y) < 4) {
+          if (Math.min(Math.max(a.x, b.x), c.hi) - Math.max(Math.min(a.x, b.x), c.lo) > 6) n += 1;
+        } else if (!horizontal && !c.horizontal && Math.abs(c.at - a.x) < 4) {
+          if (Math.min(Math.max(a.y, b.y), c.hi) - Math.max(Math.min(a.y, b.y), c.lo) > 6) n += 1;
+        }
+      });
+    }
+    return n;
+  }
+  function claim(points, fromId, toId) {
+    for (let i = 0; i < points.length - 1; i++) {
+      const a = points[i];
+      const b = points[i + 1];
+      const horizontal = Math.abs(a.y - b.y) < 0.5;
+      claimed.push(horizontal
+        ? { fromId, toId, horizontal, at: a.y, lo: Math.min(a.x, b.x), hi: Math.max(a.x, b.x) }
+        : { fromId, toId, horizontal, at: a.x, lo: Math.min(a.y, b.y), hi: Math.max(a.y, b.y) });
+    }
   }
 
-  // Every edge gets a strict right-angle elbow between its own endpoints —
-  // dagre's re-laning above can move nodes off its original bend points
-  // anyway, and a hand-built elbow is what actually renders as one (see
-  // curveLinear in renderBpmnView). Edges that share a "from" node and
-  // bend at the exact same X would otherwise draw one on top of the
-  // other for however much of their vertical run overlaps, so siblings
-  // sharing a source spread their bend across a range instead of a
-  // single shared midpoint — now spread across whichever clear gap was
-  // chosen, so the spread itself can't reintroduce a node crossing. A
-  // long-distance edge whose source and target sit in different lanes can
-  // still have its horizontal run graze a same-row sibling in between —
-  // when that happens it's rerouted through the nearest lane boundary
-  // instead, a guaranteed-clear corridor between two lanes' real content.
-  const siblingsByFrom = new Map();
+  // Several edges leaving one task card's top/bottom (or arriving at it)
+  // fan out across the card instead of all stacking on its center line.
+  // Gateways and events only have a single tip per side, so they don't.
+  const kindById = new Map(bpmnGraph.nodes.map((n) => [n.id, n.kind]));
+  const outKeys = new Map();
+  const inKeys = new Map();
   edgePos.forEach((edge, key) => {
-    const from = key.split('||')[0];
-    if (!siblingsByFrom.has(from)) siblingsByFrom.set(from, []);
-    siblingsByFrom.get(from).push(key);
+    const [fromId, toId] = key.split('||');
+    if (!outKeys.has(fromId)) outKeys.set(fromId, []);
+    outKeys.get(fromId).push(key);
+    if (!inKeys.has(toId)) inKeys.set(toId, []);
+    inKeys.get(toId).push(key);
   });
-  edgePos.forEach((edge, key) => {
+  function fanOffset(id, keys, key, p) {
+    if (kindById.get(id) !== 'bpmn-task' || keys.length < 2) return 0;
+    const idx = keys.indexOf(key);
+    const step = Math.min(18, (p.width - 40) / Math.max(1, keys.length - 1));
+    return (idx - (keys.length - 1) / 2) * step;
+  }
+
+  function candidateRoutes(fp, tp, sx, tx) {
+    const routes = [];
+    const forward = portX.left(tp) > portX.right(fp) + 8;
+    const below = tp.y > fp.y;
+    const vertGap = Math.abs(tp.y - fp.y);
+
+    // Straight across, same row.
+    if (forward && vertGap < 1) {
+      routes.push([{ x: portX.right(fp), y: fp.y }, { x: portX.left(tp), y: tp.y }]);
+    }
+    // Straight down/up, when the two shapes share a column.
+    if (vertGap > (fp.height + tp.height) / 2 + 8) {
+      const lo = Math.max(portX.left(fp), portX.left(tp)) + 10;
+      const hi = Math.min(portX.right(fp), portX.right(tp)) - 10;
+      const x = [fp.x, tp.x].find((c) => c >= lo && c <= hi);
+      if (x != null) {
+        routes.push([
+          { x, y: below ? bottomY(fp) : topY(fp) },
+          { x, y: below ? topY(tp) : bottomY(tp) },
+        ]);
+      }
+    }
+    if (forward && vertGap > fp.height / 2 + 6) {
+      // Drop out of the source's bottom (or top), then run into the
+      // target's left side.
+      routes.push([
+        { x: sx, y: below ? bottomY(fp) : topY(fp) },
+        { x: sx, y: tp.y },
+        { x: portX.left(tp), y: tp.y },
+      ]);
+    }
+    if (tx > portX.right(fp) + 12 && vertGap > tp.height / 2 + 6) {
+      // Run out of the source's right side, then drop into the target's
+      // top (or bottom).
+      routes.push([
+        { x: portX.right(fp), y: fp.y },
+        { x: tx, y: fp.y },
+        { x: tx, y: below ? topY(tp) : bottomY(tp) },
+      ]);
+    }
+    if (forward && vertGap >= 1) {
+      // Right side -> elbow through a clear column -> left side.
+      const lo = portX.right(fp);
+      const hi = portX.left(tp);
+      const columns = freeColumns.filter(([a, b]) => b > lo + 1 && a < hi - 1 && b - a > 4)
+        .map(([a, b]) => (Math.max(a, lo + 8) + Math.min(b, hi - 8)) / 2);
+      columns.push((lo + hi) / 2);
+      columns.forEach((bx) => {
+        routes.push([
+          { x: portX.right(fp), y: fp.y },
+          { x: bx, y: fp.y },
+          { x: bx, y: tp.y },
+          { x: portX.left(tp), y: tp.y },
+        ]);
+      });
+    }
+    // Out of the source's top/bottom, along a clear corridor, and into
+    // the target's top/bottom — the only shape that works for a backward
+    // (rework) edge, and the cleanest for a long jump across lanes.
+    corridorCandidates.forEach((cy) => {
+      const clearOf = (p) => cy > bottomY(p) + 8 || cy < topY(p) - 8;
+      if (!clearOf(fp) || !clearOf(tp)) return;
+      routes.push([
+        { x: sx, y: cy > fp.y ? bottomY(fp) : topY(fp) },
+        { x: sx, y: cy },
+        { x: tx, y: cy },
+        { x: tx, y: cy > tp.y ? bottomY(tp) : topY(tp) },
+      ]);
+    });
+    return routes;
+  }
+
+  function scoreRoute(points, fromId, toId) {
+    const exclude = new Set([fromId, toId]);
+    let hits = 0;
+    let length = 0;
+    for (let i = 0; i < points.length - 1; i++) {
+      const a = points[i];
+      const b = points[i + 1];
+      if (segmentHitsNode(a.x, a.y, b.x, b.y, exclude)) hits += 1;
+      length += Math.abs(a.x - b.x) + Math.abs(a.y - b.y);
+    }
+    // A final segment pointing backwards into its target (e.g. arriving
+    // at a left port while travelling left) would draw its arrow through
+    // the shape, so it's as bad as a crossing.
+    const last = points[points.length - 1];
+    const prev = points[points.length - 2];
+    const tp = nodePos.get(toId);
+    if (Math.abs(last.y - prev.y) < 0.5 && Math.abs(last.x - portX.left(tp)) < 0.5 && prev.x > last.x) hits += 1;
+    // A start/end event's name sits right under its circle, so a route
+    // using that bottom tip would run straight through the label.
+    const fp = nodePos.get(fromId);
+    const labelPenalty = (kindById.get(fromId) === 'start' || kindById.get(fromId) === 'end') && points[0].y > fp.y + 1 ? 1 : 0;
+    const labelPenaltyEnd = (kindById.get(toId) === 'start' || kindById.get(toId) === 'end') && last.y > tp.y + 1 ? 1 : 0;
+    return hits * 1e6 + (labelPenalty + labelPenaltyEnd) * 5000 + overlapCount(points, fromId, toId) * 600 + (points.length - 2) * 40 + length;
+  }
+
+  const kindByKey = new Map(bpmnGraph.edges.map((e) => [`${e.from}||${e.to}`, e.kind]));
+  const orderedKeys = Array.from(edgePos.keys()).sort((a, b) =>
+    (kindByKey.get(a) === 'happy' ? 0 : 1) - (kindByKey.get(b) === 'happy' ? 0 : 1));
+
+  orderedKeys.forEach((key) => {
+    const edge = edgePos.get(key);
     const [fromId, toId] = key.split('||');
     const fp = nodePos.get(fromId);
     const tp = nodePos.get(toId);
     if (!fp || !tp) return;
-    const siblings = siblingsByFrom.get(fromId);
-    const laneIndex = siblings.indexOf(key);
-    const t = siblings.length > 1 ? (laneIndex + 1) / (siblings.length + 1) : 0.5;
-    const gap = freeGapBetween(fp.x, tp.x, t);
-    const bendX = gap ? gap[0] + (gap[1] - gap[0]) * t : fp.x + (tp.x - fp.x) * t;
+    const sx = fp.x + fanOffset(fromId, outKeys.get(fromId), key, fp);
+    const tx = tp.x + fanOffset(toId, inKeys.get(toId), key, tp);
 
-    const excludeIds = new Set([fromId, toId]);
-    const simplePoints = [
-      { x: fp.x, y: fp.y },
-      { x: bendX, y: fp.y },
-      { x: bendX, y: tp.y },
-      { x: tp.x, y: tp.y },
-    ];
-    const simpleCollides = segmentHitsNode(fp.x, fp.y, bendX, fp.y, excludeIds)
-      || segmentHitsNode(bendX, fp.y, bendX, tp.y, excludeIds)
-      || segmentHitsNode(bendX, tp.y, tp.x, tp.y, excludeIds);
-
-    if (simpleCollides && laneMeta) {
-      // A flyover's own vertical hops (near each endpoint) use whichever
-      // clear column sits nearest that endpoint, rather than the
-      // endpoint's exact X — another node can easily share that exact
-      // rank in a different lane, which straight-at-the-endpoint would
-      // otherwise run right through.
-      const flyY = nearestLaneDividerY((fp.y + tp.y) / 2);
-      const fromGap = nearestFreeGapX(fp.x);
-      const toGap = nearestFreeGapX(tp.x);
-      const fromX = fromGap ? (fromGap[0] + fromGap[1]) / 2 : fp.x;
-      const toX = toGap ? (toGap[0] + toGap[1]) / 2 : tp.x;
-      edge.points = [
-        { x: fp.x, y: fp.y },
-        { x: fromX, y: fp.y },
-        { x: fromX, y: flyY },
-        { x: toX, y: flyY },
-        { x: toX, y: tp.y },
-        { x: tp.x, y: tp.y },
-      ];
-    } else {
-      edge.points = simplePoints;
-    }
-
-    // Every point above is a node's own CENTER, so the path (and its
-    // arrowhead marker) would otherwise run — and land — underneath the
-    // opaque box, invisible beneath it. Pulling the first/last point back
-    // by that node's own half-width (plus a couple px of breathing room)
-    // stops the line at the box's real edge instead, so the direction
-    // arrow actually shows.
-    const ARROW_GAP = 2;
-    const first = edge.points[0];
-    const second = edge.points[1];
-    const dirStart = Math.sign(second.x - first.x) || 1;
-    edge.points[0] = { x: first.x + dirStart * (fp.width / 2 + ARROW_GAP), y: first.y };
-    const lastIdx = edge.points.length - 1;
-    const last = edge.points[lastIdx];
-    const beforeLast = edge.points[lastIdx - 1];
-    const dirEnd = Math.sign(last.x - beforeLast.x) || 1;
-    edge.points[lastIdx] = { x: last.x - dirEnd * (tp.width / 2 + ARROW_GAP), y: last.y };
+    let best = null;
+    let bestScore = Infinity;
+    candidateRoutes(fp, tp, sx, tx).forEach((pts) => {
+      const score = scoreRoute(pts, fromId, toId);
+      if (score < bestScore) { bestScore = score; best = pts; }
+    });
+    edge.points = best || [{ x: portX.right(fp), y: fp.y }, { x: portX.left(tp), y: tp.y }];
+    claim(edge.points, fromId, toId);
   });
 
   return { nodePos, edgePos, laneMeta };
 }
 
+// A small application glyph for a task card's leading icon, picked from
+// the task's own appId when the dataset carries one — a generic task
+// glyph otherwise, never a guessed application.
+function appendBpmnAppIcon(g, x, y, appId) {
+  const app = String(appId || '').toLowerCase();
+  const k = g.append('g').attr('class', 'bpmn-app-icon').attr('transform', `translate(${x}, ${y})`);
+  if (/gmail|mail|outlook/.test(app)) {
+    k.append('path').attr('d', 'M1.5 4.5 V15 H5 V8.2').attr('fill', 'none').attr('stroke', '#4285f4').attr('stroke-width', 2.4).attr('stroke-linejoin', 'round');
+    k.append('path').attr('d', 'M16.5 4.5 V15 H13 V8.2').attr('fill', 'none').attr('stroke', '#34a853').attr('stroke-width', 2.4).attr('stroke-linejoin', 'round');
+    k.append('path').attr('d', 'M1.8 4.2 L9 9.6 L16.2 4.2').attr('fill', 'none').attr('stroke', '#ea4335').attr('stroke-width', 2.4).attr('stroke-linejoin', 'round').attr('stroke-linecap', 'round');
+    k.append('path').attr('d', 'M13.4 6.7 L16.2 4.6').attr('stroke', '#fbbc04').attr('stroke-width', 2.4).attr('stroke-linecap', 'round');
+  } else if (/sheet|excel|spreadsheet/.test(app)) {
+    k.append('path').attr('d', 'M3.5 1 H11 L15 5 V16.2 A0.8 0.8 0 0 1 14.2 17 H3.8 A0.8 0.8 0 0 1 3 16.2 V1.8 A0.8 0.8 0 0 1 3.8 1 Z').attr('fill', '#0f9d58');
+    k.append('path').attr('d', 'M11 1 V5 H15 Z').attr('fill', '#87ceac');
+    k.append('rect').attr('x', 5.6).attr('y', 8.4).attr('width', 6.8).attr('height', 5.6).attr('fill', 'none').attr('stroke', '#fff').attr('stroke-width', 1.1);
+    k.append('path').attr('d', 'M5.6 11.2 H12.4 M9 8.4 V14').attr('stroke', '#fff').attr('stroke-width', 1.1);
+  } else if (/workday/.test(app)) {
+    k.append('path').attr('d', 'M3.2 6 A6 6 0 0 1 14.8 6').attr('fill', 'none').attr('stroke', '#f5a623').attr('stroke-width', 2).attr('stroke-linecap', 'round');
+    k.append('text').attr('x', 9).attr('y', 16.5).attr('text-anchor', 'middle').attr('fill', '#0b5fba').attr('font-size', 11).attr('font-weight', 800).text('W');
+  } else {
+    k.append('rect').attr('class', 'bpmn-app-generic').attr('x', 1.5).attr('y', 3).attr('width', 15).attr('height', 12).attr('rx', 2.5);
+    k.append('rect').attr('class', 'bpmn-app-generic-dot').attr('x', 10).attr('y', 7.5).attr('width', 3.6).attr('height', 3.6).attr('rx', 0.9);
+  }
+}
+
+function appendBpmnClockIcon(g, x, y) {
+  const k = g.append('g').attr('class', 'bpmn-card-clock').attr('transform', `translate(${x}, ${y})`);
+  k.append('circle').attr('cx', 7).attr('cy', 7).attr('r', 6);
+  k.append('path').attr('d', 'M7 3.8 V7 L9.2 8.4');
+}
+
+// A task card: white, softly shadowed, with a blue accent along its left
+// edge; the application icon and task name on top, and a clock + meta
+// line ("12m · 150 instances", or "N sub steps" for a subprocess) below.
 function buildBpmnTaskBox(g, n, p) {
-  g.append('rect').attr('class', 'bpmn-task-box').attr('width', p.width).attr('height', p.height).attr('rx', 8);
-  const lines = n.wrappedLines || wrapBpmnLabel(n.label, p.width - 24);
-  const nameSpan = (lines.length - 1) * 14;
-  const totalSpan = nameSpan + (n.subtitleText ? 16 : 0);
-  const startY = p.height / 2 - totalSpan / 2 + 4;
+  const r = 6;
+  g.append('rect').attr('class', 'bpmn-task-box').attr('width', p.width).attr('height', p.height).attr('rx', r);
+  g.append('path').attr('class', 'bpmn-task-accent')
+    .attr('d', `M${r},0.75 A${r - 0.75},${r - 0.75} 0 0 0 0.75,${r} V${p.height - r} A${r - 0.75},${r - 0.75} 0 0 0 ${r},${p.height - 0.75}`);
+
+  const lines = n.wrappedLines || wrapBpmnLabel(n.label, p.width - BPMN_CARD_TEXT_X - 18);
+  const blockH = (lines.length - 1) * BPMN_CARD_LINE_H + (n.metaText ? 24 : 0);
+  const titleY = p.height / 2 - blockH / 2 + 4;
+  appendBpmnAppIcon(g, 15, titleY - 13, n.appId);
   lines.forEach((l, i) => {
-    g.append('text').attr('class', 'bpmn-task-label').attr('x', p.width / 2).attr('y', startY + i * 14).text(l);
+    g.append('text').attr('class', 'bpmn-task-label').attr('x', BPMN_CARD_TEXT_X).attr('y', titleY + i * BPMN_CARD_LINE_H).text(l);
   });
-  if (n.subtitleText) {
-    g.append('text').attr('class', 'bpmn-task-substeps').attr('x', p.width / 2).attr('y', startY + nameSpan + 16).text(n.subtitleText);
+  if (n.metaText) {
+    const metaY = titleY + (lines.length - 1) * BPMN_CARD_LINE_H + 24;
+    appendBpmnClockIcon(g, 17, metaY - 10.5);
+    g.append('text').attr('class', 'bpmn-task-meta').attr('x', BPMN_CARD_TEXT_X).attr('y', metaY).text(n.metaText);
+  }
+  if (n.subStepCount) {
     // A small corner bracket in the bottom-right, echoing the "drill in"
-    // affordance — this box expands into its own view on click.
+    // affordance — this card expands into its own view on click.
     const cx = p.width - 10;
     const cy = p.height - 10;
     g.append('path').attr('class', 'bpmn-task-substep-arrow')
@@ -9305,8 +9420,8 @@ function buildBpmnTaskBox(g, n, p) {
 
 function buildBpmnEvent(g, n, p) {
   const r = p.width / 2;
-  g.append('circle').attr('class', 'bpmn-event-circle').attr('cx', r).attr('cy', r).attr('r', r);
-  g.append('text').attr('class', 'bpmn-event-label').attr('x', r).attr('y', p.height + 14).text(n.label);
+  g.append('circle').attr('class', 'bpmn-event-circle').attr('cx', r).attr('cy', r).attr('r', r - 1);
+  g.append('text').attr('class', 'bpmn-event-label').attr('x', r).attr('y', p.height + 17).text(n.label);
 }
 
 function buildBpmnGateway(g, n, p) {
@@ -9314,7 +9429,7 @@ function buildBpmnGateway(g, n, p) {
   const cy = p.height / 2;
   const d = `M${cx},2 L${p.width - 2},${cy} L${cx},${p.height - 2} L2,${cy} Z`;
   g.append('path').attr('class', 'bpmn-gateway-shape').attr('d', d);
-  const s = 9;
+  const s = 8;
   g.append('path').attr('class', 'bpmn-gateway-mark')
     .attr('d', `M${cx - s},${cy - s} L${cx + s},${cy + s} M${cx + s},${cy - s} L${cx - s},${cy + s}`);
 }
@@ -9331,7 +9446,7 @@ function renderBpmnLanes(laneMeta) {
   const bodyLeft = BPMN_POOL_LABEL_W + BPMN_LANE_LABEL_W;
 
   bpmnLaneLayer.append('rect').attr('class', 'bpmn-pool-border')
-    .attr('x', 0).attr('y', 0).attr('width', contentRight).attr('height', totalHeight);
+    .attr('x', 0).attr('y', 0).attr('width', contentRight + 40).attr('height', totalHeight);
 
   bpmnLaneLayer.append('rect').attr('class', 'bpmn-pool-label-bg')
     .attr('x', 0).attr('y', 0).attr('width', BPMN_POOL_LABEL_W).attr('height', totalHeight);
@@ -9353,7 +9468,7 @@ function renderBpmnLanes(laneMeta) {
       .text(stage);
     if (i > 0) {
       bpmnLaneLayer.append('line').attr('class', 'bpmn-lane-divider')
-        .attr('x1', lanesLeft).attr('x2', contentRight).attr('y1', top).attr('y2', top);
+        .attr('x1', lanesLeft).attr('x2', contentRight + 40).attr('y1', top).attr('y2', top);
     }
   });
 
@@ -9496,7 +9611,20 @@ function renderBpmnView() {
     : isStatic
       ? buildBpmnGraphFromSubprocess(state.staticDiagram.rootId)
       : buildBpmnGraph(model);
-  bpmnGraph.nodes.forEach((n) => { if (n.kind === 'bpmn-task') attachSubprocessMeta(n); });
+  bpmnGraph.nodes.forEach((n) => {
+    if (n.kind !== 'bpmn-task') return;
+    attachSubprocessMeta(n);
+    const meta = state.taskInsights && state.taskInsights.byTaskName.get(n.label);
+    n.appId = meta ? meta.appId : null;
+    // Mined tasks carry real timing and volume; a drill-down/static
+    // diagram node only has whatever structure the diagram itself has.
+    const stats = !inDrilldown && !isStatic && n.source && n.source.caseCount != null ? n.source : null;
+    const parts = [];
+    if (stats) parts.push(formatDuration(stats.medianDuration));
+    if (n.subtitleText) parts.push(n.subtitleText);
+    else if (stats) parts.push(pluralCases(stats.caseCount));
+    n.metaText = parts.length ? parts.join(' · ') : null;
+  });
   const useStructuralTooltip = inDrilldown || isStatic;
   const lanes = inDrilldown ? null : isStatic ? state.staticDiagram.lanes : computeBpmnLanes(bpmnGraph);
   const { nodePos, edgePos, laneMeta } = layoutBpmn(bpmnGraph, lanes);
@@ -9523,15 +9651,23 @@ function renderBpmnView() {
   const edgeEnter = edgeSel.enter().append('g').attr('class', 'edge');
   edgeEnter.append('path').attr('class', 'bpmn-edge-path');
   const mergedEdges = edgeEnter.merge(edgeSel);
+  const kindOf = (id) => { const bn = bpmnNodeById.get(id); return bn ? bn.kind : null; };
   mergedEdges.attr('class', (e) => {
     const classes = ['edge'];
     if (e.kind === 'happy') classes.push('bpmn-happy');
+    if (e.kind === 'happy' && kindOf(e.to) === 'end') classes.push('bpmn-to-end');
     if (isMessageTaskId(e.from) || isMessageTaskId(e.to)) classes.push('bpmn-message');
     return classes.join(' ');
   });
   mergedEdges.select('path.bpmn-edge-path')
     .attr('d', (e) => bpmnRoundedElbowPathD(edgePos.get(`${e.from}||${e.to}`).points))
-    .attr('marker-end', (e) => (e.kind === 'happy' ? 'url(#arrow-happy)' : 'url(#arrow-bpmn)'));
+    .attr('marker-end', (e) => {
+      // The start event's short lead-in line needs no arrowhead; the
+      // happy path's last hop into End is drawn in End's own red.
+      if (kindOf(e.from) === 'start') return null;
+      if (e.kind !== 'happy') return 'url(#arrow-bpmn)';
+      return kindOf(e.to) === 'end' ? 'url(#arrow-bpmn-end)' : 'url(#arrow-bpmn-happy)';
+    });
   mergedEdges
     .on('mouseenter', (event, e) => {
       applyHoverHighlight(

@@ -1932,6 +1932,32 @@ body.structural-diagram #play-animation-btn {
 
 .tooltip.bpmn-task-tooltip { width: 340px; max-width: 340px; padding: 14px 16px; pointer-events: auto; }
 
+/* Task hover card (BPMN and Path view): automation badge, title and
+   description, key stats, then the actions in a footer. */
+.tooltip.task-hover-card { width: 239px; max-width: 239px; max-height: 348px; overflow-y: auto; padding: 0; border: none; border-radius: 9px; background: #fff; box-shadow: 0 1px 4px rgba(0, 0, 0, 0.16), 0 2px 4px rgba(0, 0, 0, 0.12); pointer-events: auto; font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+.tooltip.task-hover-card div { margin-top: 0; }
+.thc-body { display: flex; flex-direction: column; gap: 20px; padding: 19px 16px 16px; }
+.tooltip .thc-badge { align-self: flex-start; display: inline-flex; align-items: center; gap: 4px; height: 20px; padding: 3px 6px; border-radius: 5px; font-size: 11.52px; line-height: 14px; font-weight: 700; letter-spacing: 0.03px; white-space: nowrap; }
+.tooltip .thc-badge.high { background: linear-gradient(90deg, #e4f6ec 0%, #fff 100%); color: #1f9d5c; }
+.tooltip .thc-badge.medium { background: linear-gradient(90deg, #fdf1df 0%, #fff 100%); color: #b26a00; }
+.tooltip .thc-badge.low { background: linear-gradient(90deg, #fde8e8 0%, #fff 100%); color: #b3141d; }
+.thc-badge svg { flex-shrink: 0; }
+.thc-head { display: flex; flex-direction: column; gap: 8px; margin-top: -4px; }
+.tooltip .thc-title { font-size: 14px; line-height: 20px; font-weight: 600; color: #1f1f32; }
+.tooltip .thc-desc { font-size: 12px; line-height: 16px; color: #3d3c52; }
+.thc-stats { display: flex; flex-direction: column; gap: 12px; }
+.tooltip .thc-stat { display: flex; align-items: center; justify-content: space-between; gap: 12px; font-size: 12px; line-height: 16px; }
+.thc-stat-label { display: inline-flex; align-items: center; gap: 6px; color: #6b697b; }
+.thc-stat-label svg { flex-shrink: 0; color: #8c899f; }
+.thc-stat-value { color: #1f1f32; font-weight: 600; text-align: right; }
+.tooltip .thc-path { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; line-height: 16px; color: #3d3c52; }
+.thc-path i { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+.thc-footer { display: flex; border-top: 1px solid #ececf3; }
+.thc-btn { flex: 1; display: inline-flex; align-items: center; justify-content: center; gap: 6px; height: 40px; padding: 0 8px; border: none; background: none; font: inherit; font-size: 12px; line-height: 16px; font-weight: 500; color: #3d3c52; cursor: pointer; }
+.thc-btn + .thc-btn { border-left: 1px solid #ececf3; }
+.thc-btn:hover { background: #f6f6f9; color: #0975d7; }
+.thc-btn svg { flex-shrink: 0; }
+
 .bpmn-tt-badges { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 8px; }
 .bpmn-tt-chip { display: inline-block; font-size: 0.72rem; font-weight: 700; padding: 3px 10px; border-radius: 20px; margin: 0; color: inherit; }
 .bpmn-tt-chip-kind { background: var(--kind-info-soft); color: var(--kind-info); }
@@ -10154,7 +10180,10 @@ function renderBpmnView() {
     })
     .attr('class', (n) => `node ${n.kind}${n.id === state.selectedTaskId ? ' selected' : ''}${n.subStepCount ? ' has-substeps' : ''}`)
     .on('mouseenter', (event, n) => {
-      if (n.kind === 'bpmn-task') showTooltip(event, useStructuralTooltip ? drilldownTaskTooltipHtml(n) : bpmnTaskTooltipHtml(n.source, model), true);
+      if (n.kind === 'bpmn-task') {
+        if (useStructuralTooltip) showTooltip(event, drilldownTaskTooltipHtml(n), true);
+        else showTooltip(event, taskHoverCardHtml(n.source.id, model), 'card');
+      }
       const isGateway = (id) => { const gn = bpmnNodeById.get(id); return !!gn && gn.kind === 'gateway'; };
       applyHoverHighlight(bpmnNodeLayer.selectAll('g.node'), bpmnEdgeLayer.selectAll('g.edge'), computeAdjacentThroughGateways(n.id, bpmnGraph.edges, isGateway));
     })
@@ -10468,12 +10497,14 @@ function render(fit = false) {
     })
     .attr('class', (n) => `node ${n.kind}${nodeIsActive(n) ? '' : ' dimmed'}${n.id === state.selectedTaskId ? ' selected' : ''}`)
     .on('mouseenter', (event, n) => {
-      showTooltip(event, nodeTooltipHtml(n, model));
+      if (n.kind === 'task') showTooltip(event, taskHoverCardHtml(n.id, model), 'card');
+      else showTooltip(event, nodeTooltipHtml(n, model));
       applyHoverHighlight(nodeLayer.selectAll('g.node'), edgeLayer.selectAll('g.edge'), computeForwardReachable(n.id, renderGraph.edges));
     })
     .on('mousemove', moveTooltip)
-    .on('mouseleave', () => {
-      hideTooltip();
+    .on('mouseleave', (event, n) => {
+      if (n.kind === 'task') scheduleHideTooltip();
+      else hideTooltip();
       clearHoverHighlight(nodeLayer.selectAll('g.node'), edgeLayer.selectAll('g.edge'));
     });
 
@@ -10568,46 +10599,42 @@ function formatAutonomyLabel(v) {
 // concrete example action when the dataset carries them, and the same
 // frequency/timing stats as the plain tooltip plus an Autonomy pill when
 // the upload's own subprocess data declares one.
-function bpmnTaskTooltipHtml(n, model) {
-  const meta = state.taskInsights && state.taskInsights.byTaskName.get(n.id);
-  const onHappyPath = !!(model.happyPath && model.happyPath.path.includes(n.id));
-
-  const badges = [];
-  if (meta && meta.nodeKind && BPMN_KIND_LABEL[meta.nodeKind]) {
-    badges.push(`<span class="bpmn-tt-chip bpmn-tt-chip-kind">${BPMN_KIND_LABEL[meta.nodeKind]}</span>`);
-  }
-  badges.push(`<span class="bpmn-tt-chip ${onHappyPath ? 'bpmn-tt-chip-path' : 'bpmn-tt-chip-deviation'}">${onHappyPath ? 'Happy path' : 'Deviation path'}</span>`);
-
-  const descLine = `<div class="bpmn-tt-desc">${meta && meta.description ? meta.description : n.label}</div>`;
-
-  const examples = state.taskInsights && state.taskInsights.instancesByTaskName.get(n.id);
-  const example = examples && examples.length ? examples.find((e) => e.reasoning) : null;
-  const quoteLine = example ? `<div class="bpmn-tt-quote">&ldquo;${example.reasoning}&rdquo;</div>` : '';
-
-  const autonomyRow = meta && meta.autonomy
-    ? `<div class="bpmn-tt-row"><span class="bpmn-tt-row-label">${PERSON_ICON_SVG}Autonomy</span><span class="bpmn-tt-row-value bpmn-tt-row-value-pill">${formatAutonomyLabel(meta.autonomy)}</span></div>`
-    : '';
-
-  // "Watch session" only offered when this task actually has a recorded
-  // instance to replay — openSessionReplay() itself no-ops without one, so
-  // this just keeps the button from ever looking clickable when it isn't.
-  const watchBtn = examples && examples.length
-    ? `<button type="button" class="bpmn-tt-btn" data-tt-action="watch" data-task-id="${n.id}">${PLAY_ICON_SVG}Watch session</button>`
-    : '';
-
+// The hover card both map views show on a task: how automatable it is,
+// what it is, how often and how long it runs, and the ways to dig in.
+const THC_BOLT_SVG = '<svg width="8" height="10" viewBox="0 0 8 10" fill="none" aria-hidden="true"><path d="M4.6 0.8 1 5.6h2.8l-.6 3.6L6.8 4.4H4z" stroke="currentColor" stroke-width="1" stroke-linejoin="round"/></svg>';
+function taskHoverCardHtml(taskId, model) {
+  const node = model.nodes.find((x) => x.id === taskId);
+  if (!node) return `<strong>${escapeHtml(taskId)}</strong>`;
+  const meta = state.taskInsights && state.taskInsights.byTaskName.get(taskId);
+  const m = computeAutomationMetrics(node, meta);
+  const badgeLabel = m.tier === 'high' ? 'Highly automatable' : m.tier === 'medium' ? 'Partially automatable' : 'Not automatable';
+  const onHappyPath = !!(model.happyPath && model.happyPath.path.includes(taskId));
+  const desc = meta && meta.description
+    ? escapeHtml(meta.description)
+    : `Runs in ${Math.round(node.casePct * 100)}% of cases and takes ${Math.round((node.timeShare || 0) * 100)}% of all process time.`;
+  const examples = state.taskInsights && state.taskInsights.instancesByTaskName.get(taskId);
+  const stats = [
+    [BARS_ICON_SVG, 'Seen in', `${node.caseCount} of ${model.totalCases} cases`],
+    [CLOCK_ICON_SVG, 'Median duration', formatDuration(node.medianDuration)],
+    [CLOCK_ICON_SVG, 'Total time', formatDurationLong(node.totalTime)],
+    [BARS_ICON_SVG, 'Rework', node.reworkCaseCount ? `${Math.round(node.reworkRate * 100)}% of cases` : 'None'],
+  ];
+  if (meta && meta.autonomy) stats.push([PERSON_ICON_SVG, 'Autonomy', formatAutonomyLabel(meta.autonomy)]);
   return `
-    <div class="bpmn-tt-badges">${badges.join('')}</div>
-    ${descLine}
-    ${quoteLine}
-    <div class="bpmn-tt-divider"></div>
-    <div class="bpmn-tt-rows">
-      <div class="bpmn-tt-row"><span class="bpmn-tt-row-label">${BARS_ICON_SVG}Seen in</span><span class="bpmn-tt-row-value">${n.caseCount} of ${model.totalCases} cases</span></div>
-      <div class="bpmn-tt-row"><span class="bpmn-tt-row-label">${CLOCK_ICON_SVG}Median duration</span><span class="bpmn-tt-row-value">${formatDuration(n.medianDuration)}</span></div>
-      ${autonomyRow}
+    <div class="thc-body">
+      <span class="thc-badge ${m.tier}">${THC_BOLT_SVG}${badgeLabel}</span>
+      <div class="thc-head">
+        <div class="thc-title">${escapeHtml(node.label)}</div>
+        <div class="thc-desc">${desc}</div>
+        <span class="thc-path"><i style="background:${onHappyPath ? '#0975d7' : '#ee8a58'}"></i>${onHappyPath ? 'On the most common path' : 'Off the most common path'}</span>
+      </div>
+      <div class="thc-stats">
+        ${stats.map(([icon, label, value]) => `<div class="thc-stat"><span class="thc-stat-label">${icon}${label}</span><span class="thc-stat-value">${value}</span></div>`).join('')}
+      </div>
     </div>
-    <div class="bpmn-tt-actions">
-      ${watchBtn}
-      <button type="button" class="bpmn-tt-btn" data-tt-action="details" data-task-id="${n.id}">${TASK_ICON_SVG}View details</button>
+    <div class="thc-footer">
+      ${examples && examples.length ? `<button type="button" class="thc-btn" data-tt-action="watch" data-task-id="${escapeHtml(taskId)}">${PLAY_ICON_SVG}Watch session</button>` : ''}
+      <button type="button" class="thc-btn" data-tt-action="details" data-task-id="${escapeHtml(taskId)}">View details</button>
     </div>
   `;
 }
@@ -10646,7 +10673,7 @@ let tooltipHideTimer = null;
 
 function showTooltip(event, html, rich) {
   clearTimeout(tooltipHideTimer);
-  tooltip.classed('bpmn-task-tooltip', !!rich).classed('ins-dark-tip', false);
+  tooltip.classed('bpmn-task-tooltip', rich === true).classed('task-hover-card', rich === 'card').classed('ins-dark-tip', false);
   tooltip.style('display', 'block').html(html);
   moveTooltip(event);
 }

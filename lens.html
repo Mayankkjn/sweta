@@ -1137,6 +1137,7 @@ button:hover { filter: brightness(1.08); }
 .variant-info:hover { color: var(--bpmn-blue); }
 .tooltip .variant-info-title { font-weight: 700; margin-bottom: 4px; }
 .tooltip .variant-info-path { line-height: 1.45; color: var(--text-secondary); }
+.tooltip .variant-info-story { line-height: 1.45; color: var(--text-primary); margin-top: 8px; padding-top: 8px; border-top: 1px solid var(--panel-border); }
 .variant-dot { width: 4px; height: 4px; border-radius: 50%; background: #8b8fa6; flex-shrink: 0; }
 .variant-pct-pill { font-size: 0.78rem; font-weight: 700; color: var(--bpmn-blue); background: #e8f1fd; border-radius: 8px; padding: 2px 8px; }
 .variant-meta { display: flex; align-items: center; gap: 8px; font-size: 0.76rem; color: #6b6f86; white-space: nowrap; }
@@ -1295,7 +1296,6 @@ button:hover { filter: brightness(1.08); }
 .completion-value { font-size: 1.25rem; font-weight: 700; color: var(--text-primary); }
 .completion-detail { font-size: 0.72rem; color: var(--text-secondary); }
 
-.variant-story { font-size: 0.8rem; color: #4a4d63; margin: 8px 0 0; line-height: 1.5; }
 
 .insight-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
 .insight-card {
@@ -10372,7 +10372,6 @@ function renderVariantList(model) {
   items.exit().remove();
   const enter = items.enter().append('li').attr('class', 'variant-item');
   enter.append('div').attr('class', 'variant-head');
-  enter.append('div').attr('class', 'variant-story');
 
   const merged = enter.merge(items);
   merged
@@ -10401,10 +10400,9 @@ function renderVariantList(model) {
   `);
   merged.select('.variant-info')
     .on('click', (event) => event.stopPropagation())
-    .on('mouseenter', (event, v) => showTooltip(event, `<div class="variant-info-title">Path ${v.rank} · ${v.path.length} step${v.path.length === 1 ? '' : 's'}</div><div class="variant-info-path">${v.path.map(escapeHtml).join(' → ')}</div>`))
+    .on('mouseenter', (event, v) => showTooltip(event, `<div class="variant-info-title">Path ${v.rank} · ${v.path.length} step${v.path.length === 1 ? '' : 's'}</div><div class="variant-info-path">${v.path.map(escapeHtml).join(' → ')}</div><div class="variant-info-story">${buildPathStory(v, model)}</div>`))
     .on('mousemove', moveTooltip)
     .on('mouseleave', hideTooltip);
-  merged.select('.variant-story').html((v) => buildPathStory(v, model));
 }
 
 function renderStats(model) {

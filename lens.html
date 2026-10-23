@@ -1127,7 +1127,11 @@ button:hover { filter: brightness(1.08); }
 }
 .variant-item:hover { border-color: var(--accent-ui); }
 .variant-item.active { border-color: var(--accent-ui); background: var(--accent-ui-soft); }
-.variant-rank { font-weight: 700; color: var(--text-tertiary); font-size: 0.75rem; }
+.variant-rank { display: flex; align-items: center; gap: 5px; font-weight: 700; color: var(--text-tertiary); font-size: 0.75rem; }
+.variant-info { display: inline-flex; color: var(--text-tertiary); cursor: help; }
+.variant-info:hover { color: var(--bpmn-blue); }
+.tooltip .variant-info-title { font-weight: 700; margin-bottom: 4px; }
+.tooltip .variant-info-path { line-height: 1.45; color: var(--text-secondary); }
 .variant-pct { font-weight: 700; }
 .variant-count { font-weight: 400; color: var(--text-secondary); font-size: 0.78rem; }
 .fastest-badge {
@@ -1141,7 +1145,6 @@ button:hover { filter: brightness(1.08); }
   margin-left: 4px;
   vertical-align: middle;
 }
-.variant-path { font-size: 0.72rem; color: var(--text-secondary); margin: 4px 0; line-height: 1.4; }
 .variant-duration { font-size: 0.72rem; color: var(--text-secondary); }
 
 .canvas-wrap { flex: 1; position: relative; overflow: hidden; }
@@ -10352,6 +10355,8 @@ function renderReworkList(model) {
   merged.select('.metric-bar-fill').style('width', (n) => `${Math.max(2, n.reworkRate * 100)}%`);
 }
 
+const INFO_ICON_SVG = '<svg width="13" height="13" viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="8" cy="8" r="6.3" stroke="currentColor" stroke-width="1.4"/><path d="M8 7.3 V11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><circle cx="8" cy="5.1" r="0.9" fill="currentColor"/></svg>';
+
 function renderVariantList(model) {
   const list = d3.select('#variant-list');
   const items = list.selectAll('li').data(model.variants, (v) => v.signature);
@@ -10364,10 +10369,15 @@ function renderVariantList(model) {
   merged
     .attr('class', (v) => `variant-item${state.highlight && state.highlight.kind === 'variant' && state.highlight.value === v ? ' active' : ''}`)
     .on('click', (event, v) => setHighlight('variant', v));
-  merged.select('.variant-rank').text((v) => `#${v.rank}`);
+  // "Path N" plus an info icon; the step sequence itself only shows in a
+  // tooltip when hovering that icon, keeping the list compact.
+  merged.select('.variant-rank').html((v) => `<span>Path ${v.rank}</span><span class="variant-info" aria-label="Show path steps">${INFO_ICON_SVG}</span>`);
+  merged.select('.variant-info')
+    .on('mouseenter', (event, v) => showTooltip(event, `<div class="variant-info-title">Path ${v.rank} · ${v.path.length} step${v.path.length === 1 ? '' : 's'}</div><div class="variant-info-path">${v.path.map(escapeHtml).join(' → ')}</div>`))
+    .on('mousemove', moveTooltip)
+    .on('mouseleave', hideTooltip);
   merged.select('.variant-body').html((v) => `
     <div class="variant-pct">${(v.pct * 100).toFixed(1)}% <span class="variant-count">(${v.count} instance${v.count === 1 ? '' : 's'})</span>${v === model.fastestPath ? ' <span class="fastest-badge" title="Fastest observed path">⚡ fastest</span>' : ''}</div>
-    <div class="variant-path">${v.path.join(' → ')}</div>
     <div class="variant-duration">Avg total time: ${formatDuration(v.avgDuration)}</div>
     <div class="variant-story">${buildPathStory(v, model)}</div>
   `);

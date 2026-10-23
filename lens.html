@@ -1137,6 +1137,122 @@ button:hover { filter: brightness(1.08); }
 .ins-tab.active { color: #0975d7; }
 .ins-tab.active::after { background: #0975d7; }
 .ins-body { flex: 1; overflow-y: auto; padding: 24px 19px 19px; }
+
+/* ---- Insights expanded: a full-height dashboard docked to the right,
+   with the process map shrunk to the remaining width on the left ---- */
+:root { --ins-expanded-w: min(1089px, 64vw); }
+.ins-header-actions { display: inline-flex; align-items: center; gap: 2px; }
+.ins-dash { display: none; }
+body.insights-expanded .canvas-wrap { margin-right: var(--ins-expanded-w); overflow: visible; }
+body.insights-expanded .canvas-wrap > #graph { overflow: hidden; }
+.side-drawer.insights-drawer.expanded { position: fixed; top: var(--ins-expanded-top, 0px); right: 0; bottom: 0; width: var(--ins-expanded-w); max-width: none; border: none; border-left: 1px solid #dfdde7; border-radius: 0; box-shadow: none; background: #fff; }
+.insights-drawer.expanded > .ins-header, .insights-drawer.expanded > .ins-tabs, .insights-drawer.expanded > .ins-body { display: none; }
+.insights-drawer.expanded > .ins-dash { display: flex; flex-direction: column; min-height: 0; flex: 1; }
+.dash-header { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 16px 24px; flex-wrap: wrap; flex-shrink: 0; }
+.dash-title { margin-top: 0; }
+.dash-controls { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+.dash-select { position: relative; display: inline-flex; align-items: center; }
+.dash-select select { appearance: none; -webkit-appearance: none; height: 40px; padding: 0 36px 0 14px; border: 1px solid #dfdde7; border-radius: 8px; background: #fff; font: inherit; font-size: 14px; font-weight: 600; color: #3d3c52; cursor: pointer; box-shadow: 0 4px 4px rgba(0, 0, 0, 0.02); }
+.dash-select svg { position: absolute; right: 12px; pointer-events: none; }
+.dash-seg { display: inline-flex; align-items: center; height: 40px; border: 1px solid #dfdde7; border-radius: 8px; overflow: hidden; background: #fff; }
+.dash-seg button { height: 100%; min-width: 48px; padding: 0 14px; border: none; border-right: 1px solid #dfdde7; background: #fff; font: inherit; font-size: 14px; font-weight: 400; color: #525066; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; }
+.dash-seg button:last-child { border-right: none; }
+.dash-seg button.active { background: #f2f2f8; font-weight: 600; color: #2b2b40; }
+.dash-seg button:disabled { cursor: default; color: #a9a7b8; }
+.dash-seg button:not(:disabled):not(.active):hover { background: #f8f8fb; }
+.dash-btn { height: 40px; display: inline-flex; align-items: center; gap: 8px; padding: 0 16px; border: 1px solid #dfdde7; border-radius: 8px; background: #fff; box-shadow: 0 4px 4px rgba(0, 0, 0, 0.02); font: inherit; font-size: 15.75px; font-weight: 600; color: #3d3c52; cursor: pointer; }
+.dash-btn:hover { background: #f8f8fb; }
+.dash-body { flex: 1; overflow-y: auto; padding: 0 24px 32px; display: flex; flex-direction: column; gap: 24px; }
+.dash-summary { margin: 0; font-size: 14px; line-height: 20px; color: #525066; }
+.dash-kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; }
+.dash-kpi { min-height: 96px; box-sizing: border-box; border: 1px solid #dfdde7; border-radius: 8px; padding: 8px 12px; display: flex; flex-direction: column; justify-content: space-between; gap: 4px; }
+.dash-kpi-label { font-size: 12px; line-height: 16px; font-weight: 600; color: #6b697b; }
+.dash-kpi-row { display: flex; align-items: center; gap: 8px; }
+.dash-kpi-value { font-size: 24px; line-height: 32px; font-weight: 600; color: #3d3c52; }
+.dash-delta { display: inline-flex; align-items: center; gap: 2px; font-size: 14px; line-height: 20px; font-weight: 500; }
+.dash-delta.good { color: #198558; }
+.dash-delta.bad { color: #b3141d; }
+.dash-kpi-sub { font-size: 12px; line-height: 16px; color: #8c899f; }
+.dash-section { display: flex; flex-direction: column; gap: 16px; }
+.dash-section-title { margin: 0; display: flex; align-items: center; gap: 8px; font-size: 20px; line-height: 28px; font-weight: 600; color: #2a2e45; }
+.dash-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(360px, 1fr)); gap: 16px; }
+.dash-card { min-height: 280px; box-sizing: border-box; border: 1px solid #dfdde7; border-radius: 16px; background: #fff; box-shadow: 0 4px 4px rgba(0, 0, 0, 0.02); padding: 16px 20px 20px; display: flex; flex-direction: column; gap: 12px; min-width: 0; }
+.dash-card-head { display: flex; align-items: flex-start; justify-content: space-between; }
+.dash-card-titles { display: flex; flex-direction: column; min-width: 0; }
+.dash-card-title-row { display: flex; align-items: center; gap: 2px; margin-left: 0; }
+.dash-card-title-row .ins-info-btn { width: 28px; height: 28px; }
+.dash-card-title { font-size: 16px; line-height: 24px; font-weight: 600; color: #3d3c52; }
+.dash-card-sub { font-size: 12px; line-height: 16px; color: #6b697b; }
+.dash-card-body { flex: 1; display: flex; flex-direction: column; min-width: 0; }
+.dash-outcomes { display: flex; align-items: center; gap: 32px; flex: 1; }
+.dash-outcomes svg { flex-shrink: 0; }
+.dash-donut-total { font-size: 16px; font-weight: 600; fill: #2a2e45; }
+.dash-donut-caption { font-size: 10px; font-weight: 600; fill: #6b697b; }
+.dash-legend { flex: 1; display: flex; flex-direction: column; min-width: 0; }
+.dash-legend-row { display: flex; align-items: center; gap: 8px; padding: 12px 0; border-bottom: 1px solid #dfdde7; font-size: 14px; line-height: 20px; color: #525066; }
+.dash-legend-row:last-child { border-bottom: none; }
+.dash-legend-swatch { width: 10px; height: 10px; border-radius: 2px; flex-shrink: 0; }
+.dash-legend-label { flex: 1; }
+.dash-legend-count { font-weight: 700; color: #3d3c52; }
+.dash-legend-pct { min-width: 40px; text-align: right; }
+.dash-headline { display: flex; flex-direction: column; margin-bottom: 8px; }
+.dash-headline-value { font-size: 24px; line-height: 32px; font-weight: 600; color: #3d3c52; }
+.dash-headline-label { font-size: 12px; line-height: 16px; color: #8c899f; }
+.dash-ttc-chart .ins-bar-label { font-size: 14px; }
+.dash-ttc-chart .ins-baseline { stroke: #dfdde7; }
+.dash-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
+.dash-path-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 65px; border-bottom: 1px solid #dfdde7; cursor: pointer; }
+.dash-path-row:last-child { border-bottom: none; }
+.dash-path-row:hover .dash-path-name, .dash-time-row:hover .dash-time-name, .dash-rework-row:hover .dash-rework-name { color: #0975d7; }
+.dash-path-text { display: flex; flex-direction: column; min-width: 0; }
+.dash-path-name { font-size: 16px; line-height: 24px; font-weight: 600; color: #3d3c52; }
+.dash-path-desc { font-size: 14px; line-height: 20px; color: #6b697b; }
+.dash-path-share { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+.dash-path-share-label { font-size: 12px; color: #6b697b; }
+.dash-path-share-pct { font-size: 20px; line-height: 28px; font-weight: 600; color: #2a2e45; min-width: 52px; text-align: right; }
+.dash-time-row { display: flex; align-items: center; gap: 12px; padding: 14px 0; cursor: pointer; }
+.dash-rank { width: 20px; height: 20px; border-radius: 50%; background: #f6f6f9; display: inline-flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 600; color: #525066; flex-shrink: 0; }
+.dash-time-main { flex: 1; display: flex; flex-direction: column; gap: 8px; min-width: 0; }
+.dash-time-name, .dash-rework-name { font-size: 14px; line-height: 20px; font-weight: 600; color: #2a2e45; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.dash-progress { height: 6px; border-radius: 40px; background: #efeff6; overflow: hidden; }
+.dash-progress > span { display: block; height: 100%; border-radius: 40px; background: #0975d7; }
+.dash-time-value { display: flex; flex-direction: column; align-items: flex-end; flex-shrink: 0; min-width: 72px; }
+.dash-time-value strong { font-size: 16px; line-height: 24px; font-weight: 600; color: #525066; white-space: nowrap; }
+.dash-time-value span { font-size: 12px; line-height: 16px; color: #525066; }
+.dash-chevron { flex-shrink: 0; color: #7b7891; }
+.dash-rework-row { display: flex; align-items: center; gap: 12px; min-height: 72px; border-bottom: 1px solid #ececf3; cursor: pointer; }
+.dash-rework-row:last-child { border-bottom: none; }
+.dash-rework-main { flex: 1; display: flex; flex-direction: column; min-width: 0; }
+.dash-rework-detail { font-size: 12px; line-height: 16px; color: #525066; }
+.dash-rework-pct { font-size: 16px; line-height: 24px; font-weight: 600; color: #525066; }
+.dash-rework-pct.lead { color: #b3141d; }
+.dash-trend-line { fill: none; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+.dash-trend-legend { display: flex; justify-content: center; gap: 16px; margin-top: 4px; font-size: 11px; color: #525066; }
+.dash-trend-legend span { display: inline-flex; align-items: center; gap: 5px; }
+.dash-trend-legend i { width: 8px; height: 8px; border-radius: 1px; display: inline-block; }
+.dash-empty { margin: auto 0; font-size: 12px; color: #8c899f; }
+
+/* Map side while the dashboard is open: a title bar with the button that
+   collapses the dashboard back into the drawer, and a zoom control. */
+.map-expanded-head, .map-zoom-control { display: none; }
+body.insights-expanded .map-expanded-head { display: flex; position: absolute; left: 0; right: 0; top: 0; z-index: 7; align-items: center; justify-content: space-between; padding: 14px 16px; pointer-events: none; }
+body.insights-expanded .map-expanded-head > * { pointer-events: auto; }
+.map-expanded-title { display: inline-flex; align-items: center; gap: 8px; font-size: 16px; line-height: 24px; font-weight: 600; color: #2a2e45; }
+.map-maximize-btn { width: 36px; height: 36px; border: 1px solid #dfdde7; border-radius: 8px; background: #fff; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 4px 4px rgba(0, 0, 0, 0.02); }
+.map-maximize-btn:hover { background: #f6f6f9; }
+.map-maximize-btn, .map-zoom-control button, .dash-seg button, .dash-btn { padding-top: 0; padding-bottom: 0; }
+.map-maximize-btn, .map-zoom-control button { padding: 0; }
+.map-maximize-btn svg, .map-zoom-control svg, .dash-btn svg, .dash-seg svg, .ins-header-actions svg { flex-shrink: 0; }
+body.insights-expanded .map-zoom-control { display: flex; position: absolute; left: 16px; bottom: 16px; z-index: 6; align-items: center; height: 40px; padding: 0 4px; gap: 2px; background: #fff; border: 1px solid #dfdde7; border-radius: 8px; box-shadow: 0 4px 4px rgba(0, 0, 0, 0.02); }
+.map-zoom-control button { width: 32px; height: 32px; border: none; background: none; border-radius: 6px; color: #525066; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; }
+.map-zoom-control button:hover { background: #f6f6f9; }
+.map-zoom-sep { width: 1px; height: 20px; background: #dfdde7; margin: 0 4px; }
+.map-zoom-value { min-width: 40px; text-align: center; font-size: 13px; font-weight: 600; color: #3d3c52; }
+body.insights-expanded .floating-filters,
+body.insights-expanded .floating-legend { display: none !important; }
+body.insights-expanded .play-animation-wrap { top: 64px; }
+body.insights-expanded .bpmn-breadcrumb { top: 64px; }
+body.insights-expanded .view-toggle { left: auto; right: 16px; transform: none; }
 .ins-tab-panel { display: flex; flex-direction: column; gap: 12px; }
 .ins-tab-panel.hidden { display: none; }
 .ins-summary-group { display: flex; flex-direction: column; gap: 18px; }
@@ -2371,18 +2487,33 @@ body.structural-diagram #play-animation-btn {
       <div id="ai-summary-body" class="ai-summary-body"></div>
     </div>
 
+    <div id="map-expanded-head" class="map-expanded-head">
+      <span class="map-expanded-title"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 7v14M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z" stroke="#6B697B" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Process map</span>
+      <button type="button" id="map-maximize" class="map-maximize-btn" aria-label="Collapse insights" title="Collapse insights"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke="#525066" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+    </div>
+    <div id="map-zoom-control" class="map-zoom-control">
+      <button type="button" id="map-zoom-fit" aria-label="Fit to view" title="Fit to view"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 21V4M5 4h11l-2 4 2 4H5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+      <span class="map-zoom-sep"></span>
+      <button type="button" id="map-zoom-out" aria-label="Zoom out"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3.5 8h9" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></button>
+      <span id="map-zoom-value" class="map-zoom-value">100%</span>
+      <button type="button" id="map-zoom-in" aria-label="Zoom in"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3.5 8h9M8 3.5v9" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></button>
+    </div>
+
     <div id="insights-panel" class="side-drawer insights-drawer hidden">
       <div class="ins-header">
         <div class="ins-title">
           <svg width="28" height="28" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5M9 18h6M10 22h4" stroke="#6B697B" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
           <h2>Insights</h2>
         </div>
+        <span class="ins-header-actions">
+        <button id="insights-expand" class="ins-close" type="button" aria-label="Expand insights" title="Expand"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke="#6B697B" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
         <button id="insights-close" class="ins-close" type="button" aria-label="Close insights">
           <svg width="19" height="19" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M5 5 L15 15 M15 5 L5 15" stroke="#6B697B" stroke-width="1.87" stroke-linecap="round"/></svg>
         </button>
+        </span>
       </div>
       <div class="ins-tabs" role="tablist">
-        <button class="ins-tab active" type="button" role="tab" aria-selected="true" data-ins-tab="overview">Overview</button>
+        <button class="ins-tab active" type="button" role="tab" aria-selected="true" data-ins-tab="overview">Summary</button>
         <button class="ins-tab" type="button" role="tab" aria-selected="false" data-ins-tab="paths">Paths</button>
       </div>
       <div class="ins-body">
@@ -2569,6 +2700,85 @@ body.structural-diagram #play-animation-btn {
             <p class="hint" id="fast-compare-summary"></p>
             <ul id="fast-compare-list" class="metric-list"></ul>
           </div>
+        </div>
+      </div>
+      <div class="ins-dash" id="ins-dash">
+        <div class="dash-header">
+          <div class="ins-title dash-title"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5M9 18h6M10 22h4" stroke="#6B697B" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg><h2>Insights</h2></div>
+          <div class="dash-controls">
+            <label class="dash-select">
+              <select id="dash-granularity" aria-label="Trend granularity">
+                <option value="day">Daily</option>
+                <option value="week" selected>Weekly</option>
+                <option value="month">Monthly</option>
+              </select>
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M4 6 L8 10 L12 6" stroke="#6B697B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </label>
+            <div class="dash-seg" id="dash-range" role="group" aria-label="Date range">
+              <button type="button" data-range="30">1M</button>
+              <button type="button" data-range="90" class="active">3M</button>
+              <button type="button" data-range="180">6M</button>
+              <button type="button" class="dash-seg-cal" disabled title="Custom date range (coming soon)" aria-label="Custom date range"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3" y="4.5" width="18" height="16.5" rx="2" stroke="currentColor" stroke-width="1.6"/><path d="M3 9.5h18M8 3v3M16 3v3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></button>
+            </div>
+            <button type="button" class="dash-btn" id="dash-automate"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M13 2 4 14h7l-1 8 9-12h-7z" stroke="#3D3C52" stroke-width="1.7" stroke-linejoin="round"/></svg>Automate</button>
+            <button type="button" class="dash-btn" id="dash-filters"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3 5h18l-7 8.5V19l-4 2v-7.5z" stroke="#3D3C52" stroke-width="1.7" stroke-linejoin="round"/></svg>Filters</button>
+            <button type="button" class="ins-close" id="dash-close" aria-label="Close insights"><svg width="19" height="19" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M5 5 L15 15 M15 5 L5 15" stroke="#6B697B" stroke-width="1.87" stroke-linecap="round"/></svg></button>
+          </div>
+        </div>
+        <div class="dash-body">
+          <p class="dash-summary" id="dash-summary"></p>
+          <div class="dash-kpis" id="dash-kpis"></div>
+          <section class="dash-section">
+            <h3 class="dash-section-title"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 7v14M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z" stroke="#6B697B" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Process overview</h3>
+            <div class="dash-grid">
+              <div class="dash-card">
+                <div class="dash-card-head">
+                  <div class="dash-card-titles"><span class="dash-card-title-row"><span class="dash-card-title">Process Outcomes</span><button class="ins-info-btn" type="button" aria-label="Cases that reached a usual ending vs stopped midway" data-tip="Cases that reached a usual ending vs stopped midway"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="8" cy="8" r="6" stroke="#8C899F" stroke-width="1.6"/><path d="M8 7.4 V11" stroke="#8C899F" stroke-width="1.6" stroke-linecap="round"/><circle cx="8" cy="5.1" r="0.95" fill="#8C899F"/></svg></button></span><span class="dash-card-sub">Process completed vs stopped midway</span></div>
+                </div>
+                <div class="dash-card-body" id="dash-outcomes"></div>
+              </div>
+              <div class="dash-card">
+                <div class="dash-card-head">
+                  <div class="dash-card-titles"><span class="dash-card-title-row"><span class="dash-card-title">Time to complete</span><button class="ins-info-btn" type="button" aria-label="How long cases take, first step to last" data-tip="How long cases take, first step to last"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="8" cy="8" r="6" stroke="#8C899F" stroke-width="1.6"/><path d="M8 7.4 V11" stroke="#8C899F" stroke-width="1.6" stroke-linecap="round"/><circle cx="8" cy="5.1" r="0.95" fill="#8C899F"/></svg></button></span><span class="dash-card-sub">Distribution of cases by completion time</span></div>
+                </div>
+                <div class="dash-card-body" id="dash-ttc"></div>
+              </div>
+            </div>
+          </section>
+          <section class="dash-section">
+            <h3 class="dash-section-title"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 7v14M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z" stroke="#6B697B" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Path overview</h3>
+            <div class="dash-grid">
+              <div class="dash-card">
+                <div class="dash-card-head">
+                  <div class="dash-card-titles"><span class="dash-card-title-row"><span class="dash-card-title">Path distribution</span><button class="ins-info-btn" type="button" aria-label="Share of cases following each of the most common paths" data-tip="Share of cases following each of the most common paths"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="8" cy="8" r="6" stroke="#8C899F" stroke-width="1.6"/><path d="M8 7.4 V11" stroke="#8C899F" stroke-width="1.6" stroke-linecap="round"/><circle cx="8" cy="5.1" r="0.95" fill="#8C899F"/></svg></button></span><span class="dash-card-sub">Most common path across all cases</span></div>
+                </div>
+                <div class="dash-card-body" id="dash-paths"></div>
+              </div>
+              <div class="dash-card">
+                <div class="dash-card-head">
+                  <div class="dash-card-titles"><span class="dash-card-title-row"><span class="dash-card-title">Where time is spent</span><button class="ins-info-btn" type="button" aria-label="Tasks with the most total time across all cases" data-tip="Tasks with the most total time across all cases"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="8" cy="8" r="6" stroke="#8C899F" stroke-width="1.6"/><path d="M8 7.4 V11" stroke="#8C899F" stroke-width="1.6" stroke-linecap="round"/><circle cx="8" cy="5.1" r="0.95" fill="#8C899F"/></svg></button></span><span class="dash-card-sub">Top activities by total time consumed across all cases</span></div>
+                </div>
+                <div class="dash-card-body" id="dash-time"></div>
+              </div>
+            </div>
+          </section>
+          <section class="dash-section">
+            <h3 class="dash-section-title"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 7v14M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z" stroke="#6B697B" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Task overview</h3>
+            <div class="dash-grid">
+              <div class="dash-card">
+                <div class="dash-card-head">
+                  <div class="dash-card-titles"><span class="dash-card-title-row"><span class="dash-card-title">Rework hotspots</span><button class="ins-info-btn" type="button" aria-label="Tasks most often repeated within a case" data-tip="Tasks most often repeated within a case"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="8" cy="8" r="6" stroke="#8C899F" stroke-width="1.6"/><path d="M8 7.4 V11" stroke="#8C899F" stroke-width="1.6" stroke-linecap="round"/><circle cx="8" cy="5.1" r="0.95" fill="#8C899F"/></svg></button></span><span class="dash-card-sub">Activities with highest rework frequency</span></div>
+                </div>
+                <div class="dash-card-body" id="dash-rework"></div>
+              </div>
+              <div class="dash-card">
+                <div class="dash-card-head">
+                  <div class="dash-card-titles"><span class="dash-card-title-row"><span class="dash-card-title">Process trend</span><button class="ins-info-btn" type="button" aria-label="Cases started and the share completed, per period" data-tip="Cases started and the share completed, per period"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="8" cy="8" r="6" stroke="#8C899F" stroke-width="1.6"/><path d="M8 7.4 V11" stroke="#8C899F" stroke-width="1.6" stroke-linecap="round"/><circle cx="8" cy="5.1" r="0.95" fill="#8C899F"/></svg></button></span><span class="dash-card-sub">Case volume and completion overtime</span></div>
+                </div>
+                <div class="dash-card-body" id="dash-trend"></div>
+              </div>
+            </div>
+          </section>
         </div>
       </div>
     </div>
@@ -10555,6 +10765,7 @@ function renderInsights(model) {
   setDonut('#ins-donut-incomplete', model.completion.notCompletedPct);
   renderProcessTrend(state.cases);
   renderTimeToComplete(state.cases);
+  if (insightsDash.expanded) renderInsightsDashboard();
 }
 
 // A small ring showing a share: the arc's dash length is that share of the
@@ -10657,16 +10868,17 @@ function renderProcessTrend(cases) {
 // Time to complete: cases bucketed by total duration into five bands on a
 // scale chosen from the data's own median (days, hours or minutes), with
 // the median itself as the headline number.
-function renderTimeToComplete(cases) {
-  const container = d3.select('#ins-ttc-chart');
+function renderTimeToComplete(cases, opts = {}) {
+  const { chartSel = '#ins-ttc-chart', valueSel = '#ins-ttc-value', W = 363, H = 122, barW = 45 } = opts;
+  const container = d3.select(chartSel);
   const durations = cases.map((c) => c.totalDuration).filter((d) => d > 0);
   if (!durations.length) {
-    d3.select('#ins-ttc-value').text('–');
+    d3.select(valueSel).text('–');
     renderChartEmpty(container, 'No timing data in this dataset.');
     return;
   }
   const med = median(durations);
-  d3.select('#ins-ttc-value').text(formatDurationLong(med));
+  d3.select(valueSel).text(formatDurationLong(med));
   const bands = med >= 12 * 60
     ? [[0, 1440, '< 1 day'], [1440, 2880, '1-2 days'], [2880, 4320, '2-3 days'], [4320, 7200, '3-5 days'], [7200, Infinity, '> 5 days']]
     : med >= 30
@@ -10675,16 +10887,13 @@ function renderTimeToComplete(cases) {
   const counts = bands.map(([lo, hi, label]) => ({ label, count: durations.filter((d) => d >= lo && d < hi).length }));
   const maxCount = d3.max(counts, (b) => b.count) || 1;
 
-  const W = 363;
-  const H = 122;
-  const base = 98;
-  const barW = 45;
+  const base = H - 24;
   const gap = (W - 2 * 15 - barW * counts.length) / (counts.length - 1);
   container.selectAll('*').remove();
   const svg = container.append('svg').attr('viewBox', `0 0 ${W} ${H}`).attr('width', '100%').attr('role', 'img')
     .attr('aria-label', `Cases by completion time, median ${formatDurationLong(med)}`);
   counts.forEach((b, i) => {
-    const h = b.count ? Math.max(3, (b.count / maxCount) * 97) : 0;
+    const h = b.count ? Math.max(3, (b.count / maxCount) * (base - 1)) : 0;
     const bx = 15 + i * (barW + gap);
     if (h) {
       svg.append('path').attr('class', 'ins-bar')
@@ -10696,6 +10905,256 @@ function renderTimeToComplete(cases) {
     svg.append('text').attr('class', 'ins-bar-label').attr('x', bx + barW / 2).attr('y', H - 6).attr('text-anchor', 'middle').text(b.label);
   });
   svg.append('line').attr('class', 'ins-baseline').attr('x1', 0).attr('x2', W).attr('y1', base + 1).attr('y2', base + 1);
+}
+
+// ---- Insights, expanded: a dashboard docked beside a narrowed map ----
+// The range (1M/3M/6M, counted back from the latest case start) narrows
+// the cases the dashboard reads; the granularity sets the trend's period.
+const insightsDash = { expanded: false, rangeDays: 90, granularity: 'week' };
+
+function syncInsightsExpandedTop() {
+  const top = document.getElementById('canvas-wrap').getBoundingClientRect().top;
+  document.documentElement.style.setProperty('--ins-expanded-top', `${Math.max(0, top)}px`);
+}
+
+function setInsightsExpanded(on) {
+  insightsDash.expanded = on;
+  hideTooltip();
+  if (on) {
+    syncInsightsExpandedTop();
+    document.getElementById('insights-panel').classList.remove('hidden');
+  }
+  document.body.classList.toggle('insights-expanded', on);
+  document.getElementById('insights-panel').classList.toggle('expanded', on);
+  if (on) renderInsightsDashboard();
+  requestAnimationFrame(fitToView);
+}
+
+function caseCompletedIn(model) {
+  const set = model.completion.recognizedTaskSet;
+  return (c) => c.steps.length > 0 && set.has(c.steps[c.steps.length - 1].task);
+}
+
+function insightsDashCases() {
+  const cases = state.cases;
+  const times = cases.map((c) => c.startTime).filter((t) => Number.isFinite(t));
+  const hasDates = times.length >= 2;
+  d3.selectAll('#dash-range button[data-range]')
+    .property('disabled', !hasDates)
+    .attr('title', hasDates ? null : 'This dataset has no case dates')
+    .classed('active', function () { return hasDates && Number(this.dataset.range) === insightsDash.rangeDays; });
+  if (!hasDates) return { cases, maxT: null };
+  const maxT = d3.max(times);
+  const from = maxT - insightsDash.rangeDays * DAY_MS;
+  const inRange = cases.filter((c) => Number.isFinite(c.startTime) && c.startTime >= from);
+  return { cases: inRange.length ? inRange : cases, maxT };
+}
+
+const DASH_ARROW_UP = '<svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M8 13V3M8 3 4 7M8 3l4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+const DASH_ARROW_DOWN = '<svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M8 3v10M8 13l-4-4M8 13l4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+const DASH_CHEVRON = '<svg class="dash-chevron" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M6 4l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+
+function renderInsightsDashboard() {
+  if (!state.cases || !state.cases.length) return;
+  const { cases, maxT } = insightsDashCases();
+  const model = buildProcessModel(cases);
+  const isDone = caseCompletedIn(model);
+  const pct0 = (n) => `${Math.round(n * 100)}%`;
+
+  // Summary sentence.
+  const taskCount = model.nodes.filter((n) => !n.virtual).length;
+  const topEntry = model.edges.filter((e) => e.from === START).sort((a, b) => b.caseCount - a.caseCount)[0];
+  const topEnding = model.completion.recognizedEndings[0];
+  d3.select('#dash-summary').html(
+    `Analyzed ${model.totalCases.toLocaleString()} case${model.totalCases === 1 ? '' : 's'} across ${taskCount} task${taskCount === 1 ? '' : 's'}, ` +
+    `leading to ${model.variants.length} different path${model.variants.length === 1 ? '' : 's'}.` +
+    (topEntry ? ` Most cases begin with "${escapeHtml(topEntry.to)}"${topEnding ? ` and end at "${escapeHtml(topEnding.task)}" (${pct0(topEnding.pct)})` : ''}.` : '')
+  );
+
+  // KPI cards: the latest 30 days, compared with the 30 days before.
+  const windowed = maxT != null;
+  const cur = windowed ? state.cases.filter((c) => c.startTime > maxT - 30 * DAY_MS) : cases;
+  const prev = windowed ? state.cases.filter((c) => c.startTime > maxT - 60 * DAY_MS && c.startTime <= maxT - 30 * DAY_MS) : [];
+  const rate = (list) => (list.length ? list.filter(isDone).length / list.length : null);
+  const medTime = (list) => { const d = list.filter(isDone).map((c) => c.totalDuration).filter((x) => x > 0); return d.length ? median(d) : null; };
+  const delta = (a, b, higherIsBetter) => {
+    if (a == null || b == null || !b) return '';
+    const change = (a - b) / b;
+    if (!Number.isFinite(change)) return '';
+    const up = change >= 0;
+    const good = up === higherIsBetter;
+    return `<span class="dash-delta ${good ? 'good' : 'bad'}">${up ? DASH_ARROW_UP : DASH_ARROW_DOWN}${Math.abs(change * 100).toFixed(2)}%</span>`;
+  };
+  const curRate = rate(cur);
+  const curTime = medTime(cur);
+  const since = windowed && prev.length ? 'Since last month' : windowed ? 'Last 30 days' : 'All cases';
+  const last30 = windowed ? 'Last 30 days' : 'All cases';
+  const kpis = [
+    { label: 'Process Completion rate', value: curRate == null ? '–' : `${(curRate * 100).toFixed(1)}%`, delta: delta(curRate, rate(prev), true), sub: since },
+    { label: 'Process Completion time', value: curTime == null ? '–' : formatDurationLong(curTime), delta: delta(curTime, medTime(prev), false), sub: since },
+    { label: 'Total process started', value: cur.length.toLocaleString(), delta: '', sub: last30 },
+    { label: 'Total process completed', value: cur.filter(isDone).length.toLocaleString(), delta: '', sub: last30 },
+  ];
+  d3.select('#dash-kpis').html(kpis.map((k) => `
+    <div class="dash-kpi">
+      <span class="dash-kpi-label">${k.label}</span>
+      <span class="dash-kpi-row"><span class="dash-kpi-value">${k.value}</span>${k.delta}</span>
+      <span class="dash-kpi-sub">${k.sub}</span>
+    </div>`).join(''));
+
+  renderDashOutcomes(model);
+  const ttc = d3.select('#dash-ttc');
+  ttc.html('<div class="dash-headline"><span class="dash-headline-value" id="dash-ttc-value"></span><span class="dash-headline-label">Median time to complete</span></div><div class="dash-ttc-chart" id="dash-ttc-chart"></div>');
+  renderTimeToComplete(cases, { chartSel: '#dash-ttc-chart', valueSel: '#dash-ttc-value', W: 440, H: 150, barW: 62 });
+  renderDashPaths(model);
+  renderDashTime(model);
+  renderDashRework(model);
+  renderDashTrend(cases, isDone);
+}
+
+function renderDashOutcomes(model) {
+  const c = model.completion;
+  const parts = [
+    { label: 'Completed', count: c.completedCaseCount, color: '#18B87C' },
+    { label: 'Stopped midway', count: c.notCompletedCaseCount, color: '#FB6461' },
+  ];
+  const total = model.totalCases;
+  const body = d3.select('#dash-outcomes').html('');
+  const wrap = body.append('div').attr('class', 'dash-outcomes');
+  const size = 167;
+  const g = wrap.append('svg').attr('width', size).attr('height', size).attr('viewBox', `0 0 ${size} ${size}`)
+    .attr('role', 'img').attr('aria-label', `${c.completedCaseCount} of ${total} cases completed`)
+    .append('g').attr('transform', `translate(${size / 2},${size / 2})`);
+  const arc = d3.arc().innerRadius(size / 2 - 22).outerRadius(size / 2);
+  g.selectAll('path').data(d3.pie().sort(null).value((d) => d.count)(parts)).join('path')
+    .attr('d', arc).attr('fill', (d) => d.data.color)
+    .on('mouseenter', (event, d) => showTooltip(event, `<strong>${d.data.label}</strong><div>${d.data.count} case${d.data.count === 1 ? '' : 's'} · ${Math.round((d.data.count / total) * 100)}%</div>`))
+    .on('mousemove', moveTooltip)
+    .on('mouseleave', hideTooltip);
+  g.append('text').attr('class', 'dash-donut-total').attr('text-anchor', 'middle').attr('y', -1).text(total.toLocaleString());
+  g.append('text').attr('class', 'dash-donut-caption').attr('text-anchor', 'middle').attr('y', 14).text('Cases');
+  wrap.append('div').attr('class', 'dash-legend').html(parts.map((p) => `
+    <div class="dash-legend-row">
+      <span class="dash-legend-swatch" style="background:${p.color}"></span>
+      <span class="dash-legend-label">${p.label}</span>
+      <span class="dash-legend-count">${p.count.toLocaleString()}</span>
+      <span class="dash-legend-pct">${total ? Math.round((p.count / total) * 100) : 0}%</span>
+    </div>`).join(''));
+}
+
+function renderDashPaths(model) {
+  // Paths keep the number they have on the map, matched by their steps.
+  const global = new Map(state.model.variants.map((v) => [v.signature, v]));
+  const top = model.variants.slice(0, 3);
+  const r = 13;
+  const circ = 2 * Math.PI * r;
+  const list = d3.select('#dash-paths').html('').append('ul').attr('class', 'dash-list');
+  list.selectAll('li').data(top).join('li').attr('class', 'dash-path-row')
+    .on('click', (event, v) => { const gv = global.get(v.signature); if (gv) setHighlight('variant', gv); })
+    .html((v) => {
+      const gv = global.get(v.signature);
+      return `
+      <span class="dash-path-text">
+        <span class="dash-path-name">Path ${gv ? gv.rank : v.rank}</span>
+        <span class="dash-path-desc">${v.count} case${v.count === 1 ? '' : 's'} • ${v.path.length} Task${v.path.length === 1 ? '' : 's'}</span>
+      </span>
+      <span class="dash-path-share">
+        <svg width="34" height="34" viewBox="0 0 34 34" aria-hidden="true"><circle cx="17" cy="17" r="${r}" fill="none" stroke="#D9FBEE" stroke-width="5"/><circle cx="17" cy="17" r="${r}" fill="none" stroke="#198558" stroke-width="5" stroke-dasharray="${v.pct * circ} ${circ}" transform="rotate(-90 17 17)"/></svg>
+        <span class="dash-path-share-label">Cases</span>
+        <span class="dash-path-share-pct">${Math.round(v.pct * 100)}%</span>
+      </span>`;
+    });
+}
+
+function renderDashTime(model) {
+  const top = model.timeRanking.slice(0, 3);
+  const body = d3.select('#dash-time').html('');
+  if (!top.length || !top[0].totalTime) { body.append('p').attr('class', 'dash-empty').text('No timing data in this dataset.'); return; }
+  const maxT = top[0].totalTime;
+  body.append('ul').attr('class', 'dash-list').selectAll('li').data(top).join('li').attr('class', 'dash-time-row')
+    .on('click', (event, n) => setHighlight('node', n.id))
+    .html((n, i) => `
+      <span class="dash-rank">${i + 1}</span>
+      <span class="dash-time-main">
+        <span class="dash-time-name">${escapeHtml(n.label)}</span>
+        <span class="dash-progress"><span style="width:${(n.totalTime / maxT) * 100}%"></span></span>
+      </span>
+      <span class="dash-time-value"><strong>${formatDurationLong(n.totalTime)}</strong><span>Total time</span></span>
+      ${DASH_CHEVRON}`);
+}
+
+function renderDashRework(model) {
+  const top = model.reworkRanking.slice(0, 3);
+  const body = d3.select('#dash-rework').html('');
+  if (!top.length) { body.append('p').attr('class', 'dash-empty').text('No tasks show repeated visits in this data.'); return; }
+  body.append('ul').attr('class', 'dash-list').selectAll('li').data(top).join('li').attr('class', 'dash-rework-row')
+    .on('click', (event, n) => setHighlight('node', n.id))
+    .html((n, i) => `
+      <span class="dash-rework-main">
+        <span class="dash-rework-name">${escapeHtml(n.label)}</span>
+        <span class="dash-rework-detail">${n.reworkCaseCount} of ${n.caseCount} case${n.caseCount === 1 ? '' : 's'} required rework</span>
+      </span>
+      <span class="dash-rework-pct${i === 0 ? ' lead' : ''}">${Math.round((n.reworkCaseCount / n.caseCount) * 100)}%</span>
+      ${DASH_CHEVRON}`);
+}
+
+// Process trend: cases started per period (left axis) and the share of
+// them that completed (right axis), periods counted back from the latest.
+function renderDashTrend(cases, isDone) {
+  const body = d3.select('#dash-trend').html('');
+  const dated = cases.filter((c) => Number.isFinite(c.startTime));
+  if (dated.length < 2) { body.append('p').attr('class', 'dash-empty').text('No case dates in this dataset.'); return; }
+  const bucketMs = { day: DAY_MS, week: 7 * DAY_MS, month: 30.44 * DAY_MS }[insightsDash.granularity];
+  const min = d3.min(dated, (c) => c.startTime);
+  const max = d3.max(dated, (c) => c.startTime);
+  const n = Math.max(2, Math.ceil((max - min) / bucketMs));
+  const buckets = d3.range(n).map(() => ({ total: 0, done: 0 }));
+  dated.forEach((c) => {
+    const back = Math.min(n - 1, Math.floor((max - c.startTime) / bucketMs));
+    const b = buckets[n - 1 - back];
+    b.total += 1;
+    if (isDone(c)) b.done += 1;
+  });
+  const firstStart = max - n * bucketMs;
+
+  const W = 440, H = 190, left = 30, right = 34, top = 8, plotH = 140;
+  const plotW = W - left - right;
+  // A multiple of four, so the five gridlines get whole-number labels.
+  const yMax = Math.max(4, Math.ceil(d3.scaleLinear().domain([0, d3.max(buckets, (b) => b.total) || 1]).nice(4).domain()[1] / 4) * 4);
+  const x = (i) => left + (i / (n - 1)) * plotW;
+  const yL = (v) => top + plotH - (v / yMax) * plotH;
+  const yR = (f) => top + plotH - f * plotH;
+  const svgEl = body.append('svg').attr('viewBox', `0 0 ${W} ${H}`).attr('width', '100%').attr('role', 'img')
+    .attr('aria-label', 'Case volume and completion rate over time');
+  [0, 0.25, 0.5, 0.75, 1].forEach((f) => {
+    svgEl.append('line').attr('class', 'ins-grid-line').attr('x1', left).attr('x2', W - right).attr('y1', top + f * plotH).attr('y2', top + f * plotH);
+    svgEl.append('text').attr('class', 'ins-axis-label').attr('x', left - 6).attr('y', top + f * plotH + 3).attr('text-anchor', 'end').text(Math.round(yMax * (1 - f)));
+  });
+  svgEl.append('text').attr('class', 'ins-axis-label').attr('x', W - right + 6).attr('y', top + 3).text('100%');
+  svgEl.append('text').attr('class', 'ins-axis-label').attr('x', W - right + 6).attr('y', top + plotH + 3).text('0');
+  const lineL = d3.line().x((d, i) => x(i)).y((d) => yL(d.total)).curve(d3.curveMonotoneX);
+  const lineR = d3.line().defined((d) => d.total > 0).x((d, i) => x(i)).y((d) => yR(d.done / d.total)).curve(d3.curveMonotoneX);
+  svgEl.append('path').attr('class', 'dash-trend-line').attr('stroke', '#0975D7').attr('d', lineL(buckets));
+  svgEl.append('path').attr('class', 'dash-trend-line').attr('stroke', '#EE8A58').attr('d', lineR(buckets));
+  const fmt = (t) => new Date(t).toLocaleDateString('en-US', insightsDash.granularity === 'month' ? { month: 'short', year: '2-digit' } : { month: 'short', day: 'numeric' });
+  const ticks = Math.min(n, 5);
+  d3.range(ticks).forEach((k) => {
+    const i = ticks === 1 ? 0 : Math.round((k / (ticks - 1)) * (n - 1));
+    svgEl.append('text').attr('class', 'ins-axis-label').attr('x', x(i)).attr('y', H - 22)
+      .attr('text-anchor', k === 0 ? 'start' : k === ticks - 1 ? 'end' : 'middle')
+      .text(fmt(firstStart + (i + 1) * bucketMs));
+  });
+  const step = plotW / (n - 1);
+  const period = { day: 'Day', week: 'Week', month: 'Month' }[insightsDash.granularity];
+  buckets.forEach((b, i) => {
+    svgEl.append('rect').attr('class', 'ins-hover-target')
+      .attr('x', x(i) - step / 2).attr('y', top).attr('width', step).attr('height', plotH)
+      .on('mouseenter', (event) => showTooltip(event, `<strong>${b.total} case${b.total === 1 ? '' : 's'}</strong><div>${b.total ? Math.round((b.done / b.total) * 100) : 0}% completed</div><div>${period} of ${fmt(firstStart + i * bucketMs)}</div>`))
+      .on('mousemove', moveTooltip)
+      .on('mouseleave', hideTooltip);
+  });
+  body.append('div').attr('class', 'dash-trend-legend')
+    .html('<span><i style="background:#0975D7"></i>Case Volume</span><span><i style="background:#EE8A58"></i>Completion rate</span>');
 }
 
 // One numbered row of an Insights ranked list (time, rework, paths): a rank
@@ -11069,7 +11528,11 @@ function openInsights() {
   document.getElementById('insights-panel').classList.remove('hidden');
 }
 
-function closeInsights() {
+// Other drawers call this as they open; the expanded dashboard stays put
+// unless closed on purpose (its X, or the toolbar toggle) with force.
+function closeInsights(force) {
+  if (insightsDash.expanded && force !== true) return;
+  if (insightsDash.expanded) setInsightsExpanded(false);
   document.getElementById('insights-btn').classList.remove('active');
   document.getElementById('insights-btn').setAttribute('aria-expanded', 'false');
   document.getElementById('insights-panel').classList.add('hidden');
@@ -12276,9 +12739,24 @@ d3.select('#ai-summary-close').on('click', closeAISummary);
 d3.select('#insights-btn').on('click', () => {
   const panel = document.getElementById('insights-panel');
   if (panel.classList.contains('hidden')) openInsights();
-  else closeInsights();
+  else closeInsights(true);
 });
-d3.select('#insights-close').on('click', closeInsights);
+d3.select('#insights-close').on('click', () => closeInsights(true));
+d3.select('#dash-close').on('click', () => closeInsights(true));
+d3.select('#insights-expand').on('click', () => setInsightsExpanded(true));
+d3.select('#map-maximize').on('click', () => setInsightsExpanded(false));
+d3.select('#dash-automate').on('click', () => openAutomationOpportunities());
+d3.select('#dash-filters').on('click', () => openFilterPanel());
+d3.select('#dash-granularity').on('change', function () { insightsDash.granularity = this.value; renderInsightsDashboard(); });
+d3.selectAll('#dash-range button[data-range]').on('click', function () {
+  insightsDash.rangeDays = Number(this.dataset.range);
+  renderInsightsDashboard();
+});
+d3.select('#map-zoom-in').on('click', () => svg.transition().duration(200).call(zoomBehavior.scaleBy, 1.25));
+d3.select('#map-zoom-out').on('click', () => svg.transition().duration(200).call(zoomBehavior.scaleBy, 0.8));
+d3.select('#map-zoom-fit').on('click', fitToView);
+zoomBehavior.on('zoom.mapZoomValue', (event) => { d3.select('#map-zoom-value').text(`${Math.round(event.transform.k * 100)}%`); });
+window.addEventListener('resize', () => { if (insightsDash.expanded) syncInsightsExpandedTop(); });
 
 // ---- automation opportunities drawer ----
 d3.select('#automation-opps-btn').on('click', () => {

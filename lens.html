@@ -1152,8 +1152,6 @@ button:hover { filter: brightness(1.08); }
 .node.task .card-accent { fill: var(--bpmn-card-accent); }
 .node-title { fill: var(--text-primary); font-size: 13px; font-weight: 600; pointer-events: none; }
 .node-meta { fill: var(--text-secondary); font-size: 11px; pointer-events: none; }
-.node-badge { fill: var(--rework); }
-.node-badge-label { fill: white; font-size: 8.5px; font-weight: 700; text-anchor: middle; pointer-events: none; }
 
 /* ---- fast-vs-typical comparison badge ---- */
 .compare-badge-bg.faster { fill: var(--path-main-soft); }
@@ -9792,9 +9790,6 @@ function buildTaskCard(g, n, p) {
     .attr('d', `M${r},0 A${r},${r} 0 0 0 0,${r} V${h - r} A${r},${r} 0 0 0 ${r},${h} A${r - bw},${r} 0 0 1 ${bw},${h - r} V${r} A${r - bw},${r} 0 0 1 ${r},0 Z`);
   appendTaskIcon(g, 16, 14);
   g.append('text').attr('class', 'node-title').attr('x', 40).attr('y', 25).text(n.label);
-  if (n.reworkCaseCount > 0) {
-    g.append('circle').attr('class', 'node-badge').attr('cx', p.width - 34).attr('cy', 14).attr('r', 5);
-  }
   // Fixed to the card's base height (not p.height) so a fast-vs-typical
   // badge — which grows the card — adds a new row below rather than
   // shifting these positions around.

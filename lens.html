@@ -1159,9 +1159,8 @@ button:hover { filter: brightness(1.08); }
 .compare-badge-text { font-size: 9.5px; font-weight: 700; pointer-events: none; }
 .compare-badge-text.faster { fill: #157a45; }
 .compare-badge-text.skipped { fill: var(--text-secondary); }
-.icon-task-body { fill: #5B5E78; }
-.icon-task-inset { fill: #ffffff; }
-.icon-task-dot { fill: #5B5E78; }
+.icon-task-ornament { fill: #ffffff; }
+.icon-task-glyph { fill: none; stroke: #6B697B; stroke-width: 2px; stroke-linecap: round; stroke-linejoin: round; }
 .icon-kebab circle { fill: var(--text-tertiary); }
 .icon-clock circle, .icon-clock path { stroke: var(--text-secondary); stroke-width: 1.3px; stroke-linecap: round; stroke-linejoin: round; fill: none; }
 
@@ -8188,7 +8187,7 @@ function buildProcessModel(cases) {
   <script>
 /* global d3, dagre, generateEventLog, buildProcessModel, normalizeCaseLog, extractTaskInsights, extractGraphTaskInsights, parseBpmnXml, median, SAMPLE_JSON_TEMPLATE, START, END */
 
-const TASK_W = 220;
+const TASK_W = 250;
 const TASK_H = 62;
 const PILL_W = 108;
 const PILL_H = 42;
@@ -9753,11 +9752,14 @@ function syncViewLayers() {
 
 // ---- small inline icons ----
 function appendTaskIcon(g, x, y) {
-  const k = g.append('g').attr('class', 'icon-task');
-  k.append('rect').attr('class', 'icon-task-body').attr('x', x).attr('y', y).attr('width', 14).attr('height', 14).attr('rx', 3.5);
-  k.append('rect').attr('class', 'icon-task-inset').attr('x', x + 2.4).attr('y', y + 2.4).attr('width', 9.2).attr('height', 9.2).attr('rx', 2);
-  k.append('circle').attr('class', 'icon-task-dot').attr('cx', x + 5.6).attr('cy', y + 5.4).attr('r', 1.9);
-  k.append('circle').attr('class', 'icon-task-dot').attr('cx', x + 7.6).attr('cy', y + 5.4).attr('r', 1.9);
+  // A 32px white ornament circle holding a 20px "app-window" glyph, centred
+  // (6px padding): the window frame spans 12.5% in from each side and
+  // 20.83% in from top and bottom of that 20px box, with a title-bar rule.
+  const k = g.append('g').attr('class', 'icon-task').attr('transform', `translate(${x}, ${y})`);
+  k.append('circle').attr('class', 'icon-task-ornament').attr('cx', 16).attr('cy', 16).attr('r', 16);
+  const glyph = k.append('g').attr('transform', 'translate(6, 6)');
+  glyph.append('rect').attr('class', 'icon-task-glyph').attr('x', 2.5).attr('y', 4.17).attr('width', 15).attr('height', 11.66).attr('rx', 1.6);
+  glyph.append('path').attr('class', 'icon-task-glyph').attr('d', 'M2.5 7.9 H17.5');
 }
 function appendKebab(g, x, y, onClick) {
   const hit = g.append('g').attr('class', 'icon-kebab-hit');
@@ -9788,8 +9790,8 @@ function buildTaskCard(g, n, p) {
   g.append('rect').attr('class', 'card-bg').attr('width', p.width).attr('height', h).attr('rx', r);
   g.append('path').attr('class', 'card-accent')
     .attr('d', `M${r},0 A${r},${r} 0 0 0 0,${r} V${h - r} A${r},${r} 0 0 0 ${r},${h} A${r - bw},${r} 0 0 1 ${bw},${h - r} V${r} A${r - bw},${r} 0 0 1 ${r},0 Z`);
-  appendTaskIcon(g, 16, 14);
-  g.append('text').attr('class', 'node-title').attr('x', 40).attr('y', 25).text(n.label);
+  appendTaskIcon(g, 12, (TASK_H - 32) / 2);
+  g.append('text').attr('class', 'node-title').attr('x', 52).attr('y', 25).text(n.label);
   // Fixed to the card's base height (not p.height) so a fast-vs-typical
   // badge — which grows the card — adds a new row below rather than
   // shifting these positions around.
@@ -9797,8 +9799,8 @@ function buildTaskCard(g, n, p) {
     event.stopPropagation();
     openTaskMenu(event, n.id);
   });
-  appendClockIcon(g, 16, TASK_H - 24);
-  g.append('text').attr('class', 'node-meta').attr('x', 40).attr('y', TASK_H - 14)
+  appendClockIcon(g, 52, TASK_H - 24);
+  g.append('text').attr('class', 'node-meta').attr('x', 70).attr('y', TASK_H - 14)
     .text(`${pluralCases(n.caseCount)} · ${formatDuration(n.avgDuration)}`);
   if (n.compareInfo) buildCompareBadge(g, n, p);
 }

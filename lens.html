@@ -1126,12 +1126,12 @@ button:hover { filter: brightness(1.08); }
 
 /* ---- Insights drawer ---- */
 .side-drawer.insights-drawer { width: 427px; border: none; background: #fcfcfd; box-shadow: 0 4px 18px rgba(221, 221, 221, 0.72); }
-.ins-header { display: flex; align-items: flex-start; justify-content: space-between; padding: 12px 12px 0 18px; flex-shrink: 0; }
+.ins-header { display: flex; align-items: flex-start; justify-content: space-between; padding: 12px 12px 0 16px; flex-shrink: 0; background: #fff; }
 .ins-title { display: flex; align-items: center; gap: 4px; margin-top: 7px; }
 .ins-title h2 { margin: 0; font-size: 20px; line-height: 28px; font-weight: 600; color: #2a2e45; }
 .ins-close { width: 41px; height: 41px; border: none; background: none; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; }
 .ins-close:hover { background: #f6f6f9; }
-.ins-tabs { display: flex; gap: 16px; padding: 0 24px; border-bottom: 1px solid #ebebeb; flex-shrink: 0; margin-top: 6px; }
+.ins-tabs { display: flex; gap: 16px; padding: 6px 24px 0; border-bottom: 1px solid #dfdde7; flex-shrink: 0; background: #fff; }
 .ins-tab { position: relative; border: none; background: none; padding: 12px 8px; font: inherit; font-size: 16px; line-height: 24px; font-weight: 600; color: #3d3c52; cursor: pointer; }
 .ins-tab::after { content: ''; position: absolute; left: 0; right: 0; bottom: -1px; height: 4px; background: transparent; }
 .ins-tab.active { color: #0975d7; }
@@ -1208,6 +1208,49 @@ button:hover { filter: brightness(1.08); }
 .ins-auto-value span { font-size: 10px; line-height: 22px; color: #525066; }
 .ins-auto-sep { width: 1px; height: 49.5px; background: #dfdde7; flex-shrink: 0; }
 .ins-rank-list { list-style: none; margin: 0; padding: 0; }
+.ins-path-stats { display: flex; gap: 9px; }
+.ins-path-stat { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 4px; padding: 8px 12px; background: #fff; border: 1px solid #f2f2f2; border-radius: 12px; }
+.ins-path-stat-value { font-size: 30px; line-height: 32px; font-weight: 500; color: #3d3c52; }
+.ins-card-paths, .ins-card-cases { padding: 16px 16px 16px 12px; }
+.ins-path-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 12px; }
+.ins-path-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 60px; padding: 0 16px 0 8px; background: #fff; border: 1px solid #ececf3; border-radius: 12px; cursor: pointer; }
+.ins-path-row.tall { min-height: 66px; }
+.ins-path-row:hover { border-color: #b9d3f6; }
+.ins-path-row.active { border-color: var(--bpmn-blue); background: #f5f9ff; }
+.ins-path-main { display: flex; flex-direction: column; gap: 2px; padding: 10px; min-width: 0; }
+.ins-path-name { display: inline-flex; align-items: center; gap: 4px; font-size: 16px; line-height: 24px; font-weight: 600; color: #3d3c52; }
+.ins-path-meta { display: inline-flex; align-items: center; gap: 4px; font-size: 12px; line-height: 16px; color: #6b697b; white-space: nowrap; }
+.ins-path-meta svg { color: #8b8fa6; flex-shrink: 0; }
+.ins-path-desc { font-size: 14px; line-height: 20px; color: #6b697b; }
+.ins-path-share { display: flex; align-items: center; gap: 12px; flex-shrink: 0; }
+.ins-path-share-figures { display: flex; flex-direction: column; align-items: flex-end; gap: 4px; min-width: 59px; }
+.ins-path-pct { font-size: 20px; line-height: 22px; font-weight: 500; color: #2a2e45; }
+.ins-path-cases { font-size: 12px; line-height: 14px; color: #6b697b; white-space: nowrap; }
+.ins-path-total { display: flex; flex-direction: column; align-items: flex-end; flex-shrink: 0; }
+.ins-path-total-value { font-size: 16px; line-height: 24px; font-weight: 600; color: #3d3c52; }
+.ins-link-btn { display: block; margin: 12px auto 0; border: none; background: none; font: inherit; font-size: 12px; line-height: 20px; color: #3d3c52; cursor: pointer; }
+.ins-link-btn:hover { color: #0975d7; }
+.ins-link-btn.hidden { display: none; }
+.ins-cases-head, .ins-case-row { display: grid; grid-template-columns: 80px 48px 76px 1fr 72px 24px; align-items: center; column-gap: 4px; }
+.ins-cases-head { white-space: nowrap; padding: 0 2px 10px 10px; margin: 0 -2px 0 -4px; border-bottom: 1px solid #ececf3; font-size: 12.16px; line-height: 15px; color: #6b6f86; }
+.ins-cases-head .num, .ins-case-row .num { text-align: right; }
+.ins-cases-scroll { max-height: 200px; overflow-y: auto; margin: 6px -4px 0; padding-right: 2px; scrollbar-width: thin; scrollbar-color: #dfdde7 transparent; }
+.ins-cases-scroll.expanded { max-height: 520px; }
+.ins-cases-scroll::-webkit-scrollbar { width: 4px; }
+.ins-cases-scroll::-webkit-scrollbar-thumb { background: #dfdde7; border-radius: 4px; }
+.ins-cases-list { list-style: none; margin: 0; padding: 0; }
+.ins-case-row { padding: 10px 0 10px 8px; border-radius: 6px; font-size: 14px; line-height: 20px; font-weight: 600; color: #6b6f86; cursor: pointer; }
+.ins-case-row:nth-child(even) { background: rgba(246, 246, 249, 0.6); }
+.ins-case-row:hover { background: #f2f2f8; }
+.ins-case-row.active { background: #eaf2fd; }
+.ins-case-row .ins-case-id { color: #2a2e45; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.ins-case-row .strong { color: #3d3c52; }
+.ins-case-kebab { width: 20px; height: 20px; padding: 0; border: none; background: none; border-radius: 4px; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; justify-self: end; }
+.ins-case-kebab:hover { background: #e8e8ef; }
+.ins-cases-footer { display: block; width: 100%; margin-top: 10px; border: none; background: none; font: inherit; font-size: 12px; line-height: 20px; color: #3d3c52; cursor: pointer; }
+.ins-cases-footer:hover { color: #0975d7; }
+.ins-cases-footer.hidden { display: none; }
+#ins-case-menu { position: fixed; z-index: 36; }
 .ins-rank-list.compact { display: flex; flex-direction: column; }
 .ins-rank-list.compact.gap-12 { gap: 12px; }
 .ins-rank-list.compact.gap-8 { gap: 8px; }
@@ -2452,6 +2495,61 @@ body.structural-diagram #play-animation-btn {
         </div>
 
         <div class="ins-tab-panel hidden" data-ins-panel="paths">
+          <div class="ins-path-stats">
+            <div class="ins-path-stat"><span class="ins-stat-label">Path variants</span><span class="ins-path-stat-value" id="ins-paths-total">–</span></div>
+            <div class="ins-path-stat"><span class="ins-stat-label">Completed paths</span><span class="ins-path-stat-value" id="ins-paths-completed">–</span></div>
+            <div class="ins-path-stat"><span class="ins-stat-label">Not completed</span><span class="ins-path-stat-value" id="ins-paths-incomplete">–</span></div>
+          </div>
+
+          <section class="ins-card ins-card-paths">
+            <button class="ins-card-head" type="button" aria-expanded="true">
+              <span class="ins-card-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M16 3h5v5M8 3H3v5M12 22v-8.3a4 4 0 0 0-1.17-2.87L3 3M15 9l6-6" stroke="#8C899F" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+              <span class="ins-card-titles">
+                <span class="ins-card-title">Path variants</span>
+                <span class="ins-card-sub" id="ins-all-paths-sub">Ranked by frequency</span>
+              </span>
+              <svg class="ins-card-chevron" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M4 10 L8 6 L12 10" stroke="#7B7891" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+            <div class="ins-card-body">
+              <ul id="variant-list-all" class="ins-path-list"></ul>
+              <button class="ins-link-btn" id="ins-paths-more" type="button">View all paths</button>
+            </div>
+          </section>
+
+          <section class="ins-card ins-card-paths">
+            <button class="ins-card-head" type="button" aria-expanded="true">
+              <span class="ins-card-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M16 3h5v5M8 3H3v5M12 22v-8.3a4 4 0 0 0-1.17-2.87L3 3M15 9l6-6" stroke="#8C899F" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+              <span class="ins-card-titles">
+                <span class="ins-card-title">Most efficient path</span>
+                <span class="ins-card-sub">Fastest routes that reach completion</span>
+              </span>
+              <svg class="ins-card-chevron" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M4 10 L8 6 L12 10" stroke="#7B7891" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+            <div class="ins-card-body">
+              <ul id="ins-efficient-list" class="ins-path-list"></ul>
+            </div>
+          </section>
+
+          <section class="ins-card ins-card-cases">
+            <button class="ins-card-head" type="button" aria-expanded="true">
+              <span class="ins-card-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M16 3h5v5M8 3H3v5M12 22v-8.3a4 4 0 0 0-1.17-2.87L3 3M15 9l6-6" stroke="#8C899F" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+              <span class="ins-card-titles">
+                <span class="ins-card-title">All processes</span>
+                <span class="ins-card-sub">Every case, grouped by its path</span>
+              </span>
+              <svg class="ins-card-chevron" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M4 10 L8 6 L12 10" stroke="#7B7891" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+            <div class="ins-card-body">
+              <div class="ins-cases-head">
+                <span>Case ID#</span><span>Steps</span><span>Time</span><span>Cases</span><span class="num">% of cases</span><span></span>
+              </div>
+              <div class="ins-cases-scroll" id="ins-cases-scroll">
+                <ul class="ins-cases-list" id="ins-cases-list"></ul>
+              </div>
+              <button class="ins-cases-footer" id="ins-cases-more" type="button">View all cases</button>
+            </div>
+          </section>
+
           <div class="insight-compare-toggle-row">
             <span class="insight-compare-toggle-label">Compare fastest to typical</span>
             <button class="insight-compare-toggle" id="insight-compare-btn" type="button" role="switch" aria-checked="false">
@@ -2471,22 +2569,19 @@ body.structural-diagram #play-animation-btn {
             <p class="hint" id="fast-compare-summary"></p>
             <ul id="fast-compare-list" class="metric-list"></ul>
           </div>
-
-          <section class="ins-card">
-            <button class="ins-card-head" type="button" aria-expanded="true">
-              <span class="ins-card-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M16 3h5v5M8 3H3v5M12 22v-8.3a4 4 0 0 0-1.17-2.87L3 3M15 9l6-6" stroke="#8C899F" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-              <span class="ins-card-titles">
-                <span class="ins-card-title">All paths</span>
-                <span class="ins-card-sub" id="ins-all-paths-sub">Ranked by frequency</span>
-              </span>
-              <svg class="ins-card-chevron" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M4 10 L8 6 L12 10" stroke="#7B7891" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            </button>
-            <div class="ins-card-body">
-              <ul id="variant-list-all" class="ins-rank-list"></ul>
-            </div>
-          </section>
         </div>
       </div>
+    </div>
+
+    <div id="ins-case-menu" class="task-menu hidden">
+      <button class="task-menu-item" id="ins-case-menu-trace" type="button">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M16 3h5v5M8 3H3v5M12 22v-8.3a4 4 0 0 0-1.17-2.87L3 3M15 9l6-6" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Trace path on map
+      </button>
+      <button class="task-menu-item" id="ins-case-menu-filter" type="button">
+        <svg width="12" height="12" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M2 3 H14 L9.5 8.2 V13 L6.5 11.3 V8.2 Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+        Filter map to this case
+      </button>
     </div>
 
     <div id="automation-opps-panel" class="side-drawer automation-opps-panel hidden">
@@ -10664,12 +10759,56 @@ const STAIRS_ICON_SVG = '<svg width="14" height="14" viewBox="0 0 16 16" fill="n
 const META_CLOCK_ICON_SVG = '<svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="1.15"/><path d="M8 4.8 V8 L10.2 9.4" stroke="currentColor" stroke-width="1.15" stroke-linecap="round" stroke-linejoin="round"/></svg>';
 const INFO_ICON_SVG = '<svg width="13" height="13" viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="8" cy="8" r="6.3" stroke="currentColor" stroke-width="1.4"/><path d="M8 7.3 V11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><circle cx="8" cy="5.1" r="0.9" fill="currentColor"/></svg>';
 
-// Paths ranked by frequency, in the Insights drawer's Paths tab. Each row's step sequence and description live in the
-// (i) icon's tooltip rather than on the row itself.
+// Insights drawer, Paths tab: variant counts, the ranked path list (top
+// few, or every one once expanded), the most efficient completed paths,
+// and every case grouped by the path it took.
+const INSIGHT_PATH_PREVIEW_COUNT = 5;
+const insightsPathsUI = { showAllPaths: false, showAllCases: false };
+
 function renderVariantList(model) {
-  renderPathRows(d3.select('#variant-list-all'), model.variants, model);
+  const completedSet = model.completion.recognizedTaskSet;
+  const isCompleted = (v) => completedSet.has(v.path[v.path.length - 1]);
+  const completedCount = model.variants.filter(isCompleted).length;
+  d3.select('#ins-paths-total').text(model.variants.length);
+  d3.select('#ins-paths-completed').text(completedCount);
+  d3.select('#ins-paths-incomplete').text(model.variants.length - completedCount);
+
+  const shown = insightsPathsUI.showAllPaths ? model.variants : model.variants.slice(0, INSIGHT_PATH_PREVIEW_COUNT);
+  renderPathRows(d3.select('#variant-list-all'), shown, model);
+  d3.select('#ins-paths-more')
+    .classed('hidden', model.variants.length <= INSIGHT_PATH_PREVIEW_COUNT)
+    .text(insightsPathsUI.showAllPaths ? 'Show fewer paths' : `View all ${model.variants.length} paths`);
   d3.select('#ins-all-paths-sub').text(`${model.variants.length} path${model.variants.length === 1 ? '' : 's'}, ranked by frequency`);
+
+  // Most efficient: the quickest paths (by average total time) among those
+  // that reach a recognized conclusion and aren't one-off outliers.
+  const minCount = Math.max(2, model.totalCases * 0.01);
+  const efficient = model.variants
+    .filter((v) => isCompleted(v) && v.count >= minCount)
+    .sort((a, b) => a.avgDuration - b.avgDuration)
+    .slice(0, 3);
+  renderEfficientRows(d3.select('#ins-efficient-list'), efficient, isCompleted);
+
+  renderCaseRows(model);
 }
+
+function pathRowClass(v) {
+  return `ins-path-row${state.highlight && state.highlight.kind === 'variant' && state.highlight.value === v ? ' active' : ''}`;
+}
+
+function pathStepsTooltipHtml(v, model) {
+  return `<div class="variant-info-title">Path ${v.rank} · ${v.path.length} step${v.path.length === 1 ? '' : 's'}</div><div class="variant-info-path">${v.path.map(escapeHtml).join(' → ')}</div><div class="variant-info-story">${buildPathStory(v, model)}</div>`;
+}
+
+function bindPathInfo(sel, model) {
+  sel.select('.variant-info')
+    .on('click', (event) => event.stopPropagation())
+    .on('mouseenter', (event, v) => showTooltip(event, pathStepsTooltipHtml(v, model)))
+    .on('mousemove', moveTooltip)
+    .on('mouseleave', hideTooltip);
+}
+
+const PATH_DONUT_C = 2 * Math.PI * 13.5;
 
 function renderPathRows(list, variants, model) {
   const pctLabel = (pct) => `${pct >= 0.1 ? Math.round(pct * 100) : (pct * 100).toFixed(1)}%`;
@@ -10678,20 +10817,94 @@ function renderPathRows(list, variants, model) {
   const merged = items.enter().append('li').merge(items);
   merged
     .order()
-    .attr('class', (v) => `ins-rank-row${state.highlight && state.highlight.kind === 'variant' && state.highlight.value === v ? ' active' : ''}`)
+    .attr('class', pathRowClass)
     .on('click', (event, v) => setHighlight('variant', v))
-    .html((v) => insightRankRowHtml({
-      rank: v.rank,
-      titleHtml: `Path ${v.rank}<span class="variant-info" aria-label="Show path steps">${INFO_ICON_SVG}</span>${v === model.fastestPath ? '<span class="fastest-badge" title="Fastest observed path">⚡ fastest</span>' : ''}`,
-      value: pctLabel(v.pct),
-      detailHtml: `<span class="ins-meta-item">${META_CLOCK_ICON_SVG}${formatDuration(v.avgDuration)}</span><span class="ins-meta-item">${STAIRS_ICON_SVG}${v.path.length} step${v.path.length === 1 ? '' : 's'}</span>`,
-      detailRightHtml: pluralCases(v.count),
-    }));
-  merged.select('.variant-info')
-    .on('click', (event) => event.stopPropagation())
-    .on('mouseenter', (event, v) => showTooltip(event, `<div class="variant-info-title">Path ${v.rank} · ${v.path.length} step${v.path.length === 1 ? '' : 's'}</div><div class="variant-info-path">${v.path.map(escapeHtml).join(' → ')}</div><div class="variant-info-story">${buildPathStory(v, model)}</div>`))
-    .on('mousemove', moveTooltip)
-    .on('mouseleave', hideTooltip);
+    .html((v) => `
+      <span class="ins-path-main">
+        <span class="ins-path-name">Path ${v.rank}<span class="variant-info" aria-label="Show path steps">${INFO_ICON_SVG}</span>${v === model.fastestPath ? '<span class="fastest-badge" title="Fastest observed path">⚡ fastest</span>' : ''}</span>
+        <span class="ins-path-meta">${META_CLOCK_ICON_SVG}${formatDurationLong(v.avgDuration)} • ${v.path.length} Task${v.path.length === 1 ? '' : 's'}</span>
+      </span>
+      <span class="ins-path-share">
+        <svg class="ins-donut completed" width="34" height="34" viewBox="0 0 34 34" aria-hidden="true"><circle class="ins-donut-track" cx="17" cy="17" r="13.5"/><circle class="ins-donut-arc" cx="17" cy="17" r="13.5" transform="rotate(-90 17 17)" stroke-dasharray="${v.pct * PATH_DONUT_C} ${PATH_DONUT_C}"/></svg>
+        <span class="ins-path-share-figures"><span class="ins-path-pct">${pctLabel(v.pct)}</span><span class="ins-path-cases">${v.count} ${v.count === 1 ? 'Case' : 'Cases'}</span></span>
+      </span>
+    `);
+  bindPathInfo(merged, model);
+}
+
+function renderEfficientRows(list, variants, isCompleted) {
+  const items = list.selectAll('li').data(variants, (v) => v.signature);
+  items.exit().remove();
+  const merged = items.enter().append('li').merge(items);
+  merged
+    .order()
+    .attr('class', (v) => `${pathRowClass(v)} tall`)
+    .on('click', (event, v) => setHighlight('variant', v))
+    .html((v) => `
+      <span class="ins-path-main">
+        <span class="ins-path-name">Path ${v.rank}<span class="variant-info" aria-label="Show path steps">${INFO_ICON_SVG}</span></span>
+        <span class="ins-path-desc">${v.count} case${v.count === 1 ? '' : 's'} • ${v.path.length} Task${v.path.length === 1 ? '' : 's'} • ${isCompleted(v) ? 'Completed' : 'Not completed'}</span>
+      </span>
+      <span class="ins-path-total">
+        <span class="ins-stat-label">Total Time</span>
+        <span class="ins-path-total-value">${formatDurationLong(v.avgDuration)}</span>
+      </span>
+    `);
+  bindPathInfo(merged, state.model);
+  list.selectAll('.ins-chart-empty').remove();
+  if (!variants.length) list.append('p').attr('class', 'ins-chart-empty').text('No completed path occurs often enough to compare.');
+}
+
+// Every case in the current view, most common path first, each showing
+// its own step count and duration plus how many cases share its path.
+const CASE_ROWS_PREVIEW = 50;
+let caseMenuTarget = null;
+
+function renderCaseRows(model) {
+  const variantByCase = new Map();
+  model.variants.forEach((v) => v.caseIds.forEach((id) => variantByCase.set(id, v)));
+  const rows = state.cases
+    .map((c) => ({ c, v: variantByCase.get(c.caseId) }))
+    .filter((r) => r.v)
+    .sort((a, b) => a.v.rank - b.v.rank);
+  const shown = insightsPathsUI.showAllCases ? rows : rows.slice(0, CASE_ROWS_PREVIEW);
+  const pctLabel = (pct) => `${pct >= 0.1 ? Math.round(pct * 100) : (pct * 100).toFixed(1)}%`;
+
+  const list = d3.select('#ins-cases-list');
+  const items = list.selectAll('li').data(shown, (r) => r.c.caseId);
+  items.exit().remove();
+  const merged = items.enter().append('li').merge(items);
+  merged
+    .order()
+    .attr('class', (r) => `ins-case-row${state.highlight && state.highlight.kind === 'variant' && state.highlight.value === r.v ? ' active' : ''}`)
+    .on('click', (event, r) => setHighlight('variant', r.v))
+    .html((r) => `
+      <span class="ins-case-id" title="${escapeHtml(r.c.caseId)}">${escapeHtml(r.c.caseId)}</span>
+      <span>${r.c.steps.length}</span>
+      <span>${formatDurationLong(r.c.totalDuration)}</span>
+      <span>${r.v.count}</span>
+      <span class="num strong">${pctLabel(r.v.pct)}</span>
+      <button class="ins-case-kebab" type="button" aria-label="Case actions"><svg width="16" height="16" viewBox="0 0 16 16" fill="#8C899F" aria-hidden="true"><circle cx="8" cy="3.5" r="1.2"/><circle cx="8" cy="8" r="1.2"/><circle cx="8" cy="12.5" r="1.2"/></svg></button>
+    `);
+  merged.select('.ins-case-kebab').on('click', (event, r) => {
+    event.stopPropagation();
+    caseMenuTarget = r;
+    const menu = document.getElementById('ins-case-menu');
+    menu.classList.remove('hidden');
+    const left = Math.min(event.clientX, window.innerWidth - 200);
+    const top = Math.min(event.clientY, window.innerHeight - 90);
+    menu.style.left = `${left}px`;
+    menu.style.top = `${top}px`;
+  });
+
+  d3.select('#ins-cases-more')
+    .classed('hidden', rows.length <= CASE_ROWS_PREVIEW && !insightsPathsUI.showAllCases)
+    .text(insightsPathsUI.showAllCases ? 'Show fewer cases' : `View all ${rows.length} cases`);
+}
+
+function closeCaseMenu() {
+  caseMenuTarget = null;
+  d3.select('#ins-case-menu').classed('hidden', true);
 }
 
 function renderStats(model) {
@@ -12835,6 +13048,34 @@ function setInsightsTab(tab) {
   d3.selectAll('.ins-tab-panel').classed('hidden', function () { return this.dataset.insPanel !== tab; });
 }
 d3.selectAll('.ins-tab').on('click', function () { setInsightsTab(this.dataset.insTab); });
+d3.select('#ins-paths-more').on('click', () => {
+  insightsPathsUI.showAllPaths = !insightsPathsUI.showAllPaths;
+  renderVariantList(state.model);
+});
+d3.select('#ins-cases-more').on('click', () => {
+  insightsPathsUI.showAllCases = !insightsPathsUI.showAllCases;
+  d3.select('#ins-cases-scroll').classed('expanded', insightsPathsUI.showAllCases);
+  renderVariantList(state.model);
+});
+d3.select('#ins-case-menu-trace').on('click', () => {
+  const target = caseMenuTarget;
+  closeCaseMenu();
+  if (target && !(state.highlight && state.highlight.value === target.v)) setHighlight('variant', target.v);
+});
+d3.select('#ins-case-menu-filter').on('click', () => {
+  const target = caseMenuTarget;
+  closeCaseMenu();
+  if (!target) return;
+  state.filters.processIds.clear();
+  state.filters.processIds.add(target.c.caseId);
+  if (processIdSelect) processIdSelect.renderChips();
+  applyFilters();
+});
+d3.select(document).on('click.insCaseMenu', (event) => {
+  const menu = document.getElementById('ins-case-menu');
+  if (!menu.classList.contains('hidden') && !menu.contains(event.target)) closeCaseMenu();
+});
+
 // Dark tooltip for the chart cards' (i) buttons.
 d3.selectAll('.ins-info-btn')
   .on('mouseenter', function (event) {

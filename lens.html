@@ -1131,7 +1131,6 @@ button:hover { filter: brightness(1.08); }
 .variant-item.active { border-color: var(--bpmn-blue); background: #f5f9ff; }
 .variant-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; flex-wrap: wrap; }
 .variant-title { display: flex; align-items: center; gap: 7px; min-width: 0; }
-.variant-bar { width: 3px; height: 16px; border-radius: 2px; background: var(--bpmn-blue); flex-shrink: 0; }
 .variant-name { font-size: 0.95rem; font-weight: 700; color: #1f2033; white-space: nowrap; }
 .variant-info { display: inline-flex; color: var(--text-tertiary); cursor: help; }
 .variant-info:hover { color: var(--bpmn-blue); }
@@ -10383,7 +10382,6 @@ function renderVariantList(model) {
   const pctLabel = (pct) => `${pct >= 0.1 ? Math.round(pct * 100) : (pct * 100).toFixed(1)}%`;
   merged.select('.variant-head').html((v) => `
     <div class="variant-title">
-      <span class="variant-bar"></span>
       <span class="variant-name">Path ${v.rank}</span>
       <span class="variant-info" aria-label="Show path steps">${INFO_ICON_SVG}</span>
       <span class="variant-dot"></span>

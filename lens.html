@@ -1150,8 +1150,12 @@ button:hover { filter: brightness(1.08); }
 /* ---- task cards ---- */
 .node.task .card-bg { fill: #fff; stroke: none; filter: drop-shadow(0 3.2px 19px rgba(0, 0, 0, 0.05)); }
 .node.task .card-accent { fill: var(--bpmn-card-accent); }
-.node-title { fill: var(--text-primary); font-size: 13px; font-weight: 600; pointer-events: none; }
-.node-meta { fill: var(--text-secondary); font-size: 11px; pointer-events: none; }
+.task-card-title { fill: #525066; font-size: 16px; font-weight: 600; pointer-events: none; }
+.task-card-meta { fill: #8b8fa6; font-size: 14px; pointer-events: none; }
+.task-card-icon { pointer-events: none; }
+.task-card-ornament { fill: #fff; }
+.task-card-glyph { fill: none; stroke: #6b697b; stroke-width: 2px; stroke-linecap: round; stroke-linejoin: round; }
+.task-card-clock-glyph { fill: none; stroke: #8c899f; stroke-width: 1.6px; stroke-linecap: round; stroke-linejoin: round; }
 
 /* ---- fast-vs-typical comparison badge ---- */
 .compare-badge-bg.faster { fill: var(--path-main-soft); }
@@ -1159,10 +1163,6 @@ button:hover { filter: brightness(1.08); }
 .compare-badge-text { font-size: 9.5px; font-weight: 700; pointer-events: none; }
 .compare-badge-text.faster { fill: #157a45; }
 .compare-badge-text.skipped { fill: var(--text-secondary); }
-.icon-task-ornament { fill: #ffffff; }
-.icon-task-glyph { fill: none; stroke: #6B697B; stroke-width: 2px; stroke-linecap: round; stroke-linejoin: round; }
-.icon-kebab circle { fill: var(--text-tertiary); }
-.icon-clock circle, .icon-clock path { stroke: var(--text-secondary); stroke-width: 1.3px; stroke-linecap: round; stroke-linejoin: round; fill: none; }
 
 /* ---- start / end pills ---- */
 .pill-bg { fill: var(--card-bg); stroke: var(--card-border); stroke-width: 1px; filter: drop-shadow(0 1px 2px rgba(24,26,51,0.08)); }
@@ -1203,12 +1203,7 @@ button:hover { filter: brightness(1.08); }
 .bpmn-node-layer, .bpmn-edge-layer, .bpmn-lane-layer { display: none; }
 .bpmn-task-box { fill: #fff; stroke: none; filter: drop-shadow(0 3.2px 19px rgba(0, 0, 0, 0.05)); }
 .bpmn-task-accent { fill: var(--bpmn-card-accent); pointer-events: none; }
-.bpmn-task-label { fill: var(--text-primary); font-size: 13px; font-weight: 600; pointer-events: none; }
-.bpmn-task-meta { fill: var(--text-secondary); font-size: 11.5px; pointer-events: none; }
-.bpmn-card-clock { fill: none; stroke: var(--text-secondary); stroke-width: 1.3px; stroke-linecap: round; stroke-linejoin: round; pointer-events: none; }
 .bpmn-app-icon { pointer-events: none; }
-.bpmn-app-generic { fill: none; stroke: var(--bpmn-blue); stroke-width: 1.5px; }
-.bpmn-app-generic-dot { fill: var(--bpmn-blue); }
 .bpmn-task-substep-arrow { fill: none; stroke: var(--bpmn-blue); stroke-width: 2px; stroke-linecap: round; stroke-linejoin: round; pointer-events: none; }
 .node.bpmn-task.selected .bpmn-task-box { stroke: var(--bpmn-blue); stroke-width: 1.6px; }
 .node.bpmn-task:hover .bpmn-task-box { stroke: var(--bpmn-blue); stroke-width: 1.4px; }
@@ -1728,7 +1723,6 @@ body.structural-diagram #play-animation-btn {
 .edge-tooltip-note { margin-top: 8px; font-size: 0.72rem; color: var(--rework); font-weight: 600; }
 
 /* ---- task card kebab menu ---- */
-.icon-kebab-hit { cursor: pointer; }
 .task-menu {
   position: fixed;
   z-index: 30;
@@ -8187,8 +8181,8 @@ function buildProcessModel(cases) {
   <script>
 /* global d3, dagre, generateEventLog, buildProcessModel, normalizeCaseLog, extractTaskInsights, extractGraphTaskInsights, parseBpmnXml, median, SAMPLE_JSON_TEMPLATE, START, END */
 
-const TASK_W = 250;
-const TASK_H = 62;
+const TASK_W = 245;
+const TASK_H = 76;
 const PILL_W = 108;
 const PILL_H = 42;
 const DIAMOND_SIZE = 92;
@@ -8694,6 +8688,12 @@ function layout(renderGraph) {
   renderGraph.nodes.forEach((n) => {
     let width = TASK_W;
     let height = TASK_H;
+    if (n.kind === 'task') {
+      width = Math.max(TASK_W, Math.ceil(Math.max(
+        measureBpmnLabelWidth(n.label, TASK_CARD_TITLE_FONT) + TASK_CARD.textX + 18,
+        measureBpmnLabelWidth(taskCardMetaText(n), TASK_CARD_META_FONT) + TASK_CARD.metaX + 18,
+      )));
+    }
     if (n.kind === 'start' || n.kind === 'end') { width = PILL_W; height = PILL_H; }
     if (n.kind === 'diamond') { width = DIAMOND_SIZE; height = DIAMOND_SIZE; }
     if (n.kind === 'task' && n.compareInfo) height += COMPARE_BADGE_H;
@@ -8722,9 +8722,9 @@ function layout(renderGraph) {
 // catalog's authored stage), tasks are grouped into swimlanes by that
 // stage inside one labeled pool — otherwise it falls back to a single,
 // unlabeled lane rather than inventing a grouping the data doesn't have.
-const BPMN_TASK_W = 210;
-const BPMN_TASK_W_MAX = 300;
-const BPMN_TASK_H = 74;
+const BPMN_TASK_W = 245;
+const BPMN_TASK_W_MAX = 340;
+const BPMN_TASK_H = 76;
 const BPMN_EVENT_SIZE = 52;
 const BPMN_GATEWAY_SIZE = 50;
 const BPMN_MIN_LANE_HEIGHT = 150;
@@ -8983,9 +8983,8 @@ function laneIndexForNode(n, lanes) {
 // to their own label instead of guessing from character count — one
 // offscreen canvas, reused across calls (font is set per call since it's
 // shared between the task-box font and the rotated lane-label font).
-const BPMN_TASK_LABEL_FONT = "600 13px -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif";
+const BPMN_TASK_LABEL_FONT = "600 16px -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif";
 const BPMN_LANE_LABEL_FONT = "500 12px -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif";
-const BPMN_META_FONT = "400 11.5px -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif";
 let bpmnMeasureCtx = null;
 function measureBpmnLabelWidth(text, font = BPMN_TASK_LABEL_FONT) {
   if (!bpmnMeasureCtx) {
@@ -9027,16 +9026,13 @@ function wrapBpmnLabel(label, maxWidth) {
 // wrapping a long name into a fixed column — width first, from the
 // label's natural (unwrapped) width or its meta line ("12m · 150
 // instances"), whichever is wider, then lines and height from wrapping at
-// that width. Text starts after the card's app-icon column.
-const BPMN_CARD_TEXT_X = 44;
-const BPMN_CARD_LINE_H = 17;
+// that width.
 function sizeBpmnTaskBox(label, metaText) {
-  const natural = measureBpmnLabelWidth(label);
-  const metaWidth = metaText ? measureBpmnLabelWidth(metaText, BPMN_META_FONT) : 0;
-  const width = Math.max(BPMN_TASK_W, Math.min(BPMN_TASK_W_MAX, Math.ceil(Math.max(natural, metaWidth + 14)) + BPMN_CARD_TEXT_X + 22));
-  const lines = wrapBpmnLabel(label, width - BPMN_CARD_TEXT_X - 18);
-  const height = Math.max(BPMN_TASK_H, 34 + lines.length * BPMN_CARD_LINE_H + (metaText ? 24 : 0));
-  return { width, height, lines };
+  const titleNeed = measureBpmnLabelWidth(label, TASK_CARD_TITLE_FONT) + TASK_CARD.textX + 18;
+  const metaNeed = metaText ? measureBpmnLabelWidth(metaText, TASK_CARD_META_FONT) + TASK_CARD.metaX + 18 : 0;
+  const width = Math.max(BPMN_TASK_W, Math.min(BPMN_TASK_W_MAX, Math.ceil(Math.max(titleNeed, metaNeed))));
+  const lines = wrapBpmnLabel(label, width - TASK_CARD.textX - 18);
+  return { width, height: taskCardHeight(lines.length, !!metaText), lines };
 }
 
 function layoutBpmn(bpmnGraph, lanes) {
@@ -9369,9 +9365,9 @@ function layoutBpmn(bpmnGraph, lanes) {
   return { nodePos, edgePos, laneMeta };
 }
 
-// A small application glyph for a task card's leading icon, picked from
-// the task's own appId when the dataset carries one — a generic task
-// glyph otherwise, never a guessed application.
+// A small application logo for a task card's icon circle, picked from the
+// task's own appId — the app-window glyph for an application it doesn't
+// recognise, never a guessed application.
 function appendBpmnAppIcon(g, x, y, appId) {
   const app = String(appId || '').toLowerCase();
   const k = g.append('g').attr('class', 'bpmn-app-icon').attr('transform', `translate(${x}, ${y})`);
@@ -9389,44 +9385,23 @@ function appendBpmnAppIcon(g, x, y, appId) {
     k.append('path').attr('d', 'M3.2 6 A6 6 0 0 1 14.8 6').attr('fill', 'none').attr('stroke', '#f5a623').attr('stroke-width', 2).attr('stroke-linecap', 'round');
     k.append('text').attr('x', 9).attr('y', 16.5).attr('text-anchor', 'middle').attr('fill', '#0b5fba').attr('font-size', 11).attr('font-weight', 800).text('W');
   } else {
-    k.append('rect').attr('class', 'bpmn-app-generic').attr('x', 1.5).attr('y', 3).attr('width', 15).attr('height', 12).attr('rx', 2.5);
-    k.append('rect').attr('class', 'bpmn-app-generic-dot').attr('x', 10).attr('y', 7.5).attr('width', 3.6).attr('height', 3.6).attr('rx', 0.9);
+    appendAppWindowGlyph(k);
   }
 }
 
-function appendBpmnClockIcon(g, x, y) {
-  const k = g.append('g').attr('class', 'bpmn-card-clock').attr('transform', `translate(${x}, ${y})`);
-  k.append('circle').attr('cx', 7).attr('cy', 7).attr('r', 6);
-  k.append('path').attr('d', 'M7 3.8 V7 L9.2 8.4');
-}
-
-// A task card: white, softly shadowed, with a blue accent along its left
-// edge; the application icon and task name on top, and a clock + meta
-// line ("12m · 150 instances", or "N sub steps" for a subprocess) below.
+// A BPMN task card: the shared task card, with the task's own application
+// logo in its icon circle when the dataset names one ("12m · 4 sub steps"
+// and the corner bracket mark a task that drills into its own subprocess).
 function buildBpmnTaskBox(g, n, p) {
-  // Same shape as a CSS box with border-radius r and a thick left border:
-  // the left band runs between the card's outer rounded corners and an
-  // inner edge curving with radius (r - border) horizontally, r vertically.
-  const r = 8;
-  const bw = 3;
-  const w = p.width;
-  const h = p.height;
-  g.append('rect').attr('class', 'bpmn-task-box').attr('width', w).attr('height', h).attr('rx', r);
-  g.append('path').attr('class', 'bpmn-task-accent')
-    .attr('d', `M${r},0 A${r},${r} 0 0 0 0,${r} V${h - r} A${r},${r} 0 0 0 ${r},${h} A${r - bw},${r} 0 0 1 ${bw},${h - r} V${r} A${r - bw},${r} 0 0 1 ${r},0 Z`);
-
-  const lines = n.wrappedLines || wrapBpmnLabel(n.label, p.width - BPMN_CARD_TEXT_X - 18);
-  const blockH = (lines.length - 1) * BPMN_CARD_LINE_H + (n.metaText ? 24 : 0);
-  const titleY = p.height / 2 - blockH / 2 + 4;
-  appendBpmnAppIcon(g, 15, titleY - 13, n.appId);
-  lines.forEach((l, i) => {
-    g.append('text').attr('class', 'bpmn-task-label').attr('x', BPMN_CARD_TEXT_X).attr('y', titleY + i * BPMN_CARD_LINE_H).text(l);
+  drawTaskCard(g, {
+    width: p.width,
+    height: p.height,
+    lines: n.wrappedLines || wrapBpmnLabel(n.label, p.width - TASK_CARD.textX - 18),
+    metaText: n.metaText,
+    bgClass: 'bpmn-task-box',
+    accentClass: 'bpmn-task-accent',
+    drawIcon: (k) => (n.appId ? appendBpmnAppIcon(k, 1, 1, n.appId) : appendAppWindowGlyph(k)),
   });
-  if (n.metaText) {
-    const metaY = titleY + (lines.length - 1) * BPMN_CARD_LINE_H + 24;
-    appendBpmnClockIcon(g, 17, metaY - 10.5);
-    g.append('text').attr('class', 'bpmn-task-meta').attr('x', BPMN_CARD_TEXT_X).attr('y', metaY).text(n.metaText);
-  }
   if (n.subStepCount) {
     // A small corner bracket in the bottom-right, echoing the "drill in"
     // affordance — this card expands into its own view on click.
@@ -9751,28 +9726,62 @@ function syncViewLayers() {
 }
 
 // ---- small inline icons ----
-function appendTaskIcon(g, x, y) {
-  // A 32px white ornament circle holding a 20px "app-window" glyph, centred
-  // (6px padding): the window frame spans 12.5% in from each side and
-  // 20.83% in from top and bottom of that 20px box, with a title-bar rule.
-  const k = g.append('g').attr('class', 'icon-task').attr('transform', `translate(${x}, ${y})`);
-  k.append('circle').attr('class', 'icon-task-ornament').attr('cx', 16).attr('cy', 16).attr('r', 16);
-  const glyph = k.append('g').attr('transform', 'translate(6, 6)');
-  glyph.append('rect').attr('class', 'icon-task-glyph').attr('x', 2.5).attr('y', 4.17).attr('width', 15).attr('height', 11.66).attr('rx', 1.6);
-  glyph.append('path').attr('class', 'icon-task-glyph').attr('d', 'M2.5 7.9 H17.5');
+// ---- task card: shared by Path view and BPMN view ----
+// A white card (radius 8) with a 3px accent band down its left edge; a
+// 32px white ornament circle holding the task's icon, the task name, and a
+// meta line ("12m · 150 instances") led by a clock in a 24px circle.
+// Measurements are relative to the card's top-left corner.
+const TASK_CARD = {
+  minWidth: 245,
+  maxWidth: 340,
+  textX: 50,
+  metaX: 47,
+  titleY: 30, // first title baseline when the card has a meta line
+  lineH: 20,
+  heightWithMeta: 76,
+  heightNoMeta: 56,
+};
+const TASK_CARD_TITLE_FONT = "600 16px -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif";
+const TASK_CARD_META_FONT = "400 14px -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif";
+
+function taskCardHeight(lineCount, hasMeta) {
+  return (hasMeta ? TASK_CARD.heightWithMeta : TASK_CARD.heightNoMeta) + (lineCount - 1) * TASK_CARD.lineH;
 }
-function appendKebab(g, x, y, onClick) {
-  const hit = g.append('g').attr('class', 'icon-kebab-hit');
-  hit.append('rect').attr('x', x - 11).attr('y', y - 13).attr('width', 22).attr('height', 26).attr('fill', 'transparent');
-  const k = hit.append('g').attr('class', 'icon-kebab');
-  [-5, 0, 5].forEach((dy) => k.append('circle').attr('cx', x).attr('cy', y + dy).attr('r', 1.3));
-  if (onClick) hit.on('click', onClick);
+
+// The "app-window" glyph, drawn into a 20px box: a window frame inset
+// 12.5% from the sides and 20.83% from top and bottom, with two dots in
+// its title bar.
+function appendAppWindowGlyph(k) {
+  k.append('rect').attr('class', 'task-card-glyph').attr('x', 2.5).attr('y', 4.17).attr('width', 15).attr('height', 11.67).attr('rx', 1.67);
+  k.append('path').attr('class', 'task-card-glyph').attr('d', 'M5 6.67 H5.01 M7.5 6.67 H7.51');
 }
-function appendClockIcon(g, x, y) {
-  const k = g.append('g').attr('class', 'icon-clock');
-  k.append('circle').attr('cx', x + 6).attr('cy', y + 6).attr('r', 6.25);
-  k.append('path').attr('d', `M${x + 6},${y + 2.5} L${x + 6},${y + 6} L${x + 9},${y + 8}`);
-  return k;
+
+function drawTaskCard(g, { width: w, height: h, lines, metaText, bgClass, accentClass, drawIcon }) {
+  const r = 8;
+  const bw = 3;
+  g.append('rect').attr('class', bgClass).attr('width', w).attr('height', h).attr('rx', r);
+  // The accent band runs between the card's outer rounded corners and an
+  // inner edge curving with radius (r - bw) across and r down — the same
+  // shape as a CSS border-left on a box with border-radius.
+  g.append('path').attr('class', accentClass)
+    .attr('d', `M${r},0 A${r},${r} 0 0 0 0,${r} V${h - r} A${r},${r} 0 0 0 ${r},${h} A${r - bw},${r} 0 0 1 ${bw},${h - r} V${r} A${r - bw},${r} 0 0 1 ${r},0 Z`);
+
+  const titleY = metaText ? TASK_CARD.titleY : h / 2 - ((lines.length - 1) * TASK_CARD.lineH) / 2 + 5.5;
+  const icon = g.append('g').attr('class', 'task-card-icon').attr('transform', `translate(11, ${titleY - 22})`);
+  icon.append('circle').attr('class', 'task-card-ornament').attr('cx', 16).attr('cy', 16).attr('r', 16);
+  drawIcon(icon.append('g').attr('transform', 'translate(6, 6)'));
+
+  lines.forEach((l, i) => {
+    g.append('text').attr('class', 'task-card-title').attr('x', TASK_CARD.textX).attr('y', titleY + i * TASK_CARD.lineH).text(l);
+  });
+  if (metaText) {
+    const cy = titleY + (lines.length - 1) * TASK_CARD.lineH + 26;
+    const clock = g.append('g').attr('class', 'task-card-icon').attr('transform', `translate(14, ${cy - 12})`);
+    clock.append('circle').attr('class', 'task-card-ornament').attr('cx', 12).attr('cy', 12).attr('r', 12);
+    clock.append('path').attr('class', 'task-card-clock-glyph')
+      .attr('d', 'M12 8.67 V12 L14 14 M18 12 A6 6 0 1 1 6 12 A6 6 0 1 1 18 12');
+    g.append('text').attr('class', 'task-card-meta').attr('x', TASK_CARD.metaX).attr('y', cy + 5.5).text(metaText);
+  }
 }
 function appendFlagIcon(g, cx, cy, colorClass) {
   const k = g.append('g').attr('class', `icon-flag ${colorClass}`);
@@ -9781,27 +9790,22 @@ function appendFlagIcon(g, cx, cy, colorClass) {
   return k;
 }
 
+function taskCardMetaText(n) {
+  return `${formatDuration(n.avgDuration)} · ${pluralCases(n.caseCount)}`;
+}
+
+// Path view cards are always a single line wide enough for their name —
+// the card's own width is sized in layout() to fit it.
 function buildTaskCard(g, n, p) {
-  // Same card shape as BPMN view's task cards: rounded corners and a
-  // thick left band that follows them (see buildBpmnTaskBox).
-  const r = 8;
-  const bw = 3;
-  const h = p.height;
-  g.append('rect').attr('class', 'card-bg').attr('width', p.width).attr('height', h).attr('rx', r);
-  g.append('path').attr('class', 'card-accent')
-    .attr('d', `M${r},0 A${r},${r} 0 0 0 0,${r} V${h - r} A${r},${r} 0 0 0 ${r},${h} A${r - bw},${r} 0 0 1 ${bw},${h - r} V${r} A${r - bw},${r} 0 0 1 ${r},0 Z`);
-  appendTaskIcon(g, 12, (TASK_H - 32) / 2);
-  g.append('text').attr('class', 'node-title').attr('x', 52).attr('y', 25).text(n.label);
-  // Fixed to the card's base height (not p.height) so a fast-vs-typical
-  // badge — which grows the card — adds a new row below rather than
-  // shifting these positions around.
-  appendKebab(g, p.width - 16, TASK_H / 2 - 11, (event) => {
-    event.stopPropagation();
-    openTaskMenu(event, n.id);
+  drawTaskCard(g, {
+    width: p.width,
+    height: TASK_H,
+    lines: [n.label],
+    metaText: taskCardMetaText(n),
+    bgClass: 'card-bg',
+    accentClass: 'card-accent',
+    drawIcon: appendAppWindowGlyph,
   });
-  appendClockIcon(g, 52, TASK_H - 24);
-  g.append('text').attr('class', 'node-meta').attr('x', 70).attr('y', TASK_H - 14)
-    .text(`${pluralCases(n.caseCount)} · ${formatDuration(n.avgDuration)}`);
   if (n.compareInfo) buildCompareBadge(g, n, p);
 }
 

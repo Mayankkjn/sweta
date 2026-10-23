@@ -1118,30 +1118,80 @@ button:hover { filter: brightness(1.08); }
 .hint { margin: 0 0 10px; font-size: 0.75rem; color: var(--text-secondary); }
 
 #variant-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
-.variant-item {
-  background: #fff;
-  border: 1px solid #e8e9f1;
-  border-radius: 12px;
-  padding: 12px 14px;
-  box-shadow: 0 4px 16px rgba(24, 26, 51, 0.04);
-  cursor: pointer;
-  transition: border-color 0.15s, background 0.15s;
-}
-.variant-item:hover { border-color: #b9d3f6; }
-.variant-item.active { border-color: var(--bpmn-blue); background: #f5f9ff; }
-.variant-head { display: grid; grid-template-columns: 1fr auto; align-items: center; column-gap: 8px; row-gap: 6px; }
-.variant-title { display: flex; align-items: center; gap: 7px; min-width: 0; }
-.variant-name { font-size: 0.95rem; font-weight: 700; color: #1f2033; white-space: nowrap; }
-.variant-info { display: inline-flex; color: var(--text-tertiary); cursor: help; }
+.variant-info { display: inline-flex; color: #b2b5c6; cursor: help; }
 .variant-info:hover { color: var(--bpmn-blue); }
 .tooltip .variant-info-title { font-weight: 700; margin-bottom: 4px; }
 .tooltip .variant-info-path { line-height: 1.45; color: var(--text-secondary); }
 .tooltip .variant-info-story { line-height: 1.45; color: var(--text-primary); margin-top: 8px; padding-top: 8px; border-top: 1px solid var(--panel-border); }
-.variant-pct { font-size: 0.95rem; font-weight: 700; color: #1f2033; }
-.variant-meta { grid-column: 1 / -1; display: flex; align-items: center; gap: 8px; font-size: 0.76rem; color: #6b6f86; white-space: nowrap; }
-.variant-meta-item { display: inline-flex; align-items: center; gap: 4px; }
-.variant-meta-item svg { color: #8b8fa6; flex-shrink: 0; }
-.variant-meta-sep { width: 1px; height: 14px; background: #dcdde6; }
+
+/* ---- Insights drawer ---- */
+.side-drawer.insights-drawer { width: 427px; border: none; box-shadow: 0 4px 18px rgba(221, 221, 221, 0.72); }
+.ins-header { display: flex; align-items: flex-start; justify-content: space-between; padding: 12px 12px 0 18px; flex-shrink: 0; }
+.ins-title { display: flex; align-items: center; gap: 4px; margin-top: 7px; }
+.ins-title h2 { margin: 0; font-size: 20px; line-height: 28px; font-weight: 600; color: #2a2e45; }
+.ins-close { width: 41px; height: 41px; border: none; background: none; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; }
+.ins-close:hover { background: #f6f6f9; }
+.ins-tabs { display: flex; gap: 16px; padding: 0 24px; border-bottom: 1px solid #ebebeb; flex-shrink: 0; margin-top: 6px; }
+.ins-tab { position: relative; border: none; background: none; padding: 12px 8px; font: inherit; font-size: 16px; line-height: 24px; font-weight: 600; color: #3d3c52; cursor: pointer; }
+.ins-tab::after { content: ''; position: absolute; left: 0; right: 0; bottom: -1px; height: 4px; background: transparent; }
+.ins-tab.active { color: #0975d7; }
+.ins-tab.active::after { background: #0975d7; }
+.ins-body { flex: 1; overflow-y: auto; padding: 24px 19px 19px; }
+.ins-tab-panel { display: flex; flex-direction: column; gap: 12px; }
+.ins-tab-panel.hidden { display: none; }
+.ins-summary-group { display: flex; flex-direction: column; gap: 24px; }
+.ins-summary p { margin: 0; font-size: 14px; line-height: 21px; color: #525066; }
+.ins-summary p + p { margin-top: 6px; }
+.ins-summary strong { color: #3d3c52; }
+.ins-stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.ins-stat { display: flex; flex-direction: column; align-items: flex-start; gap: 1px; padding: 8px 12px; background: #fff; border: 1px solid #dfdde7; border-radius: 12px; font: inherit; text-align: left; }
+.ins-stat .ins-stat-label { margin-bottom: 9px; }
+.ins-stat.clickable { cursor: pointer; }
+.ins-stat.clickable:hover { border-color: #b9d3f6; }
+.ins-stat.clickable.active { border-color: var(--bpmn-blue); background: #f5f9ff; }
+.ins-stat-label { font-size: 12px; line-height: 16px; color: #6b697b; }
+.ins-stat-value { font-size: 24px; line-height: 32px; font-weight: 600; color: #3d3c52; }
+.ins-stat-sub { font-size: 12px; line-height: 16px; color: #525066; }
+.ins-card { background: #fff; border: 1px solid #dfdde7; border-radius: 14px; padding: 16px 6px 16px 12px; display: flex; flex-direction: column; gap: 16px; }
+.ins-card.collapsed { gap: 0; }
+.ins-card.collapsed .ins-card-body { display: none; }
+.ins-card.collapsed .ins-card-chevron { transform: rotate(180deg); }
+.ins-card-head { display: flex; align-items: center; gap: 12px; width: 100%; padding: 0 4px 0 0; border: none; background: none; font: inherit; text-align: left; cursor: pointer; }
+.ins-card-icon { width: 34px; height: 34px; border-radius: 50%; background: #f6f6f9; display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.ins-card-titles { display: flex; flex-direction: column; flex: 1; min-width: 0; }
+.ins-card-title { font-size: 16px; line-height: 24px; font-weight: 600; color: #2a2e45; }
+.ins-card-sub { font-size: 14px; line-height: 20px; color: #6b697b; }
+.ins-card-chevron { flex-shrink: 0; transition: transform 0.15s; }
+.ins-card-body { border-top: 1px solid #ebebeb; margin-right: 6px; }
+.ins-auto-row { display: flex; align-items: center; gap: 6px; width: 100%; padding: 8px 0 0; border: none; background: none; font: inherit; text-align: left; cursor: pointer; }
+.ins-auto-stat { flex: 1; min-width: 0; display: flex; flex-direction: column; padding: 8px 10px; border-radius: 12px; }
+.ins-auto-stat .ins-stat-label { white-space: nowrap; }
+.ins-auto-row:hover .ins-auto-stat { background: #fafafc; }
+.ins-auto-value { display: flex; align-items: flex-end; gap: 3px; }
+.ins-auto-value strong { font-size: 24px; line-height: 32px; font-weight: 600; }
+.ins-auto-value strong.high { color: #21ad73; }
+.ins-auto-value strong.medium { color: #e0a400; }
+.ins-auto-value strong.low { color: #b3141d; }
+.ins-auto-value span { font-size: 10px; line-height: 22px; color: #525066; }
+.ins-auto-sep { width: 1px; height: 49.5px; background: #dfdde7; flex-shrink: 0; }
+.ins-rank-list { list-style: none; margin: 0; padding: 0; }
+.ins-rank-row { display: flex; align-items: center; gap: 13px; min-height: 72px; padding: 0 10px 0 0; border-bottom: 1px solid #ececf3; box-shadow: 0 4px 4px rgba(0, 0, 0, 0.02); cursor: pointer; }
+.ins-rank-row:last-child { border-bottom: none; box-shadow: none; }
+.ins-rank-row:hover { background: #fafafc; }
+.ins-rank-row.active { background: #f6f6f9; }
+.ins-rank-badge { width: 34px; flex-shrink: 0; display: inline-flex; justify-content: center; }
+.ins-rank-badge { font-size: 14px; line-height: 20px; font-weight: 600; color: #2a2e45; }
+.ins-rank-badge { background: radial-gradient(circle at center, #f6f6f9 10px, transparent 10.5px); }
+.ins-rank-main { flex: 1; min-width: 0; display: flex; flex-direction: column; }
+.ins-rank-top, .ins-rank-bottom { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.ins-rank-title { display: inline-flex; align-items: center; gap: 4px; font-size: 14px; line-height: 20px; font-weight: 600; color: #2a2e45; min-width: 0; }
+.ins-rank-value { font-size: 16px; line-height: 24px; font-weight: 600; color: #525066; white-space: nowrap; }
+.ins-rank-value.lead { color: #b3141d; }
+.ins-rank-detail { display: inline-flex; align-items: center; gap: 12px; font-size: 12px; line-height: 16px; color: #7b7891; white-space: nowrap; }
+.ins-meta-item { display: inline-flex; align-items: center; gap: 4px; color: #6b6f86; }
+.ins-meta-item svg { color: #8b8fa6; flex-shrink: 0; }
+.ins-view-all { display: block; margin: 8px auto 0; border: none; background: none; font: inherit; font-size: 13px; font-weight: 600; color: #0975d7; cursor: pointer; }
+.ins-view-all.hidden { display: none; }
 .fastest-badge {
   display: inline-block;
   font-size: 0.66rem;
@@ -1350,7 +1400,7 @@ button:hover { filter: brightness(1.08); }
   box-shadow: var(--shadow-sm);
   transition: transform 0.15s;
 }
-.insight-compare-toggle.active .insight-compare-toggle-track { background: var(--accent-ui); border-color: var(--accent-ui); }
+.insight-compare-toggle.active .insight-compare-toggle-track { background: #0975d7; border-color: #0975d7; }
 .insight-compare-toggle.active .insight-compare-toggle-thumb { transform: translateX(16px); }
 
 .filter-variant-toggle-row {
@@ -2243,130 +2293,146 @@ body.structural-diagram #play-animation-btn {
       <div id="ai-summary-body" class="ai-summary-body"></div>
     </div>
 
-    <div id="insights-panel" class="side-drawer hidden">
-      <div class="side-drawer-header">
-        <h2>Insights</h2>
-        <button id="insights-close" class="ai-summary-close" type="button" aria-label="Close insights">
-          <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
-            <path d="M2 2 L10 10 M10 2 L2 10" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" />
-          </svg>
+    <div id="insights-panel" class="side-drawer insights-drawer hidden">
+      <div class="ins-header">
+        <div class="ins-title">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5M9 18h6M10 22h4" stroke="#6B697B" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <h2>Insights</h2>
+        </div>
+        <button id="insights-close" class="ins-close" type="button" aria-label="Close insights">
+          <svg width="19" height="19" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M5 5 L15 15 M15 5 L5 15" stroke="#6B697B" stroke-width="1.87" stroke-linecap="round"/></svg>
         </button>
       </div>
-      <div class="side-drawer-body">
-        <div class="panel">
-          <button class="panel-header" type="button" aria-expanded="true">
-            <h2>Process Summary</h2>
-            <svg class="panel-chevron" width="14" height="14" viewBox="0 0 14 14" aria-hidden="true">
-              <path d="M3 5 L7 9 L11 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
-            </svg>
-          </button>
-          <div class="panel-body">
-            <div id="process-summary-overview" class="process-summary-text"></div>
-            <div class="completion-grid">
-              <div class="completion-stat completed">
-                <span class="completion-label">Reached the end</span>
-                <span class="completion-value" id="process-summary-completed-value">–</span>
-                <span class="completion-detail" id="process-summary-completed-detail"> </span>
+      <div class="ins-tabs" role="tablist">
+        <button class="ins-tab active" type="button" role="tab" aria-selected="true" data-ins-tab="overview">Overview</button>
+        <button class="ins-tab" type="button" role="tab" aria-selected="false" data-ins-tab="paths">Paths</button>
+      </div>
+      <div class="ins-body">
+        <div class="ins-tab-panel" data-ins-panel="overview">
+          <div class="ins-summary-group">
+            <div id="process-summary-overview" class="ins-summary"></div>
+            <div class="ins-stat-grid">
+              <div class="ins-stat">
+                <span class="ins-stat-label">Incomplete Processes</span>
+                <span class="ins-stat-value" id="process-summary-incomplete-value">–</span>
+                <span class="ins-stat-sub" id="process-summary-incomplete-detail"> </span>
               </div>
-              <div class="completion-stat incomplete">
-                <span class="completion-label">Did not reach the end</span>
-                <span class="completion-value" id="process-summary-incomplete-value">–</span>
-                <span class="completion-detail" id="process-summary-incomplete-detail"> </span>
+              <div class="ins-stat">
+                <span class="ins-stat-label">Completed Process</span>
+                <span class="ins-stat-value" id="process-summary-completed-value">–</span>
+                <span class="ins-stat-sub" id="process-summary-completed-detail"> </span>
               </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="panel insights-panel">
-          <button class="panel-header" type="button" aria-expanded="true">
-            <h2>Key Takeaways</h2>
-            <svg class="panel-chevron" width="14" height="14" viewBox="0 0 14 14" aria-hidden="true">
-              <path d="M3 5 L7 9 L11 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
-            </svg>
-          </button>
-          <div class="panel-body">
-            <p class="hint">Click any signal to trace it on the map.</p>
-            <div class="insight-grid">
-              <button class="insight-card" id="insight-frequent" type="button">
-                <span class="insight-label">Most followed path</span>
-                <span class="insight-value" id="insight-frequent-value">–</span>
-                <span class="insight-detail" id="insight-frequent-detail"> </span>
+              <button class="ins-stat clickable" id="insight-frequent" type="button">
+                <span class="ins-stat-label">Most Followed Path</span>
+                <span class="ins-stat-value" id="insight-frequent-value">–</span>
+                <span class="ins-stat-sub" id="insight-frequent-detail"> </span>
               </button>
-              <button class="insight-card" id="insight-fastest" type="button">
-                <span class="insight-label">Fastest path</span>
-                <span class="insight-value" id="insight-fastest-value">–</span>
-                <span class="insight-detail" id="insight-fastest-detail"> </span>
-              </button>
-              <button class="insight-card" id="insight-timesink" type="button">
-                <span class="insight-label">Biggest time sink</span>
-                <span class="insight-value" id="insight-timesink-value">–</span>
-                <span class="insight-detail" id="insight-timesink-detail"> </span>
-              </button>
-              <button class="insight-card" id="insight-rework" type="button">
-                <span class="insight-label">Top rework hotspot</span>
-                <span class="insight-value" id="insight-rework-value">–</span>
-                <span class="insight-detail" id="insight-rework-detail"> </span>
-              </button>
-            </div>
-            <div class="insight-compare-toggle-row">
-              <span class="insight-compare-toggle-label">Compare fastest to typical</span>
-              <button class="insight-compare-toggle" id="insight-compare-btn" type="button" role="switch" aria-checked="false">
-                <span class="insight-compare-toggle-track"><span class="insight-compare-toggle-thumb"></span></span>
+              <button class="ins-stat clickable" id="insight-fastest" type="button">
+                <span class="ins-stat-label">Fastest Path</span>
+                <span class="ins-stat-value" id="insight-fastest-value">–</span>
+                <span class="ins-stat-sub" id="insight-fastest-detail"> </span>
               </button>
             </div>
           </div>
+
+          <section class="ins-card">
+            <button class="ins-card-head" type="button" aria-expanded="true">
+              <span class="ins-card-icon"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M9 1.5 L3.5 9 H8 L7 14.5 L12.5 7 H8 Z" stroke="#6B697B" stroke-width="1.35" stroke-linejoin="round"/></svg></span>
+              <span class="ins-card-titles">
+                <span class="ins-card-title">Automation opportunity</span>
+                <span class="ins-card-sub" id="ins-automation-sub"> </span>
+              </span>
+              <svg class="ins-card-chevron" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M4 10 L8 6 L12 10" stroke="#7B7891" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+            <div class="ins-card-body">
+              <button class="ins-auto-row" id="ins-automation-open" type="button" title="Open automation opportunities">
+                <span class="ins-auto-stat"><span class="ins-stat-label">Fully automatable</span><span class="ins-auto-value"><strong class="high" id="ins-auto-high">0</strong><span>Tasks</span></span></span>
+                <span class="ins-auto-sep"></span>
+                <span class="ins-auto-stat"><span class="ins-stat-label">Partially</span><span class="ins-auto-value"><strong class="medium" id="ins-auto-medium">0</strong><span>Tasks</span></span></span>
+                <span class="ins-auto-sep"></span>
+                <span class="ins-auto-stat"><span class="ins-stat-label">Non automatable</span><span class="ins-auto-value"><strong class="low" id="ins-auto-low">0</strong><span>Tasks</span></span></span>
+              </button>
+            </div>
+          </section>
+
+          <section class="ins-card">
+            <button class="ins-card-head" type="button" aria-expanded="true">
+              <span class="ins-card-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 22h14M5 2h14M17 22v-4.17a2 2 0 0 0-.59-1.42L12 12l-4.41 4.41A2 2 0 0 0 7 17.83V22M7 2v4.17a2 2 0 0 0 .59 1.42L12 12l4.41-4.41A2 2 0 0 0 17 6.17V2" stroke="#6B697B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+              <span class="ins-card-titles">
+                <span class="ins-card-title">Where time is going</span>
+                <span class="ins-card-sub">Ranked by total time spent</span>
+              </span>
+              <svg class="ins-card-chevron" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M4 10 L8 6 L12 10" stroke="#7B7891" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+            <div class="ins-card-body">
+              <ul id="time-list" class="ins-rank-list"></ul>
+            </div>
+          </section>
+
+          <section class="ins-card">
+            <button class="ins-card-head" type="button" aria-expanded="true">
+              <span class="ins-card-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8M3 3v5h5M12 7v5l4 2" stroke="#6B697B" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+              <span class="ins-card-titles">
+                <span class="ins-card-title">Where rework is happening</span>
+                <span class="ins-card-sub">Steps repeated within a case</span>
+              </span>
+              <svg class="ins-card-chevron" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M4 10 L8 6 L12 10" stroke="#7B7891" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+            <div class="ins-card-body">
+              <ul id="rework-list" class="ins-rank-list"></ul>
+            </div>
+          </section>
+
+          <section class="ins-card">
+            <button class="ins-card-head" type="button" aria-expanded="true">
+              <span class="ins-card-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M16 3h5v5M8 3H3v5M12 22v-8.3a4 4 0 0 0-1.17-2.87L3 3M15 9l6-6" stroke="#8C899F" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+              <span class="ins-card-titles">
+                <span class="ins-card-title">All paths</span>
+                <span class="ins-card-sub">Ranked by frequency</span>
+              </span>
+              <svg class="ins-card-chevron" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M4 10 L8 6 L12 10" stroke="#7B7891" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+            <div class="ins-card-body">
+              <ul id="variant-list" class="ins-rank-list"></ul>
+              <button class="ins-view-all" id="ins-view-all-paths" type="button">View all paths →</button>
+            </div>
+          </section>
         </div>
 
-        <div class="panel" id="fast-compare-panel" hidden>
-          <div class="fast-compare-header">
-            <h2>Fast vs Typical</h2>
-            <button id="fast-compare-close" class="ai-summary-close" type="button" aria-label="Close comparison">
-              <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
-                <path d="M2 2 L10 10 M10 2 L2 10" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" />
-              </svg>
+        <div class="ins-tab-panel hidden" data-ins-panel="paths">
+          <div class="insight-compare-toggle-row">
+            <span class="insight-compare-toggle-label">Compare fastest to typical</span>
+            <button class="insight-compare-toggle" id="insight-compare-btn" type="button" role="switch" aria-checked="false">
+              <span class="insight-compare-toggle-track"><span class="insight-compare-toggle-thumb"></span></span>
             </button>
           </div>
-          <p class="hint" id="fast-compare-summary"></p>
-          <ul id="fast-compare-list" class="metric-list"></ul>
-        </div>
 
-        <div class="panel">
-          <button class="panel-header" type="button" aria-expanded="true">
-            <h2>Where time is going</h2>
-            <svg class="panel-chevron" width="14" height="14" viewBox="0 0 14 14" aria-hidden="true">
-              <path d="M3 5 L7 9 L11 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
-            </svg>
-          </button>
-          <div class="panel-body">
-            <p class="hint">Ranked by total time spent across all instances — the biggest automation payoff.</p>
-            <ul id="time-list" class="metric-list"></ul>
+          <div class="panel" id="fast-compare-panel" hidden>
+            <div class="fast-compare-header">
+              <h2>Fast vs Typical</h2>
+              <button id="fast-compare-close" class="ai-summary-close" type="button" aria-label="Close comparison">
+                <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+                  <path d="M2 2 L10 10 M10 2 L2 10" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" />
+                </svg>
+              </button>
+            </div>
+            <p class="hint" id="fast-compare-summary"></p>
+            <ul id="fast-compare-list" class="metric-list"></ul>
           </div>
-        </div>
 
-        <div class="panel">
-          <button class="panel-header" type="button" aria-expanded="true">
-            <h2>Where rework is happening</h2>
-            <svg class="panel-chevron" width="14" height="14" viewBox="0 0 14 14" aria-hidden="true">
-              <path d="M3 5 L7 9 L11 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
-            </svg>
-          </button>
-          <div class="panel-body">
-            <p class="hint">Steps that get repeated within the same instance.</p>
-            <ul id="rework-list" class="metric-list"></ul>
-          </div>
-        </div>
-
-        <div class="panel variant-panel">
-          <button class="panel-header" type="button" aria-expanded="true">
-            <h2>Paths, ranked by frequency</h2>
-            <svg class="panel-chevron" width="14" height="14" viewBox="0 0 14 14" aria-hidden="true">
-              <path d="M3 5 L7 9 L11 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
-            </svg>
-          </button>
-          <div class="panel-body">
-            <p class="hint">Click a path to trace it on the map. ⚡ marks the fastest observed path.</p>
-            <ul id="variant-list"></ul>
-          </div>
+          <section class="ins-card">
+            <button class="ins-card-head" type="button" aria-expanded="true">
+              <span class="ins-card-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M16 3h5v5M8 3H3v5M12 22v-8.3a4 4 0 0 0-1.17-2.87L3 3M15 9l6-6" stroke="#8C899F" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+              <span class="ins-card-titles">
+                <span class="ins-card-title">All paths</span>
+                <span class="ins-card-sub" id="ins-all-paths-sub">Ranked by frequency</span>
+              </span>
+              <svg class="ins-card-chevron" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M4 10 L8 6 L12 10" stroke="#7B7891" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+            <div class="ins-card-body">
+              <ul id="variant-list-all" class="ins-rank-list"></ul>
+            </div>
+          </section>
         </div>
       </div>
     </div>
@@ -10255,11 +10321,9 @@ function renderProcessSummary(model) {
 
   d3.select('#process-summary-overview').html(overviewHtml);
   d3.select('#process-summary-completed-value').text(pct(c.completedPct));
-  d3.select('#process-summary-completed-detail').text(`${pluralCases(c.completedCaseCount)} reached a recognized conclusion`);
+  d3.select('#process-summary-completed-detail').text(pluralCases(c.completedCaseCount));
   d3.select('#process-summary-incomplete-value').text(pct(c.notCompletedPct));
-  d3.select('#process-summary-incomplete-detail').text(
-    c.notCompletedCaseCount ? `${pluralCases(c.notCompletedCaseCount)} stopped at an uncommon point` : 'Every case reached a typical conclusion'
-  );
+  d3.select('#process-summary-incomplete-detail').text(pluralCases(c.notCompletedCaseCount));
 }
 
 // A one-line, plain-language "story" for a single path variant — what kind
@@ -10292,26 +10356,37 @@ function buildPathStory(v, model) {
 }
 
 function renderInsights(model) {
-  d3.select('#insight-frequent-value').text(`${(model.happyPath.pct * 100).toFixed(0)}%`);
-  d3.select('#insight-frequent-detail').text(`${model.happyPath.path.length} steps · ${formatDuration(model.happyPath.avgDuration)} avg`);
+  const pct = (n) => `${Math.round(n * 100)}%`;
+  d3.select('#insight-frequent-value').text(pct(model.happyPath.pct));
+  d3.select('#insight-frequent-detail').text(`Path ${model.happyPath.rank} • ${pluralCases(model.happyPath.count)}`);
 
   d3.select('#insight-fastest-value').text(formatDuration(model.fastestPath.avgDuration));
-  d3.select('#insight-fastest-detail').text(`${(model.fastestPath.pct * 100).toFixed(1)}% of instances take this route`);
-
-  const topTime = model.timeRanking[0];
-  d3.select('#insight-timesink-value').text(topTime ? topTime.label : '–');
-  d3.select('#insight-timesink-detail').text(topTime ? `${(topTime.timeShare * 100).toFixed(0)}% of all time spent across the process` : '');
-
-  const topRework = model.reworkRanking[0];
-  d3.select('#insight-rework').property('disabled', !topRework);
-  d3.select('#insight-rework-value').text(topRework ? topRework.label : 'None found');
-  d3.select('#insight-rework-detail').text(topRework ? `${(topRework.reworkRate * 100).toFixed(0)}% of instances looped back here` : 'No repeated steps in this data');
+  d3.select('#insight-fastest-detail').text(`Path ${model.fastestPath.rank} • ${(model.fastestPath.pct * 100).toFixed(1)}% of instances`);
 
   const isActive = (kind, value) => state.highlight && state.highlight.kind === kind && state.highlight.value === value;
   d3.select('#insight-frequent').classed('active', isActive('variant', model.happyPath));
   d3.select('#insight-fastest').classed('active', isActive('variant', model.fastestPath));
-  d3.select('#insight-timesink').classed('active', !!topTime && isActive('node', topTime.id));
-  d3.select('#insight-rework').classed('active', !!topRework && isActive('node', topRework.id));
+
+  // Same scoring as the Automation panel, tallied by tier.
+  const tiers = { high: 0, medium: 0, low: 0 };
+  const opportunities = buildOpportunityList();
+  opportunities.forEach((o) => { tiers[o.tier] += 1; });
+  d3.select('#ins-auto-high').text(tiers.high);
+  d3.select('#ins-auto-medium').text(tiers.medium);
+  d3.select('#ins-auto-low').text(tiers.low);
+  d3.select('#ins-automation-sub').text(`${opportunities.length} task${opportunities.length === 1 ? '' : 's'} assessed`);
+}
+
+// One numbered row of an Insights ranked list (time, rework, paths): a rank
+// badge, a title with a value on the right, and a detail line under it.
+function insightRankRowHtml({ rank, titleHtml, value, detailHtml, detailRightHtml }) {
+  return `
+    <span class="ins-rank-badge">${rank}</span>
+    <span class="ins-rank-main">
+      <span class="ins-rank-top"><span class="ins-rank-title">${titleHtml}</span><span class="ins-rank-value${rank === 1 ? ' lead' : ''}">${value}</span></span>
+      <span class="ins-rank-bottom"><span class="ins-rank-detail">${detailHtml}</span>${detailRightHtml ? `<span class="ins-rank-detail">${detailRightHtml}</span>` : ''}</span>
+    </span>
+  `;
 }
 
 function renderTimeList(model) {
@@ -10319,18 +10394,18 @@ function renderTimeList(model) {
   const list = d3.select('#time-list');
   const items = list.selectAll('li').data(top, (n) => n.id);
   items.exit().remove();
-  const enter = items.enter().append('li').attr('class', 'metric-item');
-  enter.append('div').attr('class', 'metric-item-top');
-  enter.append('div').attr('class', 'metric-item-sub');
-  enter.append('div').attr('class', 'metric-bar-track').append('div').attr('class', 'metric-bar-fill');
-
-  const merged = enter.merge(items);
+  const merged = items.enter().append('li').merge(items);
   merged
-    .attr('class', (n) => `metric-item${state.highlight && state.highlight.kind === 'node' && state.highlight.value === n.id ? ' active' : ''}`)
-    .on('click', (event, n) => setHighlight('node', n.id));
-  merged.select('.metric-item-top').html((n) => `<span>${n.label}</span><span>${(n.timeShare * 100).toFixed(0)}%</span>`);
-  merged.select('.metric-item-sub').text((n) => `${formatDuration(n.totalTime)} total · ${formatDuration(n.avgDuration)} avg · ${pluralCases(n.caseCount)}`);
-  merged.select('.metric-bar-fill').style('width', (n) => `${Math.max(2, n.timeShare * 100)}%`);
+    .order()
+    .attr('class', (n) => `ins-rank-row${state.highlight && state.highlight.kind === 'node' && state.highlight.value === n.id ? ' active' : ''}`)
+    .on('click', (event, n) => setHighlight('node', n.id))
+    .html((n, i) => insightRankRowHtml({
+      rank: i + 1,
+      titleHtml: escapeHtml(n.label),
+      value: formatDuration(n.totalTime),
+      detailHtml: `${pluralCases(n.caseCount)} · ${formatDuration(n.avgDuration)} avg.`,
+      detailRightHtml: 'Total time',
+    }));
 }
 
 function renderReworkList(model) {
@@ -10346,54 +10421,52 @@ function renderReworkList(model) {
 
   const items = list.selectAll('li').data(top, (n) => n.id);
   items.exit().remove();
-  const enter = items.enter().append('li').attr('class', 'metric-item rework');
-  enter.append('div').attr('class', 'metric-item-top');
-  enter.append('div').attr('class', 'metric-item-sub');
-  enter.append('div').attr('class', 'metric-bar-track').append('div').attr('class', 'metric-bar-fill');
-
-  const merged = enter.merge(items);
+  const merged = items.enter().append('li').merge(items);
   merged
-    .attr('class', (n) => `metric-item rework${state.highlight && state.highlight.kind === 'node' && state.highlight.value === n.id ? ' active' : ''}`)
-    .on('click', (event, n) => setHighlight('node', n.id));
-  merged.select('.metric-item-top').html((n) => `<span>${n.label}</span><span>${(n.reworkRate * 100).toFixed(0)}%</span>`);
-  merged.select('.metric-item-sub').text((n) => `${pluralCases(n.reworkCaseCount)} needed rework · ${n.reworkExtraVisits} extra visit${n.reworkExtraVisits === 1 ? '' : 's'}`);
-  merged.select('.metric-bar-fill').style('width', (n) => `${Math.max(2, n.reworkRate * 100)}%`);
+    .order()
+    .attr('class', (n) => `ins-rank-row${state.highlight && state.highlight.kind === 'node' && state.highlight.value === n.id ? ' active' : ''}`)
+    .on('click', (event, n) => setHighlight('node', n.id))
+    .html((n, i) => insightRankRowHtml({
+      rank: i + 1,
+      titleHtml: escapeHtml(n.label),
+      value: `${Math.round((n.reworkCaseCount / n.caseCount) * 100)}%`,
+      detailHtml: `${n.reworkCaseCount} of ${pluralCases(n.caseCount)} required rework`,
+    }));
 }
 
-const DOC_ICON_SVG = '<svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M9.3 1.8 H4.6 A1.3 1.3 0 0 0 3.3 3.1 V12.9 A1.3 1.3 0 0 0 4.6 14.2 H11.4 A1.3 1.3 0 0 0 12.7 12.9 V5.2 Z" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/><path d="M9.3 1.8 V5.2 H12.7 M6 9.3 H10 M6 11.6 H8.4" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>';
-const STEPS_ICON_SVG = '<svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="3.6" cy="4" r="1.6" stroke="currentColor" stroke-width="1.3"/><circle cx="3.6" cy="12" r="1.6" stroke="currentColor" stroke-width="1.3"/><path d="M3.6 5.6 V10.4 M7.5 4 H13.5 M7.5 12 H13.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>';
+const STAIRS_ICON_SVG = '<svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M1.5 13.3 H5 V10 H8.5 V6.7 H12 V3.3 H14.5" stroke="currentColor" stroke-width="1.15" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+const META_CLOCK_ICON_SVG = '<svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="1.15"/><path d="M8 4.8 V8 L10.2 9.4" stroke="currentColor" stroke-width="1.15" stroke-linecap="round" stroke-linejoin="round"/></svg>';
 const INFO_ICON_SVG = '<svg width="13" height="13" viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="8" cy="8" r="6.3" stroke="currentColor" stroke-width="1.4"/><path d="M8 7.3 V11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><circle cx="8" cy="5.1" r="0.9" fill="currentColor"/></svg>';
+const INSIGHT_PATH_PREVIEW_COUNT = 6;
 
+// Paths ranked by frequency: the Overview tab shows the top few, the Paths
+// tab every one. Each row's step sequence and description live in the
+// (i) icon's tooltip rather than on the row itself.
 function renderVariantList(model) {
-  const list = d3.select('#variant-list');
-  const items = list.selectAll('li').data(model.variants, (v) => v.signature);
-  items.exit().remove();
-  const enter = items.enter().append('li').attr('class', 'variant-item');
-  enter.append('div').attr('class', 'variant-head');
+  renderPathRows(d3.select('#variant-list'), model.variants.slice(0, INSIGHT_PATH_PREVIEW_COUNT), model);
+  renderPathRows(d3.select('#variant-list-all'), model.variants, model);
+  d3.select('#ins-view-all-paths')
+    .classed('hidden', model.variants.length <= INSIGHT_PATH_PREVIEW_COUNT)
+    .text(`View all ${model.variants.length} paths →`);
+  d3.select('#ins-all-paths-sub').text(`${model.variants.length} path${model.variants.length === 1 ? '' : 's'}, ranked by frequency`);
+}
 
-  const merged = enter.merge(items);
-  merged
-    .attr('class', (v) => `variant-item${state.highlight && state.highlight.kind === 'variant' && state.highlight.value === v ? ' active' : ''}`)
-    .on('click', (event, v) => setHighlight('variant', v));
-  // Header: "Path N", an info icon whose tooltip carries the step sequence
-  // (kept off the card to keep the list compact), and its share of all
-  // instances; volume and average total time sit on the right.
+function renderPathRows(list, variants, model) {
   const pctLabel = (pct) => `${pct >= 0.1 ? Math.round(pct * 100) : (pct * 100).toFixed(1)}%`;
-  merged.select('.variant-head').html((v) => `
-    <div class="variant-title">
-      <span class="variant-name">Path ${v.rank}</span>
-      <span class="variant-info" aria-label="Show path steps">${INFO_ICON_SVG}</span>
-      ${v === model.fastestPath ? '<span class="fastest-badge" title="Fastest observed path">⚡ fastest</span>' : ''}
-    </div>
-    <span class="variant-pct">${pctLabel(v.pct)}</span>
-    <div class="variant-meta">
-      <span class="variant-meta-item">${DOC_ICON_SVG}${pluralCases(v.count)}</span>
-      <span class="variant-meta-sep"></span>
-      <span class="variant-meta-item">${STEPS_ICON_SVG}${v.path.length} step${v.path.length === 1 ? '' : 's'}</span>
-      <span class="variant-meta-sep"></span>
-      <span class="variant-meta-item">${CLOCK_ICON_SVG}${formatDuration(v.avgDuration)}</span>
-    </div>
-  `);
+  const items = list.selectAll('li').data(variants, (v) => v.signature);
+  items.exit().remove();
+  const merged = items.enter().append('li').merge(items);
+  merged
+    .order()
+    .attr('class', (v) => `ins-rank-row${state.highlight && state.highlight.kind === 'variant' && state.highlight.value === v ? ' active' : ''}`)
+    .on('click', (event, v) => setHighlight('variant', v))
+    .html((v) => insightRankRowHtml({
+      rank: v.rank,
+      titleHtml: `Path ${v.rank}<span class="variant-info" aria-label="Show path steps">${INFO_ICON_SVG}</span>${v === model.fastestPath ? '<span class="fastest-badge" title="Fastest observed path">⚡ fastest</span>' : ''}`,
+      value: pctLabel(v.pct),
+      detailHtml: `<span class="ins-meta-item">${META_CLOCK_ICON_SVG}${formatDuration(v.avgDuration)}</span><span class="ins-meta-item">${STAIRS_ICON_SVG}${v.path.length} step${v.path.length === 1 ? '' : 's'}</span>`,
+      detailRightHtml: pluralCases(v.count),
+    }));
   merged.select('.variant-info')
     .on('click', (event) => event.stopPropagation())
     .on('mouseenter', (event, v) => showTooltip(event, `<div class="variant-info-title">Path ${v.rank} · ${v.path.length} step${v.path.length === 1 ? '' : 's'}</div><div class="variant-info-path">${v.path.map(escapeHtml).join(' → ')}</div><div class="variant-info-story">${buildPathStory(v, model)}</div>`))
@@ -12534,12 +12607,21 @@ d3.select('#copy-sample').on('click', function () {
 // ---- key insights ----
 d3.select('#insight-frequent').on('click', () => setHighlight('variant', state.model.happyPath));
 d3.select('#insight-fastest').on('click', () => setHighlight('variant', state.model.fastestPath));
-d3.select('#insight-timesink').on('click', () => {
-  if (state.model.timeRanking[0]) setHighlight('node', state.model.timeRanking[0].id);
+// Insights drawer: Overview / Paths tabs, collapsible cards, and the
+// automation summary opening the full Automation Opportunities drawer.
+function setInsightsTab(tab) {
+  d3.selectAll('.ins-tab').classed('active', function () { return this.dataset.insTab === tab; })
+    .attr('aria-selected', function () { return String(this.dataset.insTab === tab); });
+  d3.selectAll('.ins-tab-panel').classed('hidden', function () { return this.dataset.insPanel !== tab; });
+}
+d3.selectAll('.ins-tab').on('click', function () { setInsightsTab(this.dataset.insTab); });
+d3.select('#ins-view-all-paths').on('click', () => setInsightsTab('paths'));
+d3.selectAll('.ins-card-head').on('click', function () {
+  const card = this.closest('.ins-card');
+  const collapsed = card.classList.toggle('collapsed');
+  this.setAttribute('aria-expanded', String(!collapsed));
 });
-d3.select('#insight-rework').on('click', () => {
-  if (state.model.reworkRanking[0]) setHighlight('node', state.model.reworkRanking[0].id);
-});
+d3.select('#ins-automation-open').on('click', openAutomationOpportunities);
 d3.select('#insight-compare-btn').on('click', (event) => {
   event.stopPropagation();
   toggleFastCompare();

@@ -1150,9 +1150,9 @@ button:hover { filter: brightness(1.08); }
 .ins-resize::after { content: ''; position: absolute; left: 2px; top: var(--grip-y, 50%); width: 6px; height: 40px; margin-top: -20px; border-radius: 3px; background: #0975d7; opacity: 0; }
 .ins-resize.show::before, .ins-resize.dragging::before, .ins-resize.show::after, .ins-resize.dragging::after { opacity: 1; }
 body.ins-resizing, body.ins-resizing * { cursor: col-resize !important; user-select: none; }
-body.insights-expanded .canvas-wrap { margin-right: var(--ins-expanded-w); overflow: visible; }
+body.insights-expanded .canvas-wrap { margin-right: var(--ins-dash-w); overflow: visible; }
 body.insights-expanded .canvas-wrap > #graph { overflow: hidden; }
-.side-drawer.insights-drawer.expanded { position: fixed; top: var(--ins-expanded-top, 0px); right: 0; bottom: 0; width: var(--ins-expanded-w); max-width: none; border: none; border-left: 1px solid #dfdde7; border-radius: 0; box-shadow: none; background: #fff; }
+.side-drawer.insights-drawer.expanded { position: fixed; top: var(--ins-expanded-top, 0px); right: 0; bottom: 0; width: var(--ins-dash-w); max-width: none; border: none; border-left: 1px solid #dfdde7; border-radius: 0; box-shadow: none; background: #fff; }
 .insights-drawer.expanded > .ins-header, .insights-drawer.expanded > .ins-tabs, .insights-drawer.expanded > .ins-body { display: none; }
 .insights-drawer.expanded > .ins-dash { display: flex; flex-direction: column; min-height: 0; flex: 1; }
 .dash-header { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 16px 24px; flex-wrap: wrap; flex-shrink: 0; }
@@ -1260,13 +1260,22 @@ body.insights-expanded .map-zoom-control { display: flex; position: absolute; le
 .map-zoom-sep { width: 1px; height: 20px; background: #dfdde7; margin: 0 4px; }
 .map-zoom-value { min-width: 40px; text-align: center; font-size: 13px; font-weight: 600; color: #3d3c52; }
 /* Filters opened from the dashboard sit at the right edge, over it. */
-body.insights-expanded #filter-panel { position: fixed; top: calc(var(--ins-expanded-top, 0px) + 16px); right: 16px; bottom: 16px; z-index: 20; box-shadow: 0 8px 28px rgba(24, 26, 51, 0.18); }
+body { --ins-filter-w: 360px; --ins-dash-w: var(--ins-expanded-w); }
+body.ins-filter-docked { --ins-dash-w: min(var(--ins-expanded-w), calc(100vw - var(--ins-filter-w) - 380px)); }
+body.ins-filter-docked #filter-panel { position: fixed; top: var(--ins-expanded-top, 0px); right: 0; bottom: 0; width: var(--ins-filter-w); max-width: none; border: none; border-left: 1px solid #dfdde7; border-radius: 0; box-shadow: none; z-index: 16; }
+body.ins-filter-docked .side-drawer.insights-drawer.expanded { right: var(--ins-filter-w); }
+body.ins-filter-docked .canvas-wrap { margin-right: calc(var(--ins-dash-w) + var(--ins-filter-w)); }
+.dash-btn.icon-only { width: 40px; padding: 0; justify-content: center; }
+.dash-btn.active { border-color: #0975d7; background: #eaf3fc; box-shadow: 0 0 0 1px #0975d7 inset; }
+.dash-btn.active svg path { stroke: #0975d7; }
 body.insights-expanded .kpi-band,
 body.insights-expanded .floating-filters,
 body.insights-expanded .floating-legend { display: none !important; }
 body.insights-expanded .play-animation-wrap { top: 64px; }
 body.insights-expanded .bpmn-breadcrumb { top: 64px; }
 body.insights-expanded .view-toggle { left: auto; right: 16px; transform: none; }
+/* Narrow map: the view toggle shows its icons only. */
+body.insights-expanded .view-toggle-btn { font-size: 0; gap: 0; padding-left: 10px; padding-right: 10px; }
 .ins-tab-panel { display: flex; flex-direction: column; gap: 12px; }
 .ins-tab-panel.hidden { display: none; }
 .ins-summary-group { display: flex; flex-direction: column; gap: 18px; }
@@ -2721,7 +2730,7 @@ body.structural-diagram #play-animation-btn {
               <button type="button" data-range="180">6M</button>
               <button type="button" class="dash-seg-cal" disabled title="Custom date range (coming soon)" aria-label="Custom date range"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3" y="4.5" width="18" height="16.5" rx="2" stroke="currentColor" stroke-width="1.6"/><path d="M3 9.5h18M8 3v3M16 3v3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></button>
             </div>
-            <button type="button" class="dash-btn" id="dash-filters"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3 5h18l-7 8.5V19l-4 2v-7.5z" stroke="#3D3C52" stroke-width="1.7" stroke-linejoin="round"/></svg>Filters</button>
+            <button type="button" class="dash-btn icon-only" id="dash-filters" aria-label="Filters" title="Filters" aria-pressed="false"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3 5h18l-7 8.5V19l-4 2v-7.5z" stroke="#3D3C52" stroke-width="1.7" stroke-linejoin="round"/></svg></button>
             <button type="button" class="ins-close" id="dash-close" aria-label="Close insights"><svg width="19" height="19" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M5 5 L15 15 M15 5 L5 15" stroke="#6B697B" stroke-width="1.87" stroke-linecap="round"/></svg></button>
           </div>
         </div>
@@ -2972,11 +2981,11 @@ body.structural-diagram #play-animation-btn {
     </div>
 
     <div class="view-toggle" id="view-toggle" role="tablist" aria-label="Map view">
-      <button class="view-toggle-btn active" id="view-toggle-bpmn" type="button" data-view="bpmn" role="tab" aria-selected="true">
+      <button class="view-toggle-btn active" id="view-toggle-bpmn" type="button" data-view="bpmn" role="tab" aria-selected="true" title="BPMN view">
         <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor" class="view-toggle-sparkle" aria-hidden="true"><path d="M8 1 L9.2 5.6 L13.5 7 L9.2 8.4 L8 13 L6.8 8.4 L2.5 7 L6.8 5.6 Z" /></svg>
         BPMN view
       </button>
-      <button class="view-toggle-btn" id="view-toggle-flow" type="button" data-view="flow" role="tab" aria-selected="false">
+      <button class="view-toggle-btn" id="view-toggle-flow" type="button" data-view="flow" role="tab" aria-selected="false" title="Path view">
         <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true"><rect x="2" y="4" width="12" height="8" rx="2" stroke="currentColor" stroke-width="1.3" /></svg>
         Path view
       </button>
@@ -10940,6 +10949,9 @@ function syncInsightsExpandedTop() {
 
 function setInsightsExpanded(on) {
   insightsDash.expanded = on;
+  // A docked Filter panel goes with the dashboard rather than stacking
+  // over the collapsed drawer.
+  if (!on && document.body.classList.contains('ins-filter-docked')) closeFilterPanel();
   hideTooltip();
   if (on) document.getElementById('insights-panel').classList.remove('hidden');
   document.body.classList.toggle('insights-expanded', on);
@@ -10947,6 +10959,7 @@ function setInsightsExpanded(on) {
   // The stats band hides while expanded, so measure after toggling.
   if (on) syncInsightsExpandedTop();
   if (on) renderInsightsDashboard();
+  syncFilterDock();
   requestAnimationFrame(fitToView);
 }
 
@@ -12452,12 +12465,25 @@ function openFilterPanel() {
   document.getElementById('filter-btn').setAttribute('aria-expanded', 'true');
   document.getElementById('filter-panel').classList.remove('hidden');
   renderFilterPanel();
+  syncFilterDock();
+}
+
+// With the Insights dashboard expanded, Filters docks to the screen's
+// right edge and the dashboard and map shift left to make room.
+function syncFilterDock() {
+  const open = !document.getElementById('filter-panel').classList.contains('hidden');
+  const docked = insightsDash.expanded && open;
+  const changed = document.body.classList.contains('ins-filter-docked') !== docked;
+  document.body.classList.toggle('ins-filter-docked', docked);
+  d3.select('#dash-filters').classed('active', docked).attr('aria-pressed', String(docked));
+  if (changed && insightsDash.expanded) requestAnimationFrame(fitToView);
 }
 
 function closeFilterPanel() {
   document.getElementById('filter-btn').classList.remove('active');
   document.getElementById('filter-btn').setAttribute('aria-expanded', 'false');
   document.getElementById('filter-panel').classList.add('hidden');
+  syncFilterDock();
 }
 
 d3.select('#filter-btn').on('click', () => {
@@ -12765,7 +12791,10 @@ d3.select('#insights-close').on('click', () => closeInsights(true));
 d3.select('#dash-close').on('click', () => closeInsights(true));
 d3.select('#insights-expand').on('click', () => setInsightsExpanded(true));
 d3.select('#map-maximize').on('click', () => setInsightsExpanded(false));
-d3.select('#dash-filters').on('click', () => openFilterPanel());
+d3.select('#dash-filters').on('click', () => {
+  if (document.getElementById('filter-panel').classList.contains('hidden')) openFilterPanel();
+  else closeFilterPanel();
+});
 d3.select('#dash-granularity').on('change', function () { insightsDash.granularity = this.value; renderInsightsDashboard(); });
 d3.selectAll('#dash-range button[data-range]').on('click', function () {
   insightsDash.rangeDays = Number(this.dataset.range);

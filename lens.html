@@ -677,6 +677,70 @@ body.app-fullscreen .side-drawer { top: 64px; right: 16px; }
   letter-spacing: normal;
 }
 
+/* ---- Filter panel ---- */
+#filter-panel { width: 378px; background: #f6f6f9; border: 1px solid #ebebf3; border-radius: 9px; font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+body { --ins-filter-w: 378px; }
+.fp-head { display: flex; align-items: center; justify-content: space-between; padding: 16px 18px; background: #fff; border-bottom: 1px solid #ebebf3; flex-shrink: 0; }
+.fp-title { display: inline-flex; align-items: center; gap: 4px; font-size: 16px; line-height: 19px; font-weight: 600; letter-spacing: -0.31px; color: #2a2e45; }
+.fp-badge, #filter-panel .subtype-count-badge { display: inline-flex; align-items: center; justify-content: center; padding: 1px 8px; border-radius: 100px; background: #f0f9ff; color: #0975d7; font-size: 10.88px; line-height: 13px; font-weight: 700; letter-spacing: 0.07px; }
+.fp-badge.hidden, #filter-panel .subtype-count-badge.is-zero { display: none; }
+.fp-actions { display: flex; align-items: center; gap: 14px; }
+.fp-clear { border: none; background: none; padding: 0; border-radius: 7px; font: inherit; font-size: 14px; line-height: 20px; font-weight: 600; color: #0975d7; cursor: pointer; }
+.fp-clear:hover { text-decoration: underline; }
+.fp-close { width: 20px; height: 20px; padding: 4px; border: none; background: none; border-radius: 5px; color: #b2b5c6; display: inline-flex; cursor: pointer; }
+.fp-close:hover { background: #ebebf3; color: #6b697b; }
+#filter-panel .side-drawer-body { padding: 0 15px 20px; gap: 12px; }
+.fp-summary { display: flex; align-items: center; gap: 7px; margin: 0; padding: 16px 2px 2px; font-size: 12px; line-height: 15px; color: #3d3c52; }
+.fp-summary svg { flex-shrink: 0; }
+#filter-panel .panel { background: #fff; border: 1px solid #ebebf3; box-shadow: 0 1px 2px rgba(24, 26, 51, 0.05); border-radius: 12px; padding: 16px 14px 24px 16px; margin: 0; }
+#filter-panel .panel.collapsed { padding-bottom: 16px; }
+#filter-panel .panel-header { padding: 0; border-radius: 7px; }
+#filter-panel .panel h2 { display: inline-flex; align-items: center; gap: 4px; font-size: 14px; line-height: 17px; font-weight: 600; letter-spacing: -0.25px; color: #2a2e45; text-transform: none; }
+#filter-panel .panel-chevron { color: #b2b5c6; transform: rotate(180deg); }
+#filter-panel .panel.collapsed .panel-chevron { transform: none; }
+.fp-desc { margin: 8px 0 0; font-size: 12px; line-height: 15px; color: #6b697b; }
+#filter-panel .panel-body { margin-top: 24px; }
+
+/* Task rows: checkbox, name, case count. */
+#filter-panel input[type="checkbox"] { -webkit-appearance: none; appearance: none; flex-shrink: 0; width: 16px; height: 16px; margin: 3px 3px 3px 4px; border: 1px solid #8c899f; border-radius: 4px; background: #fff; cursor: pointer; }
+#filter-panel input[type="checkbox"]:checked { border-color: #0975d7; background: #0975d7 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'%3E%3Cpath d='M4.5 8.2 7 10.5l4.5-5' fill='none' stroke='white' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / 16px no-repeat; }
+#filter-panel input[type="checkbox"]:focus-visible { outline: 2px solid #0975d7; outline-offset: 1px; }
+.fp-task-list { gap: 16px; max-height: 212px; overflow-y: auto; }
+.fp-task-list .filter-checklist-item, .fp-task-list .filter-checklist-item.checked { padding: 0; border: none; background: none; border-radius: 0; }
+.fp-task-list .filter-checklist-item-top { align-items: center; gap: 8px; }
+.fp-task-list .filter-checklist-item-top input[type="checkbox"] { margin: 3px 3px 3px 4px; }
+.fp-task-list .filter-checklist-item-label { font-size: 13.12px; line-height: 16px; font-weight: 600; letter-spacing: -0.08px; color: #2a2e45; }
+#filter-panel .filter-checklist-item-count { padding: 3px 10px; border-radius: 100px; background: #f6f6f9; color: #8c899f; font-size: 12px; line-height: 10px; font-weight: 400; font-variant-numeric: tabular-nums; }
+
+/* Path cards: checkbox, path number, share and count, then outcome and time. */
+.fp-path-list { gap: 12px; max-height: 288px; overflow-y: auto; padding-right: 4px; }
+.fp-path-list::-webkit-scrollbar { width: 6px; }
+.fp-path-list::-webkit-scrollbar-thumb { background: #dfdde7; border-radius: 20px; }
+.fp-path-list .filter-checklist-item { padding: 10px 10px 10px; border: 1px solid #dfdde7; border-radius: 12px; background: #fff; display: flex; flex-direction: column; gap: 4px; }
+.fp-path-list .filter-checklist-item:hover { border-color: #0975d7; }
+.fp-path-list .filter-checklist-item.checked { background: #f0f9ff; border-color: #0975d7; }
+.fp-path-list .filter-checklist-item.checked .filter-checklist-item-count { background: #fff; }
+.fp-path-list .filter-checklist-item-top { align-items: center; gap: 6px; }
+.fp-path-list .filter-checklist-item-top input[type="checkbox"] { width: 13px; height: 13px; border-radius: 2px; margin: 3px; }
+.fp-path-list .filter-checklist-item-top input[type="checkbox"]:checked { width: 16px; height: 16px; border-radius: 4px; margin: 0 1px; }
+.fp-path-list .filter-checklist-item-label { display: inline-flex; align-items: baseline; gap: 6px; font-size: 14px; line-height: 17px; font-weight: 700; color: #3d3c52; }
+.fp-path-pct { font-weight: 600; color: #1f2033; font-variant-numeric: tabular-nums; }
+.fp-path-list .fp-path-meta { margin: 0; display: flex; align-items: center; gap: 8px; padding-left: 25px; font-size: 12px; line-height: 15px; color: #6b6f86; }
+.fp-path-meta span { display: inline-flex; align-items: center; gap: 4px; }
+.fp-path-meta svg { flex-shrink: 0; color: #8b8fa6; }
+.fp-view-all { display: block; margin: 12px auto 0; border: none; background: none; padding: 0; font: inherit; font-size: 12px; line-height: 15px; color: #6b697b; cursor: pointer; }
+.fp-view-all:hover { color: #0975d7; text-decoration: underline; }
+.fp-view-all.hidden { display: none; }
+
+/* Duration: the two ends above a two-handle slider. */
+#filter-panel .duration-slider-values { margin: 0; padding-top: 10px; font-size: 12.48px; line-height: 15px; font-weight: 700; letter-spacing: -0.035px; color: #2a2e45; }
+#filter-panel .duration-slider { margin-top: 10px; }
+#filter-panel .duration-slider-track { background: #ebebf3; }
+#filter-panel .duration-slider-range { background: #0975d7; }
+#filter-panel .duration-range-input { height: 20px; top: -1px; }
+#filter-panel .duration-range-input::-webkit-slider-thumb { width: 20px; height: 20px; background: #fff; border: 1px solid #ececf3; box-shadow: 0 1px 4px rgba(0, 0, 0, 0.16), 0 2px 4px rgba(0, 0, 0, 0.12); }
+#filter-panel .duration-range-input::-moz-range-thumb { width: 20px; height: 20px; background: #fff; border: 1px solid #ececf3; box-shadow: 0 1px 4px rgba(0, 0, 0, 0.16), 0 2px 4px rgba(0, 0, 0, 0.12); }
+
 .subtype-accordion-list { display: flex; flex-direction: column; gap: 8px; }
 .subtype-accordion-item {
   border: 1px solid var(--panel-border);
@@ -1260,7 +1324,7 @@ body.insights-expanded .map-zoom-control { display: flex; position: absolute; le
 .map-zoom-sep { width: 1px; height: 20px; background: #dfdde7; margin: 0 4px; }
 .map-zoom-value { min-width: 40px; text-align: center; font-size: 13px; font-weight: 600; color: #3d3c52; }
 /* Filters opened from the dashboard sit at the right edge, over it. */
-body { --ins-filter-w: 360px; --ins-dash-w: var(--ins-expanded-w); }
+body { --ins-dash-w: var(--ins-expanded-w); }
 body.ins-filter-docked { --ins-dash-w: min(var(--ins-expanded-w), calc(100vw - var(--ins-filter-w) - 380px)); }
 body.ins-filter-docked #filter-panel { position: fixed; top: var(--ins-expanded-top, 0px); right: 0; bottom: 0; width: var(--ins-filter-w); max-width: none; border: none; border-left: 1px solid #dfdde7; border-radius: 0; box-shadow: none; z-index: 16; }
 body.ins-filter-docked .side-drawer.insights-drawer.expanded { right: var(--ins-filter-w); }
@@ -2830,62 +2894,48 @@ body.structural-diagram #play-animation-btn {
     </div>
 
     <div id="filter-panel" class="side-drawer hidden">
-      <div class="side-drawer-header">
-        <h2>Filter</h2>
-        <div class="side-drawer-header-actions">
-          <button id="filter-reset" class="link-button" type="button">Reset all</button>
-          <button id="filter-close" class="ai-summary-close" type="button" aria-label="Close filter">
-            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
-              <path d="M2 2 L10 10 M10 2 L2 10" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" />
-            </svg>
+      <div class="fp-head">
+        <span class="fp-title">Filter<span class="fp-badge" id="filter-active-count">0</span></span>
+        <div class="fp-actions">
+          <button id="filter-reset" class="fp-clear" type="button">Clear all</button>
+          <button id="filter-close" class="fp-close" type="button" aria-label="Close filter">
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M2 2 L10 10 M10 2 L2 10" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" /></svg>
           </button>
         </div>
       </div>
       <div class="side-drawer-body">
-        <p class="hint filter-summary" id="filter-summary"></p>
-
+        <p class="fp-summary"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M1 1.5h10L7 6.4v3.6L5 11V6.4z" stroke="#8C899F" stroke-width="1" stroke-linejoin="round"/></svg><span id="filter-summary"></span></p>
 
         <div class="panel">
           <button class="panel-header" type="button" aria-expanded="true">
-            <h2>
-              By Task
-              <span class="subtype-count-badge" id="filter-task-count">0</span>
-            </h2>
-            <svg class="panel-chevron" width="14" height="14" viewBox="0 0 14 14" aria-hidden="true">
-              <path d="M3 5 L7 9 L11 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
-            </svg>
+            <h2>Task<span class="subtype-count-badge fp-count" id="filter-task-count">0</span></h2>
+            <svg class="panel-chevron" width="14" height="14" viewBox="0 0 14 14" aria-hidden="true"><path d="M3.5 5.25 7 8.75l3.5-3.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" /></svg>
           </button>
+          <p class="fp-desc">Keep cases that include any of the selected tasks.</p>
           <div class="panel-body">
-            <p class="hint">Keep instances that include any of the selected tasks.</p>
-            <div class="filter-checklist" id="filter-task-list"></div>
+            <div class="filter-checklist fp-task-list" id="filter-task-list"></div>
           </div>
         </div>
 
         <div class="panel">
           <button class="panel-header" type="button" aria-expanded="true">
-            <h2>
-              By Path
-              <span class="subtype-count-badge" id="filter-path-count">0</span>
-            </h2>
-            <svg class="panel-chevron" width="14" height="14" viewBox="0 0 14 14" aria-hidden="true">
-              <path d="M3 5 L7 9 L11 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
-            </svg>
+            <h2>Path<span class="subtype-count-badge fp-count" id="filter-path-count">0</span></h2>
+            <svg class="panel-chevron" width="14" height="14" viewBox="0 0 14 14" aria-hidden="true"><path d="M3.5 5.25 7 8.75l3.5-3.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" /></svg>
           </button>
+          <p class="fp-desc">Keep cases that followed any of the selected paths.</p>
           <div class="panel-body">
-            <p class="hint">Keep instances that followed any of the selected paths.</p>
-            <div class="filter-checklist" id="filter-path-list"></div>
+            <div class="filter-checklist fp-path-list" id="filter-path-list"></div>
+            <button type="button" class="fp-view-all" id="filter-path-more">View all</button>
           </div>
         </div>
 
         <div class="panel">
           <button class="panel-header" type="button" aria-expanded="true">
-            <h2>By Duration</h2>
-            <svg class="panel-chevron" width="14" height="14" viewBox="0 0 14 14" aria-hidden="true">
-              <path d="M3 5 L7 9 L11 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
-            </svg>
+            <h2>Duration</h2>
+            <svg class="panel-chevron" width="14" height="14" viewBox="0 0 14 14" aria-hidden="true"><path d="M3.5 5.25 7 8.75l3.5-3.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" /></svg>
           </button>
+          <p class="fp-desc">Total completion time per case.</p>
           <div class="panel-body">
-            <p class="hint">Total completion time per instance.</p>
             <div class="duration-slider-values">
               <span id="filter-duration-min-label">–</span>
               <span id="filter-duration-max-label">–</span>
@@ -2893,22 +2943,18 @@ body.structural-diagram #play-animation-btn {
             <div class="duration-slider" id="duration-slider">
               <div class="duration-slider-track"></div>
               <div class="duration-slider-range" id="duration-slider-range"></div>
-              <input type="range" id="filter-duration-min-slider" class="duration-range-input" min="0" max="100" value="0" />
-              <input type="range" id="filter-duration-max-slider" class="duration-range-input" min="0" max="100" value="100" />
+              <input type="range" id="filter-duration-min-slider" class="duration-range-input" min="0" max="100" value="0" aria-label="Shortest duration" />
+              <input type="range" id="filter-duration-max-slider" class="duration-range-input" min="0" max="100" value="100" aria-label="Longest duration" />
             </div>
           </div>
         </div>
 
-        <div class="panel">
-          <button class="panel-header" type="button" aria-expanded="true">
-            <h2>
-              By Process ID
-              <span class="subtype-count-badge" id="filter-process-id-count">0</span>
-            </h2>
-            <svg class="panel-chevron" width="14" height="14" viewBox="0 0 14 14" aria-hidden="true">
-              <path d="M3 5 L7 9 L11 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
-            </svg>
+        <div class="panel collapsed">
+          <button class="panel-header" type="button" aria-expanded="false">
+            <h2>Process ID<span class="subtype-count-badge fp-count" id="filter-process-id-count">0</span></h2>
+            <svg class="panel-chevron" width="14" height="14" viewBox="0 0 14 14" aria-hidden="true"><path d="M3.5 5.25 7 8.75l3.5-3.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" /></svg>
           </button>
+          <p class="fp-desc">Keep cases with any of the selected process IDs.</p>
           <div class="panel-body">
             <div class="filter-select" id="filter-process-id-select">
               <input type="text" id="filter-process-id-input" class="filter-text-input" placeholder="Search process / case ID…" autocomplete="off" />
@@ -2918,16 +2964,12 @@ body.structural-diagram #play-animation-btn {
           </div>
         </div>
 
-        <div class="panel">
-          <button class="panel-header" type="button" aria-expanded="true">
-            <h2>
-              By User ID
-              <span class="subtype-count-badge" id="filter-user-id-count">0</span>
-            </h2>
-            <svg class="panel-chevron" width="14" height="14" viewBox="0 0 14 14" aria-hidden="true">
-              <path d="M3 5 L7 9 L11 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
-            </svg>
+        <div class="panel collapsed">
+          <button class="panel-header" type="button" aria-expanded="false">
+            <h2>User ID<span class="subtype-count-badge fp-count" id="filter-user-id-count">0</span></h2>
+            <svg class="panel-chevron" width="14" height="14" viewBox="0 0 14 14" aria-hidden="true"><path d="M3.5 5.25 7 8.75l3.5-3.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" /></svg>
           </button>
+          <p class="fp-desc">Keep cases run by any of the selected users.</p>
           <div class="panel-body">
             <div class="filter-select" id="filter-user-id-select">
               <input type="text" id="filter-user-id-input" class="filter-text-input" placeholder="Search user ID…" autocomplete="off" />
@@ -2936,6 +2978,7 @@ body.structural-diagram #play-animation-btn {
             </div>
           </div>
         </div>
+
       </div>
     </div>
 
@@ -12394,15 +12437,16 @@ function renderFilterPanel(matchCountOverride) {
 
   d3.select('#filter-summary').text(
     matchCount === total
-      ? `Showing all ${total} instance${total === 1 ? '' : 's'}.`
+      ? `Showing all ${total} case${total === 1 ? '' : 's'}.`
       : matchCount
-        ? `Showing ${matchCount} of ${total} instance${total === 1 ? '' : 's'}.`
-        : `No instances match — showing the last matching view.`
+        ? `Showing ${matchCount} of ${total} case${total === 1 ? '' : 's'}.`
+        : `No cases match. Showing the last matching view.`
   );
 
   const activeFacets = [f.taskNames.size > 0, f.variantSignatures.size > 0, f.durationMin != null || f.durationMax != null, f.processIds.size > 0, f.userIds.size > 0, f.oneCasePerVariant]
     .filter(Boolean).length;
   d3.select('#filter-count-badge').classed('hidden', activeFacets === 0).text(activeFacets);
+  d3.select('#filter-active-count').classed('hidden', activeFacets === 0).text(activeFacets);
   d3.select('#filter-variant-toggle').classed('active', f.oneCasePerVariant).attr('aria-checked', String(f.oneCasePerVariant));
   d3.select('#filter-process-id-count').text(f.processIds.size);
   d3.select('#filter-user-id-count').text(f.userIds.size);
@@ -12442,10 +12486,33 @@ function renderFilterPanel(matchCountOverride) {
     if (f.variantSignatures.has(v.signature)) f.variantSignatures.delete(v.signature); else f.variantSignatures.add(v.signature);
     applyFilters();
   });
-  pathMerged.select('.filter-checklist-item-label').text((v) => `Path ${pathLetterLabel(v.rank)} · ${(v.pct * 100).toFixed(1)}%`);
-  pathMerged.select('.filter-checklist-item-path').text((v) => v.path.join(' → '));
-  pathMerged.select('.filter-checklist-item-count').text((v) => pluralCases(v.count));
+  const completedSet = base.completion.recognizedTaskSet;
+  pathMerged.select('.filter-checklist-item-label').html((v) => `Path ${v.rank} :<span class="fp-path-pct">${Math.round(v.pct * 100)}%</span>`);
+  pathMerged.select('.filter-checklist-item-path')
+    .attr('class', 'filter-checklist-item-path fp-path-meta')
+    .attr('title', (v) => v.path.join(' → '))
+    .html((v) => {
+      const done = completedSet.has(v.path[v.path.length - 1]);
+      return `<span>${done ? FP_CHECK_CIRCLE_SVG : FP_X_CIRCLE_SVG}${done ? 'Completed' : 'Incomplete'}</span><span>${CLOCK_ICON_SVG}${formatDurationLong(v.avgDuration)}</span>`;
+    });
+  pathMerged.select('.filter-checklist-item-count').text((v) => v.count.toLocaleString());
+  // Selected paths always stay in view; the rest show past the first few
+  // only once "View all" is on.
+  pathMerged.style('display', (v, i) => (filterPathsShowAll || i < FILTER_PATH_PREVIEW || f.variantSignatures.has(v.signature) ? null : 'none'));
+  d3.select('#filter-path-more').classed('hidden', base.variants.length <= FILTER_PATH_PREVIEW).text(filterPathsShowAll ? 'Show less' : 'View all');
+
+  // A zero count says nothing, so only non-empty facets show a badge.
+  d3.selectAll('#filter-panel .fp-count').classed('is-zero', function () { return this.textContent === '0'; });
 }
+
+const FILTER_PATH_PREVIEW = 4;
+let filterPathsShowAll = false;
+const FP_CHECK_CIRCLE_SVG = '<svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><circle cx="7" cy="7" r="5.25" stroke="currentColor" stroke-width="1.14"/><path d="M5.25 7l1.2 1.2 2.3-2.4" stroke="currentColor" stroke-width="1.14" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+const FP_X_CIRCLE_SVG = '<svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><circle cx="7" cy="7" r="5.25" stroke="currentColor" stroke-width="1.14"/><path d="M5.6 5.6l2.8 2.8M8.4 5.6 5.6 8.4" stroke="currentColor" stroke-width="1.14" stroke-linecap="round"/></svg>';
+d3.select('#filter-path-more').on('click', () => {
+  filterPathsShowAll = !filterPathsShowAll;
+  renderFilterPanel();
+});
 
 function openFilterPanel() {
   closeInsights();

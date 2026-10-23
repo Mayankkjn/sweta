@@ -1125,7 +1125,7 @@ button:hover { filter: brightness(1.08); }
 .tooltip .variant-info-story { line-height: 1.45; color: var(--text-primary); margin-top: 8px; padding-top: 8px; border-top: 1px solid var(--panel-border); }
 
 /* ---- Insights drawer ---- */
-.side-drawer.insights-drawer { width: 427px; border: none; box-shadow: 0 4px 18px rgba(221, 221, 221, 0.72); }
+.side-drawer.insights-drawer { width: 427px; border: none; background: #fcfcfd; box-shadow: 0 4px 18px rgba(221, 221, 221, 0.72); }
 .ins-header { display: flex; align-items: flex-start; justify-content: space-between; padding: 12px 12px 0 18px; flex-shrink: 0; }
 .ins-title { display: flex; align-items: center; gap: 4px; margin-top: 7px; }
 .ins-title h2 { margin: 0; font-size: 20px; line-height: 28px; font-weight: 600; color: #2a2e45; }
@@ -1139,20 +1139,53 @@ button:hover { filter: brightness(1.08); }
 .ins-body { flex: 1; overflow-y: auto; padding: 24px 19px 19px; }
 .ins-tab-panel { display: flex; flex-direction: column; gap: 12px; }
 .ins-tab-panel.hidden { display: none; }
-.ins-summary-group { display: flex; flex-direction: column; gap: 24px; }
+.ins-summary-group { display: flex; flex-direction: column; gap: 18px; }
 .ins-summary p { margin: 0; font-size: 14px; line-height: 21px; color: #525066; }
 .ins-summary p + p { margin-top: 6px; }
 .ins-summary strong { color: #3d3c52; }
-.ins-stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-.ins-stat { display: flex; flex-direction: column; align-items: flex-start; gap: 1px; padding: 8px 12px; background: #fff; border: 1px solid #dfdde7; border-radius: 12px; font: inherit; text-align: left; }
-.ins-stat .ins-stat-label { margin-bottom: 9px; }
+.ins-stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.ins-stat { display: flex; flex-direction: column; align-items: stretch; gap: 10px; padding: 8px 12px; background: #fff; border: 1px solid #f2f2f2; border-radius: 12px; font: inherit; text-align: left; }
+.ins-stat-row { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.ins-stat-figures { display: flex; flex-direction: column; gap: 1px; min-width: 0; }
+.ins-stat-sub.strong { font-weight: 600; }
+.ins-donut { flex-shrink: 0; }
+.ins-donut-track, .ins-donut-arc { fill: none; stroke-width: 7; }
+.ins-donut.completed .ins-donut-track { stroke: #d9fbee; }
+.ins-donut.completed .ins-donut-arc { stroke: #198558; }
+.ins-donut.incomplete .ins-donut-track { stroke: #fff0f3; }
+.ins-donut.incomplete .ins-donut-arc { stroke: #b3141d; }
 .ins-stat.clickable { cursor: pointer; }
 .ins-stat.clickable:hover { border-color: #b9d3f6; }
 .ins-stat.clickable.active { border-color: var(--bpmn-blue); background: #f5f9ff; }
 .ins-stat-label { font-size: 12px; line-height: 16px; color: #6b697b; }
 .ins-stat-value { font-size: 24px; line-height: 32px; font-weight: 600; color: #3d3c52; }
 .ins-stat-sub { font-size: 12px; line-height: 16px; color: #525066; }
-.ins-card { background: #fff; border: 1px solid #dfdde7; border-radius: 14px; padding: 16px 6px 16px 12px; display: flex; flex-direction: column; gap: 16px; }
+.ins-card { background: #fff; border: 1px solid #f2f2f2; border-radius: 12px; box-shadow: 0 4px 4px rgba(0, 0, 0, 0.02); padding: 16px 6px 16px 12px; display: flex; flex-direction: column; gap: 16px; }
+.ins-card-list { gap: 25px; }
+.ins-card-auto { gap: 16px; }
+.ins-card-auto .ins-card-titles { padding-right: 4px; }
+.ins-chart-card { padding: 16px; gap: 16px; }
+.ins-chart-card .ins-chart-figure + .ins-chart { margin-top: 8px; }
+.ins-chart-head { display: flex; flex-direction: column; gap: 2px; }
+.ins-chart-title-row { display: flex; align-items: center; height: 24px; }
+.ins-chart-title { font-size: 16px; line-height: 24px; font-weight: 600; color: #3d3c52; }
+.ins-info-btn { width: 32px; height: 32px; padding: 0; flex-shrink: 0; border: none; background: none; border-radius: 16px; display: inline-flex; align-items: center; justify-content: center; cursor: help; }
+.ins-info-btn:hover { background: #f6f6f9; }
+.ins-info-btn svg { flex-shrink: 0; }
+.ins-chart-figure { display: flex; flex-direction: column; padding-left: 2px; }
+.ins-chart-figure-label { font-size: 12px; line-height: 16px; color: #8c899f; }
+.ins-chart svg { display: block; overflow: visible; }
+.ins-chart-empty { margin: 0; font-size: 12px; color: #8c899f; }
+.ins-grid-line { stroke: #ececf3; stroke-width: 0.6; stroke-dasharray: 2 2; }
+.ins-axis-label { font-size: 8.9px; fill: #6b697b; }
+.ins-trend-line { fill: none; stroke: #0975d7; stroke-width: 1.4; stroke-linecap: round; stroke-linejoin: round; }
+.ins-hover-target { fill: transparent; }
+.ins-bar { fill: #0975d7; cursor: default; }
+.ins-bar:hover { fill: #0b67bb; }
+.ins-bar-label { font-size: 12px; fill: #3d3c52; }
+.ins-baseline { stroke: #f2f2f8; stroke-width: 2; }
+.tooltip.ins-dark-tip { background: #3d3c52; border-color: #3d3c52; color: #fff; font-size: 14px; font-weight: 500; padding: 4px 8px; border-radius: 4px; box-shadow: 0 3px 8px rgba(0, 0, 0, 0.14), 0 2px 6px rgba(0, 0, 0, 0.18); }
+.tooltip.ins-dark-tip::after { content: ''; position: absolute; left: 50%; bottom: -6px; margin-left: -7px; border: 7px solid transparent; border-bottom: none; border-top-color: #3d3c52; }
 .ins-card.collapsed { gap: 0; }
 .ins-card.collapsed .ins-card-body { display: none; }
 .ins-card.collapsed .ins-card-chevron { transform: rotate(180deg); }
@@ -1162,8 +1195,8 @@ button:hover { filter: brightness(1.08); }
 .ins-card-title { font-size: 16px; line-height: 24px; font-weight: 600; color: #2a2e45; }
 .ins-card-sub { font-size: 14px; line-height: 20px; color: #6b697b; }
 .ins-card-chevron { flex-shrink: 0; transition: transform 0.15s; }
-.ins-card-body { border-top: 1px solid #ebebeb; margin-right: 6px; }
-.ins-auto-row { display: flex; align-items: center; gap: 6px; width: 100%; padding: 8px 0 0; border: none; background: none; font: inherit; text-align: left; cursor: pointer; }
+.ins-card-body { margin-right: 6px; }
+.ins-auto-row { display: flex; align-items: center; gap: 3px; width: 100%; padding: 0; border: none; background: none; font: inherit; text-align: left; cursor: pointer; }
 .ins-auto-stat { flex: 1; min-width: 0; display: flex; flex-direction: column; padding: 8px 10px; border-radius: 12px; }
 .ins-auto-stat .ins-stat-label { white-space: nowrap; }
 .ins-auto-row:hover .ins-auto-stat { background: #fafafc; }
@@ -1175,6 +1208,10 @@ button:hover { filter: brightness(1.08); }
 .ins-auto-value span { font-size: 10px; line-height: 22px; color: #525066; }
 .ins-auto-sep { width: 1px; height: 49.5px; background: #dfdde7; flex-shrink: 0; }
 .ins-rank-list { list-style: none; margin: 0; padding: 0; }
+.ins-rank-list.compact { display: flex; flex-direction: column; }
+.ins-rank-list.compact.gap-12 { gap: 12px; }
+.ins-rank-list.compact.gap-8 { gap: 8px; }
+.ins-rank-list.compact .ins-rank-row { min-height: 52px; box-shadow: none; }
 .ins-rank-row { display: flex; align-items: center; gap: 13px; min-height: 72px; padding: 0 10px 0 0; border-bottom: 1px solid #ececf3; box-shadow: 0 4px 4px rgba(0, 0, 0, 0.02); cursor: pointer; }
 .ins-rank-row:last-child { border-bottom: none; box-shadow: none; }
 .ins-rank-row:hover { background: #fafafc; }
@@ -1190,8 +1227,6 @@ button:hover { filter: brightness(1.08); }
 .ins-rank-detail { display: inline-flex; align-items: center; gap: 12px; font-size: 12px; line-height: 16px; color: #7b7891; white-space: nowrap; }
 .ins-meta-item { display: inline-flex; align-items: center; gap: 4px; color: #6b6f86; }
 .ins-meta-item svg { color: #8b8fa6; flex-shrink: 0; }
-.ins-view-all { display: block; margin: 8px auto 0; border: none; background: none; font: inherit; font-size: 13px; font-weight: 600; color: #0975d7; cursor: pointer; }
-.ins-view-all.hidden { display: none; }
 .fastest-badge {
   display: inline-block;
   font-size: 0.66rem;
@@ -2313,49 +2348,81 @@ body.structural-diagram #play-animation-btn {
             <div id="process-summary-overview" class="ins-summary"></div>
             <div class="ins-stat-grid">
               <div class="ins-stat">
-                <span class="ins-stat-label">Incomplete Processes</span>
-                <span class="ins-stat-value" id="process-summary-incomplete-value">–</span>
-                <span class="ins-stat-sub" id="process-summary-incomplete-detail"> </span>
+                <span class="ins-stat-label">Completed Process</span>
+                <span class="ins-stat-row">
+                  <span class="ins-stat-figures">
+                    <span class="ins-stat-value" id="process-summary-completed-value">–</span>
+                    <span class="ins-stat-sub" id="process-summary-completed-detail"> </span>
+                  </span>
+                  <svg class="ins-donut completed" id="ins-donut-completed" width="34" height="34" viewBox="0 0 34 34" aria-hidden="true"><circle class="ins-donut-track" cx="17" cy="17" r="13.5"/><circle class="ins-donut-arc" cx="17" cy="17" r="13.5" transform="rotate(-90 17 17)"/></svg>
+                </span>
               </div>
               <div class="ins-stat">
-                <span class="ins-stat-label">Completed Process</span>
-                <span class="ins-stat-value" id="process-summary-completed-value">–</span>
-                <span class="ins-stat-sub" id="process-summary-completed-detail"> </span>
+                <span class="ins-stat-label">Incomplete Processes</span>
+                <span class="ins-stat-row">
+                  <span class="ins-stat-figures">
+                    <span class="ins-stat-value" id="process-summary-incomplete-value">–</span>
+                    <span class="ins-stat-sub" id="process-summary-incomplete-detail"> </span>
+                  </span>
+                  <svg class="ins-donut incomplete" id="ins-donut-incomplete" width="34" height="34" viewBox="0 0 34 34" aria-hidden="true"><circle class="ins-donut-track" cx="17" cy="17" r="13.5"/><circle class="ins-donut-arc" cx="17" cy="17" r="13.5" transform="rotate(-90 17 17)"/></svg>
+                </span>
               </div>
               <button class="ins-stat clickable" id="insight-frequent" type="button">
                 <span class="ins-stat-label">Most Followed Path</span>
-                <span class="ins-stat-value" id="insight-frequent-value">–</span>
-                <span class="ins-stat-sub" id="insight-frequent-detail"> </span>
+                <span class="ins-stat-figures">
+                  <span class="ins-stat-value" id="insight-frequent-value">–</span>
+                  <span class="ins-stat-sub strong" id="insight-frequent-detail"> </span>
+                </span>
               </button>
               <button class="ins-stat clickable" id="insight-fastest" type="button">
                 <span class="ins-stat-label">Fastest Path</span>
-                <span class="ins-stat-value" id="insight-fastest-value">–</span>
-                <span class="ins-stat-sub" id="insight-fastest-detail"> </span>
+                <span class="ins-stat-figures">
+                  <span class="ins-stat-value" id="insight-fastest-value">–</span>
+                  <span class="ins-stat-sub strong" id="insight-fastest-detail"> </span>
+                </span>
               </button>
             </div>
           </div>
 
-          <section class="ins-card">
-            <button class="ins-card-head" type="button" aria-expanded="true">
-              <span class="ins-card-icon"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M9 1.5 L3.5 9 H8 L7 14.5 L12.5 7 H8 Z" stroke="#6B697B" stroke-width="1.35" stroke-linejoin="round"/></svg></span>
-              <span class="ins-card-titles">
-                <span class="ins-card-title">Automation opportunity</span>
-                <span class="ins-card-sub" id="ins-automation-sub"> </span>
-              </span>
-              <svg class="ins-card-chevron" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M4 10 L8 6 L12 10" stroke="#7B7891" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            </button>
-            <div class="ins-card-body">
-              <button class="ins-auto-row" id="ins-automation-open" type="button" title="Open automation opportunities">
-                <span class="ins-auto-stat"><span class="ins-stat-label">Fully automatable</span><span class="ins-auto-value"><strong class="high" id="ins-auto-high">0</strong><span>Tasks</span></span></span>
-                <span class="ins-auto-sep"></span>
-                <span class="ins-auto-stat"><span class="ins-stat-label">Partially</span><span class="ins-auto-value"><strong class="medium" id="ins-auto-medium">0</strong><span>Tasks</span></span></span>
-                <span class="ins-auto-sep"></span>
-                <span class="ins-auto-stat"><span class="ins-stat-label">Non automatable</span><span class="ins-auto-value"><strong class="low" id="ins-auto-low">0</strong><span>Tasks</span></span></span>
-              </button>
+          <section class="ins-card ins-card-auto">
+            <div class="ins-card-titles">
+              <span class="ins-card-title">Automation opportunity</span>
+              <span class="ins-card-sub" id="ins-automation-sub"> </span>
             </div>
+            <button class="ins-auto-row" id="ins-automation-open" type="button" title="Open automation opportunities">
+              <span class="ins-auto-stat"><span class="ins-stat-label">Fully automatable</span><span class="ins-auto-value"><strong class="high" id="ins-auto-high">0</strong><span>Tasks</span></span></span>
+              <span class="ins-auto-sep"></span>
+              <span class="ins-auto-stat"><span class="ins-stat-label">Partially</span><span class="ins-auto-value"><strong class="medium" id="ins-auto-medium">0</strong><span>Tasks</span></span></span>
+              <span class="ins-auto-sep"></span>
+              <span class="ins-auto-stat"><span class="ins-stat-label">Non automatable</span><span class="ins-auto-value"><strong class="low" id="ins-auto-low">0</strong><span>Tasks</span></span></span>
+            </button>
           </section>
 
-          <section class="ins-card">
+          <section class="ins-card ins-chart-card">
+            <div class="ins-chart-head">
+              <span class="ins-chart-title-row"><span class="ins-chart-title">Process trend</span><button class="ins-info-btn" type="button" aria-label="Number of cases started over time" data-tip="Number of cases started over time"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="8" cy="8" r="6" stroke="#8C899F" stroke-width="1.6"/><path d="M8 7.4 V11" stroke="#8C899F" stroke-width="1.6" stroke-linecap="round"/><circle cx="8" cy="5.1" r="0.95" fill="#8C899F"/></svg></button></span>
+              <span class="ins-stat-label">Case volume over time</span>
+            </div>
+            <div class="ins-chart-figure">
+              <span class="ins-stat-value" id="ins-trend-value">–</span>
+              <span class="ins-chart-figure-label" id="ins-trend-label">Avg cases per month</span>
+            </div>
+            <div class="ins-chart" id="ins-trend-chart"></div>
+          </section>
+
+          <section class="ins-card ins-chart-card">
+            <div class="ins-chart-head">
+              <span class="ins-chart-title-row"><span class="ins-chart-title">Time to complete</span><button class="ins-info-btn" type="button" aria-label="How long cases take, first step to last" data-tip="How long cases take, first step to last"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="8" cy="8" r="6" stroke="#8C899F" stroke-width="1.6"/><path d="M8 7.4 V11" stroke="#8C899F" stroke-width="1.6" stroke-linecap="round"/><circle cx="8" cy="5.1" r="0.95" fill="#8C899F"/></svg></button></span>
+              <span class="ins-stat-label">Distribution of cases by completion time</span>
+            </div>
+            <div class="ins-chart-figure">
+              <span class="ins-stat-value" id="ins-ttc-value">–</span>
+              <span class="ins-chart-figure-label">Median time to complete</span>
+            </div>
+            <div class="ins-chart" id="ins-ttc-chart"></div>
+          </section>
+
+          <section class="ins-card ins-card-list">
             <button class="ins-card-head" type="button" aria-expanded="true">
               <span class="ins-card-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 22h14M5 2h14M17 22v-4.17a2 2 0 0 0-.59-1.42L12 12l-4.41 4.41A2 2 0 0 0 7 17.83V22M7 2v4.17a2 2 0 0 0 .59 1.42L12 12l4.41-4.41A2 2 0 0 0 17 6.17V2" stroke="#6B697B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
               <span class="ins-card-titles">
@@ -2365,11 +2432,11 @@ body.structural-diagram #play-animation-btn {
               <svg class="ins-card-chevron" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M4 10 L8 6 L12 10" stroke="#7B7891" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
             </button>
             <div class="ins-card-body">
-              <ul id="time-list" class="ins-rank-list"></ul>
+              <ul id="time-list" class="ins-rank-list compact gap-12"></ul>
             </div>
           </section>
 
-          <section class="ins-card">
+          <section class="ins-card ins-card-list">
             <button class="ins-card-head" type="button" aria-expanded="true">
               <span class="ins-card-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8M3 3v5h5M12 7v5l4 2" stroke="#6B697B" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
               <span class="ins-card-titles">
@@ -2379,22 +2446,7 @@ body.structural-diagram #play-animation-btn {
               <svg class="ins-card-chevron" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M4 10 L8 6 L12 10" stroke="#7B7891" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
             </button>
             <div class="ins-card-body">
-              <ul id="rework-list" class="ins-rank-list"></ul>
-            </div>
-          </section>
-
-          <section class="ins-card">
-            <button class="ins-card-head" type="button" aria-expanded="true">
-              <span class="ins-card-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M16 3h5v5M8 3H3v5M12 22v-8.3a4 4 0 0 0-1.17-2.87L3 3M15 9l6-6" stroke="#8C899F" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-              <span class="ins-card-titles">
-                <span class="ins-card-title">All paths</span>
-                <span class="ins-card-sub">Ranked by frequency</span>
-              </span>
-              <svg class="ins-card-chevron" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M4 10 L8 6 L12 10" stroke="#7B7891" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            </button>
-            <div class="ins-card-body">
-              <ul id="variant-list" class="ins-rank-list"></ul>
-              <button class="ins-view-all" id="ins-view-all-paths" type="button">View all paths →</button>
+              <ul id="rework-list" class="ins-rank-list compact gap-8"></ul>
             </div>
           </section>
         </div>
@@ -7228,7 +7280,12 @@ function randomDuration(task) {
   return Math.round(min + skew * (max - min));
 }
 
+const DAY_MS = 24 * 60 * 60 * 1000;
+
 function generateEventLog(numCases = 500) {
+  // Case start dates spread over the last 90 days, denser toward today so
+  // the demo's volume trend has a gentle upward slope.
+  const now = Date.now();
   // Synthesize a plausible unique-user pool (68% of case volume, e.g. 340
   // for the default 500 cases) and shuffle case->user assignment so every
   // pool member is guaranteed to appear at least once.
@@ -7253,6 +7310,7 @@ function generateEventLog(numCases = 500) {
       caseId: `PO-${1000 + i}`,
       variantId: variant.id,
       totalDuration: cursor,
+      startTime: now - (1 - Math.sqrt(Math.random())) * 90 * DAY_MS,
       users: [userIds[i]],
       steps,
     });
@@ -7548,7 +7606,7 @@ function extractRawCases(raw) {
       const caseId = session.user_id
         ? `${String(session.user_id).slice(0, 8)}-${session.session_date || i + 1}`
         : `SESSION-${i + 1}`;
-      return { caseId, steps, users: session.user_id ? [session.user_id] : [] };
+      return { caseId, steps, users: session.user_id ? [session.user_id] : [], startTime: session.session_date };
     });
   }
 
@@ -7582,6 +7640,7 @@ function extractRawCases(raw) {
           caseId: repeat > 1 ? `${baseId}-${k + 1}` : String(baseId),
           steps,
           users: epUsers.length ? [epUsers[k % epUsers.length]] : [],
+          startTime: ep.path && ep.path[0] ? ep.path[0].task_start_time : undefined,
         });
       }
     });
@@ -7612,11 +7671,15 @@ function extractRawCases(raw) {
         });
       });
     });
-    return Array.from(byCase.entries()).map(([caseId, entry]) => ({
-      caseId,
-      steps: entry.steps.slice().sort((a, b) => a.start - b.start).map(({ task, duration }) => ({ task, duration })),
-      users: Array.from(entry.users),
-    }));
+    return Array.from(byCase.entries()).map(([caseId, entry]) => {
+      const sorted = entry.steps.slice().sort((a, b) => a.start - b.start);
+      return {
+        caseId,
+        steps: sorted.map(({ task, duration }) => ({ task, duration })),
+        users: Array.from(entry.users),
+        startTime: sorted.length ? sorted[0].start : undefined,
+      };
+    });
   }
 
   // AI-consolidated capture export: a hierarchical BPMN graph/subprocesses
@@ -7657,6 +7720,20 @@ function extractRawCases(raw) {
   }
 
   throw new Error('Expected a JSON array of cases, or an object like { "cases": [...] }.');
+}
+
+// A case's own start date, in epoch ms, from whatever the upload carries —
+// epoch seconds or milliseconds, or a date string. null when there's none,
+// so date-based views (Process trend) can say so instead of inventing one.
+function toTimestampMs(v) {
+  if (v == null || v === '') return null;
+  if (typeof v === 'number' || /^\d+(\.\d+)?$/.test(String(v))) {
+    const n = Number(v);
+    if (!Number.isFinite(n) || n <= 0) return null;
+    return n < 1e11 ? n * 1000 : n;
+  }
+  const t = Date.parse(v);
+  return Number.isFinite(t) ? t : null;
 }
 
 // Validates and normalizes an arbitrary uploaded JSON payload into the same
@@ -7719,7 +7796,10 @@ function normalizeCaseLog(raw) {
       });
 
       const users = rawCase && !Array.isArray(rawCase) && Array.isArray(rawCase.users) ? rawCase.users : [];
-      return { caseId: String(caseId), totalDuration: cursor, steps, users };
+      const startTime = rawCase && !Array.isArray(rawCase)
+        ? toTimestampMs(rawCase.startTime != null ? rawCase.startTime : rawCase.start != null ? rawCase.start : rawCase.date)
+        : null;
+      return { caseId: String(caseId), totalDuration: cursor, steps, users, startTime };
     })
     .filter(Boolean);
 
@@ -10248,7 +10328,7 @@ let tooltipHideTimer = null;
 
 function showTooltip(event, html, rich) {
   clearTimeout(tooltipHideTimer);
-  tooltip.classed('bpmn-task-tooltip', !!rich);
+  tooltip.classed('bpmn-task-tooltip', !!rich).classed('ins-dark-tip', false);
   tooltip.style('display', 'block').html(html);
   moveTooltip(event);
 }
@@ -10358,10 +10438,10 @@ function buildPathStory(v, model) {
 function renderInsights(model) {
   const pct = (n) => `${Math.round(n * 100)}%`;
   d3.select('#insight-frequent-value').text(pct(model.happyPath.pct));
-  d3.select('#insight-frequent-detail').text(`Path ${model.happyPath.rank} • ${pluralCases(model.happyPath.count)}`);
+  d3.select('#insight-frequent-detail').text(`Path ${model.happyPath.rank} · ${pluralCases(model.happyPath.count)}`);
 
-  d3.select('#insight-fastest-value').text(formatDuration(model.fastestPath.avgDuration));
-  d3.select('#insight-fastest-detail').text(`Path ${model.fastestPath.rank} • ${(model.fastestPath.pct * 100).toFixed(1)}% of instances`);
+  d3.select('#insight-fastest-value').text(formatDurationLong(model.fastestPath.avgDuration));
+  d3.select('#insight-fastest-detail').text(`Path ${model.fastestPath.rank} · ${(model.fastestPath.pct * 100).toFixed(1)}% of instances`);
 
   const isActive = (kind, value) => state.highlight && state.highlight.kind === kind && state.highlight.value === value;
   d3.select('#insight-frequent').classed('active', isActive('variant', model.happyPath));
@@ -10375,6 +10455,152 @@ function renderInsights(model) {
   d3.select('#ins-auto-medium').text(tiers.medium);
   d3.select('#ins-auto-low').text(tiers.low);
   d3.select('#ins-automation-sub').text(`${opportunities.length} task${opportunities.length === 1 ? '' : 's'} assessed`);
+
+  setDonut('#ins-donut-completed', model.completion.completedPct);
+  setDonut('#ins-donut-incomplete', model.completion.notCompletedPct);
+  renderProcessTrend(state.cases);
+  renderTimeToComplete(state.cases);
+}
+
+// A small ring showing a share: the arc's dash length is that share of the
+// circle's circumference.
+function setDonut(sel, fraction) {
+  const c = 2 * Math.PI * 13.5;
+  d3.select(sel).select('.ins-donut-arc')
+    .attr('stroke-dasharray', `${Math.max(0, Math.min(1, fraction)) * c} ${c}`);
+}
+
+// "1d 12h" / "3h 20m" / "45m" — the two most significant units.
+function formatDurationLong(minutes) {
+  const m = Math.round(minutes);
+  if (m >= 1440) {
+    const d = Math.floor(m / 1440);
+    const h = Math.round((m % 1440) / 60);
+    return h === 24 ? `${d + 1}d` : h ? `${d}d ${h}h` : `${d}d`;
+  }
+  if (m >= 60) {
+    const h = Math.floor(m / 60);
+    const rest = m % 60;
+    return rest ? `${h}h ${rest}m` : `${h}h`;
+  }
+  return `${m}m`;
+}
+
+function renderChartEmpty(container, message) {
+  container.selectAll('*').remove();
+  container.append('p').attr('class', 'ins-chart-empty').text(message);
+}
+
+// Process trend: case starts per day/week/month (whichever suits the span
+// of dates the data covers) as a line, with the average per month. Only
+// cases whose upload carries a real start date count — none at all and it
+// says so rather than plotting a made-up line.
+function renderProcessTrend(cases) {
+  const container = d3.select('#ins-trend-chart');
+  const times = cases.map((c) => c.startTime).filter((t) => Number.isFinite(t));
+  if (times.length < 2) {
+    d3.select('#ins-trend-value').text('–');
+    renderChartEmpty(container, 'No case dates in this dataset.');
+    return;
+  }
+  const min = d3.min(times);
+  const max = d3.max(times);
+  const spanDays = Math.max(1, (max - min) / DAY_MS);
+  const monthly = spanDays > 180;
+  const bucketMs = monthly ? 30.44 * DAY_MS : spanDays > 28 ? 7 * DAY_MS : DAY_MS;
+  // Periods are counted back from the latest case so each plotted point
+  // covers a whole day/week/month (a half-finished latest week would read
+  // as a false drop); a partial oldest period is left off the line.
+  const n = Math.max(2, Math.floor((max - min) / bucketMs));
+  const counts = new Array(n).fill(0);
+  times.forEach((t) => {
+    const back = Math.floor((max - t) / bucketMs);
+    if (back < n) counts[n - 1 - back] += 1;
+  });
+  const firstBucketStart = max - n * bucketMs;
+
+  d3.select('#ins-trend-value').text(Math.round(times.length / Math.max(1, spanDays / 30.44)).toLocaleString());
+
+  const W = 356;
+  const H = 102;
+  const left = 22;
+  const top = 6;
+  const plotH = 72;
+  const plotW = W - left;
+  const yMax = d3.scaleLinear().domain([0, d3.max(counts) || 1]).nice(2).domain()[1];
+  const x = (i) => left + (i / (n - 1)) * plotW;
+  const y = (v) => top + plotH - (v / yMax) * plotH;
+
+  container.selectAll('*').remove();
+  const svg = container.append('svg').attr('viewBox', `0 0 ${W} ${H}`).attr('width', '100%').attr('role', 'img')
+    .attr('aria-label', `Case volume over time, average ${Math.round(times.length / Math.max(1, spanDays / 30.44))} per month`);
+  [0, 0.5, 1].forEach((f) => {
+    svg.append('line').attr('class', 'ins-grid-line').attr('x1', left).attr('x2', W).attr('y1', top + f * plotH).attr('y2', top + f * plotH);
+  });
+  svg.append('text').attr('class', 'ins-axis-label').attr('x', left - 5).attr('y', top + 3).attr('text-anchor', 'end').text(yMax);
+  svg.append('text').attr('class', 'ins-axis-label').attr('x', left - 5).attr('y', top + plotH + 3).attr('text-anchor', 'end').text(0);
+  const line = d3.line().x((d, i) => x(i)).y((d) => y(d)).curve(d3.curveMonotoneX);
+  svg.append('path').attr('class', 'ins-trend-line').attr('d', line(counts));
+  const fmt = (t) => new Date(t).toLocaleDateString('en-US', monthly ? { month: 'short', year: '2-digit' } : { month: 'short', day: 'numeric' });
+  [0, 1 / 3, 2 / 3, 1].forEach((f, i) => {
+    svg.append('text').attr('class', 'ins-axis-label')
+      .attr('x', left + f * plotW).attr('y', H - 4)
+      .attr('text-anchor', i === 0 ? 'start' : i === 3 ? 'end' : 'middle')
+      .text(fmt(firstBucketStart + f * (max - firstBucketStart)));
+  });
+  // One invisible hover target per bucket, reporting its count and date.
+  const step = plotW / (n - 1);
+  counts.forEach((c, i) => {
+    svg.append('rect').attr('class', 'ins-hover-target')
+      .attr('x', x(i) - step / 2).attr('y', top).attr('width', step).attr('height', plotH)
+      .on('mouseenter', (event) => showTooltip(event, `<strong>${c} case${c === 1 ? '' : 's'}</strong><div>${monthly ? 'Month' : bucketMs === DAY_MS ? 'Day' : 'Week'} of ${fmt(firstBucketStart + i * bucketMs)}</div>`))
+      .on('mousemove', moveTooltip)
+      .on('mouseleave', hideTooltip);
+  });
+}
+
+// Time to complete: cases bucketed by total duration into five bands on a
+// scale chosen from the data's own median (days, hours or minutes), with
+// the median itself as the headline number.
+function renderTimeToComplete(cases) {
+  const container = d3.select('#ins-ttc-chart');
+  const durations = cases.map((c) => c.totalDuration).filter((d) => d > 0);
+  if (!durations.length) {
+    d3.select('#ins-ttc-value').text('–');
+    renderChartEmpty(container, 'No timing data in this dataset.');
+    return;
+  }
+  const med = median(durations);
+  d3.select('#ins-ttc-value').text(formatDurationLong(med));
+  const bands = med >= 12 * 60
+    ? [[0, 1440, '< 1 day'], [1440, 2880, '1-2 days'], [2880, 4320, '2-3 days'], [4320, 7200, '3-5 days'], [7200, Infinity, '> 5 days']]
+    : med >= 30
+      ? [[0, 60, '< 1 hr'], [60, 120, '1-2 hrs'], [120, 240, '2-4 hrs'], [240, 480, '4-8 hrs'], [480, Infinity, '> 8 hrs']]
+      : [[0, 5, '< 5 min'], [5, 15, '5-15 min'], [15, 30, '15-30 min'], [30, 60, '30-60 min'], [60, Infinity, '> 1 hr']];
+  const counts = bands.map(([lo, hi, label]) => ({ label, count: durations.filter((d) => d >= lo && d < hi).length }));
+  const maxCount = d3.max(counts, (b) => b.count) || 1;
+
+  const W = 363;
+  const H = 122;
+  const base = 98;
+  const barW = 45;
+  const gap = (W - 2 * 15 - barW * counts.length) / (counts.length - 1);
+  container.selectAll('*').remove();
+  const svg = container.append('svg').attr('viewBox', `0 0 ${W} ${H}`).attr('width', '100%').attr('role', 'img')
+    .attr('aria-label', `Cases by completion time, median ${formatDurationLong(med)}`);
+  counts.forEach((b, i) => {
+    const h = b.count ? Math.max(3, (b.count / maxCount) * 97) : 0;
+    const bx = 15 + i * (barW + gap);
+    if (h) {
+      svg.append('path').attr('class', 'ins-bar')
+        .attr('d', `M${bx},${base} V${base - h + 4} A4,4 0 0 1 ${bx + 4},${base - h} H${bx + barW - 4} A4,4 0 0 1 ${bx + barW},${base - h + 4} V${base} Z`)
+        .on('mouseenter', (event) => showTooltip(event, `<strong>${b.count} case${b.count === 1 ? '' : 's'}</strong><div>${b.label} · ${Math.round((b.count / durations.length) * 100)}% of cases</div>`))
+        .on('mousemove', moveTooltip)
+        .on('mouseleave', hideTooltip);
+    }
+    svg.append('text').attr('class', 'ins-bar-label').attr('x', bx + barW / 2).attr('y', H - 6).attr('text-anchor', 'middle').text(b.label);
+  });
+  svg.append('line').attr('class', 'ins-baseline').attr('x1', 0).attr('x2', W).attr('y1', base + 1).attr('y2', base + 1);
 }
 
 // One numbered row of an Insights ranked list (time, rework, paths): a rank
@@ -10437,17 +10663,11 @@ function renderReworkList(model) {
 const STAIRS_ICON_SVG = '<svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M1.5 13.3 H5 V10 H8.5 V6.7 H12 V3.3 H14.5" stroke="currentColor" stroke-width="1.15" stroke-linecap="round" stroke-linejoin="round"/></svg>';
 const META_CLOCK_ICON_SVG = '<svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="1.15"/><path d="M8 4.8 V8 L10.2 9.4" stroke="currentColor" stroke-width="1.15" stroke-linecap="round" stroke-linejoin="round"/></svg>';
 const INFO_ICON_SVG = '<svg width="13" height="13" viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="8" cy="8" r="6.3" stroke="currentColor" stroke-width="1.4"/><path d="M8 7.3 V11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><circle cx="8" cy="5.1" r="0.9" fill="currentColor"/></svg>';
-const INSIGHT_PATH_PREVIEW_COUNT = 6;
 
-// Paths ranked by frequency: the Overview tab shows the top few, the Paths
-// tab every one. Each row's step sequence and description live in the
+// Paths ranked by frequency, in the Insights drawer's Paths tab. Each row's step sequence and description live in the
 // (i) icon's tooltip rather than on the row itself.
 function renderVariantList(model) {
-  renderPathRows(d3.select('#variant-list'), model.variants.slice(0, INSIGHT_PATH_PREVIEW_COUNT), model);
   renderPathRows(d3.select('#variant-list-all'), model.variants, model);
-  d3.select('#ins-view-all-paths')
-    .classed('hidden', model.variants.length <= INSIGHT_PATH_PREVIEW_COUNT)
-    .text(`View all ${model.variants.length} paths →`);
   d3.select('#ins-all-paths-sub').text(`${model.variants.length} path${model.variants.length === 1 ? '' : 's'}, ranked by frequency`);
 }
 
@@ -12615,7 +12835,14 @@ function setInsightsTab(tab) {
   d3.selectAll('.ins-tab-panel').classed('hidden', function () { return this.dataset.insPanel !== tab; });
 }
 d3.selectAll('.ins-tab').on('click', function () { setInsightsTab(this.dataset.insTab); });
-d3.select('#ins-view-all-paths').on('click', () => setInsightsTab('paths'));
+// Dark tooltip for the chart cards' (i) buttons.
+d3.selectAll('.ins-info-btn')
+  .on('mouseenter', function (event) {
+    showTooltip(event, escapeHtml(this.dataset.tip));
+    tooltip.classed('ins-dark-tip', true);
+  })
+  .on('mousemove', moveTooltip)
+  .on('mouseleave', () => { hideTooltip(); tooltip.classed('ins-dark-tip', false); });
 d3.selectAll('.ins-card-head').on('click', function () {
   const card = this.closest('.ins-card');
   const collapsed = card.classList.toggle('collapsed');

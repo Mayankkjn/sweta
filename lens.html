@@ -1085,7 +1085,7 @@ button:hover { filter: brightness(1.08); }
 .legend-row { display: flex; align-items: center; gap: 8px; font-size: 0.78rem; color: var(--text-secondary); margin-bottom: 7px; }
 .legend-row:last-child { margin-bottom: 0; }
 .swatch { width: 22px; height: 3px; border-radius: 2px; display: inline-block; flex-shrink: 0; }
-.swatch.happy { background: var(--path-main); }
+.swatch.happy { background: var(--bpmn-blue); }
 .swatch.deviation { background: repeating-linear-gradient(90deg, var(--path-deviation) 0 4px, transparent 4px 7px); height: 2px; }
 .swatch.rework { background: repeating-linear-gradient(90deg, var(--rework) 0 4px, transparent 4px 7px); height: 2px; }
 .swatch.bpmn-happy { background: var(--bpmn-blue); height: 2px; }
@@ -1187,11 +1187,11 @@ button:hover { filter: brightness(1.08); }
 .diamond-shape.has-bubble:hover ~ .diamond-chevron { stroke: var(--accent-ui); }
 
 .node.dimmed { opacity: 0.28; }
-.node.task.selected .card-bg { stroke: var(--path-main); stroke-width: 2px; }
+.node.task.selected .card-bg { stroke: var(--bpmn-blue); stroke-width: 2px; }
 
 /* ---- edges ---- */
 .edge-path { fill: none; }
-.edge.happy .edge-path { stroke: var(--path-main); stroke-width: 2px; }
+.edge.happy .edge-path { stroke: var(--bpmn-blue); stroke-width: 2px; }
 .edge.deviation .edge-path,
 .edge.deviation-bundle .edge-path { stroke: var(--path-deviation); stroke-width: 1.6px; stroke-dasharray: 5 4; }
 .edge.deviation.rework .edge-path { stroke: var(--rework); stroke-width: 1.8px; }
@@ -1241,11 +1241,16 @@ button:hover { filter: brightness(1.08); }
    click-driven active/dimmed state is already showing. ---- */
 .node.hover-dim, .edge.hover-dim { opacity: 0.12 !important; }
 .node.hover-focus, .edge.hover-focus { opacity: 1 !important; }
-.node.hover-focus .card-bg,
-.node.hover-focus .pill-bg,
-.node.hover-focus .diamond-shape,
 .node.hover-focus .bpmn-event-circle {
   stroke: var(--accent-ui) !important;
+}
+.node.hover-focus .pill-bg,
+.node.hover-focus .diamond-shape {
+  stroke: var(--bpmn-blue) !important;
+}
+.node.hover-focus .card-bg {
+  stroke: var(--bpmn-blue) !important;
+  stroke-width: 1.4px;
 }
 .node.hover-focus .bpmn-gateway-shape {
   stroke: var(--bpmn-blue) !important;
@@ -1255,9 +1260,10 @@ button:hover { filter: brightness(1.08); }
   stroke-width: 1.4px;
 }
 .edge.hover-focus .edge-path {
-  stroke: var(--accent-ui) !important;
+  stroke: var(--bpmn-blue) !important;
   stroke-width: 2.4px !important;
 }
+.edge.hover-focus .edge-path[marker-end] { marker-end: url(#arrow-happy); }
 .edge.hover-focus .bpmn-edge-path {
   stroke: var(--bpmn-blue) !important;
   stroke-width: 2.4px !important;
@@ -8269,7 +8275,7 @@ function addMarker(id, color) {
     .attr('d', 'M0,0 L10,5 L0,10 z')
     .attr('fill', color);
 }
-addMarker('arrow-happy', '#1f9d5c');
+addMarker('arrow-happy', '#1a6fdc');
 addMarker('arrow-deviation', '#9a9fb5');
 addMarker('arrow-rework', '#d17d2c');
 addMarker('arrow-bpmn', '#8b8fa6');

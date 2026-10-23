@@ -1246,6 +1246,8 @@ body.insights-expanded .map-expanded-head > * { pointer-events: auto; }
 body.insights-expanded .map-zoom-control { display: flex; position: absolute; left: 16px; bottom: 16px; z-index: 6; align-items: center; height: 40px; padding: 0 4px; gap: 2px; background: #fff; border: 1px solid #dfdde7; border-radius: 8px; box-shadow: 0 4px 4px rgba(0, 0, 0, 0.02); }
 .map-zoom-control button { width: 32px; height: 32px; border: none; background: none; border-radius: 6px; color: #525066; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; }
 .map-zoom-control button:hover { background: #f6f6f9; }
+.map-zoom-icon { width: 32px; height: 32px; display: inline-flex; align-items: center; justify-content: center; color: #525066; }
+.map-zoom-icon svg { flex-shrink: 0; }
 .map-zoom-sep { width: 1px; height: 20px; background: #dfdde7; margin: 0 4px; }
 .map-zoom-value { min-width: 40px; text-align: center; font-size: 13px; font-weight: 600; color: #3d3c52; }
 body.insights-expanded .kpi-band,
@@ -2492,12 +2494,12 @@ body.structural-diagram #play-animation-btn {
       <span class="map-expanded-title"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 7v14M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z" stroke="#6B697B" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Process map</span>
       <button type="button" id="map-maximize" class="map-maximize-btn" aria-label="Collapse insights" title="Collapse insights"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke="#525066" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
     </div>
-    <div id="map-zoom-control" class="map-zoom-control">
-      <button type="button" id="map-zoom-fit" aria-label="Fit to view" title="Fit to view"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 21V4M5 4h11l-2 4 2 4H5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+    <div id="map-zoom-control" class="map-zoom-control" role="group" aria-label="Process variants" title="Process variants">
+      <span class="map-zoom-icon" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 21V4M5 4h11l-2 4 2 4H5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
       <span class="map-zoom-sep"></span>
-      <button type="button" id="map-zoom-out" aria-label="Zoom out"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3.5 8h9" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></button>
+      <button type="button" id="map-zoom-out" aria-label="Show fewer variants" title="Show fewer variants"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3.5 8h9" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></button>
       <span id="map-zoom-value" class="map-zoom-value">100%</span>
-      <button type="button" id="map-zoom-in" aria-label="Zoom in"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3.5 8h9M8 3.5v9" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></button>
+      <button type="button" id="map-zoom-in" aria-label="Show more variants" title="Show more variants"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3.5 8h9M8 3.5v9" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></button>
     </div>
 
     <div id="insights-panel" class="side-drawer insights-drawer hidden">
@@ -12752,10 +12754,9 @@ d3.selectAll('#dash-range button[data-range]').on('click', function () {
   insightsDash.rangeDays = Number(this.dataset.range);
   renderInsightsDashboard();
 });
-d3.select('#map-zoom-in').on('click', () => svg.transition().duration(200).call(zoomBehavior.scaleBy, 1.25));
-d3.select('#map-zoom-out').on('click', () => svg.transition().duration(200).call(zoomBehavior.scaleBy, 0.8));
-d3.select('#map-zoom-fit').on('click', fitToView);
-zoomBehavior.on('zoom.mapZoomValue', (event) => { d3.select('#map-zoom-value').text(`${Math.round(event.transform.k * 100)}%`); });
+// The compact map control mirrors the Process Variants slider.
+d3.select('#map-zoom-in').on('click', () => stepPathFilter(10));
+d3.select('#map-zoom-out').on('click', () => stepPathFilter(-10));
 window.addEventListener('resize', () => { if (insightsDash.expanded) syncInsightsExpandedTop(); });
 
 // ---- automation opportunities drawer ----
@@ -13587,6 +13588,7 @@ function updatePathFilterUI(model) {
   const visibleCount = deviations.filter((e) => !e.hidden).length;
 
   document.getElementById('pf-value').textContent = `${value}%`;
+  document.getElementById('map-zoom-value').textContent = `${value}%`;
   document.getElementById('pf-subtext').textContent = deviations.length
     ? `Showing ${visibleCount} of ${deviations.length} process variants`
     : 'No deviations recorded for this process';

@@ -1125,7 +1125,7 @@ button:hover { filter: brightness(1.08); }
 .tooltip .variant-info-story { line-height: 1.45; color: var(--text-primary); margin-top: 8px; padding-top: 8px; border-top: 1px solid var(--panel-border); }
 
 /* ---- Insights drawer ---- */
-.side-drawer.insights-drawer { width: 427px; border: none; background: #fcfcfd; box-shadow: 0 4px 18px rgba(221, 221, 221, 0.72); }
+.side-drawer.insights-drawer { width: var(--ins-drawer-w, 427px); border: none; background: #fcfcfd; box-shadow: 0 4px 18px rgba(221, 221, 221, 0.72); }
 .ins-header { display: flex; align-items: flex-start; justify-content: space-between; padding: 12px 12px 0 16px; flex-shrink: 0; background: #fff; }
 .ins-title { display: flex; align-items: center; gap: 4px; margin-top: 7px; }
 .ins-title h2 { margin: 0; font-size: 20px; line-height: 28px; font-weight: 600; color: #2a2e45; }
@@ -1143,6 +1143,14 @@ button:hover { filter: brightness(1.08); }
 :root { --ins-expanded-w: min(1089px, 64vw); }
 .ins-header-actions { display: inline-flex; align-items: center; gap: 2px; }
 .ins-dash { display: none; }
+/* Drag handle on the panel's left edge: an invisible strip that shows a
+   grip on hover and resizes the drawer, or the docked dashboard. */
+.ins-resize { position: absolute; left: 0; top: 0; bottom: 0; width: 10px; z-index: 3; cursor: col-resize; touch-action: none; }
+.ins-resize::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 2px; background: transparent; transition: background 0.15s; }
+.ins-resize::after { content: ''; position: absolute; left: 2px; top: 50%; width: 6px; height: 40px; margin-top: -20px; border-radius: 3px; background: #0975d7; opacity: 0; transition: opacity 0.15s; }
+.ins-resize:hover::before, .ins-resize.dragging::before { background: #0975d7; }
+.ins-resize:hover::after, .ins-resize.dragging::after { opacity: 1; }
+body.ins-resizing, body.ins-resizing * { cursor: col-resize !important; user-select: none; }
 body.insights-expanded .canvas-wrap { margin-right: var(--ins-expanded-w); overflow: visible; }
 body.insights-expanded .canvas-wrap > #graph { overflow: hidden; }
 .side-drawer.insights-drawer.expanded { position: fixed; top: var(--ins-expanded-top, 0px); right: 0; bottom: 0; width: var(--ins-expanded-w); max-width: none; border: none; border-left: 1px solid #dfdde7; border-radius: 0; box-shadow: none; background: #fff; }
@@ -1164,7 +1172,9 @@ body.insights-expanded .canvas-wrap > #graph { overflow: hidden; }
 .dash-btn:hover { background: #f8f8fb; }
 .dash-body { flex: 1; overflow-y: auto; padding: 0 24px 32px; display: flex; flex-direction: column; gap: 24px; }
 .dash-summary { margin: 0; font-size: 14px; line-height: 20px; color: #525066; }
-.dash-kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; }
+.dash-kpis { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; }
+.dash-body { container-type: inline-size; }
+@container (max-width: 860px) { .dash-kpis { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 .dash-kpi { min-height: 96px; box-sizing: border-box; border: 1px solid #dfdde7; border-radius: 8px; padding: 8px 12px; display: flex; flex-direction: column; justify-content: space-between; gap: 4px; }
 .dash-kpi-label { font-size: 12px; line-height: 16px; font-weight: 600; color: #6b697b; }
 .dash-kpi-row { display: flex; align-items: center; gap: 8px; }
@@ -2503,6 +2513,7 @@ body.structural-diagram #play-animation-btn {
     </div>
 
     <div id="insights-panel" class="side-drawer insights-drawer hidden">
+      <div class="ins-resize" id="ins-resize" role="separator" aria-orientation="vertical" aria-label="Resize insights panel" title="Drag to resize"></div>
       <div class="ins-header">
         <div class="ins-title">
           <svg width="28" height="28" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5M9 18h6M10 22h4" stroke="#6B697B" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -12758,6 +12769,38 @@ d3.selectAll('#dash-range button[data-range]').on('click', function () {
 d3.select('#map-zoom-in').on('click', () => stepPathFilter(10));
 d3.select('#map-zoom-out').on('click', () => stepPathFilter(-10));
 window.addEventListener('resize', () => { if (insightsDash.expanded) syncInsightsExpandedTop(); });
+
+// Resizing: the panel's right edge stays put and its left edge follows
+// the pointer. The drawer and the docked dashboard keep separate widths.
+d3.select('#ins-resize').on('pointerdown', function (event) {
+  event.preventDefault();
+  const handle = this;
+  const root = document.documentElement;
+  const panelRight = document.getElementById('insights-panel').getBoundingClientRect().right;
+  handle.setPointerCapture(event.pointerId);
+  handle.classList.add('dragging');
+  document.body.classList.add('ins-resizing');
+  hideTooltip();
+  const onMove = (e) => {
+    const w = panelRight - e.clientX;
+    if (insightsDash.expanded) {
+      root.style.setProperty('--ins-expanded-w', `${Math.round(Math.max(560, Math.min(window.innerWidth - 320, w)))}px`);
+    } else {
+      root.style.setProperty('--ins-drawer-w', `${Math.round(Math.max(360, Math.min(Math.min(820, window.innerWidth - 120), w)))}px`);
+    }
+  };
+  const onUp = () => {
+    handle.removeEventListener('pointermove', onMove);
+    handle.removeEventListener('pointerup', onUp);
+    handle.removeEventListener('pointercancel', onUp);
+    handle.classList.remove('dragging');
+    document.body.classList.remove('ins-resizing');
+    if (insightsDash.expanded) fitToView();
+  };
+  handle.addEventListener('pointermove', onMove);
+  handle.addEventListener('pointerup', onUp);
+  handle.addEventListener('pointercancel', onUp);
+});
 
 // ---- automation opportunities drawer ----
 d3.select('#automation-opps-btn').on('click', () => {

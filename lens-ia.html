@@ -1,0 +1,419 @@
+<title>Lens Information Architecture</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Instrument+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: a sitemap read top-down: layers at a glance, then one tree per
+   zone of the workspace, then the journeys that cut across zones. */
+:root {
+  --bg: #f6f6f9;
+  --surface: #ffffff;
+  --ink: #23263b;
+  --ink-2: #525066;
+  --ink-3: #8c899f;
+  --line: #dfdde7;
+  --line-soft: #ecebf2;
+  --screen: #0975d7;
+  --screen-soft: #e6f1fc;
+  --drawer: #6b4fd8;
+  --drawer-soft: #efebfd;
+  --modal: #c74900;
+  --modal-soft: #fcede3;
+  --overlay: #0f8a6a;
+  --overlay-soft: #e3f5ef;
+  --control: #6b697b;
+  --control-soft: #efeff4;
+  --font-display: "Bricolage Grotesque", "Instrument Sans", system-ui, sans-serif;
+  --font-body: "Instrument Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #15161f; --surface: #1d1e2a; --ink: #ecebf4; --ink-2: #b7b5c8; --ink-3: #8a88a0;
+    --line: #34344a; --line-soft: #2a2a3b;
+    --screen: #5aa7f0; --screen-soft: #1b2b40; --drawer: #a693f5; --drawer-soft: #2a2546;
+    --modal: #f08a4b; --modal-soft: #3a2619; --overlay: #4cc8a3; --overlay-soft: #183229;
+    --control: #a9a7ba; --control-soft: #2a2a38;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #15161f; --surface: #1d1e2a; --ink: #ecebf4; --ink-2: #b7b5c8; --ink-3: #8a88a0;
+  --line: #34344a; --line-soft: #2a2a3b;
+  --screen: #5aa7f0; --screen-soft: #1b2b40; --drawer: #a693f5; --drawer-soft: #2a2546;
+  --modal: #f08a4b; --modal-soft: #3a2619; --overlay: #4cc8a3; --overlay-soft: #183229;
+  --control: #a9a7ba; --control-soft: #2a2a38;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--ink); font-family: var(--font-body); font-size: 15px; line-height: 1.5; }
+.wrap { max-width: 1240px; margin: 0 auto; padding-block: 56px 80px; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); display: flex; flex-direction: column; gap: 64px; }
+
+h1, h2, h3 { font-family: var(--font-display); margin: 0; text-wrap: balance; letter-spacing: -0.01em; }
+h1 { font-size: clamp(34px, 5vw, 52px); line-height: 1.05; font-weight: 700; }
+h2 { font-size: 26px; line-height: 1.2; font-weight: 700; }
+h3 { font-size: 18px; line-height: 1.3; font-weight: 700; }
+p { margin: 0; }
+.eyebrow { font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-3); }
+.lede { max-width: 64ch; color: var(--ink-2); font-size: 17px; }
+
+header.hero { display: flex; flex-direction: column; gap: 16px; }
+.counts { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+.count { display: inline-flex; align-items: baseline; gap: 6px; padding: 6px 12px; border-radius: 999px; background: var(--surface); border: 1px solid var(--line); font-size: 13px; color: var(--ink-2); }
+.count b { font-family: var(--font-display); font-size: 17px; color: var(--ink); font-variant-numeric: tabular-nums; }
+
+section { display: flex; flex-direction: column; gap: 20px; }
+.section-head { display: flex; flex-direction: column; gap: 6px; }
+.section-head p { color: var(--ink-2); max-width: 70ch; }
+
+/* Node-type key */
+.legend { display: flex; flex-wrap: wrap; gap: 8px 16px; font-size: 13px; color: var(--ink-2); }
+.legend span { display: inline-flex; align-items: center; gap: 6px; }
+.chip { display: inline-flex; align-items: center; font-family: var(--font-mono); font-size: 10.5px; font-weight: 500; letter-spacing: 0.04em; text-transform: uppercase; padding: 1px 6px; border-radius: 4px; white-space: nowrap; }
+.k-screen { color: var(--screen); background: var(--screen-soft); }
+.k-drawer { color: var(--drawer); background: var(--drawer-soft); }
+.k-modal { color: var(--modal); background: var(--modal-soft); }
+.k-overlay { color: var(--overlay); background: var(--overlay-soft); }
+.k-control { color: var(--control); background: var(--control-soft); }
+
+/* Layers at a glance */
+.layers { display: grid; grid-template-columns: minmax(150px, 0.8fr) auto minmax(0, 3.2fr); gap: 16px; align-items: stretch; }
+.entry, .layer { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 16px 18px; display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+.entry { justify-content: center; }
+.arrow { align-self: center; color: var(--ink-3); font-family: var(--font-mono); }
+.workspace { border: 1.5px solid var(--screen); border-radius: 18px; padding: 16px; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; background: color-mix(in srgb, var(--screen-soft) 45%, transparent); }
+.workspace-label { grid-column: 1 / -1; display: flex; align-items: center; gap: 8px; font-weight: 600; }
+.layer h3 { font-size: 15px; }
+.layer p { font-size: 13px; color: var(--ink-2); }
+.layer .depth { font-family: var(--font-mono); font-size: 11px; color: var(--ink-3); }
+
+/* Zone trees */
+.zones { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 16px; align-items: start; }
+.zone { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 18px 18px 20px; display: flex; flex-direction: column; gap: 12px; min-width: 0; }
+.zone-head { display: flex; flex-direction: column; gap: 4px; padding-bottom: 12px; border-bottom: 1px solid var(--line-soft); }
+.zone-head p { font-size: 13px; color: var(--ink-2); }
+.zone-where { font-family: var(--font-mono); font-size: 11px; color: var(--ink-3); }
+ul.tree, ul.tree ul { list-style: none; margin: 0; padding: 0; }
+ul.tree ul { margin-left: 9px; padding-left: 14px; border-left: 1px solid var(--line); }
+ul.tree li { position: relative; padding: 4px 0; }
+ul.tree ul > li::before { content: ""; position: absolute; left: -14px; top: 15px; width: 10px; border-top: 1px solid var(--line); }
+.node { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 8px; }
+.node-name { font-weight: 600; font-size: 14px; }
+.node-desc { flex-basis: 100%; font-size: 12.5px; color: var(--ink-2); line-height: 1.45; }
+.node-link { font-family: var(--font-mono); font-size: 11px; color: var(--ink-3); }
+li.depth-0 > .node .node-name { font-size: 15px; }
+
+/* Journeys */
+.journeys { display: flex; flex-direction: column; gap: 12px; }
+.journey { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 16px 18px; display: grid; grid-template-columns: minmax(180px, 240px) minmax(0, 1fr); gap: 16px; align-items: center; }
+.journey-title { display: flex; flex-direction: column; gap: 2px; }
+.journey-title h3 { font-size: 16px; }
+.journey-title p { font-size: 13px; color: var(--ink-2); }
+ol.steps { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; align-items: center; gap: 6px; min-width: 0; }
+ol.steps li { display: inline-flex; align-items: center; gap: 6px; }
+ol.steps li + li::before { content: "→"; color: var(--ink-3); font-family: var(--font-mono); margin-right: 2px; }
+.step { display: inline-flex; flex-direction: column; padding: 6px 10px; border-radius: 8px; border: 1px solid var(--line); background: var(--bg); }
+.step b { font-size: 13px; font-weight: 600; }
+.step small { font-size: 11px; color: var(--ink-3); font-family: var(--font-mono); }
+
+/* Principles */
+.principles { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; }
+.principle { border-top: 2px solid var(--ink); padding-top: 12px; display: flex; flex-direction: column; gap: 6px; }
+.principle p { font-size: 14px; color: var(--ink-2); }
+
+footer { font-size: 12px; color: var(--ink-3); font-family: var(--font-mono); }
+
+@media (max-width: 860px) {
+  .layers { grid-template-columns: 1fr; }
+  .arrow { transform: rotate(90deg); justify-self: center; }
+  .workspace { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .journey { grid-template-columns: 1fr; }
+}
+@media (max-width: 480px) {
+  .workspace { grid-template-columns: 1fr; }
+  .zones { grid-template-columns: 1fr; }
+}
+</style>
+
+<div class="wrap">
+  <header class="hero">
+    <span class="eyebrow">Case study · Process intelligence</span>
+    <h1>Lens information architecture</h1>
+    <p class="lede">Lens turns recorded process history into a live process map. Everything a user does happens in one workspace. The map stays in the centre, and analysis opens around it in drawers and modals, so the user never loses sight of the process.</p>
+    <div class="counts" id="counts"></div>
+  </header>
+
+  <section>
+    <div class="section-head">
+      <span class="eyebrow">01 · Structure at a glance</span>
+      <h2>One entry point, one workspace, four layers</h2>
+      <p>Users come from the process list into a single Process Map workspace. Inside it, depth increases from the persistent frame to the map, then to drawers beside the map, and finally to modals that take over the screen.</p>
+    </div>
+    <div class="layers">
+      <div class="entry">
+        <span class="chip k-screen" style="align-self:flex-start">Screen</span>
+        <h3>Overview</h3>
+        <p style="font-size:13px;color:var(--ink-2)">List of discovered processes. Picking one opens its map.</p>
+      </div>
+      <div class="arrow" aria-hidden="true">→</div>
+      <div class="workspace">
+        <div class="workspace-label"><span class="chip k-screen">Screen</span>Process Map workspace</div>
+        <div class="layer"><span class="depth">Layer 1 · always visible</span><h3>Frame</h3><p>Header, Export and Import, KPI band, tool bar</p></div>
+        <div class="layer"><span class="depth">Layer 2 · the work surface</span><h3>Process map</h3><p>BPMN and Path views, variants control, playback, hover detail</p></div>
+        <div class="layer"><span class="depth">Layer 3 · beside the map</span><h3>Drawers</h3><p>Insights, Automation, Filter, Task detail, AI Summary</p></div>
+        <div class="layer"><span class="depth">Layer 4 · takes focus</span><h3>Modals</h3><p>Import, Session replay, Automation preview</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <span class="eyebrow">02 · Full hierarchy</span>
+      <h2>Every zone of the workspace</h2>
+      <p>Each card is one zone. Indentation shows what lives inside what, and the tag shows what kind of surface it is.</p>
+    </div>
+    <div class="legend" id="legend"></div>
+    <div class="zones" id="zones"></div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <span class="eyebrow">03 · Key journeys</span>
+      <h2>How the zones connect</h2>
+      <p>The hierarchy is shallow on purpose. These are the main paths across it, and most of them end back on the map.</p>
+    </div>
+    <div class="journeys" id="journeys"></div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <span class="eyebrow">04 · Principles</span>
+      <h2>Why it is organised this way</h2>
+    </div>
+    <div class="principles">
+      <div class="principle"><h3>The map is home</h3><p>Every insight can point back to the map. Clicking a path, task or case highlights it in place instead of opening a new page.</p></div>
+      <div class="principle"><h3>Depth by surface</h3><p>Hover shows a quick read, a drawer holds analysis, and a modal is only for focused tasks like replaying a session or importing data.</p></div>
+      <div class="principle"><h3>Summary before detail</h3><p>Insights opens on a short summary. The Paths tab and the expanded dashboard are there for people who want to go further.</p></div>
+      <div class="principle"><h3>One filter state</h3><p>Filters and the variants control shape the data everywhere at once: the map, the KPIs, Insights and Automation all read the same filtered cases.</p></div>
+    </div>
+  </section>
+
+  <footer>Mapped from the Lens Process Map prototype · Purchase Order to Payment demo</footer>
+</div>
+
+<script>
+const KINDS = {
+  screen: 'Screen', drawer: 'Drawer', modal: 'Modal', overlay: 'Overlay', control: 'Control',
+};
+const KIND_HELP = {
+  screen: 'Full page', drawer: 'Panel beside the map', modal: 'Takes focus', overlay: 'Hover or menu', control: 'Toggle or setting',
+};
+
+const ZONES = [
+  {
+    name: 'Frame', where: 'Top of the workspace · always visible',
+    desc: 'Orientation, data in and out, and the switches that open each drawer.',
+    tree: [
+      { t: 'Header', k: 'control', c: [
+        { t: 'Back to Overview', k: 'control', link: 'Overview' },
+        { t: 'Process title and description', k: 'control' },
+        { t: 'Export', k: 'overlay', d: 'Menu', c: [
+          { t: 'Export as PNG', k: 'control' },
+          { t: 'Export as PDF', k: 'control' },
+        ] },
+        { t: 'Import', k: 'modal', link: 'Import modal' },
+      ] },
+      { t: 'KPI band', k: 'control', d: 'Hidden while Insights is expanded.', c: [
+        { t: 'Total instances', k: 'control' },
+        { t: 'Total unique users', k: 'control' },
+        { t: 'Median completion time', k: 'control' },
+      ] },
+      { t: 'Tool bar', k: 'control', c: [
+        { t: 'Insights', k: 'drawer', link: 'Insights' },
+        { t: 'Automation', k: 'drawer', link: 'Automation Opportunities' },
+        { t: 'AI Summary', k: 'drawer', link: 'AI Summary' },
+        { t: 'Filter', k: 'drawer', link: 'Filter' },
+        { t: 'Fullscreen', k: 'control' },
+      ] },
+    ],
+  },
+  {
+    name: 'Process map', where: 'Centre · the work surface',
+    desc: 'The mined process, in two views, with controls for how much of it to show.',
+    tree: [
+      { t: 'View toggle', k: 'control', c: [
+        { t: 'BPMN view', k: 'control', d: 'Swimlanes, tasks, exclusive gateways, start and end events.', c: [
+          { t: 'Subprocess drill-down', k: 'control', d: 'Breadcrumb trail with a Back button.' },
+        ] },
+        { t: 'Path view', k: 'control', d: 'Directly-follows graph. Line weight shows frequency; loop-backs are marked.' },
+      ] },
+      { t: 'Process Variants control', k: 'control', d: 'From Popular path (0%) to All paths (100%), with − and + steps. Collapses to a compact control while Insights is expanded.' },
+      { t: 'Legend', k: 'control', d: 'Most common path, deviation, loop back, gateway.' },
+      { t: 'Play', k: 'control', d: 'Animates cases flowing through the map at 0.5x, 1x, 2x or 4x.' },
+      { t: 'Task node', k: 'control', c: [
+        { t: 'Hover card', k: 'overlay', d: 'Instances, duration, rework and a View details button.' },
+        { t: 'Task menu (…)', k: 'overlay', c: [
+          { t: 'Watch session', k: 'modal', link: 'Session replay' },
+        ] },
+        { t: 'Click', k: 'drawer', link: 'Task detail' },
+      ] },
+      { t: 'Edge hover card', k: 'overlay', d: 'Transition count and time between two tasks.' },
+      { t: 'Path info tooltip', k: 'overlay', d: 'Path number, steps and a plain-language description.' },
+    ],
+  },
+  {
+    name: 'Insights', where: 'Drawer · right of the map', kind: 'drawer',
+    desc: 'The analysis hub. Opens as a drawer and can be expanded into a full dashboard.',
+    tree: [
+      { t: 'Summary tab', k: 'control', c: [
+        { t: 'Process summary', k: 'control', d: 'Cases, tasks, paths, and where cases start and end.' },
+        { t: 'Stat cards', k: 'control', d: 'Completed, incomplete, most followed path, fastest path.' },
+        { t: 'Automation opportunity', k: 'control', d: 'Fully, partly and not automatable task counts.', link: 'Automation Opportunities' },
+        { t: 'Process trend', k: 'control' },
+        { t: 'Time to complete', k: 'control' },
+        { t: 'Where time is spent', k: 'control', link: 'highlights task' },
+        { t: 'Rework hotspots', k: 'control', link: 'highlights task' },
+      ] },
+      { t: 'Paths tab', k: 'control', c: [
+        { t: 'Path stats', k: 'control', d: 'Total, completed and incomplete paths.' },
+        { t: 'Path variants', k: 'control', d: 'Top 5, or all.', link: 'highlights path' },
+        { t: 'Most efficient paths', k: 'control' },
+        { t: 'All processes table', k: 'control', d: 'Case ID, variant number, total steps, total time.', c: [
+          { t: 'Case menu', k: 'overlay', d: 'Trace path on map, filter to this path.' },
+        ] },
+        { t: 'Fast vs Typical', k: 'control', d: 'Compares the fastest path with the usual one.' },
+      ] },
+      { t: 'Expanded dashboard', k: 'screen', d: 'Docks beside a narrowed map. The map’s maximize button collapses it.', c: [
+        { t: 'Controls', k: 'control', d: 'Daily, Weekly or Monthly trend; 1M, 3M or 6M range; Automate; Filters.' },
+        { t: 'KPI cards', k: 'control', d: 'Completion rate, completion time, processes started and completed.' },
+        { t: 'Process overview', k: 'control', d: 'Process outcomes, Time to complete.' },
+        { t: 'Path overview', k: 'control', d: 'Path distribution, Where time is spent.' },
+        { t: 'Task overview', k: 'control', d: 'Rework hotspots, Process trend.' },
+      ] },
+    ],
+  },
+  {
+    name: 'Task detail', where: 'Drawer · opened from a task', kind: 'drawer',
+    desc: 'Everything known about one task, and whether it is worth automating.',
+    tree: [
+      { t: 'Overview tab', k: 'control', c: [
+        { t: 'Task details and description', k: 'control' },
+        { t: 'Summary', k: 'control', d: 'Instances, duration, rework.' },
+        { t: 'Input / Output context', k: 'control' },
+        { t: 'Applications involved', k: 'control' },
+        { t: 'Users performing this task', k: 'control', link: 'Session replay' },
+        { t: 'Discovered paths', k: 'control' },
+      ] },
+      { t: 'Automation tab', k: 'control', c: [
+        { t: 'Automation score (/100)', k: 'control' },
+        { t: 'Why automate this task?', k: 'control' },
+        { t: 'Estimated impact', k: 'control', d: 'Total time saved and share of task time.' },
+        { t: 'What will be automated?', k: 'control' },
+        { t: 'Next step', k: 'modal', link: 'Automation preview' },
+      ] },
+    ],
+  },
+  {
+    name: 'Supporting drawers', where: 'Drawers · right of the map', kind: 'drawer',
+    desc: 'Opening one closes the others, except the expanded Insights dashboard.',
+    tree: [
+      { t: 'Automation Opportunities', k: 'drawer', d: 'Every task ranked as an automation candidate.', c: [
+        { t: 'Opportunity list', k: 'control', d: 'Impact, score and frequency for each task.', link: 'Task detail · Automation' },
+        { t: 'View all opportunities', k: 'control' },
+      ] },
+      { t: 'Filter', k: 'drawer', d: 'Narrows the cases every view reads.', c: [
+        { t: 'Single instance per variant', k: 'control' },
+        { t: 'By Task', k: 'control' },
+        { t: 'By Path', k: 'control' },
+        { t: 'By Duration', k: 'control' },
+        { t: 'By Process / Case ID', k: 'control' },
+        { t: 'By User ID', k: 'control' },
+        { t: 'Reset all', k: 'control' },
+      ] },
+      { t: 'AI Summary', k: 'drawer', d: 'Plain-language summary of the process.' },
+    ],
+  },
+  {
+    name: 'Modals', where: 'Centre · take focus', kind: 'modal',
+    desc: 'Focused tasks that need the whole screen.',
+    tree: [
+      { t: 'Import', k: 'modal', c: [
+        { t: 'Download sample format', k: 'control' },
+        { t: 'View JSON and copy', k: 'control' },
+        { t: 'Upload .json or .bpmn', k: 'control', d: 'Click or drag and drop.' },
+      ] },
+      { t: 'Session replay', k: 'modal', c: [
+        { t: 'Paths list', k: 'control' },
+        { t: 'Player', k: 'control', d: 'Scrubber with task chapters, previous and next task, ±10 seconds, speed, expand.' },
+      ] },
+      { t: 'Automation preview', k: 'modal', c: [
+        { t: 'Lens recommendation', k: 'control' },
+        { t: 'Coverage, expected automation, time saved', k: 'control' },
+        { t: 'Send to Seek', k: 'control', d: 'Hands the task off for building.' },
+      ] },
+    ],
+  },
+];
+
+const JOURNEYS = [
+  { t: 'Understand the process', d: 'First look at a new process.', s: [
+    ['Overview', 'screen'], ['Process map', 'BPMN view'], ['Insights', 'Summary tab'], ['Expanded dashboard', 'Insights'] ] },
+  { t: 'Find a bottleneck', d: 'From a number to the task behind it.', s: [
+    ['Insights', 'Where time is spent'], ['Task highlighted', 'on the map'], ['Task detail', 'Overview tab'] ] },
+  { t: 'Automate a task', d: 'From an opportunity to a handoff.', s: [
+    ['Automation', 'tool bar'], ['Opportunity list', 'drawer'], ['Task detail', 'Automation tab'], ['Automation preview', 'modal'], ['Send to Seek', 'handoff'] ] },
+  { t: 'Investigate a case', d: 'Follow one case end to end.', s: [
+    ['Insights', 'Paths tab'], ['All processes', 'case menu'], ['Trace path', 'on the map'], ['Watch session', 'task menu'], ['Session replay', 'modal'] ] },
+  { t: 'Focus the map', d: 'Cut the noise before analysing.', s: [
+    ['Filter', 'drawer'], ['Process Variants', 'Popular → All'], ['Path view', 'toggle'], ['Export', 'PNG or PDF'] ] },
+];
+
+const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+const chip = (k) => `<span class="chip k-${k}">${KINDS[k]}</span>`;
+
+function treeHtml(items, depth) {
+  return `<ul${depth === 0 ? ' class="tree"' : ''}>${items.map((n) => `
+    <li class="depth-${depth}">
+      <div class="node">
+        <span class="node-name">${esc(n.t)}</span>${chip(n.k)}${n.link ? `<span class="node-link">→ ${esc(n.link)}</span>` : ''}
+        ${n.d ? `<span class="node-desc">${esc(n.d)}</span>` : ''}
+      </div>
+      ${n.c ? treeHtml(n.c, depth + 1) : ''}
+    </li>`).join('')}</ul>`;
+}
+
+document.getElementById('legend').innerHTML = Object.keys(KINDS)
+  .map((k) => `<span>${chip(k)}${KIND_HELP[k]}</span>`).join('');
+
+document.getElementById('zones').innerHTML = ZONES.map((z) => `
+  <article class="zone">
+    <div class="zone-head">
+      <span class="zone-where">${esc(z.where)}</span>
+      <h3>${esc(z.name)}</h3>
+      <p>${esc(z.desc)}</p>
+    </div>
+    ${treeHtml(z.tree, 0)}
+  </article>`).join('');
+
+document.getElementById('journeys').innerHTML = JOURNEYS.map((j) => `
+  <div class="journey">
+    <div class="journey-title"><h3>${esc(j.t)}</h3><p>${esc(j.d)}</p></div>
+    <ol class="steps">${j.s.map(([a, b]) => `<li><span class="step"><b>${esc(a)}</b><small>${esc(b)}</small></span></li>`).join('')}</ol>
+  </div>`).join('');
+
+// Counts come from the tree itself, so they stay true as it changes.
+const tally = { modal: 0, drawer: 0, overlay: 0, all: 0 };
+(function walk(items) {
+  items.forEach((n) => {
+    tally.all += 1;
+    if (!n.link && tally[n.k] !== undefined) tally[n.k] += 1;
+    if (n.c) walk(n.c);
+  });
+})(ZONES.flatMap((z) => z.tree));
+const drawerCount = 5; // Insights, Task detail, Automation Opportunities, Filter, AI Summary
+document.getElementById('counts').innerHTML = [
+  ['2', 'screens'], [drawerCount, 'drawers'], [tally.modal, 'modals'], [tally.overlay, 'hover cards and menus'], [JOURNEYS.length, 'key journeys'], [tally.all, 'mapped items'],
+].map(([n, l]) => `<span class="count"><b>${n}</b>${l}</span>`).join('');
+</script>

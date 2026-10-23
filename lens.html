@@ -1944,61 +1944,21 @@ body.structural-diagram #play-animation-btn {
 .thc-badge svg { flex-shrink: 0; }
 .thc-head { display: flex; flex-direction: column; gap: 8px; margin-top: -4px; }
 .tooltip .thc-title { font-size: 14px; line-height: 20px; font-weight: 600; color: #1f1f32; }
-.tooltip .thc-desc { font-size: 12px; line-height: 16px; color: #3d3c52; }
-.thc-stats { display: flex; flex-direction: column; gap: 12px; }
-.tooltip .thc-stat { display: flex; align-items: center; justify-content: space-between; gap: 12px; font-size: 12px; line-height: 16px; }
-.thc-stat-label { display: inline-flex; align-items: center; gap: 6px; color: #6b697b; }
-.thc-stat-label svg { flex-shrink: 0; color: #8c899f; }
-.thc-stat-value { color: #1f1f32; font-weight: 600; text-align: right; }
-.tooltip .thc-path { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; line-height: 16px; color: #3d3c52; }
-.thc-path i { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
-.thc-footer { display: flex; border-top: 1px solid #ececf3; }
-.thc-btn { flex: 1; display: inline-flex; align-items: center; justify-content: center; gap: 6px; height: 40px; padding: 0 8px; border: none; background: none; font: inherit; font-size: 12px; line-height: 16px; font-weight: 500; color: #3d3c52; cursor: pointer; }
-.thc-btn + .thc-btn { border-left: 1px solid #ececf3; }
-.thc-btn:hover { background: #f6f6f9; color: #0975d7; }
+.tooltip .thc-desc { font-size: 12px; line-height: 16px; color: #3d3c52; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.thc-stats { display: flex; flex-direction: column; margin-top: -4px; }
+.tooltip .thc-stat { display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 34px; font-size: 12px; line-height: 16px; border-bottom: 1px solid #ececf3; }
+.tooltip .thc-stat:last-child { border-bottom: none; }
+.thc-stat-label { display: inline-flex; align-items: center; gap: 8px; color: #525066; }
+.thc-stat-label svg { flex-shrink: 0; color: #6b697b; }
+.thc-stat-value { display: inline-flex; align-items: center; gap: 5px; color: #2a2e45; text-align: right; font-family: "SF Mono", ui-monospace, Menlo, Consolas, monospace; font-variant-numeric: tabular-nums; }
+.thc-stat-value.app { font-family: inherit; }
+.thc-stat-value svg { flex-shrink: 0; }
+.thc-footer { display: flex; flex-direction: column; align-items: stretch; gap: 4px; padding: 4px 16px 10px; }
+.thc-btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; height: 28px; padding: 0 8px; border: none; border-radius: 4px; background: none; font: inherit; font-size: 12px; line-height: 16px; font-weight: 500; color: #3d3c52; cursor: pointer; }
+.thc-btn.outline { height: 28px; border: 1px solid #dfdde7; color: #525066; font-weight: 400; }
+.thc-btn:hover { background: #f6f6f9; }
+.thc-btn.outline:hover { border-color: #0975d7; color: #0975d7; background: #fff; }
 .thc-btn svg { flex-shrink: 0; }
-
-.bpmn-tt-badges { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 8px; }
-.bpmn-tt-chip { display: inline-block; font-size: 0.72rem; font-weight: 700; padding: 3px 10px; border-radius: 20px; margin: 0; color: inherit; }
-.bpmn-tt-chip-kind { background: var(--kind-info-soft); color: var(--kind-info); }
-.bpmn-tt-chip-path { background: var(--path-main-soft); color: var(--path-main); }
-.bpmn-tt-chip-deviation { background: var(--rework-soft); color: var(--rework); }
-
-.tooltip .bpmn-tt-desc { color: var(--text-primary); font-weight: 600; line-height: 1.4; margin: 0 0 8px; }
-.tooltip .bpmn-tt-quote { color: var(--text-secondary); font-style: italic; line-height: 1.4; margin: 0 0 8px; }
-
-.bpmn-tt-divider { border-top: 1px solid var(--panel-border); margin: 8px 0; }
-.bpmn-tt-hint { color: var(--text-tertiary); font-size: 0.74rem; font-style: italic; }
-
-.bpmn-tt-rows { display: flex; flex-direction: column; gap: 6px; }
-.bpmn-tt-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin: 0; }
-.bpmn-tt-row-label { display: flex; align-items: center; gap: 6px; color: var(--text-secondary); }
-.bpmn-tt-row-label svg { flex-shrink: 0; color: var(--text-tertiary); }
-.bpmn-tt-row-value { color: var(--text-primary); font-weight: 700; text-align: right; }
-.bpmn-tt-row-value-pill { background: var(--kind-info-soft); color: var(--kind-info); font-size: 0.72rem; font-weight: 700; padding: 2px 9px; border-radius: 20px; }
-
-.bpmn-tt-footnote { display: flex; align-items: flex-start; gap: 6px; color: var(--text-tertiary); font-size: 0.72rem; line-height: 1.35; margin: 0; }
-.bpmn-tt-footnote svg { flex-shrink: 0; margin-top: 1px; }
-
-.bpmn-tt-actions { display: flex; gap: 8px; margin-top: 8px; }
-.bpmn-tt-btn {
-  flex: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-  padding: 7px 8px;
-  border: 1px solid var(--panel-border);
-  border-radius: 8px;
-  background: var(--card-bg);
-  color: var(--text-primary);
-  font: inherit;
-  font-size: 0.72rem;
-  font-weight: 700;
-  cursor: pointer;
-}
-.bpmn-tt-btn:hover { border-color: var(--accent-ui); color: var(--accent-ui); }
-.bpmn-tt-btn svg { flex-shrink: 0; }
 
 .edge-tooltip-card { display: flex; flex-direction: column; min-width: 210px; }
 .edge-tooltip-step { display: flex; align-items: center; gap: 8px; font-size: 0.82rem; font-weight: 600; color: var(--text-primary); }
@@ -10602,38 +10562,58 @@ function formatAutonomyLabel(v) {
 // The hover card both map views show on a task: how automatable it is,
 // what it is, how often and how long it runs, and the ways to dig in.
 const THC_BOLT_SVG = '<svg width="8" height="10" viewBox="0 0 8 10" fill="none" aria-hidden="true"><path d="M4.6 0.8 1 5.6h2.8l-.6 3.6L6.8 4.4H4z" stroke="currentColor" stroke-width="1" stroke-linejoin="round"/></svg>';
+const THC_LAPTOP_SVG = '<svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true"><rect x="3" y="3.5" width="10" height="7" rx="1" stroke="currentColor" stroke-width="1.2"/><path d="M1.5 12.5h13" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>';
+const THC_CLICK_SVG = '<svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M7 7l6.5 2.4-2.8 1.1L9.6 13.3z" stroke="currentColor" stroke-width="1.1" stroke-linejoin="round"/><path d="M5.5 1.8v1.8M1.8 5.5h1.8M2.9 2.9l1.2 1.2M8.1 2.9 6.9 4.1M2.9 8.1l1.2-1.2" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/></svg>';
+const THC_CLOCK_SVG = '<svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="1.2"/><path d="M8 4.8V8l2.2 1.4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>';
+const THC_PLAY_SVG = '<svg width="12" height="13" viewBox="0 0 12 13" fill="none" aria-hidden="true"><path d="M2 1.5v10l8.5-5z" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/></svg>';
+// Small marks for the apps the demo data names; anything else gets none.
+const THC_APP_ICONS = {
+  gmail: '<svg width="14" height="11" viewBox="0 0 14 11" aria-hidden="true"><path d="M1 10V2.2L7 6.6l6-4.4V10" fill="none" stroke="#EA4335" stroke-width="1.6" stroke-linejoin="round"/><path d="M1 2.2V10h2.2V4.4" fill="#4285F4"/><path d="M13 2.2V10h-2.2V4.4" fill="#34A853"/><path d="M1 2.2 2.4 1 7 4.4 11.6 1 13 2.2 7 6.6z" fill="#EA4335"/><path d="M11.6 1 13 2.2l-2.2 1.6V1.6z" fill="#FBBC04"/></svg>',
+  'google sheets': '<svg width="11" height="14" viewBox="0 0 11 14" aria-hidden="true"><path d="M1 0.5h6.2L10.5 3.8V13a.5.5 0 0 1-.5.5H1a.5.5 0 0 1-.5-.5V1a.5.5 0 0 1 .5-.5z" fill="#0F9D58"/><rect x="2.5" y="6" width="6" height="5" fill="none" stroke="#fff" stroke-width="0.9"/><path d="M2.5 8.5h6M5.5 6v5" stroke="#fff" stroke-width="0.9"/></svg>',
+  workday: '<svg width="14" height="14" viewBox="0 0 14 14" aria-hidden="true"><circle cx="7" cy="7" r="6.5" fill="#F38B00"/><path d="M3.6 5.2 5 9.4l2-3.4 2 3.4 1.4-4.2" fill="none" stroke="#fff" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+};
+
+// "4m 04s" / "2h 15m" / "1d 3h" — what the hover card shows for time.
+function formatDurationClock(minutes) {
+  const totalSec = Math.round(minutes * 60);
+  if (totalSec < 3600) return `${Math.floor(totalSec / 60)}m ${String(totalSec % 60).padStart(2, '0')}s`;
+  const totalMin = Math.round(minutes);
+  if (totalMin < 1440) return `${Math.floor(totalMin / 60)}h ${String(totalMin % 60).padStart(2, '0')}m`;
+  return `${Math.floor(totalMin / 1440)}d ${String(Math.round((totalMin % 1440) / 60)).padStart(2, '0')}h`;
+}
+
+// The hover card both map views show on a task: how automatable it is,
+// what it is, where and how often it runs, and the ways to dig in.
 function taskHoverCardHtml(taskId, model) {
   const node = model.nodes.find((x) => x.id === taskId);
   if (!node) return `<strong>${escapeHtml(taskId)}</strong>`;
   const meta = state.taskInsights && state.taskInsights.byTaskName.get(taskId);
   const m = computeAutomationMetrics(node, meta);
   const badgeLabel = m.tier === 'high' ? 'Highly automatable' : m.tier === 'medium' ? 'Partially automatable' : 'Not automatable';
-  const onHappyPath = !!(model.happyPath && model.happyPath.path.includes(taskId));
   const desc = meta && meta.description
     ? escapeHtml(meta.description)
     : `Runs in ${Math.round(node.casePct * 100)}% of cases and takes ${Math.round((node.timeShare || 0) * 100)}% of all process time.`;
   const examples = state.taskInsights && state.taskInsights.instancesByTaskName.get(taskId);
-  const stats = [
-    [BARS_ICON_SVG, 'Seen in', `${node.caseCount} of ${model.totalCases} cases`],
-    [CLOCK_ICON_SVG, 'Median duration', formatDuration(node.medianDuration)],
-    [CLOCK_ICON_SVG, 'Total time', formatDurationLong(node.totalTime)],
-    [BARS_ICON_SVG, 'Rework', node.reworkCaseCount ? `${Math.round(node.reworkRate * 100)}% of cases` : 'None'],
-  ];
-  if (meta && meta.autonomy) stats.push([PERSON_ICON_SVG, 'Autonomy', formatAutonomyLabel(meta.autonomy)]);
+  const stats = [];
+  if (meta && meta.appId) {
+    const icon = THC_APP_ICONS[String(meta.appId).toLowerCase()] || '';
+    stats.push([THC_LAPTOP_SVG, 'Application', `${icon}${escapeHtml(meta.appId)}`, 'app']);
+  }
+  stats.push([THC_CLICK_SVG, 'Cases', node.caseCount.toLocaleString()]);
+  stats.push([THC_CLOCK_SVG, 'Avg. time taken', formatDurationClock(node.avgDuration)]);
   return `
     <div class="thc-body">
       <span class="thc-badge ${m.tier}">${THC_BOLT_SVG}${badgeLabel}</span>
       <div class="thc-head">
         <div class="thc-title">${escapeHtml(node.label)}</div>
         <div class="thc-desc">${desc}</div>
-        <span class="thc-path"><i style="background:${onHappyPath ? '#0975d7' : '#ee8a58'}"></i>${onHappyPath ? 'On the most common path' : 'Off the most common path'}</span>
       </div>
       <div class="thc-stats">
-        ${stats.map(([icon, label, value]) => `<div class="thc-stat"><span class="thc-stat-label">${icon}${label}</span><span class="thc-stat-value">${value}</span></div>`).join('')}
+        ${stats.map(([icon, label, value, cls]) => `<div class="thc-stat"><span class="thc-stat-label">${icon}${label}</span><span class="thc-stat-value${cls ? ` ${cls}` : ''}">${value}</span></div>`).join('')}
       </div>
     </div>
     <div class="thc-footer">
-      ${examples && examples.length ? `<button type="button" class="thc-btn" data-tt-action="watch" data-task-id="${escapeHtml(taskId)}">${PLAY_ICON_SVG}Watch session</button>` : ''}
+      ${examples && examples.length ? `<button type="button" class="thc-btn outline" data-tt-action="watch" data-task-id="${escapeHtml(taskId)}">${THC_PLAY_SVG}Watch Session</button>` : ''}
       <button type="button" class="thc-btn" data-tt-action="details" data-task-id="${escapeHtml(taskId)}">View details</button>
     </div>
   `;

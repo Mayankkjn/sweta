@@ -528,6 +528,62 @@ body.app-fullscreen .side-drawer { top: 64px; right: 16px; }
 .task-detail-footer-btn.td-btn-primary:hover { filter: brightness(1.06); }
 .task-detail-footer-btn svg { flex-shrink: 0; }
 
+/* ---- Task detail: Automation tab ---- */
+.ta-panel { gap: 24px; }
+.ta-score { display: flex; flex-direction: column; gap: 16px; padding: 18px; }
+.ta-score-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.ta-score-title { font-size: 13px; line-height: 16px; font-weight: 600; color: #4b5563; }
+.ta-tier { display: inline-flex; align-items: center; gap: 6px; height: 24px; padding: 0 8px; border-radius: 999px; font-size: 12px; line-height: 15px; font-weight: 600; background: #f0fdf4; color: #166534; }
+.ta-tier.medium { background: #fff7ed; color: #9a3412; }
+.ta-tier.low { background: #fef2f2; color: #991b1b; }
+.ta-tier svg { flex-shrink: 0; }
+.ta-score-value { display: flex; align-items: baseline; gap: 9px; }
+.ta-score-value strong { font-size: 44px; line-height: 44px; font-weight: 600; letter-spacing: -0.88px; color: #111827; }
+.ta-score-value span { font-size: 15px; line-height: 18px; color: #6b7280; }
+.ta-bands { display: flex; flex-direction: column; gap: 8px; }
+.ta-band-bar { position: relative; display: grid; grid-template-columns: 40fr 30fr 30fr; gap: 2px; height: 8px; }
+.ta-band { position: relative; height: 8px; background: #e5e7eb; overflow: hidden; }
+.ta-band:first-child { border-radius: 4px 0 0 4px; }
+.ta-band:last-child { border-radius: 0 4px 4px 0; }
+.ta-band-fill { position: absolute; left: 0; top: 0; bottom: 0; }
+.ta-marker { position: absolute; top: -4px; width: 4px; height: 16px; margin-left: -2px; border-radius: 2px; background: #dfdde7; border: 1px solid #dfdde7; box-shadow: 0 0 0 2px #fff; box-sizing: border-box; }
+.ta-band-labels { display: grid; grid-template-columns: 40fr 30fr 30fr; gap: 2px; font-size: 11px; line-height: 13px; color: #6b7280; }
+.ta-band-labels span.active { font-weight: 600; color: var(--ta-ink); }
+.ta-score-text { margin: 0; font-size: 14px; line-height: 21px; color: #374151; }
+.ta-impact { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; padding-top: 16px; border-top: 1px solid #eef0f3; }
+.ta-impact div { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.ta-impact div + div { padding-left: 12px; border-left: 1px solid #eef0f3; }
+.ta-impact strong { font-size: 20px; line-height: 26px; font-weight: 600; color: #111827; white-space: nowrap; }
+.ta-impact strong.good { color: #15803d; }
+.ta-impact span { font-size: 12px; line-height: 15px; color: #4b5563; }
+.ta-section { display: flex; flex-direction: column; gap: 12px; }
+.ta-section-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.ta-h { margin: 0; font-size: 15px; line-height: 18px; font-weight: 600; color: #111827; }
+.ta-why-count { font-size: 12px; line-height: 15px; font-weight: 600; color: #15803d; }
+.ta-why-count.mixed { color: #976c07; }
+.ta-signals { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+.ta-signal { display: flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 12px; border-radius: 8px; background: #f9fafb; min-width: 0; }
+.ta-signal.wide { grid-column: 1 / -1; padding-top: 10px; padding-bottom: 10px; }
+.ta-signal > svg { flex-shrink: 0; }
+.ta-signal-name { min-width: 0; overflow: hidden; text-overflow: ellipsis; }
+.ta-signal-label { flex: 1; display: inline-flex; align-items: center; gap: 2px; min-width: 0; white-space: nowrap; font-size: 13px; line-height: 16px; color: #374151; }
+.ta-signal-text { display: flex; flex-direction: column; flex: 1; min-width: 0; }
+.ta-signal-text .ta-signal-label { font-weight: 600; color: #3d3c52; }
+.ta-signal-note { font-size: 13px; line-height: 16px; color: #6b697b; }
+.ta-signal-value { font-size: 14px; line-height: 17px; font-weight: 600; color: #111827; white-space: nowrap; }
+.ta-signal-value.muted { font-weight: 400; color: #8c899f; }
+.ta-info { width: 24px; height: 24px; padding: 0; border: none; background: none; border-radius: 6px; display: inline-flex; align-items: center; justify-content: center; cursor: help; flex-shrink: 0; }
+.ta-info:hover { background: #eef0f3; }
+.ta-steps { list-style: none; margin: 0; padding: 4px 16px; border: 1px solid #e5e7eb; border-radius: 12px; }
+.ta-step { display: flex; align-items: center; gap: 12px; min-height: 53px; border-bottom: 1px solid #f3f4f6; }
+.ta-step:last-child { border-bottom: none; }
+.ta-step .td-step-name { line-height: 17px; }
+.ta-chip { display: inline-flex; align-items: center; gap: 5px; padding: 3.6px 7.2px; border-radius: 6px; font-size: 12px; line-height: 14px; font-weight: 700; letter-spacing: 0.04px; white-space: nowrap; }
+.ta-chip.ok { background: linear-gradient(90deg, #e4f6ec 0%, #fff 100%); color: #1f9d5c; }
+.ta-chip.warn { background: linear-gradient(90deg, #f6eee4 0%, #fff 100%); color: #976c07; }
+.ta-chip svg { flex-shrink: 0; }
+.ta-step .td-step-play svg path { fill: #111827; }
+
 /* ---- automation tab ---- */
 .automation-opportunity-card {
   border: 1px solid var(--panel-border);
@@ -3255,7 +3311,32 @@ body.structural-diagram #play-animation-btn {
         </div>
       </div>
 
-      <div class="task-detail-tab-panel hidden" id="task-detail-automation-tab">
+      <div class="task-detail-tab-panel hidden ta-panel" id="task-detail-automation-tab">
+        <section class="td-card ta-score">
+          <div class="ta-score-head">
+            <span class="ta-score-title">Automation score</span>
+            <span class="ta-tier" id="ta-tier"></span>
+          </div>
+          <div class="ta-score-value"><strong id="ta-score">–</strong><span>/ 100</span></div>
+          <div class="ta-bands">
+            <div class="ta-band-bar" id="ta-band-bar" role="img"></div>
+            <div class="ta-band-labels" id="ta-band-labels"></div>
+          </div>
+          <p class="ta-score-text" id="ta-score-text"></p>
+          <div class="ta-impact" id="ta-impact"></div>
+        </section>
+
+        <section class="ta-section">
+          <div class="ta-section-head"><h3 class="ta-h" id="ta-why-title">Why it scores high</h3><span class="ta-why-count" id="ta-why-count"></span></div>
+          <div class="ta-signals" id="ta-signals"></div>
+        </section>
+
+        <section class="ta-section" id="ta-steps-section">
+          <div class="ta-section-head"><h3 class="ta-h">What will be automated</h3><span class="td-steps-meta" id="ta-steps-meta"></span></div>
+          <ol class="ta-steps" id="ta-steps"></ol>
+        </section>
+
+        <div class="td-legacy" hidden>
         <div class="automation-opportunity-card">
           <div class="automation-opportunity-top">
             <div>
@@ -3311,16 +3392,18 @@ body.structural-diagram #play-animation-btn {
             </div>
           </div>
         </div>
+        </div>
       </div>
     </div>
     <div class="task-detail-footer td-footer">
       <button class="task-detail-footer-btn td-btn-outline" id="task-detail-watch-replays" type="button">
         <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M4 2.3v9.4l7.6-4.7z" stroke="#111827" stroke-width="1.17" stroke-linejoin="round"/></svg>
-        Watch session
+        <span id="td-watch-label">Watch session</span>
       </button>
       <button class="task-detail-footer-btn primary td-btn-primary" id="task-detail-automate-seek" type="button">
-        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M7.6 1.2 2.3 8h4.1l-.7 4.8L11 6H6.9z" stroke="#fff" stroke-width="1.28" stroke-linejoin="round"/></svg>
-        Automate task
+        <svg class="td-auto-bolt" width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M7.6 1.2 2.3 8h4.1l-.7 4.8L11 6H6.9z" stroke="#fff" stroke-width="1.28" stroke-linejoin="round"/></svg>
+        <span id="td-automate-label">Automate task</span>
+        <svg class="td-auto-arrow" width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true" hidden><path d="M2.9 7h8.2M7.6 3.5 11.1 7l-3.5 3.5" stroke="#fff" stroke-width="1.28" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </button>
     </div>
   </div>
@@ -11921,6 +12004,11 @@ function setTaskDetailTab(tab) {
   d3.select('#task-detail-automation-tab').classed('hidden', tab !== 'automation');
   const body = document.querySelector('#task-detail-panel .task-detail-body');
   if (body) body.scrollTop = 0;
+  const onAutomation = tab === 'automation';
+  d3.select('#td-watch-label').text(onAutomation ? 'Watch replays' : 'Watch session');
+  d3.select('#td-automate-label').text(onAutomation ? 'Automate with Seek' : 'Automate task');
+  d3.select('.td-auto-bolt').style('display', onAutomation ? 'none' : null);
+  d3.select('.td-auto-arrow').attr('hidden', null).style('display', onAutomation ? null : 'none');
 }
 
 function closeTaskDetail() {
@@ -12330,6 +12418,122 @@ function renderTaskOccurrenceChart(taskId) {
   svg.on('mouseleave', () => { guide.style('display', 'none'); dot.style('display', 'none'); tip.style('display', 'none'); });
 }
 
+// Task detail, Automation tab: the score on its Low/Moderate/High scale with
+// the time it would save, each signal behind it marked favorable or not,
+// and the sub-steps marked by whether they can run unattended.
+const TA_OK_SVG = '<svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="8" cy="8" r="6" stroke="#15803D" stroke-width="1.47"/><path d="M5.6 8.1 7.2 9.7 10.4 6.4" stroke="#15803D" stroke-width="1.47" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+const TA_WARN_SVG = '<svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M7.1 2.6a1 1 0 0 1 1.8 0l5.6 10a1 1 0 0 1-.9 1.5H2.4a1 1 0 0 1-.9-1.5z" stroke="#976C07" stroke-width="1.33" stroke-linejoin="round"/><path d="M8 6.2v3.1M8 11.5v.1" stroke="#976C07" stroke-width="1.33" stroke-linecap="round"/></svg>';
+const TA_NEUTRAL_SVG = '<svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="8" cy="8" r="6" stroke="#9CA3AF" stroke-width="1.47"/><path d="M5.5 8h5" stroke="#9CA3AF" stroke-width="1.47" stroke-linecap="round"/></svg>';
+const TA_INFO_SVG = '<svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><circle cx="7" cy="7" r="5.25" stroke="#6B7280" stroke-width="1.17"/><path d="M7 6.4v3M7 4.7v.05" stroke="#6B7280" stroke-width="1.17" stroke-linecap="round"/></svg>';
+const TA_CHIP_SVG = (color) => `<svg width="8" height="11" viewBox="0 0 8 11" fill="none" aria-hidden="true"><path d="M4.7.8 1 6.1h3l-.6 4.1L7 4.9H4z" stroke="${color}" stroke-width="1.2" stroke-linejoin="round"/></svg>`;
+const TA_BANDS = [
+  { key: 'low', label: 'Low', from: 0, to: 40, light: '#F7BBBB', strong: '#B91C1C', ink: '#991B1B' },
+  { key: 'medium', label: 'Moderate', from: 40, to: 70, light: '#F0D895', strong: '#B45309', ink: '#9A3412' },
+  { key: 'high', label: 'High', from: 70, to: 100, light: '#BBF7D0', strong: '#15803D', ink: '#166534' },
+];
+
+function renderAutomationOverview(node, meta, m) {
+  const taskId = node.id;
+  const band = TA_BANDS.find((b) => b.key === m.tier);
+  const tierLabel = m.tier === 'high' ? 'Highly automatable' : m.tier === 'medium' ? 'Partially automatable' : 'Not automatable';
+  d3.select('#ta-tier').attr('class', `ta-tier ${m.tier}`).html(`${TD_TIER_ICON_SVG}${tierLabel}`);
+  d3.select('#ta-score').text(m.score);
+
+  // Bands below the score keep their tint; the score's own band fills up
+  // to the score; anything above stays grey.
+  const bar = d3.select('#ta-band-bar').attr('aria-label', `Score ${m.score} of 100, in the ${band.label.toLowerCase()} band`);
+  bar.html(TA_BANDS.map((b) => {
+    if (m.score >= b.to) return `<span class="ta-band" style="background:${b.light}"></span>`;
+    if (m.score < b.from) return '<span class="ta-band"></span>';
+    const pct = ((m.score - b.from) / (b.to - b.from)) * 100;
+    return `<span class="ta-band"><span class="ta-band-fill" style="width:${pct}%;background:${b.strong}"></span></span>`;
+  }).join('') + `<span class="ta-marker" style="left:${m.score}%"></span>`);
+  d3.select('#ta-band-labels').style('--ta-ink', band.ink)
+    .html(TA_BANDS.map((b) => `<span class="${b.key === m.tier ? 'active' : ''}">${b.label}</span>`).join(''));
+
+  const reasons = [];
+  if (m.consistency >= 0.8) reasons.push('consistent, rules-based steps');
+  if (node.reworkRate < 0.05) reasons.push('almost no rework');
+  if (m.judgment === 'Low') reasons.push('little need for human judgment');
+  const cautions = [];
+  if (m.consistency < 0.7) cautions.push('cases often take different routes');
+  if (node.reworkRate >= 0.1) cautions.push(`${Math.round(node.reworkRate * 100)}% of cases redo it`);
+  if (m.judgment !== 'Low') cautions.push(`${m.judgment.toLowerCase()} need for human judgment`);
+  const sentence = (list) => (list.length > 1 ? `${list.slice(0, -1).join(', ')} and ${list[list.length - 1]}` : list[0]).replace(/^./, (c) => c.toUpperCase());
+  d3.select('#ta-score-text').text(
+    m.tier === 'high'
+      ? `${sentence(reasons.length ? reasons : ['steady volume and a predictable pattern'])} make this a strong candidate for automation.`
+      : m.tier === 'medium'
+        ? `${sentence(reasons.length ? reasons : ['a fairly regular pattern'])} help, but ${cautions.join(' and ') || 'some variation'} mean it needs review for exceptions.`
+        : `${sentence(cautions.length ? cautions : ['an irregular pattern'])} make this a weak candidate for automation for now.`
+  );
+
+  const share = AUTOMATION_SHARE[m.tier];
+  d3.select('#ta-impact').html([
+    [formatDurationLong(node.totalTime * share), 'saved across all instances', share > 0],
+    [`${Math.round(share * 100)}%`, 'of task time', share > 0],
+    [formatDurationLong(node.avgDuration), 'per execution', false],
+  ].map(([v, l, good]) => `<div><strong class="${good ? 'good' : ''}">${v}</strong><span>${l}</span></div>`).join(''));
+
+  // Signals: each is favorable, unfavorable, or not tracked in this data.
+  const pct = (n) => `${Math.round(n * 100)}%`;
+  const signals = [
+    { label: 'Frequency', tip: 'Share of cases that include this task', value: pct(m.frequency), ok: m.frequency >= 0.3 },
+    { label: 'Consistency', tip: 'Share of cases that follow the usual step pattern', value: pct(m.consistency), ok: m.consistency >= 0.7 },
+    { label: 'Deviation rate', tip: 'Share of cases that strayed from the usual pattern', value: pct(node.deviationRate), ok: node.deviationRate <= 0.3 },
+    { label: 'Error rate', tip: 'Share of executions that hit an error (not tracked in this data)', value: '–', ok: null },
+    { label: 'Rework rate', tip: 'Share of cases where this task had to be redone', value: pct(node.reworkRate), ok: node.reworkRate <= 0.1 },
+    { label: 'Human judgment', tip: 'How much the task depends on decisions a person makes', value: m.judgment, ok: m.judgment === 'Low' },
+    { label: 'Applications', tip: meta && meta.appId ? `Apps the task touches: ${meta.appId}` : 'Apps the task touches', value: meta && meta.appId ? '1' : '–', ok: meta && meta.appId ? true : null },
+    { label: 'Avg. duration', tip: 'Average time one execution takes', value: formatDurationLong(node.avgDuration), ok: node.avgDuration >= 1 },
+  ];
+  const smallSample = node.visits < 30;
+  const execution = {
+    label: 'Executions', tip: 'Total number of times this task was performed', value: node.visits.toLocaleString(), ok: !smallSample,
+    note: smallSample ? 'small sample, confidence grows with more runs' : 'enough runs to trust the pattern',
+  };
+  const counted = [...signals, execution].filter((sg) => sg.ok !== null);
+  const favorable = counted.filter((sg) => sg.ok).length;
+  d3.select('#ta-why-title').text(m.tier === 'high' ? 'Why it scores high' : m.tier === 'medium' ? 'Why it scores moderate' : 'Why it scores low');
+  d3.select('#ta-why-count').classed('mixed', favorable < counted.length * 0.7).text(`${favorable} of ${counted.length} signals favorable`);
+  const icon = (ok) => (ok === null ? TA_NEUTRAL_SVG : ok ? TA_OK_SVG : TA_WARN_SVG);
+  const info = (tip) => `<button type="button" class="ta-info" data-tip="${escapeHtml(tip)}" aria-label="${escapeHtml(tip)}">${TA_INFO_SVG}</button>`;
+  d3.select('#ta-signals').html(
+    signals.map((sg) => `<div class="ta-signal">${icon(sg.ok)}<span class="ta-signal-label" title="${sg.label}"><span class="ta-signal-name">${sg.label}</span>${info(sg.tip)}</span><span class="ta-signal-value${sg.ok === null ? ' muted' : ''}">${sg.value}</span></div>`).join('') +
+    `<div class="ta-signal wide">${icon(execution.ok)}<span class="ta-signal-text"><span class="ta-signal-label">${execution.label}${info(execution.tip)}</span><span class="ta-signal-note">${execution.note}</span></span><span class="ta-signal-value">${execution.value}</span></div>`
+  );
+  d3.selectAll('#ta-signals .ta-info')
+    .on('mouseenter', function (event) { showTooltip(event, escapeHtml(this.dataset.tip)); tooltip.classed('ins-dark-tip', true); })
+    .on('mousemove', moveTooltip)
+    .on('mouseleave', () => { hideTooltip(); tooltip.classed('ins-dark-tip', false); });
+
+  // What will be automated: common sub-steps run unattended, rare ones
+  // (under a fifth of this task's runs) still need a person.
+  const subtypes = meta && meta.subtypes ? meta.subtypes : [];
+  d3.select('#ta-steps-section').classed('hidden', !subtypes.length).style('display', subtypes.length ? null : 'none');
+  if (!subtypes.length) return;
+  const activeIds = new Set(state.cases.map((c) => c.caseId));
+  const insts = ((state.taskInsights && state.taskInsights.instancesByTaskName.get(taskId)) || []).filter((r) => activeIds.has(r.caseId));
+  const counts = d3.rollup(insts, (v) => v.length, (r) => r.subtypeId);
+  const totalInst = d3.sum(Array.from(counts.values())) || 0;
+  const totalWeight = d3.sum(subtypes, (st) => st.weight || 0) || 1;
+  const appIcon = meta && meta.appId ? (THC_APP_ICONS[String(meta.appId).toLowerCase()] || '') : '';
+  d3.select('#ta-steps-meta').html(`${appIcon}${meta && meta.appId ? `${escapeHtml(meta.appId)} · ` : ''}${subtypes.length} sub-step${subtypes.length === 1 ? '' : 's'}`);
+  const list = d3.select('#ta-steps');
+  list.selectAll('*').remove();
+  subtypes.forEach((st, i) => {
+    const share = totalInst ? (counts.get(st.id) || 0) / totalInst : (st.weight || 0) / totalWeight;
+    const ok = m.tier !== 'low' && share >= 0.2;
+    const li = list.append('li').attr('class', 'ta-step');
+    li.html(`<span class="td-step-num">${i + 1}</span><span class="td-step-name">${escapeHtml(st.name)}</span>` +
+      `<span class="ta-chip ${ok ? 'ok' : 'warn'}" title="${Math.round(share * 100)}% of this task's runs">${TA_CHIP_SVG(ok ? '#21AD73' : '#976C07')}${ok ? 'Automatable' : 'Needs support'}</span>`);
+    li.append('button').attr('class', 'td-step-play').attr('type', 'button')
+      .attr('aria-label', `Play step ${i + 1}: ${st.name}`)
+      .html(TD_PLAY_SVG)
+      .on('click', () => openSessionReplay(taskId));
+  });
+}
+
 const CHECK_ICON_SVG = '<svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M2.5 6.5 L5 9 L9.5 3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" /></svg>';
 
 // Draws the semicircular gauge: a fixed background track plus a foreground
@@ -12441,6 +12645,7 @@ function renderAutomationTab(node, meta, uniqueUsers) {
   const whyGrid = d3.select('#automation-why-grid');
   whyGrid.selectAll('*').remove();
   renderWhyAutomateTiles(whyGrid, node, meta, m);
+  renderAutomationOverview(node, meta, m);
 
   d3.select('#automation-impact-time').text(formatDuration(node.totalTime));
   d3.select('#automation-impact-pct').text(`${Math.round(AUTOMATION_SHARE[tier] * 100)}%`);

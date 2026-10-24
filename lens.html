@@ -433,7 +433,8 @@ body.app-fullscreen .side-drawer { top: 64px; right: 16px; }
 
 /* ---- Task detail: header, overview sections, footer ---- */
 .task-detail-panel { width: 480px; background: #fff; border-left: 1px solid #e5e7eb; font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
-.task-detail-header.td-head { flex-direction: column; align-items: stretch; justify-content: flex-start; gap: 12px; padding: 24px 24px 0; border-bottom: 1px solid #eef0f3; }
+.td-scroll { flex: 1; min-height: 0; overflow-y: auto; display: flex; flex-direction: column; }
+.task-detail-header.td-head { flex-direction: column; align-items: stretch; justify-content: flex-start; gap: 12px; padding: 24px 24px 4px; border-bottom: none; flex-shrink: 0; }
 .td-head-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
 .td-head-tags { display: flex; align-items: center; gap: 8px; min-width: 0; }
 .td-app-chip { display: inline-flex; align-items: center; gap: 4px; height: 24px; padding: 0 8px; border-radius: 6px; background: #f3f4f6; font-size: 12px; line-height: 15px; font-weight: 500; color: #374151; white-space: nowrap; }
@@ -450,14 +451,15 @@ body.app-fullscreen .side-drawer { top: 64px; right: 16px; }
 .td-meta span { display: inline-flex; align-items: center; gap: 6px; }
 .td-meta b { font-weight: 600; color: #111827; }
 .td-meta svg { flex-shrink: 0; color: #6b7280; }
-.task-detail-tabs.td-tabs { gap: 16px; padding: 0; margin: 4px 0 -1px; border-bottom: none; position: relative; z-index: 1; }
+.task-detail-tabs.td-tabs { position: sticky; top: 0; z-index: 3; gap: 16px; padding: 0 24px; margin: 0; background: #fff; border-bottom: 1px solid #eef0f3; flex-shrink: 0; }
+.td-tabs .task-detail-tab { margin-bottom: -1px; }
 .td-tabs .task-detail-tab { position: relative; gap: 8px; padding: 12px 8px 16px; border: none; border-radius: 0; margin-bottom: 0; font-size: 16px; line-height: 24px; font-weight: 600; color: #3d3c52; }
 .td-tabs .task-detail-tab::after { content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 4px; background: transparent; }
 .td-tabs .task-detail-tab.active::after { background: #0975d7; }
 .td-tabs .task-detail-tab svg { color: #6b697b; flex-shrink: 0; }
 .td-tabs .task-detail-tab.active { color: #0975d7; }
 .td-tabs .task-detail-tab.active svg { color: #0975d7; }
-.task-detail-panel .task-detail-body { padding: 20px 24px 24px; }
+.task-detail-panel .task-detail-body { padding: 20px 24px 24px; flex: none; overflow: visible; }
 .td-overview { gap: 20px; }
 
 .td-auto { display: flex; flex-direction: column; gap: 14px; padding: 16px; border-radius: 9px; border-bottom: 1px solid #ececf3; background: linear-gradient(180deg, var(--td-tint, #f0fdf4) 0%, #fff 100%); color: var(--td-ink, #166534); }
@@ -3189,6 +3191,7 @@ body.structural-diagram #play-animation-btn {
 
   <div id="task-detail-panel" class="task-detail-panel hidden">
     <div class="task-detail-resize-handle" id="task-detail-resize-handle"></div>
+    <div class="td-scroll" id="td-scroll">
     <div class="task-detail-header td-head">
       <div class="td-head-row">
         <div class="td-head-tags">
@@ -3204,7 +3207,8 @@ body.structural-diagram #play-animation-btn {
         <p class="td-desc hidden" id="td-desc"></p>
         <div class="td-meta" id="td-meta"></div>
       </div>
-      <div class="task-detail-tabs td-tabs" role="tablist">
+    </div>
+    <div class="task-detail-tabs td-tabs" role="tablist">
         <button class="task-detail-tab active" id="task-detail-tab-overview" type="button" data-tab="overview" role="tab">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2"/><path d="M3 12h18M12 3c2.5 2.6 3.8 5.6 3.8 9s-1.3 6.4-3.8 9c-2.5-2.6-3.8-5.6-3.8-9S9.5 5.6 12 3z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
           Overview
@@ -3213,7 +3217,6 @@ body.structural-diagram #play-animation-btn {
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M13 3 5 14h6l-1 7 8-11h-6z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
           Automation
         </button>
-      </div>
     </div>
     <div class="task-detail-body">
       <div class="task-detail-tab-panel td-overview" id="task-detail-overview-tab">
@@ -3394,6 +3397,7 @@ body.structural-diagram #play-animation-btn {
         </div>
         </div>
       </div>
+    </div>
     </div>
     <div class="task-detail-footer td-footer">
       <button class="task-detail-footer-btn td-btn-outline" id="task-detail-watch-replays" type="button">
@@ -12002,8 +12006,10 @@ function setTaskDetailTab(tab) {
   d3.selectAll('.task-detail-tab').classed('active', function () { return this.dataset.tab === tab; });
   d3.select('#task-detail-overview-tab').classed('hidden', tab !== 'overview');
   d3.select('#task-detail-automation-tab').classed('hidden', tab !== 'automation');
-  const body = document.querySelector('#task-detail-panel .task-detail-body');
-  if (body) body.scrollTop = 0;
+  // Keep the tabs pinned if the header has already scrolled away.
+  const scroller = document.getElementById('td-scroll');
+  const head = document.querySelector('#task-detail-panel .td-head');
+  if (scroller && head) scroller.scrollTop = Math.min(scroller.scrollTop, head.offsetHeight);
   const onAutomation = tab === 'automation';
   d3.select('#td-watch-label').text(onAutomation ? 'Watch replays' : 'Watch session');
   d3.select('#td-automate-label').text(onAutomation ? 'Automate with Seek' : 'Automate task');

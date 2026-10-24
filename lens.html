@@ -431,6 +431,101 @@ body.app-fullscreen .side-drawer { top: 64px; right: 16px; }
 .task-detail-footer-btn.primary { background: var(--accent-ui); border-color: var(--accent-ui); color: #ffffff; flex: 1.3; }
 .task-detail-footer-btn.primary:hover { filter: brightness(1.08); }
 
+/* ---- Task detail: header, overview sections, footer ---- */
+.task-detail-panel { width: 480px; background: #fff; border-left: 1px solid #e5e7eb; font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+.task-detail-header.td-head { flex-direction: column; align-items: stretch; justify-content: flex-start; gap: 12px; padding: 24px 24px 0; border-bottom: 1px solid #eef0f3; }
+.td-head-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.td-head-tags { display: flex; align-items: center; gap: 8px; min-width: 0; }
+.td-app-chip { display: inline-flex; align-items: center; gap: 4px; height: 24px; padding: 0 8px; border-radius: 6px; background: #f3f4f6; font-size: 12px; line-height: 15px; font-weight: 500; color: #374151; white-space: nowrap; }
+.td-app-chip.hidden { display: none; }
+.td-app-chip svg { flex-shrink: 0; }
+.td-kind { font-size: 12px; line-height: 15px; color: #6b7280; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.task-detail-close-btn.td-close { width: 36px; height: 36px; padding: 0; background: #fff; border: 1px solid #e5e7eb; border-radius: 8px; }
+.task-detail-close-btn.td-close:hover { background: #f9fafb; }
+.task-detail-title.td-title { font-size: 22px; line-height: 28px; font-weight: 600; letter-spacing: -0.22px; color: #111827; }
+.td-intro { display: flex; flex-direction: column; gap: 16px; }
+.td-desc { margin: 0; font-size: 14px; line-height: 21px; color: #4b5563; }
+.td-desc.hidden { display: none; }
+.td-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 16px; font-size: 13px; line-height: 16px; color: #4b5563; }
+.td-meta span { display: inline-flex; align-items: center; gap: 6px; }
+.td-meta b { font-weight: 600; color: #111827; }
+.td-meta svg { flex-shrink: 0; color: #6b7280; }
+.task-detail-tabs.td-tabs { gap: 16px; padding: 0; margin-top: 4px; border-bottom: none; }
+.td-tabs .task-detail-tab { gap: 8px; padding: 12px 8px; border-bottom: 4px solid transparent; margin-bottom: 0; font-size: 16px; line-height: 24px; font-weight: 600; color: #3d3c52; }
+.td-tabs .task-detail-tab svg { color: #6b697b; flex-shrink: 0; }
+.td-tabs .task-detail-tab.active { color: #0975d7; border-bottom-color: #0975d7; }
+.td-tabs .task-detail-tab.active svg { color: #0975d7; }
+.task-detail-panel .task-detail-body { padding: 20px 24px 24px; }
+.td-overview { gap: 20px; }
+
+.td-auto { display: flex; flex-direction: column; gap: 14px; padding: 16px; border-radius: 9px; border-bottom: 1px solid #ececf3; background: linear-gradient(180deg, var(--td-tint, #f0fdf4) 0%, #fff 100%); color: var(--td-ink, #166534); }
+.td-auto.medium { --td-tint: #fff7ed; --td-ink: #9a3412; --td-line: #fed7aa; }
+.td-auto.low { --td-tint: #f3f4f6; --td-ink: #4b5563; --td-line: #e5e7eb; }
+.td-auto-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.td-auto-tier { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; line-height: 16px; font-weight: 600; }
+.td-auto-caption { font-size: 12px; line-height: 15px; }
+.td-auto-stats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+.td-auto-stat { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.td-auto-stat + .td-auto-stat { padding-left: 12px; border-left: 1px solid var(--td-line, #bbf7d0); }
+.td-auto-stat strong { font-size: 22px; line-height: 28px; font-weight: 600; color: #3d3c52; white-space: nowrap; }
+.td-auto-stat span { font-size: 12px; line-height: 15px; }
+.td-reco { display: flex; align-items: flex-start; gap: 8px; padding-top: 2px; }
+.td-reco-icon { width: 14px; height: 14px; border-radius: 50%; background: #e1efea; display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px; }
+.td-reco-text { display: flex; flex-direction: column; gap: 3px; min-width: 0; }
+.td-reco-title { font-size: 13px; line-height: 16px; font-weight: 500; color: #2b2b40; }
+.td-reco-body { font-size: 11px; line-height: 16px; color: #3d3c52; }
+
+.td-section { display: flex; flex-direction: column; gap: 12px; }
+.td-eyebrow { margin: 0; font-size: 13px; line-height: 16px; font-weight: 600; letter-spacing: 0.52px; text-transform: uppercase; color: #374151; }
+.td-usage { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); border: 1px solid #e5e7eb; border-radius: 12px; overflow: hidden; }
+.td-usage-cell { display: flex; flex-direction: column; gap: 4px; padding: 14px 16px; min-width: 0; }
+.td-usage-cell:nth-child(odd) { border-right: 1px solid #e5e7eb; }
+.td-usage-cell:nth-child(-n+2) { border-bottom: 1px solid #e5e7eb; }
+.td-usage-label { font-size: 12px; line-height: 15px; color: #6b7280; }
+.td-usage-value { font-size: 20px; line-height: 26px; font-weight: 600; color: #111827; }
+.td-usage-sub { display: inline-flex; align-items: center; gap: 4px; font-size: 12px; line-height: 15px; color: #4b5563; }
+.td-usage-sub.up { color: #15803d; }
+.td-usage-sub.down { color: #b91c1c; }
+
+.td-card { border: 1px solid #e5e7eb; border-radius: 12px; }
+.td-card.hidden { display: none; }
+.td-chart-card { display: flex; flex-direction: column; gap: 12px; padding: 16px; }
+.td-card-head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; }
+.td-card-title { font-size: 14px; line-height: 17px; font-weight: 600; color: #111827; }
+.td-card-range { font-size: 12px; line-height: 15px; color: #6b7280; }
+.td-occ-chart { position: relative; }
+.td-occ-chart svg { display: block; width: 100%; height: auto; overflow: visible; }
+.td-occ-grid { stroke: #eef0f3; stroke-width: 1; }
+.td-occ-base { stroke: #d1d5db; stroke-width: 1; }
+.td-occ-axis { font-size: 12px; fill: #6b7280; }
+.td-occ-line { fill: none; stroke: #0975d7; stroke-width: 1.6; stroke-linejoin: round; stroke-linecap: round; }
+.td-occ-guide { stroke: #9ca3af; stroke-width: 1; stroke-dasharray: 3 3; }
+.td-occ-dot { fill: #fff; stroke: #0975d7; stroke-width: 1.6; }
+.td-occ-tip { position: absolute; top: 0; padding: 6px 10px; border-radius: 8px; background: #111827; box-shadow: 0 4px 12px rgba(17, 24, 39, 0.18); pointer-events: none; white-space: nowrap; transform: translateX(-50%); }
+.td-occ-tip strong { display: block; font-size: 13px; line-height: 16px; font-weight: 600; color: #fff; }
+.td-occ-tip span { display: block; font-size: 11px; line-height: 13px; color: #d1d5db; }
+.td-occ-empty { margin: 0; font-size: 12px; color: #6b7280; }
+
+.td-steps-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 14px 16px; border-bottom: 1px solid #eef0f3; }
+.td-steps-title { font-size: 16px; line-height: 19px; font-weight: 600; color: #111827; }
+.td-steps-meta { display: inline-flex; align-items: center; gap: 4px; font-size: 12px; line-height: 15px; color: #6b7280; }
+.td-steps { list-style: none; margin: 0; padding: 0 16px 4px; }
+.td-step { display: flex; align-items: center; gap: 12px; min-height: 69px; border-bottom: 1px solid #f3f4f6; }
+.td-step:last-child { border-bottom: none; }
+.td-step-num { width: 24px; height: 24px; border-radius: 999px; background: #f3f4f6; display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 12px; line-height: 15px; font-weight: 600; color: #374151; }
+.td-step-name { flex: 1; min-width: 0; font-size: 14px; line-height: 20px; color: #111827; }
+.td-step-time { font-size: 13px; line-height: 16px; color: #4b5563; text-align: right; white-space: nowrap; }
+.td-step-play { width: 36px; height: 36px; flex-shrink: 0; padding: 0; border: 1px solid #e5e7eb; border-radius: 999px; background: #fff; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; margin-left: 4px; }
+.td-step-play:hover { border-color: #0975d7; }
+.td-step-play svg { flex-shrink: 0; }
+
+.task-detail-footer.td-footer { gap: 12px; padding: 16px 24px; border-top: 1px solid #e5e7eb; background: #fff; }
+.task-detail-footer-btn.td-btn-outline { flex: 0 0 auto; min-width: 174px; height: 44px; gap: 8px; padding: 1px 16px; border: 1px solid #d1d5db; border-radius: 10px; background: #fff; font-size: 14px; line-height: 17px; font-weight: 500; color: #111827; }
+.task-detail-footer-btn.td-btn-outline:hover { border-color: #9ca3af; background: #f9fafb; }
+.task-detail-footer-btn.td-btn-primary { flex: 1; height: 44px; gap: 8px; padding: 1px 16px; border: none; border-radius: 10px; background: #c2410c; font-size: 14px; line-height: 17px; font-weight: 600; color: #fff; }
+.task-detail-footer-btn.td-btn-primary:hover { filter: brightness(1.06); }
+.task-detail-footer-btn svg { flex-shrink: 0; }
+
 /* ---- automation tab ---- */
 .automation-opportunity-card {
   border: 1px solid var(--panel-border);
@@ -3036,29 +3131,65 @@ body.structural-diagram #play-animation-btn {
 
   <div id="task-detail-panel" class="task-detail-panel hidden">
     <div class="task-detail-resize-handle" id="task-detail-resize-handle"></div>
-    <div class="task-detail-header">
-      <div class="task-detail-title-group">
-        <h2 class="task-detail-title" id="task-detail-title">–</h2>
-        <p class="task-detail-meta" id="task-detail-meta"> </p>
+    <div class="task-detail-header td-head">
+      <div class="td-head-row">
+        <div class="td-head-tags">
+          <span class="td-app-chip hidden" id="td-app-chip"></span>
+          <span class="td-kind" id="td-kind">Task</span>
+        </div>
+        <button id="task-detail-close" class="task-detail-close-btn td-close" type="button" aria-label="Close task details">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M4 4 L12 12 M12 4 L4 12" stroke="#4B5563" stroke-width="1.33" stroke-linecap="round" /></svg>
+        </button>
       </div>
-      <button id="task-detail-close" class="task-detail-close-btn" type="button" aria-label="Close task details">
-        <svg width="14" height="14" viewBox="0 0 12 12" fill="none" aria-hidden="true">
-          <path d="M2 2 L10 10 M10 2 L2 10" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" />
-        </svg>
-      </button>
-    </div>
-    <div class="task-detail-tabs">
-      <button class="task-detail-tab active" id="task-detail-tab-overview" type="button" data-tab="overview">
-        <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="8" cy="8" r="5.8" stroke="currentColor" stroke-width="1.3" /><path d="M8 5 V8 L10 9.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" /></svg>
-        Overview
-      </button>
-      <button class="task-detail-tab" id="task-detail-tab-automation" type="button" data-tab="automation">
-        <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M9 1 L3 9.5 H7.5 L6.5 15 L13 6.5 H8.5 Z" /></svg>
-        Automation
-      </button>
+      <h2 class="task-detail-title td-title" id="task-detail-title">–</h2>
+      <div class="td-intro">
+        <p class="td-desc hidden" id="td-desc"></p>
+        <div class="td-meta" id="td-meta"></div>
+      </div>
+      <div class="task-detail-tabs td-tabs" role="tablist">
+        <button class="task-detail-tab active" id="task-detail-tab-overview" type="button" data-tab="overview" role="tab">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2"/><path d="M3 12h18M12 3c2.5 2.6 3.8 5.6 3.8 9s-1.3 6.4-3.8 9c-2.5-2.6-3.8-5.6-3.8-9S9.5 5.6 12 3z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
+          Overview
+        </button>
+        <button class="task-detail-tab" id="task-detail-tab-automation" type="button" data-tab="automation" role="tab">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M13 3 5 14h6l-1 7 8-11h-6z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
+          Automation
+        </button>
+      </div>
     </div>
     <div class="task-detail-body">
-      <div class="task-detail-tab-panel" id="task-detail-overview-tab">
+      <div class="task-detail-tab-panel td-overview" id="task-detail-overview-tab">
+        <section class="td-auto" id="td-auto">
+          <div class="td-auto-head">
+            <span class="td-auto-tier" id="td-auto-tier"></span>
+            <span class="td-auto-caption">Estimated impact</span>
+          </div>
+          <div class="td-auto-stats" id="td-auto-stats"></div>
+          <div class="td-reco">
+            <span class="td-reco-icon"><svg width="10" height="10" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M2.5 6.3 4.9 8.6 9.5 3.6" stroke="#15803D" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            <div class="td-reco-text">
+              <span class="td-reco-title">Recommended action</span>
+              <span class="td-reco-body" id="td-reco-body"></span>
+            </div>
+          </div>
+        </section>
+
+        <section class="td-section">
+          <h3 class="td-eyebrow">Usage</h3>
+          <div class="td-usage" id="td-usage"></div>
+        </section>
+
+        <section class="td-card td-chart-card" id="td-occ-card">
+          <div class="td-card-head"><span class="td-card-title">Occurrences over time</span><span class="td-card-range" id="td-occ-range"></span></div>
+          <div class="td-occ-chart" id="td-occ-chart"></div>
+        </section>
+
+        <section class="td-card td-steps-card hidden" id="td-steps-card">
+          <div class="td-steps-head"><span class="td-steps-title">Sub-steps</span><span class="td-steps-meta" id="td-steps-meta"></span></div>
+          <ol class="td-steps" id="td-steps"></ol>
+        </section>
+
+        <div class="td-legacy" hidden>
         <div class="task-detail-section">
           <h3 class="task-detail-section-title">Task Details</h3>
           <div class="task-stat-grid" id="task-detail-stats"></div>
@@ -3118,6 +3249,7 @@ body.structural-diagram #play-animation-btn {
         <div class="task-detail-section" id="task-detail-instances-section">
           <h3 class="task-detail-section-title">Discovered Paths</h3>
           <div class="instance-list" id="task-detail-instance-list"></div>
+        </div>
         </div>
       </div>
 
@@ -3179,18 +3311,14 @@ body.structural-diagram #play-animation-btn {
         </div>
       </div>
     </div>
-    <div class="task-detail-footer">
-      <button class="task-detail-footer-btn" id="task-detail-view-steps" type="button">
-        <svg width="13" height="13" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M2 12 L6 6 L9.5 9 L14 3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" /></svg>
-        View steps
+    <div class="task-detail-footer td-footer">
+      <button class="task-detail-footer-btn td-btn-outline" id="task-detail-watch-replays" type="button">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M4 2.3v9.4l7.6-4.7z" stroke="#111827" stroke-width="1.17" stroke-linejoin="round"/></svg>
+        Watch session
       </button>
-      <button class="task-detail-footer-btn" id="task-detail-watch-replays" type="button">
-        <svg width="13" height="13" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M4 2.5 L13 8 L4 13.5 Z" /></svg>
-        Watch replays
-      </button>
-      <button class="task-detail-footer-btn primary" id="task-detail-automate-seek" type="button">
-        Automate with Seek
-        <svg width="13" height="13" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8 H13 M9 4 L13 8 L9 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" /></svg>
+      <button class="task-detail-footer-btn primary td-btn-primary" id="task-detail-automate-seek" type="button">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M7.6 1.2 2.3 8h4.1l-.7 4.8L11 6H6.9z" stroke="#fff" stroke-width="1.28" stroke-linejoin="round"/></svg>
+        Automate task
       </button>
     </div>
   </div>
@@ -11789,6 +11917,8 @@ function setTaskDetailTab(tab) {
   d3.selectAll('.task-detail-tab').classed('active', function () { return this.dataset.tab === tab; });
   d3.select('#task-detail-overview-tab').classed('hidden', tab !== 'overview');
   d3.select('#task-detail-automation-tab').classed('hidden', tab !== 'automation');
+  const body = document.querySelector('#task-detail-panel .task-detail-body');
+  if (body) body.scrollTop = 0;
 }
 
 function closeTaskDetail() {
@@ -11824,9 +11954,7 @@ function renderTaskDetail() {
   const richInstances = richInstancesAll && richInstancesAll.filter((r) => activeCaseIds.has(r.caseId));
 
   d3.select('#task-detail-title').text(taskId);
-  d3.select('#task-detail-meta').text(
-    `${pluralCases(node.caseCount)} · ${uniqueUsers.size} unique user${uniqueUsers.size === 1 ? '' : 's'} · ${pathCount} path${pathCount === 1 ? '' : 's'}`
-  );
+  renderTaskDetailOverview(node, meta, model, pathCount, richInstances);
 
   // Task Details stat grid — all straight from the process model, real for
   // any uploaded log.
@@ -12013,6 +12141,193 @@ function renderTaskDetail() {
   renderAutomationTab(node, meta, uniqueUsers);
 }
 
+// Task detail, Overview tab: header tags and meta, then automation impact,
+// usage numbers, weekly occurrences and the task's sub-steps.
+const TD_STEPS_ICON_SVG = '<svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M1.75 3.5h10.5M1.75 7h10.5M1.75 10.5h10.5" stroke="currentColor" stroke-width="1.17" stroke-linecap="round"/></svg>';
+const TD_PATHS_ICON_SVG = '<svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><circle cx="3.2" cy="3.2" r="1.2" stroke="currentColor" stroke-width="1.17"/><circle cx="10.8" cy="10.8" r="1.2" stroke="currentColor" stroke-width="1.17"/><path d="M3.5 4.7v1.8a2 2 0 0 0 2 2h3a2 2 0 0 1 2 2" stroke="currentColor" stroke-width="1.17" stroke-linecap="round"/></svg>';
+const TD_ARROW_UP_SVG = '<svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M6 9.5v-7M2.5 6 6 2.5 9.5 6" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+const TD_ARROW_DOWN_SVG = '<svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M6 2.5v7M2.5 6 6 9.5 9.5 6" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+const TD_PLAY_SVG = '<svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="M3.5 1.75v8.5L10.75 6z" fill="#6B697B"/></svg>';
+const TD_TIER_ICON_SVG = '<svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M7.6 1.2 2.3 8h4.1l-.7 4.8L11 6H6.9z" stroke="currentColor" stroke-width="1.28" stroke-linejoin="round"/></svg>';
+
+// The share of a task's time automation would take over, by tier.
+const AUTOMATION_SHARE = { high: 1, medium: 0.5, low: 0 };
+
+function formatMinutesShort(minutes) {
+  if (minutes < 1) return `${Math.max(1, Math.round(minutes * 60))} sec`;
+  if (minutes < 60) return `${Math.round(minutes)} min`;
+  return formatDurationLong(minutes);
+}
+
+function renderTaskDetailOverview(node, meta, model, pathCount, richInstances) {
+  const taskId = node.id;
+  const appIcon = meta && meta.appId ? (THC_APP_ICONS[String(meta.appId).toLowerCase()] || '') : '';
+  d3.select('#td-app-chip').classed('hidden', !(meta && meta.appId)).html(meta && meta.appId ? `${appIcon}${escapeHtml(meta.appId)}` : '');
+  const kindLabel = meta && meta.nodeKind && BPMN_KIND_LABEL[meta.nodeKind] ? BPMN_KIND_LABEL[meta.nodeKind] : 'Task';
+  d3.select('#td-kind').text(meta && meta.stage ? `${meta.stage} · ${kindLabel}` : kindLabel);
+  d3.select('#td-desc').classed('hidden', !(meta && meta.description)).text(meta && meta.description ? meta.description : '');
+  const subtypes = meta && meta.subtypes ? meta.subtypes : [];
+  d3.select('#td-meta').html(
+    (subtypes.length ? `<span>${TD_STEPS_ICON_SVG}<b>${subtypes.length}</b> sub-step${subtypes.length === 1 ? '' : 's'}</span>` : '') +
+    `<span>${TD_PATHS_ICON_SVG}In <b>${pathCount} of ${model.variants.length}</b> paths</span>`
+  );
+
+  // Automation impact.
+  const m = computeAutomationMetrics(node, meta);
+  const share = AUTOMATION_SHARE[m.tier];
+  const tierLabel = m.tier === 'high' ? 'Highly automatable' : m.tier === 'medium' ? 'Partially automatable' : 'Not automatable';
+  const perCase = node.avgDuration * (node.visits / Math.max(1, node.caseCount)) * share;
+  const { recent, previous, hasDates } = taskOccurrenceWindows(taskId);
+  const casesPerMonth = hasDates ? new Set(recent.map((o) => o.caseId)).size : node.caseCount;
+  d3.select('#td-auto').attr('class', `td-auto ${m.tier}`);
+  d3.select('#td-auto-tier').html(`${TD_TIER_ICON_SVG}${tierLabel}`);
+  d3.select('#td-auto-stats').html([
+    [formatMinutesShort(perCase), 'saved per case'],
+    [`${Math.round(share * 100)}%`, 'of task time'],
+    [formatDurationLong(perCase * casesPerMonth), hasDates ? 'saved per month' : 'saved in total'],
+  ].map(([v, l]) => `<div class="td-auto-stat"><strong>${v}</strong><span>${l}</span></div>`).join(''));
+  const recoText = m.tier === 'high'
+    ? 'Automate this task: high consistency and low complexity make it ideal for automation.'
+    : m.tier === 'medium'
+      ? 'Partly automate this task: moderate consistency suggests automation with review for exceptions.'
+      : 'Keep this task manual for now: lower consistency or higher judgment needs make it a weak candidate.';
+  d3.select('#td-reco-body').text(recoText);
+
+  // Usage.
+  const recentCount = recent.length;
+  const prevCount = previous.length;
+  let changeHtml = '<span class="td-usage-sub">Last 30 days</span>';
+  if (hasDates && prevCount) {
+    const change = (recentCount - prevCount) / prevCount;
+    const up = change >= 0;
+    changeHtml = `<span class="td-usage-sub ${up ? 'up' : 'down'}">${up ? TD_ARROW_UP_SVG : TD_ARROW_DOWN_SVG}${Math.abs(Math.round(change * 100))}% vs last month</span>`;
+  }
+  const cells = [
+    ['Occurrences', node.visits.toLocaleString(), `<span class="td-usage-sub">in ${Math.round(node.casePct * 100)}% of cases (${node.caseCount.toLocaleString()})</span>`],
+    [hasDates ? 'This month' : 'All time', (hasDates ? recentCount : node.visits).toLocaleString(), hasDates ? changeHtml : ''],
+    ['Avg. time per case', formatMinutesShort(node.avgDuration * (node.visits / Math.max(1, node.caseCount))), ''],
+    [hasDates ? 'Time spent, last 30 days' : 'Total time spent', formatDurationLong(hasDates ? d3.sum(recent, (o) => o.duration) : node.totalTime), ''],
+  ];
+  d3.select('#td-usage').html(cells.map(([l, v, sub]) => `<div class="td-usage-cell"><span class="td-usage-label">${l}</span><span class="td-usage-value">${v}</span>${sub}</div>`).join(''));
+
+  renderTaskOccurrenceChart(taskId);
+
+  // Sub-steps: the task's own subtypes, timed from the instances behind each.
+  const stepsCard = d3.select('#td-steps-card').classed('hidden', !subtypes.length);
+  if (subtypes.length) {
+    const byId = new Map();
+    (richInstances || []).forEach((r) => {
+      if (!r.subtypeId) return;
+      const list = byId.get(r.subtypeId) || [];
+      list.push(r.durationMinutes);
+      byId.set(r.subtypeId, list);
+    });
+    const avgTask = node.avgDuration;
+    const steps = subtypes.map((st) => {
+      const durs = (byId.get(st.id) || []).filter((d) => d > 0);
+      return { ...st, minutes: durs.length ? d3.mean(durs) : avgTask };
+    });
+    d3.select('#td-steps-meta').html(`${appIcon}${meta && meta.appId ? `${escapeHtml(meta.appId)} · ` : ''}Avg ${formatDurationClock(avgTask * (node.visits / Math.max(1, node.caseCount)))} per case`);
+    const list = d3.select('#td-steps');
+    list.selectAll('*').remove();
+    steps.forEach((st, i) => {
+      const li = list.append('li').attr('class', 'td-step');
+      li.html(`<span class="td-step-num">${i + 1}</span><span class="td-step-name">${escapeHtml(st.name)}</span><span class="td-step-time">${formatMinutesShort(st.minutes)}</span>`);
+      li.append('button').attr('class', 'td-step-play').attr('type', 'button')
+        .attr('aria-label', `Play step ${i + 1}: ${st.name}`)
+        .html(TD_PLAY_SVG)
+        .on('click', () => openSessionReplay(taskId));
+    });
+  }
+  void stepsCard;
+}
+
+// Every visit to a task in the filtered cases, dated by its case's start,
+// split into the latest 30 days and the 30 before.
+function taskOccurrences(taskId) {
+  const out = [];
+  state.cases.forEach((c) => {
+    c.steps.forEach((s) => {
+      if (s.task === taskId) out.push({ caseId: c.caseId, t: c.startTime, duration: s.duration || 0 });
+    });
+  });
+  return out;
+}
+function taskOccurrenceWindows(taskId) {
+  const occ = taskOccurrences(taskId);
+  const dated = occ.filter((o) => Number.isFinite(o.t));
+  const latest = d3.max(state.cases, (c) => (Number.isFinite(c.startTime) ? c.startTime : null));
+  if (!dated.length || latest == null) return { recent: [], previous: [], hasDates: false };
+  return {
+    recent: dated.filter((o) => o.t > latest - 30 * DAY_MS),
+    previous: dated.filter((o) => o.t <= latest - 30 * DAY_MS && o.t > latest - 60 * DAY_MS),
+    hasDates: true,
+  };
+}
+
+function renderTaskOccurrenceChart(taskId) {
+  const box = d3.select('#td-occ-chart');
+  box.selectAll('*').remove();
+  const dated = taskOccurrences(taskId).filter((o) => Number.isFinite(o.t));
+  d3.select('#td-occ-card').classed('hidden', dated.length < 2);
+  if (dated.length < 2) return;
+  const min = d3.min(dated, (o) => o.t);
+  const max = d3.max(dated, (o) => o.t);
+  const week = 7 * DAY_MS;
+  const n = Math.max(2, Math.ceil((max - min) / week));
+  const counts = new Array(n).fill(0);
+  dated.forEach((o) => { counts[n - 1 - Math.min(n - 1, Math.floor((max - o.t) / week))] += 1; });
+  const startOf = (i) => max - (n - i) * week;
+  const fmtRange = (t, withYear) => new Date(t).toLocaleDateString('en-US', withYear ? { month: 'short', year: 'numeric' } : { month: 'short' });
+  d3.select('#td-occ-range').text(`${fmtRange(startOf(0), false)} – ${fmtRange(max, true)}`);
+
+  const W = 400, H = 168, left = 28, top = 26, plotH = 104, plotW = W - left;
+  const peak = d3.max(counts);
+  const unit = peak > 20 ? 10 : 2;
+  const yMax = Math.max(2, Math.ceil(peak / unit) * unit);
+  const x = (i) => left + (i / (n - 1)) * plotW;
+  const y = (v) => top + plotH - (v / yMax) * plotH;
+  const svg = box.append('svg').attr('viewBox', `0 0 ${W} ${H}`).attr('role', 'img')
+    .attr('aria-label', `Weekly occurrences of ${taskId}, up to ${d3.max(counts)} a week`);
+  const defs = svg.append('defs');
+  const grad = defs.append('linearGradient').attr('id', 'td-occ-fill').attr('x1', 0).attr('x2', 0).attr('y1', 0).attr('y2', 1);
+  grad.append('stop').attr('offset', '0%').attr('stop-color', '#D3EDFE');
+  grad.append('stop').attr('offset', '100%').attr('stop-color', '#FFFFFF');
+  [[yMax, 'td-occ-grid'], [yMax / 2, 'td-occ-grid'], [0, 'td-occ-base']].forEach(([v, cls]) => {
+    svg.append('line').attr('class', cls).attr('x1', left).attr('x2', W).attr('y1', y(v)).attr('y2', y(v));
+    svg.append('text').attr('class', 'td-occ-axis').attr('x', 0).attr('y', y(v) + 4).text(v);
+  });
+  const area = d3.area().x((d, i) => x(i)).y0(y(0)).y1((d) => y(d)).curve(d3.curveMonotoneX);
+  const line = d3.line().x((d, i) => x(i)).y((d) => y(d)).curve(d3.curveMonotoneX);
+  svg.append('path').attr('d', area(counts)).attr('fill', 'url(#td-occ-fill)');
+  svg.append('path').attr('class', 'td-occ-line').attr('d', line(counts));
+  const ticks = Math.min(n, 6);
+  d3.range(ticks).forEach((k) => {
+    const i = Math.round((k / (ticks - 1)) * (n - 1));
+    svg.append('text').attr('class', 'td-occ-axis').attr('x', x(i)).attr('y', H - 6)
+      .attr('text-anchor', k === 0 ? 'start' : k === ticks - 1 ? 'end' : 'middle')
+      .text(new Date(startOf(i) + week).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }));
+  });
+
+  // Hover: a dashed guide, a ringed point and a dark label for the week.
+  const guide = svg.append('line').attr('class', 'td-occ-guide').attr('y1', top).attr('y2', y(0)).style('display', 'none');
+  const dot = svg.append('circle').attr('class', 'td-occ-dot').attr('r', 4.5).style('display', 'none');
+  const tip = box.append('div').attr('class', 'td-occ-tip').style('display', 'none');
+  const show = (i) => {
+    guide.attr('x1', x(i)).attr('x2', x(i)).style('display', null);
+    dot.attr('cx', x(i)).attr('cy', y(counts[i])).style('display', null);
+    const pctX = (x(i) / W) * 100;
+    tip.style('display', null).style('left', `clamp(60px, ${pctX}%, calc(100% - 60px))`)
+      .html(`<strong>${counts[i]} time${counts[i] === 1 ? '' : 's'}</strong><span>Week of ${new Date(startOf(i)).getDate()} ${new Date(startOf(i)).toLocaleDateString('en-US', { month: 'short' })} ’${String(new Date(startOf(i)).getFullYear()).slice(2)}</span>`);
+  };
+  const step = plotW / (n - 1);
+  counts.forEach((c, i) => {
+    svg.append('rect').attr('fill', 'transparent').attr('x', x(i) - step / 2).attr('y', 0).attr('width', step).attr('height', y(0))
+      .on('mouseenter', () => show(i));
+  });
+  svg.on('mouseleave', () => { guide.style('display', 'none'); dot.style('display', 'none'); tip.style('display', 'none'); });
+}
+
 const CHECK_ICON_SVG = '<svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M2.5 6.5 L5 9 L9.5 3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" /></svg>';
 
 // Draws the semicircular gauge: a fixed background track plus a foreground
@@ -12126,7 +12441,7 @@ function renderAutomationTab(node, meta, uniqueUsers) {
   renderWhyAutomateTiles(whyGrid, node, meta, m);
 
   d3.select('#automation-impact-time').text(formatDuration(node.totalTime));
-  d3.select('#automation-impact-pct').text('100%');
+  d3.select('#automation-impact-pct').text(`${Math.round(AUTOMATION_SHARE[tier] * 100)}%`);
   const impactVerdict = tier === 'high'
     ? 'a strong candidate for automation'
     : tier === 'medium'
@@ -12285,11 +12600,6 @@ d3.select('#task-detail-close').on('click', closeTaskDetail);
 
 d3.selectAll('.task-detail-tab').on('click', function () {
   setTaskDetailTab(this.dataset.tab);
-});
-d3.select('#task-detail-view-steps').on('click', () => {
-  setTaskDetailTab('automation');
-  const stepsSection = document.getElementById('automation-steps-body');
-  if (stepsSection) stepsSection.closest('.task-detail-section').scrollIntoView({ behavior: 'smooth', block: 'start' });
 });
 d3.select('#task-detail-watch-replays').on('click', () => {
   if (state.selectedTaskId) openSessionReplay(state.selectedTaskId);

@@ -450,10 +450,12 @@ body.app-fullscreen .side-drawer { top: 64px; right: 16px; }
 .td-meta span { display: inline-flex; align-items: center; gap: 6px; }
 .td-meta b { font-weight: 600; color: #111827; }
 .td-meta svg { flex-shrink: 0; color: #6b7280; }
-.task-detail-tabs.td-tabs { gap: 16px; padding: 0; margin-top: 4px; border-bottom: none; }
-.td-tabs .task-detail-tab { gap: 8px; padding: 12px 8px; border-bottom: 4px solid transparent; margin-bottom: 0; font-size: 16px; line-height: 24px; font-weight: 600; color: #3d3c52; }
+.task-detail-tabs.td-tabs { gap: 16px; padding: 0; margin: 4px 0 -1px; border-bottom: none; position: relative; z-index: 1; }
+.td-tabs .task-detail-tab { position: relative; gap: 8px; padding: 12px 8px 16px; border: none; border-radius: 0; margin-bottom: 0; font-size: 16px; line-height: 24px; font-weight: 600; color: #3d3c52; }
+.td-tabs .task-detail-tab::after { content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 4px; background: transparent; }
+.td-tabs .task-detail-tab.active::after { background: #0975d7; }
 .td-tabs .task-detail-tab svg { color: #6b697b; flex-shrink: 0; }
-.td-tabs .task-detail-tab.active { color: #0975d7; border-bottom-color: #0975d7; }
+.td-tabs .task-detail-tab.active { color: #0975d7; }
 .td-tabs .task-detail-tab.active svg { color: #0975d7; }
 .task-detail-panel .task-detail-body { padding: 20px 24px 24px; }
 .td-overview { gap: 20px; }

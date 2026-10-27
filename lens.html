@@ -2393,7 +2393,7 @@ body.structural-diagram #play-animation-btn {
 .sr-player-meta {
   display: flex; align-items: center; justify-content: center; gap: 12px; flex-wrap: wrap;
   font-size: 16px; line-height: 24px; color: #6b697b; font-weight: 600;
-  margin: 12px -16px 0; padding: 12px 16px 0; border-top: 1px solid #dfdde7; flex-shrink: 0;
+  margin: 12px -16px 0; padding: 12px 16px 0; border-top: 1px solid #dfdde7; background: #fff; flex-shrink: 0;
 }
 .sr-meta-item { display: inline-flex; align-items: center; gap: 5px; min-width: 0; }
 .sr-meta-icon { width: 24px; height: 24px; padding: 4px; box-sizing: border-box; border-radius: 12px; display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; color: #6b697b; }
@@ -2460,7 +2460,7 @@ body.structural-diagram #play-animation-btn {
 
 /* With the column's 16px padding, this sits 28px in from the modal's
    right and bottom edges (and 28px from the sidebar). */
-.sr-scrubber { position: relative; padding: 12px 12px 12px; flex-shrink: 0; }
+.sr-scrubber { position: relative; flex: 1 0 auto; margin: 0 -16px -16px; padding: 12px 28px 28px; background: #fff; }
 .sr-scrubber-row { display: flex; align-items: center; gap: 10px; }
 /* Hover preview — a small chapter thumbnail + task name + duration that
    tracks the cursor along the scrubber, positioned via left/top set in

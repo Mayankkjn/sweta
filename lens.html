@@ -3070,6 +3070,7 @@ body.structural-diagram #play-animation-btn {
           <p class="fp-desc">Keep cases that include any of the selected tasks.</p>
           <div class="panel-body">
             <div class="filter-checklist fp-task-list" id="filter-task-list"></div>
+            <button type="button" class="fp-view-all" id="filter-task-more">View all</button>
           </div>
         </div>
 
@@ -12993,6 +12994,9 @@ function renderFilterPanel(matchCountOverride) {
   });
   taskMerged.select('.filter-checklist-item-label').text((n) => n.label);
   taskMerged.select('.filter-checklist-item-count').text((n) => `${n.caseCount}`);
+  // Top tasks first; ticked ones always stay in view.
+  taskMerged.style('display', (n, i) => (filterTasksShowAll || i < FILTER_TASK_PREVIEW || f.taskNames.has(n.id) ? null : 'none'));
+  d3.select('#filter-task-more').classed('hidden', taskItems.length <= FILTER_TASK_PREVIEW).text(filterTasksShowAll ? 'Show less' : 'View all');
 
   d3.select('#filter-path-count').text(f.variantSignatures.size);
   const pathList = d3.select('#filter-path-list');
@@ -13031,9 +13035,15 @@ function renderFilterPanel(matchCountOverride) {
 }
 
 const FILTER_PATH_PREVIEW = 4;
+const FILTER_TASK_PREVIEW = 6;
+let filterTasksShowAll = false;
 let filterPathsShowAll = false;
 const FP_CHECK_CIRCLE_SVG = '<svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><circle cx="7" cy="7" r="5.25" stroke="currentColor" stroke-width="1.14"/><path d="M5.25 7l1.2 1.2 2.3-2.4" stroke="currentColor" stroke-width="1.14" stroke-linecap="round" stroke-linejoin="round"/></svg>';
 const FP_X_CIRCLE_SVG = '<svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><circle cx="7" cy="7" r="5.25" stroke="currentColor" stroke-width="1.14"/><path d="M5.6 5.6l2.8 2.8M8.4 5.6 5.6 8.4" stroke="currentColor" stroke-width="1.14" stroke-linecap="round"/></svg>';
+d3.select('#filter-task-more').on('click', () => {
+  filterTasksShowAll = !filterTasksShowAll;
+  renderFilterPanel();
+});
 d3.select('#filter-path-more').on('click', () => {
   filterPathsShowAll = !filterPathsShowAll;
   renderFilterPanel();

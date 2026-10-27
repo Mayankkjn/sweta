@@ -2348,7 +2348,8 @@ body.structural-diagram #play-animation-btn {
 .sr-player-userbar {
   display: flex; align-items: center; justify-content: center; gap: 8px; flex-wrap: wrap;
   font-size: 0.82rem; color: var(--text-primary); font-weight: 600;
-  padding-bottom: 12px; margin-bottom: 12px; border-bottom: 1px solid #ececf3; flex-shrink: 0;
+  /* Full-width bar whose divider lines up with the Paths header's. */
+  box-sizing: border-box; height: 46px; padding: 0 16px; margin: -16px -16px 16px; border-bottom: 1px solid var(--panel-border); flex-shrink: 0;
 }
 .sr-player-userbar svg { color: var(--text-secondary); flex-shrink: 0; }
 .sr-player-userbar .sr-userbar-sep { color: var(--text-tertiary); margin: 0 2px; }
@@ -2375,9 +2376,11 @@ body.structural-diagram #play-animation-btn {
   background: #F6F6F9;
   border-radius: 10px;
   overflow: hidden;
-  width: 100%;
+  /* Always 16:9, sized down when the window is too short to fit the
+     player plus its meta line, scrubber and controls. */
+  width: min(100%, calc((100vh - 330px) * 16 / 9));
+  align-self: center;
   aspect-ratio: 16 / 9;
-  max-height: 100%;
   flex-shrink: 0;
   display: flex;
   align-items: center;

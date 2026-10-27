@@ -2392,6 +2392,42 @@ body.structural-diagram #play-animation-btn {
 }
 .sr-player-meta svg { color: var(--text-tertiary); flex-shrink: 0; }
 .sr-player-meta-sep { color: var(--text-tertiary); }
+/* Session replay: a placeholder app screen for the task being shown,
+   drawn at 640x360 and scaled to fit the player or the scrubber thumb. */
+.sr-screen-wrap { position: absolute; inset: 0; overflow: hidden; }
+.sr-player .sr-play-btn { position: relative; z-index: 2; box-shadow: 0 4px 14px rgba(17, 24, 39, 0.18); }
+.sr-screen { position: absolute; left: 0; top: 0; width: 640px; height: 360px; transform-origin: 0 0; transform: scale(var(--sr-scale, 1)); background: #fff; font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; color: #1f2937; display: flex; flex-direction: column; }
+.sr-chrome { display: flex; align-items: center; gap: 10px; height: 28px; padding: 0 12px; background: #eef0f3; border-bottom: 1px solid #e5e7eb; flex-shrink: 0; }
+.sr-dots { display: flex; gap: 5px; }
+.sr-dots i { width: 8px; height: 8px; border-radius: 50%; background: #d1d5db; }
+.sr-url { flex: 1; height: 16px; border-radius: 8px; background: #fff; font-size: 9px; line-height: 16px; padding: 0 10px; color: #6b7280; }
+.sr-app { flex: 1; display: flex; min-height: 0; }
+.sr-nav { width: 128px; padding: 12px 10px; display: flex; flex-direction: column; gap: 6px; background: #f9fafb; border-right: 1px solid #eef0f3; flex-shrink: 0; }
+.sr-nav b { font-size: 11px; margin-bottom: 6px; color: #111827; }
+.sr-nav span { height: 18px; border-radius: 5px; font-size: 9.5px; line-height: 18px; padding: 0 8px; color: #4b5563; }
+.sr-nav span.on { background: #e0ecfb; color: #0b5aa6; font-weight: 600; }
+.sr-main { flex: 1; padding: 16px 20px; display: flex; flex-direction: column; gap: 10px; min-width: 0; }
+.sr-crumbs { font-size: 9px; color: #9ca3af; }
+.sr-title { font-size: 15px; font-weight: 600; color: #111827; }
+.sr-form { display: grid; grid-template-columns: 1fr 1fr; gap: 10px 14px; }
+.sr-field { display: flex; flex-direction: column; gap: 4px; }
+.sr-field label { font-size: 8.5px; color: #6b7280; }
+.sr-field div { height: 22px; border: 1px solid #d1d5db; border-radius: 5px; font-size: 9.5px; line-height: 20px; padding: 0 8px; color: #374151; background: #fff; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.sr-field.wide { grid-column: 1 / -1; }
+.sr-field.wide div { height: 44px; white-space: normal; line-height: 14px; padding-top: 4px; }
+.sr-actions { display: flex; gap: 8px; margin-top: 2px; }
+.sr-actions span { height: 24px; padding: 0 14px; border-radius: 6px; font-size: 9.5px; line-height: 24px; border: 1px solid #d1d5db; color: #374151; }
+.sr-actions span.primary { background: var(--sr-accent, #0975d7); border-color: var(--sr-accent, #0975d7); color: #fff; font-weight: 600; }
+.sr-cursor { position: absolute; width: 14px; height: 18px; pointer-events: none; }
+.sr-mail-list { display: flex; flex-direction: column; border: 1px solid #eef0f3; border-radius: 6px; overflow: hidden; }
+.sr-mail-row { display: flex; gap: 10px; align-items: center; height: 26px; padding: 0 10px; font-size: 9.5px; border-bottom: 1px solid #f3f4f6; color: #4b5563; }
+.sr-mail-row b { width: 90px; color: #111827; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.sr-mail-row em { font-style: normal; flex: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.sr-mail-row.on { background: #fef3f2; }
+.sr-grid { display: grid; grid-template-columns: 26px repeat(5, 1fr); border-top: 1px solid #e5e7eb; border-left: 1px solid #e5e7eb; font-size: 9px; }
+.sr-grid span { height: 20px; line-height: 20px; padding: 0 6px; border-right: 1px solid #e5e7eb; border-bottom: 1px solid #e5e7eb; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: #374151; }
+.sr-grid span.h { background: #f3f4f6; color: #6b7280; font-weight: 600; text-align: center; }
+.sr-grid span.sel { outline: 2px solid #188038; outline-offset: -2px; background: #e6f4ea; }
 .sr-ghost { position: absolute; opacity: 0.5; border: 1.4px solid rgba(42, 46, 69, 0.16); border-radius: 6px; }
 .sr-play-btn {
   width: 46px;
@@ -3441,16 +3477,14 @@ body.structural-diagram #play-animation-btn {
         <div class="sr-player-col">
           <div class="sr-player-userbar" id="sr-player-userbar"></div>
           <div class="sr-player">
-            <div class="sr-ghost" style="top:14%; left:6%; width:30%; height:10%;"></div>
-            <div class="sr-ghost" style="top:30%; left:6%; width:88%; height:46%;"></div>
+            <div class="sr-screen-wrap" id="sr-screen"></div>
             <button class="sr-play-btn" id="sr-play-btn" type="button" aria-label="Play (preview only)"></button>
           </div>
           <div class="sr-player-meta" id="sr-player-meta"></div>
           <div class="sr-scrubber">
             <div class="sr-scrubber-preview" id="sr-scrubber-preview">
               <div class="sr-scrubber-preview-thumb">
-                <div class="sr-ghost" style="top:16%; left:8%; width:32%; height:12%;"></div>
-                <div class="sr-ghost" style="top:34%; left:8%; width:84%; height:44%;"></div>
+                <div class="sr-screen-wrap" id="sr-screen-thumb"></div>
               </div>
               <div class="sr-scrubber-preview-title" id="sr-scrubber-preview-title"></div>
               <div class="sr-scrubber-preview-duration" id="sr-scrubber-preview-duration"></div>
@@ -13968,6 +14002,81 @@ function renderUserBar() {
 // active user — sits right above the video, between the user picker and
 // the player itself. Refreshed whenever the focused task, path, or user
 // changes.
+// A stand-in screenshot for a task: the app the task runs in (from the
+// task catalog), with the task's name and a few sample fields, so the
+// replay reads like a recording rather than an empty frame.
+const SR_SAMPLE = {
+  vendor: ['Acme Supplies Ltd.', 'Northwind Traders', 'Globex Corp.'],
+  item: ['Ergonomic chairs ×12', 'Laptop docks ×20', 'Printer toner ×8'],
+  amount: ['$4,860.00', '$2,140.00', '$968.00'],
+};
+function srScreenHtml(taskName, seed) {
+  const meta = state.taskInsights && state.taskInsights.byTaskName.get(taskName);
+  const app = (meta && meta.appId) || 'Web app';
+  const k = Math.abs(seed || 0) % 3;
+  const slug = app.toLowerCase().replace(/[^a-z]+/g, '');
+  const desc = meta && meta.description ? meta.description : `Working on ${taskName}.`;
+  const chrome = `<div class="sr-chrome"><span class="sr-dots"><i></i><i></i><i></i></span><span class="sr-url">${escapeHtml(slug)}.example.com/${escapeHtml(taskName.toLowerCase().replace(/[^a-z]+/g, '-'))}</span></div>`;
+  const cursor = '<svg class="sr-cursor" style="left:%Lpx;top:%Tpx" viewBox="0 0 14 18" aria-hidden="true"><path d="M1 1v14l4-3.5 2.6 5.5 2.2-1-2.6-5.4H13z" fill="#111827" stroke="#fff" stroke-width="1.2" stroke-linejoin="round"/></svg>';
+  if (/gmail/i.test(app)) {
+    const rows = [
+      ['Procurement', `Re: ${taskName}`, 'Please review the attached request…'],
+      [SR_SAMPLE.vendor[k], 'Quote for ' + SR_SAMPLE.item[k], 'Attached is our updated pricing…'],
+      ['Finance team', 'Budget confirmation', 'Cost center headroom confirmed for Q4…'],
+      ['IT Service Desk', 'Ticket update', 'Your request has been assigned…'],
+      ['Manager', 'Approval needed', 'Can you take a look today?'],
+    ];
+    return `<div class="sr-screen" style="--sr-accent:#c5221f">${chrome}<div class="sr-app"><div class="sr-nav"><b>Mail</b><span class="on">Inbox</span><span>Starred</span><span>Sent</span><span>Drafts</span><span>Approvals</span></div>
+      <div class="sr-main"><span class="sr-crumbs">Inbox · 5 unread</span><span class="sr-title">${escapeHtml(taskName)}</span>
+      <div class="sr-mail-list">${rows.map((r, i) => `<div class="sr-mail-row${i === 0 ? ' on' : ''}"><b>${escapeHtml(r[0])}</b><em>${escapeHtml(r[1])} — ${escapeHtml(r[2])}</em></div>`).join('')}</div>
+      <div class="sr-actions"><span class="primary">Reply</span><span>Forward</span></div></div></div>${cursor.replace('%L', 210).replace('%T', 132)}</div>`;
+  }
+  if (/sheet/i.test(app)) {
+    const head = ['', 'A', 'B', 'C', 'D', 'E'];
+    const rows = [
+      ['Cost center', 'Budget', 'Spent', 'Remaining', 'Status'],
+      ['CC-1042', '$120,000', '$84,300', '$35,700', 'OK'],
+      ['CC-2210', '$60,000', '$58,900', '$1,100', 'Low'],
+      ['CC-3105', '$45,000', '$12,400', '$32,600', 'OK'],
+      ['CC-4410', '$90,000', '$71,250', '$18,750', 'OK'],
+      ['CC-5521', '$30,000', '$29,700', '$300', 'Low'],
+    ];
+    return `<div class="sr-screen" style="--sr-accent:#188038">${chrome}<div class="sr-app"><div class="sr-main"><span class="sr-crumbs">Budget tracker · Q4</span><span class="sr-title">${escapeHtml(taskName)}</span>
+      <div class="sr-grid">${head.map((h) => `<span class="h">${h}</span>`).join('')}${rows.map((r, ri) => `<span class="h">${ri + 1}</span>${r.map((c, ci) => `<span class="${ri === 1 + k && ci === 3 ? 'sel' : ''}">${c}</span>`).join('')}`).join('')}</div>
+      <div class="sr-actions"><span class="primary">Share</span><span>Filter</span></div></div></div>${cursor.replace('%L', 330).replace('%T', 150 + k * 20)}</div>`;
+  }
+  return `<div class="sr-screen" style="--sr-accent:#0875e1">${chrome}<div class="sr-app"><div class="sr-nav"><b>${escapeHtml(app)}</b><span>Home</span><span class="on">Procurement</span><span>Requests</span><span>Suppliers</span><span>Reports</span></div>
+    <div class="sr-main"><span class="sr-crumbs">Procurement › Requests › PR-${10420 + k * 37}</span><span class="sr-title">${escapeHtml(taskName)}</span>
+    <div class="sr-form">
+      <div class="sr-field"><label>Supplier</label><div>${SR_SAMPLE.vendor[k]}</div></div>
+      <div class="sr-field"><label>Amount</label><div>${SR_SAMPLE.amount[k]}</div></div>
+      <div class="sr-field"><label>Item</label><div>${SR_SAMPLE.item[k]}</div></div>
+      <div class="sr-field"><label>Cost center</label><div>CC-${1042 + k * 1168}</div></div>
+      <div class="sr-field wide"><label>Notes</label><div>${escapeHtml(desc)}</div></div>
+    </div>
+    <div class="sr-actions"><span class="primary">Submit</span><span>Save draft</span><span>Cancel</span></div></div></div>${cursor.replace('%L', 196).replace('%T', 300)}</div>`;
+}
+
+function renderSrScreens(taskName, seed) {
+  const fit = (id) => {
+    const wrap = document.getElementById(id);
+    if (!wrap) return;
+    wrap.innerHTML = srScreenHtml(taskName, seed);
+    const w = wrap.clientWidth || wrap.parentElement.clientWidth;
+    wrap.style.setProperty('--sr-scale', String((w || 640) / 640));
+  };
+  fit('sr-screen');
+  fit('sr-screen-thumb');
+}
+// Keep the screens scaled to their boxes (the modal opens hidden, and the
+// player can be expanded).
+if (window.ResizeObserver) {
+  const srScreenObserver = new ResizeObserver((entries) => {
+    entries.forEach((e) => { if (e.contentRect.width) e.target.style.setProperty('--sr-scale', String(e.contentRect.width / 640)); });
+  });
+  ['sr-screen', 'sr-screen-thumb'].forEach((id) => { const el = document.getElementById(id); if (el) srScreenObserver.observe(el); });
+}
+
 function renderPlayerMeta() {
   const bar = d3.select('#sr-player-meta');
   bar.selectAll('*').remove();
@@ -13983,6 +14092,7 @@ function renderPlayerMeta() {
   bar.append('span').attr('class', 'sr-player-meta-sep').text('·');
   bar.append('span').html(CLOCK_ICON_SVG);
   bar.append('span').text(formatDuration(duration));
+  renderSrScreens(taskName, srState.activeUserIndex + srState.focusedStepGroupIndex);
 
   d3.select('#sr-chapter-prev').property('disabled', srState.focusedStepGroupIndex === 0);
   d3.select('#sr-chapter-next').property('disabled', srState.focusedStepGroupIndex === path.taskNames.length - 1);
@@ -14095,6 +14205,12 @@ d3.select('#sr-scrubber-track').on('mousemove', function (event) {
   );
   preview.style('left', `${left}px`).classed('visible', true);
   d3.select('#sr-scrubber-preview-title').text(srState.segments[idx].taskName);
+  const thumb = document.getElementById('sr-screen-thumb');
+  if (thumb && thumb.dataset.task !== srState.segments[idx].taskName) {
+    thumb.dataset.task = srState.segments[idx].taskName;
+    thumb.innerHTML = srScreenHtml(srState.segments[idx].taskName, idx);
+    thumb.style.setProperty('--sr-scale', String((thumb.clientWidth || 132) / 640));
+  }
   d3.select('#sr-scrubber-preview-duration').text(formatDuration(activeCase().steps[idx].duration));
 });
 d3.select('#sr-scrubber-track').on('mouseleave', () => {

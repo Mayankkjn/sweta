@@ -1398,11 +1398,13 @@ body.insights-expanded .canvas-wrap > #graph { overflow: hidden; }
 .dash-title { margin-top: 0; }
 .dash-controls { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
 .dash-select { position: relative; display: inline-flex; align-items: center; }
-.dash-select select { appearance: none; -webkit-appearance: none; height: 40px; padding: 0 36px 0 14px; border: 1px solid #dfdde7; border-radius: 8px; background: #fff; font: inherit; font-size: 14px; font-weight: 600; color: #3d3c52; cursor: pointer; box-shadow: 0 4px 4px rgba(0, 0, 0, 0.02); }
-.dash-select svg { position: absolute; right: 12px; pointer-events: none; }
+.dash-select select { appearance: none; -webkit-appearance: none; box-sizing: border-box; height: 37.83px; padding: 0 41.45px 0 13.83px; border: 1.15px solid #dfdde7; border-radius: 8px; background: #fff; font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; font-size: 16.13px; line-height: 23px; font-weight: 500; color: #3d3c52; cursor: pointer; }
+.dash-select svg { position: absolute; right: 13.83px; pointer-events: none; }
 .dash-seg { display: inline-flex; align-items: center; height: 40px; border: 1px solid #dfdde7; border-radius: 8px; overflow: hidden; background: #fff; }
 .dash-seg button { height: 100%; min-width: 48px; padding: 0 14px; border: none; border-right: 1px solid #dfdde7; background: #fff; font: inherit; font-size: 14px; font-weight: 400; color: #525066; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; }
 .dash-seg button:last-child { border-right: none; }
+#dash-range { box-sizing: border-box; width: 160.15px; height: 36.87px; border: 1.15px solid #dfdde7; border-radius: 8px; box-shadow: 0 4.6px 4.6px rgba(0, 0, 0, 0.02); }
+#dash-range button { flex: 1 1 0; min-width: 0; padding: 0; }
 .dash-seg button.active { background: #f2f2f8; font-weight: 600; color: #2b2b40; }
 .dash-seg button:disabled { cursor: default; color: #a9a7b8; }
 .dash-seg button:not(:disabled):not(.active):hover { background: #f8f8fb; }
@@ -3070,7 +3072,7 @@ body.structural-diagram #play-animation-btn {
                 <option value="week" selected>Weekly</option>
                 <option value="month">Monthly</option>
               </select>
-              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M4 6 L8 10 L12 6" stroke="#6B697B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <svg width="18.43" height="18.43" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M4 6 L8 10 L12 6" stroke="#6B697B" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
             </label>
             <div class="dash-seg" id="dash-range" role="group" aria-label="Date range">
               <button type="button" data-range="30">1M</button>

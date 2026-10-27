@@ -14186,7 +14186,8 @@ function renderPathsList() {
         .on('click', (event) => { event.stopPropagation(); focusTask(stepGroupIndex); });
       const header = taskRow.append('div').attr('class', 'sr-task-row-header');
       const logo = appLogoFor(taskName);
-      header.append('span').attr('class', `sr-task-row-icon${logo ? ' has-logo' : ''}`).attr('title', logo ? appNameFor(taskName) : null).html(logo || SR_APP_WINDOW_SVG);
+      // A user-task glyph here; the app's logo shows on the player's info line.
+      header.append('span').attr('class', 'sr-task-row-icon').attr('title', logo ? appNameFor(taskName) : null).html(SR_USER_TASK_SVG);
       const textCol = header.append('span').attr('class', 'sr-task-row-text');
       textCol.append('div').attr('class', 'sr-task-row-top').text(taskName);
       const stepCount = srState.segments[stepGroupIndex].steps.length;
@@ -14208,6 +14209,7 @@ function appLogoFor(taskName) {
 }
 const SR_ROUTE_SVG = '<svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="4" cy="12.5" r="1.6" stroke="currentColor" stroke-width="1.6"/><circle cx="12" cy="3.5" r="1.6" stroke="currentColor" stroke-width="1.6"/><path d="M5.6 12.5h4.6a2.2 2.2 0 0 0 0-4.4H5.8a2.2 2.2 0 0 1 0-4.4h4.6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>';
 const SR_CLOCK_SVG = '<svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="1.6"/><path d="M8 4.8V8l2 1.3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+const SR_USER_TASK_SVG = '<svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="8" cy="5.2" r="2.7" stroke="currentColor" stroke-width="1.6"/><path d="M2.8 14c0-3.2 2.3-4.9 5.2-4.9s5.2 1.7 5.2 4.9" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>';
 const SR_APP_WINDOW_SVG = '<svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><rect x="2" y="3.3" width="12" height="9.4" rx="1.6" stroke="currentColor" stroke-width="1.6"/><path d="M2 6.3h12" stroke="currentColor" stroke-width="1.6"/></svg>';
 // The two largest units, no padding: "3m 2s", "4h 6m", "2d 3h".
 function formatDurationShortPair(minutes) {

@@ -1697,12 +1697,12 @@ body.insights-expanded .view-toggle-btn.active { width: 46px; min-width: 46px; p
    toggles those minor branches between folded-in and drawn individually ---- */
 .diamond-shape { fill: var(--card-bg); stroke: var(--path-deviation); stroke-width: 1.4px; stroke-dasharray: 3 3; transition: stroke 0.15s, fill 0.15s; }
 .diamond-shape.has-bubble { cursor: pointer; }
-.diamond-shape.has-bubble:hover { stroke: var(--accent-ui); fill: var(--accent-ui-soft); }
-.diamond-shape.expanded { stroke-dasharray: none; stroke: var(--accent-ui); fill: var(--accent-ui-soft); }
+.diamond-shape.has-bubble:hover { stroke: var(--bpmn-blue); fill: #f0f9ff; }
+.diamond-shape.expanded { stroke-dasharray: none; stroke: var(--bpmn-blue); fill: #f0f9ff; }
 .diamond-label { fill: var(--text-primary); font-size: 14px; font-weight: 700; text-anchor: middle; pointer-events: none; }
 .diamond-sub { fill: var(--text-secondary); font-size: 9.5px; text-anchor: middle; pointer-events: none; text-transform: uppercase; letter-spacing: 0.03em; }
 .diamond-chevron { fill: none; stroke: var(--text-secondary); stroke-width: 1.6px; stroke-linecap: round; stroke-linejoin: round; pointer-events: none; }
-.diamond-shape.has-bubble:hover ~ .diamond-chevron { stroke: var(--accent-ui); }
+.diamond-shape.has-bubble:hover ~ .diamond-chevron { stroke: var(--bpmn-blue); }
 
 .node.dimmed { opacity: 0.28; }
 .node.task.selected .card-bg { stroke: var(--bpmn-blue); stroke-width: 2px; }
@@ -1755,7 +1755,7 @@ body.insights-expanded .view-toggle-btn.active { width: 46px; min-width: 46px; p
 .node.hover-dim, .edge.hover-dim { opacity: 0.12 !important; }
 .node.hover-focus, .edge.hover-focus { opacity: 1 !important; }
 .node.hover-focus .bpmn-event-circle {
-  stroke: var(--accent-ui) !important;
+  stroke: var(--bpmn-blue) !important;
 }
 .node.hover-focus .pill-bg,
 .node.hover-focus .diamond-shape {

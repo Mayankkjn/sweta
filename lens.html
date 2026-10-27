@@ -1502,9 +1502,10 @@ body.insights-expanded .floating-filters,
 body.insights-expanded .floating-legend { display: none !important; }
 body.insights-expanded .play-animation-wrap { top: 64px; }
 body.insights-expanded .bpmn-breadcrumb { top: 64px; }
-body.insights-expanded .view-toggle { left: auto; right: 16px; transform: none; }
+body.insights-expanded .view-toggle { left: auto; right: 16px; transform: none; height: 39px; box-sizing: border-box; padding: 4px; border-radius: 8px; }
 /* Narrow map: the view toggle shows its icons only. */
-body.insights-expanded .view-toggle-btn { font-size: 0; gap: 0; padding-left: 10px; padding-right: 10px; }
+body.insights-expanded .view-toggle-btn { font-size: 0; gap: 0; min-width: 0; height: 32px; padding: 0 8px; border-radius: 8px; }
+body.insights-expanded .view-toggle-btn.active { width: 46px; min-width: 46px; padding: 0; }
 .ins-tab-panel { display: flex; flex-direction: column; gap: 12px; }
 .ins-tab-panel.hidden { display: none; }
 .ins-summary-group { display: flex; flex-direction: column; gap: 18px; }

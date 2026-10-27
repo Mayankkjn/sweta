@@ -2123,6 +2123,7 @@ body.structural-diagram #play-animation-btn {
 /* Toolbar buttons (Insights, Automation, Filter): outlined, design-system style. */
 #insights-btn.ai-summary-btn, #automation-opps-btn.ai-summary-btn, #filter-btn.ai-summary-btn { height: 36.5px; box-sizing: border-box; gap: 9px; padding: 6.75px 13.5px; background: #fff; border: 1px solid #dfdde7; border-radius: 8px; box-shadow: 0 4px 4px rgba(0, 0, 0, 0.02); font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; font-size: 15.75px; line-height: 22px; font-weight: 600; color: #3d3c52; }
 #insights-btn.ai-summary-btn svg, #automation-opps-btn.ai-summary-btn svg, #filter-btn.ai-summary-btn svg { width: 18px; height: 18px; color: #6b697b; flex-shrink: 0; }
+#automation-opps-btn.ai-summary-btn svg { width: 20px; height: 20px; }
 #insights-btn.ai-summary-btn:hover, #automation-opps-btn.ai-summary-btn:hover, #filter-btn.ai-summary-btn:hover { background: #f6f6f9; }
 #insights-btn.ai-summary-btn.active, #automation-opps-btn.ai-summary-btn.active, #filter-btn.ai-summary-btn.active { background: #f0f9ff; border-color: #0975d7; color: #0975d7; }
 #insights-btn.ai-summary-btn.active svg, #automation-opps-btn.ai-summary-btn.active svg, #filter-btn.ai-summary-btn.active svg { color: #0975d7; }
@@ -2675,7 +2676,7 @@ body.structural-diagram #play-animation-btn {
         Insights
       </button>
       <button id="automation-opps-btn" class="ai-summary-btn" type="button" aria-expanded="false">
-        <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M9 1 L3 9.5 H7.5 L6.5 15 L13 6.5 H8.5 Z" /></svg>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M13 3v7h6l-8 11v-7H5l8-11" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
         Automation
       </button>
       <button id="ai-summary-btn" class="ai-summary-btn" type="button" aria-expanded="false" hidden style="display: none">
@@ -2847,7 +2848,7 @@ body.structural-diagram #play-animation-btn {
       <div class="ins-resize" id="ins-resize" role="separator" aria-orientation="vertical" aria-label="Resize insights panel"></div>
       <div class="ins-header">
         <div class="ins-title">
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5M9 18h6M10 22h4" stroke="#6B697B" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3 12h1m8-9v1m8 8h1M5.6 5.6l.7.7m12.1-.7-.7.7M9 16a5 5 0 1 1 6 0 3.5 3.5 0 0 0-1 3 2 2 0 0 1-4 0 3.5 3.5 0 0 0-1-3M9.7 17h4.6" stroke="#6B697B" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
           <h2>Insights</h2>
         </div>
         <span class="ins-header-actions">
@@ -3049,7 +3050,7 @@ body.structural-diagram #play-animation-btn {
       </div>
       <div class="ins-dash" id="ins-dash">
         <div class="dash-header">
-          <div class="ins-title dash-title"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5M9 18h6M10 22h4" stroke="#6B697B" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg><h2>Insights</h2></div>
+          <div class="ins-title dash-title"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3 12h1m8-9v1m8 8h1M5.6 5.6l.7.7m12.1-.7-.7.7M9 16a5 5 0 1 1 6 0 3.5 3.5 0 0 0-1 3 2 2 0 0 1-4 0 3.5 3.5 0 0 0-1-3M9.7 17h4.6" stroke="#6B697B" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg><h2>Insights</h2></div>
           <div class="dash-controls">
             <label class="dash-select">
               <select id="dash-granularity" aria-label="Trend granularity">

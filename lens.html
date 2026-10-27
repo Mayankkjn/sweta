@@ -2339,7 +2339,7 @@ body.structural-diagram #play-animation-btn {
 .sr-task-row-sub { display: flex; align-items: center; gap: 8px; font-size: 14px; line-height: 20px; color: #6b697b; }
 .sr-task-row-sub b, .sr-task-row-time { font-weight: 700; }
 .sr-task-row-time { flex-shrink: 0; font-size: 14px; line-height: 20px; color: #6b697b; }
-.sr-task-row:not(.focused) .sr-task-row-sub b, .sr-task-row.focused .sr-task-row-time { display: none; }
+.sr-task-row-sub b { display: none; }
 
 .sr-player-col { flex: 1; min-width: 0; padding: 16px; overflow-y: auto; display: flex; flex-direction: column; }
 /* User picker, centered above the video — arrows sit right next to the
@@ -14138,8 +14138,6 @@ function renderPathsList() {
       const stepCount = srState.segments[stepGroupIndex].steps.length;
       textCol.append('div').attr('class', 'sr-task-row-sub')
         .html(`<span>${stepCount} step${stepCount === 1 ? '' : 's'}</span><b>${formatDurationShortPair(currentCase.steps[stepGroupIndex].duration)}</b>`);
-      // The time sits beside the step count on the selected task, at the
-      // right edge on the others.
       header.append('span').attr('class', 'sr-task-row-time').text(formatDurationShortPair(currentCase.steps[stepGroupIndex].duration));
     });
   });

@@ -1481,13 +1481,12 @@ body.insights-expanded .map-expanded-head > * { pointer-events: auto; }
 .map-maximize-btn, .map-zoom-control button, .dash-seg button, .dash-btn { padding-top: 0; padding-bottom: 0; }
 .map-maximize-btn, .map-zoom-control button { padding: 0; }
 .map-maximize-btn svg, .map-zoom-control svg, .dash-btn svg, .dash-seg svg, .ins-header-actions svg { flex-shrink: 0; }
-body.insights-expanded .map-zoom-control { display: flex; position: absolute; left: 16px; bottom: 16px; z-index: 6; align-items: center; height: 40px; padding: 0 4px; gap: 2px; background: #fff; border: 1px solid #dfdde7; border-radius: 8px; box-shadow: 0 4px 4px rgba(0, 0, 0, 0.02); }
-.map-zoom-control button { width: 32px; height: 32px; border: none; background: none; border-radius: 6px; color: #525066; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; }
+body.insights-expanded .map-zoom-control { display: flex; position: absolute; left: 16px; bottom: 16px; z-index: 6; align-items: center; box-sizing: border-box; width: 157px; height: 36px; padding: 0 11px 0 7px; gap: 0; background: #fff; border: none; border-radius: 8px; box-shadow: 0 4px 24px rgba(0, 0, 0, 0.05); }
+.map-zoom-control button { box-sizing: border-box; width: 24px; height: 24px; border: 1px solid #dfdde7; background: #fff; border-radius: 4px; color: #6b697b; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; flex: none; }
 .map-zoom-control button:hover { background: #f6f6f9; }
-.map-zoom-icon { width: 32px; height: 32px; display: inline-flex; align-items: center; justify-content: center; color: #525066; }
+.map-zoom-icon { width: 25px; height: 25px; margin-right: 12px; border-radius: 50%; background: #f0f9ff; color: #0975d7; display: inline-flex; align-items: center; justify-content: center; flex: none; }
 .map-zoom-icon svg { flex-shrink: 0; }
-.map-zoom-sep { width: 1px; height: 20px; background: #dfdde7; margin: 0 4px; }
-.map-zoom-value { min-width: 40px; text-align: center; font-size: 13px; font-weight: 600; color: #3d3c52; }
+.map-zoom-value { flex: 1; text-align: center; font-family: 'Inter', sans-serif; font-size: 14px; line-height: 20px; font-weight: 600; color: #3d3c52; font-feature-settings: 'salt' on, 'ss01' on, 'ss02' on; }
 /* Filters opened from the dashboard sit at the right edge, over it. */
 body { --ins-dash-w: var(--ins-expanded-w); }
 body.ins-filter-docked { --ins-dash-w: min(var(--ins-expanded-w), calc(100vw - var(--ins-filter-w) - 380px)); }
@@ -2633,7 +2632,7 @@ body.structural-diagram #play-animation-btn {
         </a>
         <div class="title-text">
           <h1 id="page-title">Purchase Order to Payment</h1>
-          <p class="subtitle">How purchase requests move from creation through approval, budget check and vendor selection to PO, goods receipt, invoice match and payment</p>
+          <p class="subtitle">How purchase requests move from approval and vendor selection through PO, receipt and payment</p>
         </div>
       </div>
     </div>
@@ -2838,8 +2837,7 @@ body.structural-diagram #play-animation-btn {
       <button type="button" id="map-maximize" class="map-maximize-btn" aria-label="Collapse insights" title="Collapse insights"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke="#525066" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
     </div>
     <div id="map-zoom-control" class="map-zoom-control" role="group" aria-label="Process variants" title="Process variants">
-      <span class="map-zoom-icon" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 21V4M5 4h11l-2 4 2 4H5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-      <span class="map-zoom-sep"></span>
+      <span class="map-zoom-icon" aria-hidden="true"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M8 21V3l11 4.5L8 12" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
       <button type="button" id="map-zoom-out" aria-label="Show fewer variants" title="Show fewer variants"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3.5 8h9" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></button>
       <span id="map-zoom-value" class="map-zoom-value">100%</span>
       <button type="button" id="map-zoom-in" aria-label="Show more variants" title="Show more variants"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3.5 8h9M8 3.5v9" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></button>

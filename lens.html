@@ -94,9 +94,13 @@ body {
   align-items: center;
   justify-content: space-between;
   gap: 20px;
-  background: transparent;
+  box-sizing: border-box;
+  height: 87px;
+  background: rgba(246, 246, 249, 0.8);
+  -webkit-backdrop-filter: blur(2px);
+  backdrop-filter: blur(2px);
   border-bottom: 1px solid var(--panel-border);
-  padding: 14px 28px;
+  padding: 0 28px;
 }
 body.app-fullscreen .topbar { display: none; }
 body.app-fullscreen .kpi-band {
@@ -106,6 +110,10 @@ body.app-fullscreen .kpi-band {
   left: auto;
   border: none;
   padding: 0;
+  height: auto;
+  background: transparent;
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
   z-index: 20;
 }
 body.app-fullscreen .kpi-band .stats { display: none; }

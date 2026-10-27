@@ -2349,7 +2349,7 @@ body.structural-diagram #play-animation-btn {
 /* User picker, centered above the video — arrows sit right next to the
    id itself rather than flanking the whole player. */
 .sr-player-userbar {
-  display: flex; align-items: center; justify-content: center; gap: 8px; flex-wrap: wrap;
+  display: flex; align-items: center; justify-content: center; gap: 6.77px; flex-wrap: wrap;
   font-size: 0.82rem; color: var(--text-primary); font-weight: 600;
   /* Full-width bar whose divider lines up with the Paths header's. */
   box-sizing: border-box; height: 46px; padding: 0 16px; margin: -16px -16px 0; border-bottom: 1px solid #dfdde7; background: #fff; flex-shrink: 0;
@@ -2364,14 +2364,30 @@ body.structural-diagram #play-animation-btn {
   background-repeat: no-repeat; background-position: right center;
 }
 .sr-player-nav {
-  flex-shrink: 0;
-  width: 24px; height: 24px; border-radius: 50%; border: none;
-  background: none; color: var(--text-secondary);
+  position: relative; flex-shrink: 0;
+  width: 27px; height: 27px; padding: 6.77px; box-sizing: border-box; border-radius: 13.5px;
+  border: 0.85px solid #dfdde7; background: #fff; color: #6b697b;
   display: flex; align-items: center; justify-content: center; cursor: pointer;
 }
-.sr-player-nav:hover { background: var(--bg); color: var(--accent-ui); }
-.sr-player-nav:disabled { opacity: 0.3; cursor: default; }
-.sr-player-nav:disabled:hover { background: none; color: var(--text-secondary); }
+.sr-player-nav svg { width: 13.5px; height: 13.5px; flex-shrink: 0; }
+.sr-player-nav:hover { background: #f6f6f9; }
+.sr-player-nav:disabled { opacity: 0.4; cursor: default; }
+.sr-player-nav:disabled:hover { background: #fff; }
+/* Dark tooltip, beak toward the button. It opens below: the bar sits at
+   the very top of a scrolling column, where one above would be clipped. */
+.sr-player-nav[data-tip]::after {
+  content: attr(data-tip); position: absolute; left: -8.5px; top: calc(100% + 10px);
+  padding: 10px 13.5px; border-radius: 3.4px; background: #3d3c52; color: #fff;
+  font-size: 11.84px; line-height: 17px; font-weight: 500; white-space: nowrap;
+  box-shadow: 0 2.5px 6.8px rgba(0, 0, 0, 0.14), 0 1.7px 5px rgba(0, 0, 0, 0.18);
+  opacity: 0; pointer-events: none; transition: opacity 0.12s; z-index: 5;
+}
+.sr-player-nav[data-tip]::before {
+  content: ''; position: absolute; left: 7.5px; top: calc(100% + 4px);
+  border: 6px solid transparent; border-top: none; border-bottom: 6.77px solid #3d3c52;
+  opacity: 0; pointer-events: none; transition: opacity 0.12s; z-index: 5;
+}
+.sr-player-nav[data-tip]:hover:not(:disabled)::after, .sr-player-nav[data-tip]:hover:not(:disabled)::before { opacity: 1; }
 /* Always 16:9, full pane width — sized from the pane rather than
    stretching to whatever shape the modal is. */
 .sr-player {
@@ -13991,7 +14007,7 @@ function renderUserBar() {
   bar.selectAll('*').remove();
   const path = activePath();
 
-  bar.append('button').attr('class', 'sr-player-nav').attr('type', 'button').attr('aria-label', 'Previous user')
+  bar.append('button').attr('class', 'sr-player-nav').attr('type', 'button').attr('aria-label', 'Previous user').attr('data-tip', 'Previous user')
     .property('disabled', srState.activeUserIndex === 0)
     .html('<svg width="12" height="12" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M9 2 L4 7 L9 12" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>')
     .on('click', () => stepUser(-1));
@@ -14004,7 +14020,7 @@ function renderUserBar() {
   });
   select.on('change', function () { selectUser(Number(this.value)); });
 
-  bar.append('button').attr('class', 'sr-player-nav').attr('type', 'button').attr('aria-label', 'Next user')
+  bar.append('button').attr('class', 'sr-player-nav').attr('type', 'button').attr('aria-label', 'Next user').attr('data-tip', 'Next user')
     .property('disabled', srState.activeUserIndex === path.users.length - 1)
     .html('<svg width="12" height="12" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M5 2 L10 7 L5 12" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>')
     .on('click', () => stepUser(1));

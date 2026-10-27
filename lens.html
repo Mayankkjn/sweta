@@ -62,20 +62,29 @@ body {
   flex-wrap: wrap;
 }
 
-.title-row { display: flex; align-items: center; gap: 10px; margin-bottom: 4px; }
+.title-row { display: flex; align-items: flex-start; gap: 4px; }
+.title-text { display: flex; flex-direction: column; min-width: 0; }
 
 .back-link {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  color: var(--text-secondary);
+  width: 28px;
+  height: 28px;
+  padding: 8px;
+  box-sizing: border-box;
+  border-radius: 4px;
+  margin-top: 1px;
+  flex-shrink: 0;
+  color: #3d3c52;
   text-decoration: none;
 }
-.back-link:hover { color: var(--accent-ui); }
+.back-link svg { flex-shrink: 0; }
+.back-link:hover { background: #f2f2f8; }
 
 .topbar-title { min-width: 0; }
-.topbar-title h1 { margin: 0; font-size: 1.2rem; letter-spacing: -0.01em; }
-.subtitle { margin: 0; color: var(--text-secondary); font-size: 0.85rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.topbar-title h1 { margin: 0; font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; font-size: 20px; line-height: 30px; font-weight: 700; color: #1f1f32; }
+.subtitle { margin: 0; font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; color: #6b697b; font-size: 14px; line-height: 22px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
 .topbar-right { display: flex; align-items: center; gap: 24px; flex-wrap: wrap; }
 
@@ -2601,14 +2610,16 @@ body.structural-diagram #play-animation-btn {
   <header class="topbar">
     <div class="topbar-title">
       <div class="title-row">
-        <a class="back-link" href="home.html" aria-label="Back to Overview">
-          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
-            <path d="M9 3 L4.5 7 L9 11" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+        <a class="back-link" href="home.html" aria-label="Back to Overview" title="Back to Overview">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+            <path d="M10 4 L6 8 L10 12" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
           </svg>
         </a>
-        <h1 id="page-title">Process Map — Purchase Order to Payment</h1>
+        <div class="title-text">
+          <h1 id="page-title">Purchase Order to Payment</h1>
+          <p class="subtitle">Process map showing the feature adoption of the added features</p>
+        </div>
       </div>
-      <p class="subtitle">Directly-follows graph mined from process history. Thicker path = more frequent. Highlighted path = most common route.</p>
     </div>
     <div class="topbar-actions">
       <div class="export-menu-wrap" id="export-menu-wrap">
@@ -13377,7 +13388,7 @@ function loadStaticBpmnDiagram(parsed, fileName) {
 
   document.body.classList.add('structural-diagram');
   const pageTitle = `Process Map — ${parsed.poolLabel}`;
-  document.getElementById('page-title').textContent = pageTitle;
+  document.getElementById('page-title').textContent = parsed.poolLabel;
   document.title = pageTitle;
   d3.select('.subtitle').text('Structural BPMN diagram, imported as-is — no process-mining stats, since there\'s no case log behind it.');
 
@@ -13436,7 +13447,7 @@ function handleUploadFile(file) {
         || null;
       if (raw && raw.goal && raw.goal.name) {
         const pageTitle = `Process Map — ${raw.goal.name}`;
-        document.getElementById('page-title').textContent = pageTitle;
+        document.getElementById('page-title').textContent = raw.goal.name;
         document.title = pageTitle;
       }
       state.expandedOpportunityIds = new Set();
@@ -14494,7 +14505,7 @@ sessionStorage.removeItem('selectedProcessName');
 sessionStorage.removeItem('selectedProcessData');
 
 if (selectedProcessName) {
-  document.getElementById('page-title').textContent = `Process Map — ${selectedProcessName}`;
+  document.getElementById('page-title').textContent = selectedProcessName;
   document.title = `Process Map — ${selectedProcessName}`;
 }
 

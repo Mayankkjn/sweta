@@ -2042,36 +2042,43 @@ body.structural-diagram #play-animation-btn {
 .view-toggle {
   position: absolute;
   left: 50%;
-  bottom: 16px;
+  bottom: 23px;
   transform: translateX(-50%);
   z-index: 6;
   display: flex;
-  gap: 2px;
-  background: var(--bg);
-  border: 1px solid var(--panel-border);
-  border-radius: 100px;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  background: #fff;
+  border: none;
+  border-radius: 40px;
   padding: 4px;
-  box-shadow: var(--shadow-sm);
+  box-shadow: 0 4px 34px rgba(0, 0, 0, 0.05), 0 0 0 1px rgba(0, 0, 0, 0.03);
 }
 .view-toggle-btn {
   display: flex;
   align-items: center;
-  gap: 7px;
+  justify-content: center;
+  gap: 5px;
+  height: 32px;
   border: none;
   background: none;
-  padding: 8px 16px;
-  border-radius: 100px;
+  padding: 0 16px 0 10px;
+  border-radius: 49px;
   font: inherit;
-  font-size: 0.84rem;
+  font-family: -apple-system, "SF Pro Text", BlinkMacSystemFont, Inter, "Segoe UI", sans-serif;
+  font-size: 13.44px;
+  line-height: 16px;
   font-weight: 600;
-  color: var(--text-secondary);
+  letter-spacing: -0.11px;
+  color: rgba(139, 143, 166, 0.6);
   cursor: pointer;
   white-space: nowrap;
 }
-.view-toggle-btn:hover { color: var(--text-primary); }
-.view-toggle-btn.active { background: var(--card-bg); color: var(--text-primary); box-shadow: var(--shadow-sm); }
-.view-toggle-btn .view-toggle-sparkle { color: var(--text-tertiary); }
-.view-toggle-btn.active .view-toggle-sparkle { color: var(--accent-ui); }
+.view-toggle-btn svg { flex-shrink: 0; color: #8c899f; opacity: 0.6; }
+.view-toggle-btn:hover { color: #6b6f86; }
+.view-toggle-btn.active { min-width: 127px; background: #fff; color: #2a2e45; box-shadow: 0 5.15px 30.87px rgba(0, 0, 0, 0.05), 0 0 0 1px rgba(0, 0, 0, 0.03); }
+.view-toggle-btn.active svg { color: #0975d7; opacity: 1; }
 
 /* ---- AI summary ---- */
 .canvas-toolbar { display: flex; align-items: center; gap: 10px; flex-shrink: 0; transition: margin-right 0.22s ease; }
@@ -3278,11 +3285,11 @@ body.structural-diagram #play-animation-btn {
 
     <div class="view-toggle" id="view-toggle" role="tablist" aria-label="Map view">
       <button class="view-toggle-btn active" id="view-toggle-bpmn" type="button" data-view="bpmn" role="tab" aria-selected="true" title="BPMN view">
-        <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor" class="view-toggle-sparkle" aria-hidden="true"><path d="M8 1 L9.2 5.6 L13.5 7 L9.2 8.4 L8 13 L6.8 8.4 L2.5 7 L6.8 5.6 Z" /></svg>
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><rect x="6.67" y="2" width="2.67" height="2.67" rx="0.5" stroke="currentColor" stroke-width="1"/><rect x="2" y="11.33" width="2.67" height="2.67" rx="0.5" stroke="currentColor" stroke-width="1"/><rect x="11.33" y="11.33" width="2.67" height="2.67" rx="0.5" stroke="currentColor" stroke-width="1"/><path d="M4.33 11.33V9.67a1 1 0 0 1 1-1h5.34a1 1 0 0 1 1 1v1.66M8 4.67v4" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/></svg>
         BPMN view
       </button>
       <button class="view-toggle-btn" id="view-toggle-flow" type="button" data-view="flow" role="tab" aria-selected="false" title="Path view">
-        <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true"><rect x="2" y="4" width="12" height="8" rx="2" stroke="currentColor" stroke-width="1.3" /></svg>
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><rect x="2.5" y="14.17" width="3.33" height="3.33" rx="0.6" stroke="currentColor" stroke-width="1.2"/><path d="M5.83 15.83H10.83A2.5 2.5 0 0 0 13.33 13.33V8.33A2.5 2.5 0 0 1 15.83 5.83H17.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M15 3.33l2.5 2.5-2.5 2.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
         Path view
       </button>
     </div>

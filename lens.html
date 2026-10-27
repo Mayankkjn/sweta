@@ -2041,9 +2041,10 @@ body.structural-diagram #play-animation-btn {
 /* ---- flow / BPMN view toggle ---- */
 .view-toggle {
   position: absolute;
-  /* Just right of the Process Variants card (16px inset + 300px wide). */
-  left: 340px;
-  bottom: 29px;
+  /* Centred in the canvas, bottom edge level with the Process Variants card. */
+  left: 50%;
+  bottom: 16px;
+  transform: translateX(-50%);
   z-index: 6;
   display: flex;
   align-items: center;

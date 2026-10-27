@@ -111,10 +111,12 @@ body.app-fullscreen .kpi-band {
 body.app-fullscreen .kpi-band .stats { display: none; }
 body.app-fullscreen .side-drawer { top: 64px; right: 16px; }
 
-.stats { display: flex; gap: 28px; }
-.stat { display: flex; flex-direction: column; align-items: flex-start; min-width: 80px; }
+.stats { display: flex; align-items: center; gap: 21px; }
+.stat { display: flex; flex-direction: column; align-items: flex-start; gap: 4px; min-width: 112px; }
+.stat-sep { width: 1px; height: 61.5px; background: #dfdde7; flex: none; }
 .stat-value { font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; font-size: 30px; line-height: 32px; font-weight: 500; color: #3d3c52; font-variant-numeric: tabular-nums; font-feature-settings: 'salt' on, 'ss01' on, 'ss02' on; }
-.stat-label { font-size: 0.7rem; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.05em; margin-top: 2px; }
+.stat-label { display: flex; align-items: center; gap: 6px; height: 26px; padding-bottom: 2px; box-sizing: border-box; font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; font-size: 16px; line-height: 24px; font-weight: 400; color: #3d3c52; white-space: nowrap; }
+.stat-label svg { flex: none; }
 
 .import-button {
   display: flex;
@@ -2666,9 +2668,11 @@ body.structural-diagram #play-animation-btn {
 
   <div class="kpi-band" id="kpi-band">
     <div class="stats">
-      <div class="stat"><span class="stat-value" id="stat-cases">–</span><span class="stat-label">Total Instances</span></div>
-      <div class="stat"><span class="stat-value" id="stat-users">–</span><span class="stat-label">Total unique users</span></div>
-      <div class="stat"><span class="stat-value" id="stat-avg-duration">–</span><span class="stat-label">Median completion time</span></div>
+      <div class="stat"><span class="stat-value" id="stat-cases">–</span><span class="stat-label"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M7 3v4m10-4v4M7 7a2 2 0 0 0-2 2v3c0 4.5 3 9 7 9s7-4.5 7-9V9a2 2 0 0 0-2-2" stroke="#3D3C52" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Total Instances</span></div>
+      <span class="stat-sep" aria-hidden="true"></span>
+      <div class="stat"><span class="stat-value" id="stat-users">–</span><span class="stat-label"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M16 3h5v5M8 3H3v5M21 3l-7.5 7.5A5 5 0 0 0 12 14v7M3 3l7.5 7.5A5 5 0 0 1 12 14" stroke="#8C899F" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Total unique users</span></div>
+      <span class="stat-sep" aria-hidden="true"></span>
+      <div class="stat"><span class="stat-value" id="stat-avg-duration">–</span><span class="stat-label"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="8.5" stroke="#8C899F" stroke-width="1.8"/><path d="M12 7.5V12l3 2" stroke="#8C899F" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Median completion time</span></div>
     </div>
 
     <div class="canvas-toolbar">

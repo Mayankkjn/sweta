@@ -8022,7 +8022,7 @@ function generateEventLog(numCases = 500) {
       caseId: `PO-${1000 + i}`,
       variantId: variant.id,
       totalDuration: cursor,
-      startTime: now - (1 - Math.sqrt(Math.random())) * 90 * DAY_MS,
+      startTime: now - (1 - Math.sqrt(Math.random())) * 365 * DAY_MS,
       users: [userIds[i]],
       steps,
     });
@@ -13080,8 +13080,10 @@ function resetFilters() {
   if (processIdSelect) { processIdSelect.renderChips(); processIdSelect.closeDropdown(); processIdSelect.clearInput(); }
   if (userIdSelect) { userIdSelect.renderChips(); userIdSelect.closeDropdown(); userIdSelect.clearInput(); }
   syncDurationSliderBounds();
-  state.cases = state.allCases;
-  state.model = state.baseModel;
+  // Clearing filters keeps the date range, so the view stays in its window.
+  const inRange = getFilteredCases();
+  state.cases = inRange.length ? inRange : state.allCases;
+  state.model = state.cases.length === state.allCases.length ? state.baseModel : buildProcessModel(state.cases);
 }
 
 function getFilteredCases() {
@@ -13090,7 +13092,13 @@ function getFilteredCases() {
   const hasPath = f.variantSignatures.size > 0;
   const hasProcessId = f.processIds.size > 0;
   const hasUserId = f.userIds.size > 0;
+  // The toolbar date range applies on top of every other filter: keep cases
+  // that started within the window ending at the latest case. Data without
+  // case dates is left unfiltered.
+  const times = state.allCases.map((c) => c.startTime).filter((t) => Number.isFinite(t));
+  const from = times.length >= 2 ? d3.max(times) - insightsDash.rangeDays * DAY_MS : null;
   const filtered = state.allCases.filter((c) => {
+    if (from != null && !(c.startTime >= from)) return false;
     if (hasTask && !c.steps.some((s) => f.taskNames.has(s.task))) return false;
     if (hasPath && !f.variantSignatures.has(c.steps.map((s) => s.task).join(' → '))) return false;
     if (f.durationMin != null && c.totalDuration < f.durationMin) return false;
@@ -13596,11 +13604,13 @@ function syncDateControls() {
 d3.selectAll('.granularity-select').on('change', function () {
   insightsDash.granularity = this.value;
   syncDateControls();
+  applyFilters();
   renderInsightsDashboard();
 });
 d3.selectAll('.date-range-seg button[data-range]').on('click', function () {
   insightsDash.rangeIdx = Number(this.dataset.idx);
   syncDateControls();
+  applyFilters();
   renderInsightsDashboard();
 });
 syncDateControls();

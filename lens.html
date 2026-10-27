@@ -11338,7 +11338,14 @@ function renderTimeToComplete(cases, opts = {}) {
 // ---- Insights, expanded: a dashboard docked beside a narrowed map ----
 // The range (1M/3M/6M, counted back from the latest case start) narrows
 // the cases the dashboard reads; the granularity sets the trend's period.
-const insightsDash = { expanded: false, rangeDays: 90, granularity: 'week' };
+// Each granularity offers its own three ranges; the selected position
+// (short / medium / long) carries over when the granularity changes.
+const DATE_RANGE_PRESETS = {
+  day: [[30, '30D'], [60, '60D'], [90, '90D']],
+  week: [[28, '4W'], [84, '12W'], [252, '36W']],
+  month: [[90, '3M'], [180, '6M'], [365, '12M']],
+};
+const insightsDash = { expanded: false, rangeIdx: 1, rangeDays: 84, granularity: 'week' };
 
 function syncInsightsExpandedTop() {
   const top = document.getElementById('canvas-wrap').getBoundingClientRect().top;
@@ -13573,7 +13580,16 @@ d3.select('#dash-filters').on('click', () => {
 // The toolbar and the dashboard header carry the same date controls; both
 // drive one shared range and granularity.
 function syncDateControls() {
+  const presets = DATE_RANGE_PRESETS[insightsDash.granularity];
+  insightsDash.rangeDays = presets[insightsDash.rangeIdx][0];
   d3.selectAll('.granularity-select').property('value', insightsDash.granularity);
+  d3.selectAll('.date-range-seg').each(function () {
+    d3.select(this).selectAll('button[data-range]').each(function (d, i) {
+      this.dataset.range = presets[i][0];
+      this.dataset.idx = i;
+      this.textContent = presets[i][1];
+    });
+  });
   d3.selectAll('.date-range-seg button[data-range]')
     .classed('active', function () { return !this.disabled && Number(this.dataset.range) === insightsDash.rangeDays; });
 }
@@ -13583,10 +13599,11 @@ d3.selectAll('.granularity-select').on('change', function () {
   renderInsightsDashboard();
 });
 d3.selectAll('.date-range-seg button[data-range]').on('click', function () {
-  insightsDash.rangeDays = Number(this.dataset.range);
+  insightsDash.rangeIdx = Number(this.dataset.idx);
   syncDateControls();
   renderInsightsDashboard();
 });
+syncDateControls();
 // The compact map control mirrors the Process Variants slider.
 d3.select('#map-zoom-in').on('click', () => stepPathFilter(10));
 d3.select('#map-zoom-out').on('click', () => stepPathFilter(-10));

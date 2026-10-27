@@ -12543,11 +12543,12 @@ function renderTaskOccurrenceChart(taskId) {
   const line = d3.line().x((d, i) => x(i)).y((d) => y(d)).curve(d3.curveMonotoneX);
   svg.append('path').attr('d', area(counts)).attr('fill', 'url(#td-occ-fill)');
   svg.append('path').attr('class', 'td-occ-line').attr('d', line(counts));
-  const ticks = Math.min(n, 6);
-  d3.range(ticks).forEach((k) => {
-    const i = Math.round((k / (ticks - 1)) * (n - 1));
+  // A whole number of weeks between labels keeps them equidistant in both
+  // position and date (at most 6 labels).
+  const tickStep = Math.max(1, Math.ceil((n - 1) / 5));
+  d3.range(0, n, tickStep).forEach((i) => {
     svg.append('text').attr('class', 'td-occ-axis').attr('x', x(i)).attr('y', H - 6)
-      .attr('text-anchor', k === 0 ? 'start' : k === ticks - 1 ? 'end' : 'middle')
+      .attr('text-anchor', i === 0 ? 'start' : x(i) > W - 24 ? 'end' : 'middle')
       .text(new Date(startOf(i) + week).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }));
   });
 

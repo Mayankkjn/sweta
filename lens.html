@@ -2458,7 +2458,9 @@ body.structural-diagram #play-animation-btn {
   display: block;
 }
 
-.sr-scrubber { position: relative; padding-top: 12px; flex-shrink: 0; }
+/* With the column's 16px padding, this sits 28px in from the modal's
+   right and bottom edges (and 28px from the sidebar). */
+.sr-scrubber { position: relative; padding: 12px 12px 12px; flex-shrink: 0; }
 .sr-scrubber-row { display: flex; align-items: center; gap: 10px; }
 /* Hover preview — a small chapter thumbnail + task name + duration that
    tracks the cursor along the scrubber, positioned via left/top set in

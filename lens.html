@@ -2356,12 +2356,6 @@ body.structural-diagram #play-animation-btn {
 .sr-player-col { flex: 1; min-width: 0; padding: 16px; overflow-y: auto; display: flex; flex-direction: column; background: #ececf3; }
 /* User picker, centered above the video — arrows sit right next to the
    id itself rather than flanking the whole player. */
-.sr-user-picker { position: relative; display: inline-flex; }
-.sr-user-menu { position: absolute; top: calc(100% + 4px); left: 50%; transform: translateX(-50%); z-index: 20; width: 353px; max-width: 60vw; max-height: 229px; overflow-y: auto; padding: 4px 0; background: #fff; border-radius: 4px; box-shadow: 0 6px 20px rgba(0, 0, 0, 0.14), 0 4px 12px rgba(0, 0, 0, 0.18); display: flex; flex-direction: column; }
-.sr-user-menu-item { display: flex; align-items: center; gap: 8px; width: 100%; padding: 12px 16px; border: none; background: #fff; font: inherit; font-size: 14px; line-height: 20px; font-weight: 500; color: #3d3c52; text-align: left; cursor: pointer; flex-shrink: 0; }
-.sr-user-menu-item svg { flex-shrink: 0; }
-.sr-user-menu-item:hover, .sr-user-menu-item.selected { background: #f6f6f9; }
-.sr-user-menu-item.selected { color: #1f1f32; }
 .sr-player-userbar {
   display: flex; align-items: center; justify-content: center; gap: 6.77px; flex-wrap: wrap;
   font-size: 0.82rem; color: var(--text-primary); font-weight: 600;
@@ -14042,32 +14036,11 @@ function renderUserBar() {
 
   bar.append('span').html(PERSON_ICON_SVG);
   bar.append('span').text('User ID :');
-  // A custom picker (button + menu) rather than a native select, so the
-  // open list can carry the design system's menu styling.
-  const picker = bar.append('span').attr('class', 'sr-user-picker');
-  const current = path.users[srState.activeUserIndex];
-  const trigger = picker.append('button').attr('type', 'button').attr('class', 'sr-userbar-select')
-    .attr('aria-haspopup', 'listbox').attr('aria-expanded', 'false')
-    .text(formatUserId(current.userId));
-  const menu = picker.append('div').attr('class', 'sr-user-menu').attr('role', 'listbox').attr('hidden', '');
+  const select = bar.append('select').attr('class', 'sr-userbar-select');
   path.users.forEach((u, i) => {
-    menu.append('button').attr('type', 'button').attr('role', 'option')
-      .attr('class', `sr-user-menu-item${i === srState.activeUserIndex ? ' selected' : ''}`)
-      .attr('aria-selected', String(i === srState.activeUserIndex))
-      .html(`${SR_USER_SVG}<span>${escapeHtml(formatUserId(u.userId))}</span>`)
-      .on('click', (event) => { event.stopPropagation(); closeSrUserMenu(); selectUser(i); });
+    select.append('option').attr('value', i).property('selected', i === srState.activeUserIndex).text(formatUserId(u.userId));
   });
-  trigger.on('click', (event) => {
-    event.stopPropagation();
-    const open = menu.attr('hidden') !== null;
-    closeSrUserMenu();
-    if (open) {
-      menu.attr('hidden', null);
-      trigger.attr('aria-expanded', 'true');
-      const sel = menu.node().querySelector('.selected');
-      if (sel) sel.scrollIntoView({ block: 'nearest' });
-    }
-  });
+  select.on('change', function () { selectUser(Number(this.value)); });
 
   bar.append('button').attr('class', 'sr-player-nav').attr('type', 'button').attr('aria-label', 'Next user').attr('data-tip', 'Next user')
     .property('disabled', srState.activeUserIndex === path.users.length - 1)
@@ -14236,13 +14209,6 @@ function appLogoFor(taskName) {
 }
 const SR_ROUTE_SVG = '<svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="4" cy="12.5" r="1.6" stroke="currentColor" stroke-width="1.6"/><circle cx="12" cy="3.5" r="1.6" stroke="currentColor" stroke-width="1.6"/><path d="M5.6 12.5h4.6a2.2 2.2 0 0 0 0-4.4H5.8a2.2 2.2 0 0 1 0-4.4h4.6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>';
 const SR_CLOCK_SVG = '<svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="1.6"/><path d="M8 4.8V8l2 1.3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>';
-const SR_USER_SVG = '<svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><circle cx="10" cy="6.5" r="3.2" stroke="#6B697B" stroke-width="1.6"/><path d="M5 17.5c0-3.3 2.2-5.3 5-5.3s5 2 5 5.3" stroke="#6B697B" stroke-width="1.6" stroke-linecap="round"/></svg>';
-function closeSrUserMenu() {
-  d3.selectAll('.sr-user-menu').attr('hidden', '');
-  d3.selectAll('.sr-user-picker .sr-userbar-select').attr('aria-expanded', 'false');
-}
-document.addEventListener('click', (event) => { if (!event.target.closest('.sr-user-picker')) closeSrUserMenu(); });
-document.addEventListener('keydown', (event) => { if (event.key === 'Escape') closeSrUserMenu(); });
 const SR_USER_TASK_SVG = '<svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="8" cy="5.2" r="2.7" stroke="currentColor" stroke-width="1.6"/><path d="M2.8 14c0-3.2 2.3-4.9 5.2-4.9s5.2 1.7 5.2 4.9" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>';
 const SR_APP_WINDOW_SVG = '<svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><rect x="2" y="3.3" width="12" height="9.4" rx="1.6" stroke="currentColor" stroke-width="1.6"/><path d="M2 6.3h12" stroke="currentColor" stroke-width="1.6"/></svg>';
 // The two largest units, no padding: "3m 2s", "4h 6m", "2d 3h".

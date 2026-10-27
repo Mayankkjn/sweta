@@ -2097,6 +2097,13 @@ body.structural-diagram #play-animation-btn {
 
 /* ---- AI summary ---- */
 .canvas-toolbar { display: flex; align-items: center; gap: 10px; flex-shrink: 0; transition: margin-right 0.22s ease; }
+/* When an open side panel leaves too little room, the labelled buttons
+   collapse to icon-only squares (see fitCanvasToolbar). */
+.canvas-toolbar.compact .btn-label { display: none; }
+.canvas-toolbar.compact #insights-btn.ai-summary-btn,
+.canvas-toolbar.compact #automation-opps-btn.ai-summary-btn,
+.canvas-toolbar.compact #filter-btn.ai-summary-btn { position: relative; width: 36.5px; padding: 0; gap: 0; justify-content: center; }
+.canvas-toolbar.compact #filter-btn .filter-count-badge { position: absolute; top: -7px; right: -7px; padding: 0 5px; line-height: 16px; }
 
 .icon-toolbar-btn {
   display: flex;
@@ -2704,13 +2711,13 @@ body.structural-diagram #play-animation-btn {
           <button type="button" class="dash-seg-cal" disabled title="Custom date range (coming soon)" aria-label="Custom date range"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3" y="4.5" width="18" height="16.5" rx="2" stroke="currentColor" stroke-width="1.6"/><path d="M3 9.5h18M8 3v3M16 3v3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></button>
         </div>
       </div>
-      <button id="insights-btn" class="ai-summary-btn" type="button" aria-expanded="false">
+      <button id="insights-btn" class="ai-summary-btn" type="button" aria-expanded="false" title="Insights">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3 12h1m8-9v1m8 8h1M5.6 5.6l.7.7m12.1-.7-.7.7M9 16a5 5 0 1 1 6 0 3.5 3.5 0 0 0-1 3 2 2 0 0 1-4 0 3.5 3.5 0 0 0-1-3M9.7 17h4.6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        Insights
+        <span class="btn-label">Insights</span>
       </button>
-      <button id="automation-opps-btn" class="ai-summary-btn" type="button" aria-expanded="false">
+      <button id="automation-opps-btn" class="ai-summary-btn" type="button" aria-expanded="false" title="Automation">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M13 3v7h6l-8 11v-7H5l8-11" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        Automation
+        <span class="btn-label">Automation</span>
       </button>
       <button id="ai-summary-btn" class="ai-summary-btn" type="button" aria-expanded="false" hidden style="display: none">
         <svg width="15" height="15" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
@@ -2719,11 +2726,11 @@ body.structural-diagram #play-animation-btn {
         </svg>
         AI Summary
       </button>
-      <button id="filter-btn" class="ai-summary-btn" type="button" aria-expanded="false">
+      <button id="filter-btn" class="ai-summary-btn" type="button" aria-expanded="false" title="Filter">
         <svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden="true">
           <path d="M2 3 H14 L9.5 8.2 V13 L6.5 11.3 V8.2 Z" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round" />
         </svg>
-        Filter
+        <span class="btn-label">Filter</span>
         <span class="filter-count-badge hidden" id="filter-count-badge">0</span>
       </button>
       <button id="fullscreen-btn" class="icon-toolbar-btn" type="button" aria-label="Toggle full screen" aria-pressed="false">
@@ -12971,14 +12978,41 @@ function syncTaskDetailLayout() {
   const isOpen = !panel.classList.contains('hidden');
   if (!isOpen) {
     toolbar.style.marginRight = '0px';
+    fitCanvasToolbar();
     return;
   }
   const topbar = document.querySelector('.topbar');
   const topbarBottom = topbar ? Math.max(0, topbar.getBoundingClientRect().bottom) : 0;
   panel.style.top = `${topbarBottom}px`;
   toolbar.style.marginRight = `${panel.getBoundingClientRect().width}px`;
+  fitCanvasToolbar();
 }
 window.addEventListener('resize', syncTaskDetailLayout);
+
+// Collapses the toolbar's labelled buttons to icons when the KPI band can't
+// fit the stats and the full toolbar beside the panel's reserved margin. If
+// the icons alone still don't fit, trailing KPIs drop out (with their
+// divider) so the open panel never covers the buttons.
+function fitCanvasToolbar() {
+  const band = document.getElementById('kpi-band');
+  const toolbar = band.querySelector('.canvas-toolbar');
+  const stats = band.querySelector('.stats');
+  const statItems = [...stats.children];
+  statItems.forEach((el) => { el.style.display = ''; });
+  toolbar.classList.remove('compact');
+  const bandStyle = getComputedStyle(band);
+  const room = band.clientWidth - parseFloat(bandStyle.paddingLeft) - parseFloat(bandStyle.paddingRight);
+  const needed = () => stats.offsetWidth + parseFloat(bandStyle.columnGap || 20) + toolbar.offsetWidth + (parseFloat(toolbar.style.marginRight) || 0);
+  if (needed() <= room) return;
+  toolbar.classList.add('compact');
+  for (let i = statItems.length - 1; i > 0 && needed() > room; i -= 2) {
+    statItems[i].style.display = 'none';
+    statItems[i - 1].style.display = 'none';
+  }
+}
+// Re-fit whenever the band itself changes size (window resize, or coming
+// back from the expanded dashboard / full screen, where it was hidden).
+new ResizeObserver(() => fitCanvasToolbar()).observe(document.getElementById('kpi-band'));
 
 // Re-fits the canvas to whatever space it now has (debounced so a live
 // window-resize drag doesn't thrash it on every intermediate frame) —

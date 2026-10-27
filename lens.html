@@ -2042,9 +2042,9 @@ body.structural-diagram #play-animation-btn {
 /* ---- flow / BPMN view toggle ---- */
 .view-toggle {
   position: absolute;
-  left: 50%;
-  bottom: 23px;
-  transform: translateX(-50%);
+  /* Just right of the Process Variants card (16px inset + 300px wide). */
+  left: 340px;
+  bottom: 29px;
   z-index: 6;
   display: flex;
   align-items: center;
@@ -2052,7 +2052,7 @@ body.structural-diagram #play-animation-btn {
   gap: 0;
   background: #fff;
   border: none;
-  border-radius: 40px;
+  border-radius: 8px;
   padding: 4px;
   box-shadow: 0 4px 34px rgba(0, 0, 0, 0.05), 0 0 0 1px rgba(0, 0, 0, 0.03);
 }
@@ -2065,7 +2065,7 @@ body.structural-diagram #play-animation-btn {
   border: none;
   background: none;
   padding: 0 16px 0 10px;
-  border-radius: 49px;
+  border-radius: 8px;
   font: inherit;
   font-family: -apple-system, "SF Pro Text", BlinkMacSystemFont, Inter, "Segoe UI", sans-serif;
   font-size: 13.44px;

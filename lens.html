@@ -14125,14 +14125,7 @@ function renderPathsList() {
 
     if (!isActive) return;
 
-    const selectRow = panel.append('div').attr('class', 'sr-user-select-row');
-    selectRow.append('span').text('User :');
-    const select = selectRow.append('select').attr('class', 'sr-userbar-select');
-    path.users.forEach((u, i) => {
-      select.append('option').attr('value', i).property('selected', i === srState.activeUserIndex).text(formatUserId(u.userId));
-    });
-    select.on('change', function () { selectUser(Number(this.value)); });
-
+    // The user is picked in the bar above the player, not here.
     const currentCase = activeCase();
     path.taskNames.forEach((taskName, stepGroupIndex) => {
       const isFocused = stepGroupIndex === srState.focusedStepGroupIndex;

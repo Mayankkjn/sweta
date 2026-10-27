@@ -2308,14 +2308,15 @@ body.structural-diagram #play-animation-btn {
 /* Sessions list — one row per instance, expandable into its full task path.
    Rows run edge-to-edge (no side margin/radius) so the flush strip reads as
    the outer list; task cards below are inset, reading as nested content. */
-.sr-user-row { display: flex; align-items: center; gap: 12px; padding: 11px 16px; cursor: pointer; border-left: 3px solid transparent; border-bottom: 1px solid var(--panel-border); }
-.sr-user-row:hover { background: #f5f6fb; }
-.sr-user-row.expanded { background: #FFF8F5; border-left-color: var(--accent-ui); }
-.sr-user-avatar { width: 34px; height: 34px; border-radius: 50%; background: #eef0f6; color: #8b8fa6; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-.sr-user-row.expanded .sr-user-avatar { background: #fff; color: var(--accent-ui); }
-.sr-user-info { display: flex; flex-direction: column; }
-.sr-user-name { font-size: 0.88rem; font-weight: 600; color: var(--text-primary); }
-.sr-user-meta { font-size: 0.75rem; color: var(--text-secondary); margin-top: 1px; }
+.sr-user-row { display: flex; align-items: center; gap: 16px; min-height: 70px; padding: 12px 16px 12px 17px; box-sizing: border-box; cursor: pointer; border-left: 3px solid transparent; border-bottom: 1px solid #dfdde7; }
+.sr-user-row:hover { background: #f8f8fb; }
+.sr-user-row.expanded { background: #fff8f5; border-left-color: #c74900; }
+.sr-user-avatar { width: 36px; height: 36px; padding: 8px; box-sizing: border-box; border-radius: 18px; background: #f2f2f8; color: #6b697b; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.sr-user-avatar svg { width: 20px; height: 20px; }
+.sr-user-row.expanded .sr-user-avatar { background: #fff; color: #c74900; }
+.sr-user-info { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.sr-user-name { font-size: 16px; line-height: 24px; font-weight: 700; color: #3d3c52; }
+.sr-user-meta { font-size: 14px; line-height: 20px; color: #6b697b; }
 
 /* The active path's user picker — sits between the path row and its task
    list, so switching users re-scopes every task's real duration below. */
@@ -14130,7 +14131,7 @@ function renderPathsList() {
       .attr('class', `sr-user-row${isActive ? ' expanded' : ''}`)
       .attr('data-path-index', pathIndex)
       .on('click', () => selectPath(pathIndex));
-    row.append('span').attr('class', 'sr-user-avatar').html(PATH_ICON_SVG);
+    row.append('span').attr('class', 'sr-user-avatar').html(SR_ROUTE_SVG.replace(/stroke-width="1.6"/g, 'stroke-width="1.5"'));
     const info = row.append('span').attr('class', 'sr-user-info');
     info.append('span').attr('class', 'sr-user-name').text(`Path ${path.variantRank != null ? path.variantRank : '–'}`);
     info.append('span').attr('class', 'sr-user-meta').text(`${path.users.length} user${path.users.length === 1 ? '' : 's'} · ${path.taskNames.length} Tasks`);

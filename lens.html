@@ -11663,6 +11663,7 @@ const INSIGHT_PATH_PREVIEW_COUNT = 5;
 const insightsPathsUI = { showAllPaths: false, showAllCases: false };
 
 function renderVariantList(model) {
+  model = pathListModel(model);
   const completedSet = model.completion.recognizedTaskSet;
   const isCompleted = (v) => completedSet.has(v.path[v.path.length - 1]);
   const completedCount = model.variants.filter(isCompleted).length;
@@ -11690,7 +11691,32 @@ function renderVariantList(model) {
 }
 
 function pathRowClass(v) {
-  return `ins-path-row${state.highlight && state.highlight.kind === 'variant' && state.highlight.value === v ? ' active' : ''}`;
+  const active = state.filters.variantSignatures.has(v.signature)
+    || (state.highlight && state.highlight.kind === 'variant' && state.highlight.value === v);
+  return `ins-path-row${active ? ' active' : ''}`;
+}
+
+// Clicking a path in Insights filters the map to that path alone; clicking
+// the same path again clears the path filter. It is the same filter the
+// Filter panel's Path section sets, so the two stay in step.
+function togglePathFilter(v) {
+  const sigs = state.filters.variantSignatures;
+  const onlyThis = sigs.size === 1 && sigs.has(v.signature);
+  sigs.clear();
+  if (!onlyThis) sigs.add(v.signature);
+  applyFilters();
+}
+
+// The Paths list keeps every path on offer while one is filtered, so it is
+// built from the current view minus the path filter itself.
+function pathListModel(model) {
+  const sigs = state.filters.variantSignatures;
+  if (!sigs.size) return model;
+  const saved = [...sigs];
+  sigs.clear();
+  const cases = getFilteredCases();
+  saved.forEach((sig) => sigs.add(sig));
+  return cases.length ? buildProcessModel(cases) : model;
 }
 
 function pathStepsTooltipHtml(v, model) {
@@ -11715,7 +11741,8 @@ function renderPathRows(list, variants, model) {
   merged
     .order()
     .attr('class', pathRowClass)
-    .on('click', (event, v) => setHighlight('variant', v))
+    .attr('title', (v) => (state.filters.variantSignatures.has(v.signature) ? 'Click to show all paths' : 'Click to show only this path on the map'))
+    .on('click', (event, v) => togglePathFilter(v))
     .html((v) => `
       <span class="ins-path-main">
         <span class="ins-path-name">Path ${v.rank}<span class="variant-info" aria-label="Show path steps">${INFO_ICON_SVG}</span>${v === model.fastestPath ? '<span class="fastest-badge" title="Fastest observed path">⚡ fastest</span>' : ''}</span>

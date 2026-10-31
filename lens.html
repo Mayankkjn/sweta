@@ -556,32 +556,34 @@ body.app-fullscreen .side-drawer { top: 64px; right: 16px; }
 
 /* ---- Task detail: Automation tab ---- */
 .ta-panel { gap: 24px; }
-.ta-score { display: flex; flex-direction: column; gap: 16px; padding: 18px; }
-.ta-score-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
-.ta-score-title { font-size: 13px; line-height: 16px; font-weight: 600; color: #4b5563; }
-.ta-tier { display: inline-flex; align-items: center; gap: 6px; height: 24px; padding: 0 8px; border-radius: 999px; font-size: 12px; line-height: 15px; font-weight: 600; background: #f0fdf4; color: #166534; }
-.ta-tier.medium { background: #fff7ed; color: #9a3412; }
-.ta-tier.low { background: #fef2f2; color: #991b1b; }
+.ta-score { position: relative; display: flex; flex-direction: column; align-items: stretch; gap: 16px; padding: 18px 18px 0; background: #fff; border: 1px solid #dfdde7; border-radius: 12px; box-shadow: 0 21px 38px rgba(0, 0, 0, 0.07); overflow: hidden; }
+.ta-score-head { display: flex; align-items: center; gap: 12px; height: 34px; }
+.ta-score-icon { width: 34px; height: 34px; border-radius: 50%; background: #f6f6f9; display: inline-flex; align-items: center; justify-content: center; flex: none; }
+.ta-score-title { font-size: 16px; line-height: 19px; font-weight: 600; color: #2b2b40; }
+.ta-score-text { margin: 0; font-size: 14px; line-height: 21px; color: #525066; }
+.ta-gauge-wrap { display: flex; flex-direction: column; align-items: center; }
+.ta-gauge { position: relative; width: 154px; height: 78px; }
+.ta-gauge svg { position: absolute; inset: 0; overflow: visible; }
+.ta-gauge-value { position: absolute; left: 0; right: 0; bottom: 6px; display: flex; align-items: baseline; justify-content: center; gap: 4px; }
+.ta-gauge-value strong { font-size: 32px; line-height: 32px; font-weight: 800; letter-spacing: -0.65px; color: #3d3c52; }
+.ta-gauge-value span { font-size: 14.5px; line-height: 18px; color: #7b7891; }
+.ta-tier { position: relative; margin-top: -5px; display: inline-flex; align-items: center; justify-content: center; gap: 5px; height: 40px; padding: 0 16px 0 10px; box-sizing: border-box; background: #fff; border: 1px solid #f2f2f8; border-radius: 40px; box-shadow: 0 4px 4px rgba(0, 0, 0, 0.02); font-size: 14px; line-height: 17px; font-weight: 500; letter-spacing: 0.04px; color: #7b7891; }
+.ta-tier-icon { width: 19px; height: 19px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; background: linear-gradient(180deg, #d9fbee 0%, #e3eac6 100%); color: #12924f; flex: none; }
+.ta-tier.medium .ta-tier-icon { background: linear-gradient(180deg, #fef3c7 0%, #fde8c8 100%); color: #b45309; }
+.ta-tier.low .ta-tier-icon { background: linear-gradient(180deg, #fee2e2 0%, #fde4e4 100%); color: #b91c1c; }
 .ta-tier svg { flex-shrink: 0; }
-.ta-score-value { display: flex; align-items: baseline; gap: 9px; }
-.ta-score-value strong { font-size: 44px; line-height: 44px; font-weight: 600; letter-spacing: -0.88px; color: #111827; }
-.ta-score-value span { font-size: 15px; line-height: 18px; color: #6b7280; }
-.ta-bands { display: flex; flex-direction: column; gap: 8px; }
-.ta-band-bar { position: relative; display: grid; grid-template-columns: 40fr 30fr 30fr; gap: 2px; height: 8px; }
-.ta-band { position: relative; height: 8px; background: #e5e7eb; overflow: hidden; }
-.ta-band:first-child { border-radius: 4px 0 0 4px; }
-.ta-band:last-child { border-radius: 0 4px 4px 0; }
-.ta-band-fill { position: absolute; left: 0; top: 0; bottom: 0; }
-.ta-marker { position: absolute; top: -4px; width: 4px; height: 16px; margin-left: -2px; border-radius: 2px; background: #dfdde7; border: 1px solid #dfdde7; box-shadow: 0 0 0 2px #fff; box-sizing: border-box; }
-.ta-band-labels { display: grid; grid-template-columns: 40fr 30fr 30fr; gap: 2px; font-size: 11px; line-height: 13px; color: #6b7280; }
-.ta-band-labels span.active { font-weight: 600; color: var(--ta-ink); }
-.ta-score-text { margin: 0; font-size: 14px; line-height: 21px; color: #374151; }
-.ta-impact { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; padding-top: 16px; border-top: 1px solid #eef0f3; }
-.ta-impact div { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.ta-impact { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; padding: 10px 0 17px 10px; border-bottom: 1px solid #eef0f3; }
+.ta-impact div { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
 .ta-impact div + div { padding-left: 12px; border-left: 1px solid #eef0f3; }
-.ta-impact strong { font-size: 20px; line-height: 26px; font-weight: 600; color: #111827; white-space: nowrap; }
-.ta-impact strong.good { color: #15803d; }
+.ta-impact strong { font-size: 24px; line-height: 26px; font-weight: 600; color: #3d3c52; white-space: nowrap; font-feature-settings: 'ss01' on, 'salt' on, 'ss03' on, 'ss04' on; }
 .ta-impact span { font-size: 12px; line-height: 15px; color: #4b5563; }
+.ta-reco { display: flex; align-items: flex-start; gap: 8px; margin: -16px -18px 0; padding: 16px 16px 18px; border-radius: 0 0 11px 11px; }
+.ta-reco-check { color: #198558; width: 14px; height: 14px; margin-top: 1px; border-radius: 40px; background: linear-gradient(180deg, #d9fbee 0%, #e3eac6 100%); display: inline-flex; align-items: center; justify-content: center; flex: none; }
+.ta-reco.medium .ta-reco-check { color: #b45309; background: linear-gradient(180deg, #fef3c7 0%, #fde8c8 100%); }
+.ta-reco.low .ta-reco-check { color: #b91c1c; background: linear-gradient(180deg, #fee2e2 0%, #fde4e4 100%); }
+.ta-reco-text { display: flex; flex-direction: column; gap: 1px; min-width: 0; }
+.ta-reco-title { font-size: 14px; line-height: 17px; font-weight: 500; color: #3d3c52; }
+.ta-reco-body { font-size: 11px; line-height: 16px; color: #6b697b; }
 .ta-section { display: flex; flex-direction: column; gap: 12px; }
 .ta-section-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
 .ta-h { margin: 0; font-size: 15px; line-height: 18px; font-weight: 600; color: #111827; }
@@ -3483,18 +3485,24 @@ body.structural-diagram #play-animation-btn {
       </div>
 
       <div class="task-detail-tab-panel hidden ta-panel" id="task-detail-automation-tab">
-        <section class="td-card ta-score">
+        <section class="ta-score">
           <div class="ta-score-head">
+            <span class="ta-score-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M6.5 3h11M6.5 21h11M7.5 3v3.2a4.5 4.5 0 0 0 1.6 3.4L12 12l2.9-2.4a4.5 4.5 0 0 0 1.6-3.4V3M7.5 21v-3.2a4.5 4.5 0 0 1 1.6-3.4L12 12l2.9 2.4a4.5 4.5 0 0 1 1.6 3.4V21" stroke="#3a3a3a" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M9.2 6.2h5.6L12 8.6z" fill="#3a3a3a"/></svg></span>
             <span class="ta-score-title">Automation score</span>
-            <span class="ta-tier" id="ta-tier"></span>
-          </div>
-          <div class="ta-score-value"><strong id="ta-score">–</strong><span>/ 100</span></div>
-          <div class="ta-bands">
-            <div class="ta-band-bar" id="ta-band-bar" role="img"></div>
-            <div class="ta-band-labels" id="ta-band-labels"></div>
           </div>
           <p class="ta-score-text" id="ta-score-text"></p>
+          <div class="ta-gauge-wrap">
+            <div class="ta-gauge" id="ta-gauge" role="img">
+              <svg id="ta-gauge-svg" width="154" height="78" viewBox="0 0 154 78" aria-hidden="true"></svg>
+              <div class="ta-gauge-value"><strong id="ta-score">–</strong><span>/ 100</span></div>
+            </div>
+            <span class="ta-tier" id="ta-tier"></span>
+          </div>
           <div class="ta-impact" id="ta-impact"></div>
+          <div class="ta-reco">
+            <span class="ta-reco-check" aria-hidden="true"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2.1 5.2 4 7.1 7.9 2.9" stroke="currentColor" stroke-width="1.41" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            <span class="ta-reco-text"><span class="ta-reco-title" id="ta-reco-title"></span><span class="ta-reco-body" id="ta-reco-body"></span></span>
+          </div>
         </section>
 
         <section class="ta-section">
@@ -12624,24 +12632,46 @@ const TA_BANDS = [
   { key: 'high', label: 'High', from: 70, to: 100, light: '#BBF7D0', strong: '#15803D', ink: '#166534' },
 ];
 
+// The score gauge: a half-ring of thin ticks running red → amber → green
+// from 0 to 100; ticks past the score turn grey and a white pill marks it.
+const TA_GAUGE_STOPS = [
+  [0, '#F0302B'], [0.01, '#F34829'], [0.02, '#F55528'], [0.035, '#F76127'], [0.04, '#F86D27'], [0.055, '#FA7926'],
+  [0.06, '#FC8625'], [0.065, '#FD9224'], [0.07, '#FF9E23'], [0.09, '#FFB14D'], [0.13, '#FFBD6A'], [0.15, '#FFC780'],
+  [0.18, '#FFCBB4'], [0.2, '#FEE2D6'], [0.355, '#D9FBEE'], [0.366, '#B9FFE5'], [0.372, '#B0FADE'], [0.382, '#94EDCB'],
+  [0.393, '#6CEABA'], [0.585, '#24DB92'], [0.655, '#20BB7A'],
+];
+function renderAutomationGauge(score) {
+  const svg = d3.select('#ta-gauge-svg').html('');
+  const cx = 77, cy = 77, rOuter = 77, rInner = 65.3;
+  const ticks = 183;
+  const t = Math.max(0, Math.min(1, score / 100));
+  for (let i = 0; i < ticks; i += 1) {
+    const f = i / (ticks - 1);
+    const a = Math.PI * (1 - f);
+    const color = f > t ? '#DFDDE7' : TA_GAUGE_STOPS.filter(([at]) => at <= f).pop()[1];
+    svg.append('line')
+      .attr('x1', cx + rInner * Math.cos(a)).attr('y1', cy - rInner * Math.sin(a))
+      .attr('x2', cx + rOuter * Math.cos(a)).attr('y2', cy - rOuter * Math.sin(a))
+      .attr('stroke', color).attr('stroke-width', 0.6).attr('stroke-linecap', 'round');
+  }
+  const a = Math.PI * (1 - t);
+  const r = (rInner + rOuter) / 2;
+  const deg = 90 - (a * 180) / Math.PI;
+  svg.append('rect')
+    .attr('x', -1.8).attr('y', -7.2).attr('width', 3.6).attr('height', 14.5).attr('rx', 1.8)
+    .attr('fill', '#fff').attr('stroke', '#DFDDE7').attr('stroke-width', 1.2)
+    .style('filter', 'drop-shadow(0 1.2px 2.4px rgba(0,0,0,0.16)) drop-shadow(0 2.4px 2.4px rgba(0,0,0,0.12))')
+    .attr('transform', `translate(${cx + r * Math.cos(a)}, ${cy - r * Math.sin(a)}) rotate(${deg})`);
+}
+
 function renderAutomationOverview(node, meta, m) {
   const taskId = node.id;
   const band = TA_BANDS.find((b) => b.key === m.tier);
   const tierLabel = m.tier === 'high' ? 'Highly automatable' : m.tier === 'medium' ? 'Partially automatable' : 'Not automatable';
-  d3.select('#ta-tier').attr('class', `ta-tier ${m.tier}`).html(`${TD_TIER_ICON_SVG}${tierLabel}`);
+  d3.select('#ta-tier').attr('class', `ta-tier ${m.tier}`).html(`<span class="ta-tier-icon">${TD_TIER_ICON_SVG}</span>${tierLabel}`);
   d3.select('#ta-score').text(m.score);
-
-  // Bands below the score keep their tint; the score's own band fills up
-  // to the score; anything above stays grey.
-  const bar = d3.select('#ta-band-bar').attr('aria-label', `Score ${m.score} of 100, in the ${band.label.toLowerCase()} band`);
-  bar.html(TA_BANDS.map((b) => {
-    if (m.score >= b.to) return `<span class="ta-band" style="background:${b.light}"></span>`;
-    if (m.score < b.from) return '<span class="ta-band"></span>';
-    const pct = ((m.score - b.from) / (b.to - b.from)) * 100;
-    return `<span class="ta-band"><span class="ta-band-fill" style="width:${pct}%;background:${b.strong}"></span></span>`;
-  }).join('') + `<span class="ta-marker" style="left:${m.score}%"></span>`);
-  d3.select('#ta-band-labels').style('--ta-ink', band.ink)
-    .html(TA_BANDS.map((b) => `<span class="${b.key === m.tier ? 'active' : ''}">${b.label}</span>`).join(''));
+  d3.select('#ta-gauge').attr('aria-label', `Score ${m.score} of 100, in the ${band.label.toLowerCase()} band`);
+  renderAutomationGauge(m.score);
 
   const reasons = [];
   if (m.consistency >= 0.8) reasons.push('consistent, rules-based steps');
@@ -12662,10 +12692,18 @@ function renderAutomationOverview(node, meta, m) {
 
   const share = AUTOMATION_SHARE[m.tier];
   d3.select('#ta-impact').html([
-    [formatDurationLong(node.totalTime * share), 'saved across all instances', share > 0],
-    [`${Math.round(share * 100)}%`, 'of task time', share > 0],
-    [formatDurationLong(node.avgDuration), 'per execution', false],
-  ].map(([v, l, good]) => `<div><strong class="${good ? 'good' : ''}">${v}</strong><span>${l}</span></div>`).join(''));
+    [formatDurationLong(node.totalTime), 'Total time taken'],
+    [`${Math.round(share * 100)}%`, 'of task time'],
+    [formatDurationLong(node.avgDuration), 'per execution'],
+  ].map(([v, l]) => `<div><strong>${v}</strong><span>${l}</span></div>`).join(''));
+  const reco = {
+    high: ['Automate this task', 'High consistency and low complexity make this task ideal for automation.'],
+    medium: ['Automate with review', 'A fairly regular pattern suits automation, with a person handling exceptions.'],
+    low: ['Keep this task manual', 'Variation, rework or judgment needs make this a weak candidate for now.'],
+  }[m.tier];
+  d3.select('.ta-reco').attr('class', `ta-reco ${m.tier}`);
+  d3.select('#ta-reco-title').text(reco[0]);
+  d3.select('#ta-reco-body').text(reco[1]);
 
   // Signals: each is favorable, unfavorable, or not tracked in this data.
   const pct = (n) => `${Math.round(n * 100)}%`;

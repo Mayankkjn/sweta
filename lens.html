@@ -564,9 +564,9 @@ body.app-fullscreen .side-drawer { top: 64px; right: 16px; }
 .ta-gauge-wrap { display: flex; flex-direction: column; align-items: center; }
 .ta-gauge { position: relative; width: 154px; height: 78px; }
 .ta-gauge svg { position: absolute; inset: 0; overflow: visible; }
-.ta-gauge-value { position: absolute; left: 0; right: 0; bottom: 6px; display: flex; align-items: baseline; justify-content: center; gap: 4px; }
-.ta-gauge-value strong { font-size: 32px; line-height: 32px; font-weight: 800; letter-spacing: -0.65px; color: #3d3c52; }
-.ta-gauge-value span { font-size: 14.5px; line-height: 18px; color: #7b7891; }
+.ta-gauge-value { position: absolute; left: 50%; bottom: 15px; transform: translateX(-50%); }
+.ta-gauge-value strong { display: block; font-size: 32px; line-height: 32px; font-weight: 800; letter-spacing: -0.65px; color: #3d3c52; }
+.ta-gauge-value span { position: absolute; left: 100%; bottom: 0; margin-left: 3px; font-size: 14.5px; line-height: 18px; color: #7b7891; white-space: nowrap; }
 .ta-tier { position: relative; margin-top: 3px; display: inline-flex; align-items: center; justify-content: center; gap: 5px; height: 40px; padding: 0 16px 0 10px; box-sizing: border-box; background: #fff; border: 1px solid #f2f2f8; border-radius: 40px; box-shadow: 0 4px 4px rgba(0, 0, 0, 0.02); font-size: 14px; line-height: 17px; font-weight: 500; letter-spacing: 0.04px; color: #7b7891; }
 .ta-tier-icon { width: 19px; height: 19px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; background: linear-gradient(180deg, #d9fbee 0%, #e3eac6 100%); color: #12924f; flex: none; }
 .ta-tier.medium .ta-tier-icon { background: linear-gradient(180deg, #fef3c7 0%, #fde8c8 100%); color: #b45309; }
@@ -12634,21 +12634,22 @@ const TA_BANDS = [
 
 // The score gauge: a half-ring of thin ticks running red → amber → green
 // from 0 to 100; ticks past the score turn grey and a white pill marks it.
+// [first tick index, colour] runs for the 184 ticks, straight from the spec.
 const TA_GAUGE_STOPS = [
-  [0, '#F0302B'], [0.01, '#F34829'], [0.02, '#F55528'], [0.035, '#F76127'], [0.04, '#F86D27'], [0.055, '#FA7926'],
-  [0.06, '#FC8625'], [0.065, '#FD9224'], [0.07, '#FF9E23'], [0.09, '#FFB14D'], [0.13, '#FFBD6A'], [0.15, '#FFC780'],
-  [0.18, '#FFCBB4'], [0.2, '#FEE2D6'], [0.355, '#D9FBEE'], [0.366, '#B9FFE5'], [0.372, '#B0FADE'], [0.382, '#94EDCB'],
-  [0.393, '#6CEABA'], [0.585, '#24DB92'], [0.655, '#20BB7A'],
+  [0, '#F0302B'], [1, '#F23C2A'], [2, '#F34829'], [3, '#F55528'], [6, '#F76127'], [7, '#F86D27'], [10, '#FA7926'],
+  [11, '#FC8625'], [12, '#FD9224'], [13, '#FF9E23'], [16, '#FFB14D'], [24, '#FFBD6A'], [27, '#FFC780'], [33, '#FFCBB4'],
+  [37, '#FEE2D6'], [65, '#D9FBEE'], [67, '#B9FFE5'], [68, '#B0FADE'], [70, '#94EDCB'], [72, '#6CEABA'], [107, '#24DB92'],
+  [120, '#20BB7A'],
 ];
 function renderAutomationGauge(score) {
   const svg = d3.select('#ta-gauge-svg').html('');
   const cx = 77, cy = 77, rOuter = 77, rInner = 65.3;
-  const ticks = 183;
+  const ticks = 184;
   const t = Math.max(0, Math.min(1, score / 100));
   for (let i = 0; i < ticks; i += 1) {
     const f = i / (ticks - 1);
     const a = Math.PI * (1 - f);
-    const color = f > t ? '#DFDDE7' : TA_GAUGE_STOPS.filter(([at]) => at <= f).pop()[1];
+    const color = f > t ? '#DFDDE7' : TA_GAUGE_STOPS.filter(([at]) => at <= i).pop()[1];
     svg.append('line')
       .attr('x1', cx + rInner * Math.cos(a)).attr('y1', cy - rInner * Math.sin(a))
       .attr('x2', cx + rOuter * Math.cos(a)).attr('y2', cy - rOuter * Math.sin(a))

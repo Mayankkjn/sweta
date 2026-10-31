@@ -3145,9 +3145,10 @@ body.structural-diagram #play-animation-btn {
                   <div class="ins-cases-head">
                     <span>Case ID</span><span>Variant no.</span><span>Total steps</span><span>Total time</span><span></span>
                   </div>
-                  <div class="ins-cases-scroll dash-cases-scroll">
+                  <div class="ins-cases-scroll dash-cases-scroll" id="dash-cases-scroll">
                     <ul class="ins-cases-list" id="dash-cases-list"></ul>
                   </div>
+                  <button class="ins-cases-footer" id="dash-cases-more" type="button">View all cases</button>
                 </div>
               </div>
             </div>
@@ -11771,6 +11772,9 @@ function renderEfficientRows(list, variants, isCompleted) {
 const CASE_ROWS_PREVIEW = 50;
 let caseMenuTarget = null;
 
+const DASH_CASE_PREVIEW = 5;
+let dashCasesShowAll = false;
+
 function renderCaseRows(model) {
   const variantByCase = new Map();
   model.variants.forEach((v) => v.caseIds.forEach((id) => variantByCase.set(id, v)));
@@ -11780,8 +11784,12 @@ function renderCaseRows(model) {
     .sort((a, b) => a.v.rank - b.v.rank);
   const shown = insightsPathsUI.showAllCases ? rows : rows.slice(0, CASE_ROWS_PREVIEW);
   fillCaseList(d3.select('#ins-cases-list'), shown);
-  // The dashboard's card scrolls through every case.
-  fillCaseList(d3.select('#dash-cases-list'), rows);
+  // The dashboard's card shows the first few cases; View all scrolls them all.
+  fillCaseList(d3.select('#dash-cases-list'), dashCasesShowAll ? rows : rows.slice(0, DASH_CASE_PREVIEW));
+  d3.select('#dash-cases-scroll').classed('expanded', dashCasesShowAll);
+  d3.select('#dash-cases-more')
+    .classed('hidden', rows.length <= DASH_CASE_PREVIEW)
+    .text(dashCasesShowAll ? 'Show fewer cases' : `View all ${rows.length} cases`);
 
   d3.select('#ins-cases-more')
     .classed('hidden', rows.length <= CASE_ROWS_PREVIEW && !insightsPathsUI.showAllCases)
@@ -13632,6 +13640,10 @@ d3.selectAll('.date-range-seg button[data-range]').on('click', function () {
   renderInsightsDashboard();
 });
 syncDateControls();
+d3.select('#dash-cases-more').on('click', () => {
+  dashCasesShowAll = !dashCasesShowAll;
+  renderCaseRows(state.model);
+});
 // The compact map control mirrors the Process Variants slider.
 d3.select('#map-zoom-in').on('click', () => stepPathFilter(10));
 d3.select('#map-zoom-out').on('click', () => stepPathFilter(-10));

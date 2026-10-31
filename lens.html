@@ -556,24 +556,11 @@ body.app-fullscreen .side-drawer { top: 64px; right: 16px; }
 
 /* ---- Task detail: Automation tab ---- */
 .ta-panel { gap: 24px; }
-.ta-score { position: relative; display: flex; flex-direction: column; align-items: stretch; gap: 20px; padding: 18px 18px 0; background: #fff; border: 1px solid #dfdde7; border-radius: 12px; box-shadow: 0 4px 4px rgba(0, 0, 0, 0.02); overflow: hidden; }
-.ta-score-heading { display: inline-flex; align-items: center; gap: 12px; }
-.ta-view-details { border: none; background: none; padding: 0; font-size: 12px; line-height: 15px; font-weight: 500; color: #8c899f; cursor: pointer; }
-.ta-view-details:hover { color: #0975d7; }
-.ta-score-copy { display: flex; flex-direction: column; gap: 8px; }
-.ta-chips { display: flex; flex-wrap: wrap; gap: 6px; }
-.ta-chips:empty { display: none; }
-.ta-chip { display: inline-flex; align-items: center; gap: 4.8px; height: 22.2px; padding: 3.6px 7.2px; box-sizing: border-box; border-radius: 6px; background: linear-gradient(90deg, #e4f6ec -129%, #ffffff 100%); font-size: 12px; line-height: 15px; font-weight: 500; color: #3d3c52; white-space: nowrap; }
-.ta-chip svg { flex: none; color: #21ad73; }
-.ta-chip.warn { background: linear-gradient(90deg, #fdf0dc -129%, #ffffff 100%); color: #3d3c52; }
-.ta-chip.warn svg { color: #b45309; }
-.ta-score-foot { display: flex; flex-direction: column; gap: 4px; margin: 0 -18px; padding: 4px 18px 0; border-radius: 0 0 11px 11px; background: linear-gradient(175.97deg, #ffffff 42.86%, #ccece2 259.22%); }
-.ta-score-foot.medium { background: linear-gradient(175.97deg, #ffffff 42.86%, #f6e2bf 259.22%); }
-.ta-score-foot.low { background: linear-gradient(175.97deg, #ffffff 42.86%, #f6cfcf 259.22%); }
-.ta-score-head { display: flex; align-items: center; justify-content: space-between; gap: 9px; height: 34px; }
+.ta-score { position: relative; display: flex; flex-direction: column; align-items: stretch; gap: 16px; padding: 18px 18px 0; background: #fff; border: 1px solid #dfdde7; border-radius: 12px; box-shadow: 0 21px 38px rgba(0, 0, 0, 0.07); overflow: hidden; }
+.ta-score-head { display: flex; align-items: center; gap: 12px; height: 34px; }
 .ta-score-icon { width: 34px; height: 34px; border-radius: 50%; background: #f6f6f9; display: inline-flex; align-items: center; justify-content: center; flex: none; }
 .ta-score-title { font-size: 16px; line-height: 19px; font-weight: 600; color: #2b2b40; }
-.ta-score-text { margin: 0; font-size: 14px; line-height: 21px; color: #7b7891; }
+.ta-score-text { margin: 0; font-size: 14px; line-height: 21px; color: #525066; }
 .ta-gauge-wrap { display: flex; flex-direction: column; align-items: center; }
 .ta-gauge { position: relative; width: 154px; height: 78px; }
 .ta-gauge svg { position: absolute; inset: 0; overflow: visible; }
@@ -590,7 +577,7 @@ body.app-fullscreen .side-drawer { top: 64px; right: 16px; }
 .ta-impact div + div { padding-left: 12px; border-left: 1px solid #eef0f3; }
 .ta-impact strong { font-size: 24px; line-height: 26px; font-weight: 600; color: #3d3c52; white-space: nowrap; font-feature-settings: 'ss01' on, 'salt' on, 'ss03' on, 'ss04' on; }
 .ta-impact span { font-size: 12px; line-height: 15px; color: #4b5563; }
-.ta-reco { display: flex; align-items: flex-start; gap: 8px; padding: 12px 0 18px; }
+.ta-reco { display: flex; align-items: flex-start; gap: 8px; margin: -16px -18px 0; padding: 16px 16px 18px; border-radius: 0 0 11px 11px; }
 .ta-reco-check { color: #198558; width: 14px; height: 14px; margin-top: 1px; border-radius: 40px; background: linear-gradient(180deg, #d9fbee 0%, #e3eac6 100%); display: inline-flex; align-items: center; justify-content: center; flex: none; }
 .ta-reco.medium .ta-reco-check { color: #b45309; background: linear-gradient(180deg, #fef3c7 0%, #fde8c8 100%); }
 .ta-reco.low .ta-reco-check { color: #b91c1c; background: linear-gradient(180deg, #fee2e2 0%, #fde4e4 100%); }
@@ -3500,9 +3487,10 @@ body.structural-diagram #play-animation-btn {
       <div class="task-detail-tab-panel hidden ta-panel" id="task-detail-automation-tab">
         <section class="ta-score">
           <div class="ta-score-head">
-            <span class="ta-score-heading"><span class="ta-score-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M6.5 3h11M6.5 21h11M7.5 3v3.2a4.5 4.5 0 0 0 1.6 3.4L12 12l2.9-2.4a4.5 4.5 0 0 0 1.6-3.4V3M7.5 21v-3.2a4.5 4.5 0 0 1 1.6-3.4L12 12l2.9 2.4a4.5 4.5 0 0 1 1.6 3.4V21" stroke="#3a3a3a" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M9.2 6.2h5.6L12 8.6z" fill="#3a3a3a"/></svg></span><span class="ta-score-title">Automation score</span></span>
-            <button type="button" class="ta-view-details" id="ta-view-details">View details</button>
+            <span class="ta-score-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M6.5 3h11M6.5 21h11M7.5 3v3.2a4.5 4.5 0 0 0 1.6 3.4L12 12l2.9-2.4a4.5 4.5 0 0 0 1.6-3.4V3M7.5 21v-3.2a4.5 4.5 0 0 1 1.6-3.4L12 12l2.9 2.4a4.5 4.5 0 0 1 1.6 3.4V21" stroke="#3a3a3a" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M9.2 6.2h5.6L12 8.6z" fill="#3a3a3a"/></svg></span>
+            <span class="ta-score-title">Automation score</span>
           </div>
+          <p class="ta-score-text" id="ta-score-text"></p>
           <div class="ta-gauge-wrap">
             <div class="ta-gauge" id="ta-gauge" role="img">
               <svg id="ta-gauge-svg" width="154" height="78" viewBox="0 0 154 78" aria-hidden="true"></svg>
@@ -3510,16 +3498,10 @@ body.structural-diagram #play-animation-btn {
             </div>
             <span class="ta-tier" id="ta-tier"></span>
           </div>
-          <div class="ta-score-copy">
-            <p class="ta-score-text" id="ta-score-text"></p>
-            <div class="ta-chips" id="ta-chips"></div>
-          </div>
-          <div class="ta-score-foot">
-            <div class="ta-impact" id="ta-impact"></div>
-            <div class="ta-reco">
-              <span class="ta-reco-check" aria-hidden="true"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2.1 5.2 4 7.1 7.9 2.9" stroke="currentColor" stroke-width="1.41" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-              <span class="ta-reco-text"><span class="ta-reco-title" id="ta-reco-title"></span><span class="ta-reco-body" id="ta-reco-body"></span></span>
-            </div>
+          <div class="ta-impact" id="ta-impact"></div>
+          <div class="ta-reco">
+            <span class="ta-reco-check" aria-hidden="true"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2.1 5.2 4 7.1 7.9 2.9" stroke="currentColor" stroke-width="1.41" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            <span class="ta-reco-text"><span class="ta-reco-title" id="ta-reco-title"></span><span class="ta-reco-body" id="ta-reco-body"></span></span>
           </div>
         </section>
 
@@ -12721,23 +12703,6 @@ function renderAutomationOverview(node, meta, m) {
     low: ['Keep this task manual', 'Variation, rework or judgment needs make this a weak candidate for now.'],
   }[m.tier];
   d3.select('.ta-reco').attr('class', `ta-reco ${m.tier}`);
-  d3.select('.ta-score-foot').attr('class', `ta-score-foot ${m.tier}`);
-  // Up to three quick tags: what helps the score, then what holds it back.
-  const chips = [
-    m.consistency >= 0.7 && ['Consistent', true],
-    m.frequency >= 0.3 && ['Frequent', true],
-    node.reworkRate <= 0.05 && ['Low rework', true],
-    m.judgment === 'Low' && ['Rules-based', true],
-    m.consistency < 0.7 && ['Varies often', false],
-    node.reworkRate >= 0.1 && ['Frequent rework', false],
-    m.judgment !== 'Low' && ['Needs judgment', false],
-  ].filter(Boolean);
-  const chipOk = '<svg width="11" height="11" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M2.5 6.2 4.9 8.6 9.5 3.6" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>';
-  const chipWarn = '<svg width="11" height="11" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M6 3.2v3.4M6 8.6v.1" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>';
-  const shownChips = [...chips.filter((c) => c[1]), ...chips.filter((c) => !c[1])]
-    .slice(0, 3)
-    .sort((x, y) => (m.tier === 'low' ? x[1] - y[1] : y[1] - x[1]));
-  d3.select('#ta-chips').html(shownChips.map(([label, ok]) => `<span class="ta-chip${ok ? '' : ' warn'}">${ok ? chipOk : chipWarn}${label}</span>`).join(''));
   d3.select('#ta-reco-title').text(reco[0]);
   d3.select('#ta-reco-body').text(reco[1]);
 
@@ -13723,11 +13688,6 @@ syncDateControls();
 d3.select('#dash-cases-more').on('click', () => {
   dashCasesShowAll = !dashCasesShowAll;
   renderCaseRows(state.model);
-});
-// "View details" jumps to the signals behind the score.
-d3.select('#ta-view-details').on('click', () => {
-  const target = document.getElementById('ta-why-title');
-  if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
 });
 // The compact map control mirrors the Process Variants slider.
 d3.select('#map-zoom-in').on('click', () => stepPathFilter(10));

@@ -10232,24 +10232,16 @@ function layoutBpmn(bpmnGraph, lanes) {
 // task's own appId — the app-window glyph for an application it doesn't
 // recognise, never a guessed application.
 function appendBpmnAppIcon(g, x, y, appId) {
-  const app = String(appId || '').toLowerCase();
   const k = g.append('g').attr('class', 'bpmn-app-icon').attr('transform', `translate(${x}, ${y})`);
-  if (/gmail|mail|outlook/.test(app)) {
-    k.append('path').attr('d', 'M1.5 4.5 V15 H5 V8.2').attr('fill', 'none').attr('stroke', '#4285f4').attr('stroke-width', 2.4).attr('stroke-linejoin', 'round');
-    k.append('path').attr('d', 'M16.5 4.5 V15 H13 V8.2').attr('fill', 'none').attr('stroke', '#34a853').attr('stroke-width', 2.4).attr('stroke-linejoin', 'round');
-    k.append('path').attr('d', 'M1.8 4.2 L9 9.6 L16.2 4.2').attr('fill', 'none').attr('stroke', '#ea4335').attr('stroke-width', 2.4).attr('stroke-linejoin', 'round').attr('stroke-linecap', 'round');
-    k.append('path').attr('d', 'M13.4 6.7 L16.2 4.6').attr('stroke', '#fbbc04').attr('stroke-width', 2.4).attr('stroke-linecap', 'round');
-  } else if (/sheet|excel|spreadsheet/.test(app)) {
-    k.append('path').attr('d', 'M3.5 1 H11 L15 5 V16.2 A0.8 0.8 0 0 1 14.2 17 H3.8 A0.8 0.8 0 0 1 3 16.2 V1.8 A0.8 0.8 0 0 1 3.8 1 Z').attr('fill', '#0f9d58');
-    k.append('path').attr('d', 'M11 1 V5 H15 Z').attr('fill', '#87ceac');
-    k.append('rect').attr('x', 5.6).attr('y', 8.4).attr('width', 6.8).attr('height', 5.6).attr('fill', 'none').attr('stroke', '#fff').attr('stroke-width', 1.1);
-    k.append('path').attr('d', 'M5.6 11.2 H12.4 M9 8.4 V14').attr('stroke', '#fff').attr('stroke-width', 1.1);
-  } else if (/workday/.test(app)) {
-    k.append('circle').attr('cx', 9).attr('cy', 9).attr('r', 8.2).attr('fill', '#F38B00');
-    k.append('path').attr('d', 'M4.4 6.6 L6.3 12.1 L9 7.7 L11.7 12.1 L13.6 6.6').attr('fill', 'none').attr('stroke', '#fff').attr('stroke-width', 1.6).attr('stroke-linecap', 'round').attr('stroke-linejoin', 'round');
-  } else {
-    appendAppWindowGlyph(k);
-  }
+  const key = appLogoKey(appId);
+  if (!key) { appendAppWindowGlyph(k); return; }
+  // Fit the logo inside the same 18px box the drawn glyphs used.
+  const l = APP_LOGO_SRC[key];
+  const box = 16;
+  const scale = box / Math.max(l.w, l.h);
+  const w = l.w * scale;
+  const h = l.h * scale;
+  k.append('image').attr('href', l.src).attr('x', 9 - w / 2).attr('y', 9 - h / 2).attr('width', w).attr('height', h);
 }
 
 // A BPMN task card: the shared task card, with the task's own application
@@ -10975,10 +10967,29 @@ const THC_CLICK_SVG = '<svg width="14" height="14" viewBox="0 0 16 16" fill="non
 const THC_CLOCK_SVG = '<svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="1.2"/><path d="M8 4.8V8l2.2 1.4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>';
 const THC_PLAY_SVG = '<svg width="12" height="13" viewBox="0 0 12 13" fill="none" aria-hidden="true"><path d="M2 1.5v10l8.5-5z" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/></svg>';
 // Small marks for the apps the demo data names; anything else gets none.
+// Brand marks for the apps tasks run in (raster logos, transparent
+// background), shared by the map cards, hover card, task detail and replay.
+const APP_LOGO_SRC = {
+  gmail: { src: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACQAAAAaCAYAAADfcP5FAAADx0lEQVR4nM2We0iddRjHP8/7Hs/x6PFWZ4o6na5ZLigs5z8FRZqtXWIXqKCQNkRaVtB0Y38EBrWgiHIWdBlYOLbGAgn/aP/EctlqdGEl1FjpdEjNeVlNdzzHc3uf/jgmbjse36MG+8Lvn/d9nt/zfX7PVVQV/9ho5tA7rRMT3SeJ+gNkVq2j8LldZFeuExGWFQpEr/yg2v8expVeIqYTw1uDsaYZ050rYlkWvTt36vRPZ2bEAREsp4viFxop2PGMGGIsExmL0EC7OgbfB2t6zncDzboXR9UnImOnv9f+hvpZLtcjf/tj5DXtldTsnCWRCU9OED71mrpSviBm7PqnF6KV7RiBgf55yQCEek4Q3Pu8BvvOJpBKBCXYd06nmp5VzvTMmLoxD0TB8A1iSCI2M4KMjxB4ZR++ziNqqZUEFcXXeVSDLXvg8mgcGnNkRVEsHHYvl4Cf6OGP8Q0NquvpBly5eQnTPTQ+otOH2+HkVzF9G8UhCEY4JdUuJwC0pxt/y27CF87P+7ShwT906uUm9OsTMc9l4WirwISaGGdXVnK88ilCKanxQhsXxsgIk827uPrZIbXm2FK1mOz8VP17XsQYvWTvMsCnLl4NlvNl2IvDAnpXVfGXt4QtpztYcfUiogt75LAsrKMd+P8cUmddA2Ka+D58F+PHb+36BSr8Jhm0BEsZ0jTuhFgOKQ7G0vPpqGmi9pcuKgZ7bHsX+aabyO/nMAyQkWGbWoIidFle3gqVEsSYdeKapA6Lk+P3PM5wdiE1v3biDAdtXA2MDsftLPNp+DFpDZfyecR7w9+4Vfbz6vsYyi1j23cfcav4bJmxQ0RRzlsedgdv45K643oQfyYoXE73cqi6mQt3PYQlYj8v5oEKnMopY0eonIu40XkuTNCHhJDpZnx7Pc7Q/USPdcA/fy+CiIAnC/PJOgZWGwT6ukjUjBecmgKkrd8k7v1vY+XmJ08ov5C0Nw+QsWmrIMJCLcnWGBcER0Gx5HzQIebGzaiNACqC1m4gq61dUvKLbEfc/ugAMEzcDS9JoKRcI0cOIhOT8YU9mTjq6kmv3SiS5OqS9KJjIqTXbhD3/laiBauIpft/DyCw5g7S3mjD88jmpMksitCMWVwrS+SWtoPCw7WIKiogD1bjef2ApBQUL7oobYcsvrYDT+M+mVpboaJKRs2jS954l0YIMAQyqtcv2+a9PMvyMuLmI3SzMNKZajWK8tyA/T35/8Tt2UUYd5eukCceKCLdCaZGMYnMHkMjkMRSvyA01jJErz1pDjeNa7dR4S2TfwE5vlpqumJf8gAAAABJRU5ErkJggg==', w: 36, h: 26 },
+  workday: { src: 'data:image/png;base64,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', w: 32, h: 36 },
+  sheets: { src: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAoCAYAAADpE0oSAAAFJ0lEQVR4nI2XTWxVRRTHf3N7H6W1RVoEKo3aPL6MNDXRBRrSKDGKulAjLjSYuCNqTMSFSRsWlBVuoMaVsjJ+JK4EQcW4EELUQKLGtlGQBNAGURHpE7FQ++4cF3Pv3Jm595ZOm/fmnjlzzv/8z5kz9ymA+w8N9f07/d/LWlglCNnQ+RTQzoqjJaDR1Dtv/vrAI9t3Mc+hHj60q+9sY/KwiPRlJnOjZi6ZByOyjgUh/ee+Ff3cvXTla9sGHhuej+Po/N/nn8icWjQhuuBZChMztMjQ6MTBHfNyfC2ZXZzZEDc2KSFWfG8KVUAlWo+Mjh8Yva7j3LBjXARQYUCFZ1QRjMEs20YnPpoz8kgXjIv3Xe01HL6C1jLy+viBymKLsmoVwY27aC5MNEEhBnIEEq2HqpxHRtOYEMlzLNasGFBumueDKhUlWg/tHivSHhWMEdAsucxNg4irlYMu7gMRGdkTRG5zLM6f3Sv+GbaggvMkwO/TUyXrORdaJ0N7xvdb505VB2irDmtBamYnG79y7PwJEq1LmTfOZWj32L4dAKr+7tYRlOzIDCkLJJ+VRSKhazGy6EqTaDqx2JXtfo5+S7w6NlWtCgarjlNp1Tv5TjpakBaFupqYKK2SsrWhgFhbUfkQCUn1s14oKkC3RSgF6lpirIvDpyjQEJdFURpxidOqPSIgrREKQc1oRClvr6pljkXy9pfrBAaDFlrR2FJWQQTdGqEANasdhsx3XLYzw6a8JPhnOywuv23nq7pVEakImtrqoSHWaPz6t8tOoTmxCyilPIDZpwROM6Z0DZSKINFogajVRhyiL8uw5G1TiiyUnYWMMQEkBlSESoQZKoore17ZsZzB5XcQkHndEzCrE945c8SEkPOPtJiiNlRrUFHBNoLQ33Urr/Y/XuGmekw3Z4zjwlEEIgU1cap6jlA+OfctX104aU10xm0MD2xm7NLPfHD2S4/w7QNP0aIiCz40m/mKqRhuu/7u0ln2TR5PN0JvezfDA5u5eO0yH6byzNFLtz9K14Ib0mD9anGbTey/thrlMPQNS9fSHrfao7Ko1gZAX+cytq550IsrW/MKLTh+kLbMzJ1VD4p2/U2rWbf4lgIryxcu5tn6oOegs9bGdHPGpzegXOFQ7bbTXN0Id/94kPfPHLWGetu7+WLTTo79eYoXj++1hSkiHN60k64FHQWQLgxQqWPJL0LE5KXiSq2OpOSyMOLCBQoExVV2+wA8v/YhnqlvsC2xFrUgItyzdA0fPzCcYQegt32JoboApJDjvGV6eXaUTzTOMT71i41gUa2NvlXLuHC1wWfnvvfM9rR1EafHKXSXAXdyLN5ChkBSR0f++IH3Th+123vbl/Dcqo2c/ucCb5z81DEsPHnberrTHIc9Pg/J5riKFTNZ2dHDxp51Vrxs4Y0ALFnYwcaedd6WRbV2h7Ww6+dH1bRMp5KDvgnAlvogW+qDhOOu7jp7732hIJ9uzjjOKT/HnkKA8dTl33jrp88LhsuGa3ZWN720ldV1THAfuwYmpiaZmJosbC6fBjFlUXrkBcdJRFBK+V0LKKM9BOfJPJ3iXZ19zmDfMil9W7Tbg2IrOHQmYS7tC0Kw1b4IuO96ZUir0jGXQ1W5ArHW0oiivKQkuJ1yUAFkp3rmolU8SsybanTxysVIR7W3gcmwSITcvTgCSX+zOj9inT4XxGbB5bpRwpuNV/Y3FEDP6NN9zVaGVcSKcrrKC8qFWrjF081a0otX1FUS/c2df/XvOTIy0vwf7A8zDjMJvoQAAAAASUVORK5CYII=', w: 30, h: 40 },
+};
+function appLogoKey(appId) {
+  const app = String(appId || '').toLowerCase();
+  if (/gmail|mail|outlook/.test(app)) return 'gmail';
+  if (/sheet|excel|spreadsheet/.test(app)) return 'sheets';
+  if (/workday/.test(app)) return 'workday';
+  return null;
+}
+function appLogoImgHtml(key, box = 14) {
+  const l = APP_LOGO_SRC[key];
+  const k = box / Math.max(l.w, l.h);
+  return `<img class="app-logo-img" src="${l.src}" width="${+(l.w * k).toFixed(1)}" height="${+(l.h * k).toFixed(1)}" alt="" aria-hidden="true">`;
+}
 const THC_APP_ICONS = {
-  gmail: '<svg width="14" height="11" viewBox="0 0 14 11" aria-hidden="true"><path d="M1 10V2.2L7 6.6l6-4.4V10" fill="none" stroke="#EA4335" stroke-width="1.6" stroke-linejoin="round"/><path d="M1 2.2V10h2.2V4.4" fill="#4285F4"/><path d="M13 2.2V10h-2.2V4.4" fill="#34A853"/><path d="M1 2.2 2.4 1 7 4.4 11.6 1 13 2.2 7 6.6z" fill="#EA4335"/><path d="M11.6 1 13 2.2l-2.2 1.6V1.6z" fill="#FBBC04"/></svg>',
-  'google sheets': '<svg width="11" height="14" viewBox="0 0 11 14" aria-hidden="true"><path d="M1 0.5h6.2L10.5 3.8V13a.5.5 0 0 1-.5.5H1a.5.5 0 0 1-.5-.5V1a.5.5 0 0 1 .5-.5z" fill="#0F9D58"/><rect x="2.5" y="6" width="6" height="5" fill="none" stroke="#fff" stroke-width="0.9"/><path d="M2.5 8.5h6M5.5 6v5" stroke="#fff" stroke-width="0.9"/></svg>',
-  workday: '<svg width="14" height="14" viewBox="0 0 14 14" aria-hidden="true"><circle cx="7" cy="7" r="6.5" fill="#F38B00"/><path d="M3.6 5.2 5 9.4l2-3.4 2 3.4 1.4-4.2" fill="none" stroke="#fff" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+  gmail: appLogoImgHtml('gmail'),
+  'google sheets': appLogoImgHtml('sheets'),
+  workday: appLogoImgHtml('workday'),
 };
 
 // "4m 04s" / "2h 15m" / "1d 3h" — what the hover card shows for time.

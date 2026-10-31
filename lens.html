@@ -1436,8 +1436,6 @@ body.app-fullscreen .toolbar-date { display: none; }
 .dash-card-title { font-size: 16px; line-height: 24px; font-weight: 600; color: #3d3c52; }
 .dash-card-sub { font-size: 12px; line-height: 16px; color: #6b697b; }
 .dash-card-body { flex: 1; display: flex; flex-direction: column; min-width: 0; }
-.dash-outcomes { display: flex; align-items: center; gap: 32px; flex: 1; }
-.dash-outcomes svg { flex-shrink: 0; }
 .dash-donut-total { font-size: 16px; font-weight: 600; fill: #2a2e45; }
 .dash-donut-caption { font-size: 10px; font-weight: 600; fill: #6b697b; }
 .dash-legend { flex: 1; display: flex; flex-direction: column; min-width: 0; }
@@ -1618,6 +1616,7 @@ body.insights-expanded .view-toggle-btn.active { width: 46px; min-width: 46px; p
 .ins-cases-head .num, .ins-case-row .num { text-align: right; }
 .ins-cases-scroll { max-height: 200px; overflow-y: auto; margin: 6px -4px 0; padding-right: 2px; scrollbar-width: thin; scrollbar-color: #dfdde7 transparent; }
 .ins-cases-scroll.expanded { max-height: 520px; }
+.dash-cases-scroll { max-height: 300px; }
 .ins-cases-scroll::-webkit-scrollbar { width: 4px; }
 .ins-cases-scroll::-webkit-scrollbar-thumb { background: #dfdde7; border-radius: 4px; }
 .ins-cases-list { list-style: none; margin: 0; padding: 0; }
@@ -3140,9 +3139,16 @@ body.structural-diagram #play-animation-btn {
               </div>
               <div class="dash-card">
                 <div class="dash-card-head">
-                  <div class="dash-card-titles"><span class="dash-card-title-row"><span class="dash-card-title">Process Outcomes</span><button class="ins-info-btn" type="button" aria-label="Cases that reached a usual ending vs stopped midway" data-tip="Cases that reached a usual ending vs stopped midway"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="8" cy="8" r="6" stroke="#8C899F" stroke-width="1.6"/><path d="M8 7.4 V11" stroke="#8C899F" stroke-width="1.6" stroke-linecap="round"/><circle cx="8" cy="5.1" r="0.95" fill="#8C899F"/></svg></button></span><span class="dash-card-sub">Process completed vs stopped midway</span></div>
+                  <div class="dash-card-titles"><span class="dash-card-title-row"><span class="dash-card-title">All processes</span><button class="ins-info-btn" type="button" aria-label="Every case in view with its path, step count and total time" data-tip="Every case in view with its path, step count and total time"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="8" cy="8" r="6" stroke="#8C899F" stroke-width="1.6"/><path d="M8 7.4 V11" stroke="#8C899F" stroke-width="1.6" stroke-linecap="round"/><circle cx="8" cy="5.1" r="0.95" fill="#8C899F"/></svg></button></span><span class="dash-card-sub">Every case, grouped by its path</span></div>
                 </div>
-                <div class="dash-card-body" id="dash-outcomes"></div>
+                <div class="dash-card-body" id="dash-cases">
+                  <div class="ins-cases-head">
+                    <span>Case ID</span><span>Variant no.</span><span>Total steps</span><span>Total time</span><span></span>
+                  </div>
+                  <div class="ins-cases-scroll dash-cases-scroll">
+                    <ul class="ins-cases-list" id="dash-cases-list"></ul>
+                  </div>
+                </div>
               </div>
             </div>
           </section>
@@ -11451,7 +11457,7 @@ function renderInsightsDashboard() {
       <span class="dash-kpi-sub">${k.sub}</span>
     </div>`).join(''));
 
-  renderDashOutcomes(model);
+  renderCaseRows(model);
   const ttc = d3.select('#dash-ttc');
   ttc.html('<div class="dash-headline"><span class="dash-headline-value" id="dash-ttc-value"></span><span class="dash-headline-label">Median time to complete</span></div><div class="dash-ttc-chart" id="dash-ttc-chart"></div>');
   renderTimeToComplete(cases, { chartSel: '#dash-ttc-chart', valueSel: '#dash-ttc-value', W: 440, H: 150, barW: 62 });
@@ -11459,36 +11465,6 @@ function renderInsightsDashboard() {
   renderDashTime(model);
   renderDashRework(model);
   renderDashTrend(cases, isDone);
-}
-
-function renderDashOutcomes(model) {
-  const c = model.completion;
-  const parts = [
-    { label: 'Completed', count: c.completedCaseCount, color: '#18B87C' },
-    { label: 'Stopped midway', count: c.notCompletedCaseCount, color: '#FB6461' },
-  ];
-  const total = model.totalCases;
-  const body = d3.select('#dash-outcomes').html('');
-  const wrap = body.append('div').attr('class', 'dash-outcomes');
-  const size = 167;
-  const g = wrap.append('svg').attr('width', size).attr('height', size).attr('viewBox', `0 0 ${size} ${size}`)
-    .attr('role', 'img').attr('aria-label', `${c.completedCaseCount} of ${total} cases completed`)
-    .append('g').attr('transform', `translate(${size / 2},${size / 2})`);
-  const arc = d3.arc().innerRadius(size / 2 - 22).outerRadius(size / 2);
-  g.selectAll('path').data(d3.pie().sort(null).value((d) => d.count)(parts)).join('path')
-    .attr('d', arc).attr('fill', (d) => d.data.color)
-    .on('mouseenter', (event, d) => showTooltip(event, `<strong>${d.data.label}</strong><div>${d.data.count} case${d.data.count === 1 ? '' : 's'} · ${Math.round((d.data.count / total) * 100)}%</div>`))
-    .on('mousemove', moveTooltip)
-    .on('mouseleave', hideTooltip);
-  g.append('text').attr('class', 'dash-donut-total').attr('text-anchor', 'middle').attr('y', -1).text(total.toLocaleString());
-  g.append('text').attr('class', 'dash-donut-caption').attr('text-anchor', 'middle').attr('y', 14).text('Cases');
-  wrap.append('div').attr('class', 'dash-legend').html(parts.map((p) => `
-    <div class="dash-legend-row">
-      <span class="dash-legend-swatch" style="background:${p.color}"></span>
-      <span class="dash-legend-label">${p.label}</span>
-      <span class="dash-legend-count">${p.count.toLocaleString()}</span>
-      <span class="dash-legend-pct">${total ? Math.round((p.count / total) * 100) : 0}%</span>
-    </div>`).join(''));
 }
 
 function renderDashPaths(model) {
@@ -11803,8 +11779,16 @@ function renderCaseRows(model) {
     .filter((r) => r.v)
     .sort((a, b) => a.v.rank - b.v.rank);
   const shown = insightsPathsUI.showAllCases ? rows : rows.slice(0, CASE_ROWS_PREVIEW);
+  fillCaseList(d3.select('#ins-cases-list'), shown);
+  // The dashboard's card scrolls through every case.
+  fillCaseList(d3.select('#dash-cases-list'), rows);
 
-  const list = d3.select('#ins-cases-list');
+  d3.select('#ins-cases-more')
+    .classed('hidden', rows.length <= CASE_ROWS_PREVIEW && !insightsPathsUI.showAllCases)
+    .text(insightsPathsUI.showAllCases ? 'Show fewer cases' : `View all ${rows.length} cases`);
+}
+
+function fillCaseList(list, shown) {
   const items = list.selectAll('li').data(shown, (r) => r.c.caseId);
   items.exit().remove();
   const merged = items.enter().append('li').merge(items);
@@ -11829,10 +11813,6 @@ function renderCaseRows(model) {
     menu.style.left = `${left}px`;
     menu.style.top = `${top}px`;
   });
-
-  d3.select('#ins-cases-more')
-    .classed('hidden', rows.length <= CASE_ROWS_PREVIEW && !insightsPathsUI.showAllCases)
-    .text(insightsPathsUI.showAllCases ? 'Show fewer cases' : `View all ${rows.length} cases`);
 }
 
 function closeCaseMenu() {

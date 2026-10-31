@@ -564,9 +564,9 @@ body.app-fullscreen .side-drawer { top: 64px; right: 16px; }
 .ta-gauge-wrap { display: flex; flex-direction: column; align-items: center; }
 .ta-gauge { position: relative; width: 154px; height: 78px; }
 .ta-gauge svg { position: absolute; inset: 0; overflow: visible; }
-.ta-gauge-value { position: absolute; left: 50%; bottom: 15px; transform: translateX(-50%); }
+.ta-gauge-value { position: absolute; left: 50%; bottom: 2px; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 2px; }
 .ta-gauge-value strong { display: block; font-size: 32px; line-height: 32px; font-weight: 800; letter-spacing: -0.65px; color: #3d3c52; }
-.ta-gauge-value span { position: absolute; left: 100%; bottom: 0; margin-left: 3px; font-size: 14.5px; line-height: 18px; color: #7b7891; white-space: nowrap; }
+.ta-gauge-value span { font-size: 14.5px; line-height: 18px; color: #7b7891; white-space: nowrap; }
 .ta-tier { position: relative; margin-top: 3px; display: inline-flex; align-items: center; justify-content: center; gap: 5px; height: 40px; padding: 0 16px 0 10px; box-sizing: border-box; background: #fff; border: 1px solid #f2f2f8; border-radius: 40px; box-shadow: 0 4px 4px rgba(0, 0, 0, 0.02); font-size: 14px; line-height: 17px; font-weight: 500; letter-spacing: 0.04px; color: #7b7891; }
 .ta-tier-icon { width: 19px; height: 19px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; background: linear-gradient(180deg, #d9fbee 0%, #e3eac6 100%); color: #12924f; flex: none; }
 .ta-tier.medium .ta-tier-icon { background: linear-gradient(180deg, #fef3c7 0%, #fde8c8 100%); color: #b45309; }
@@ -3494,7 +3494,7 @@ body.structural-diagram #play-animation-btn {
           <div class="ta-gauge-wrap">
             <div class="ta-gauge" id="ta-gauge" role="img">
               <svg id="ta-gauge-svg" width="154" height="78" viewBox="0 0 154 78" aria-hidden="true"></svg>
-              <div class="ta-gauge-value"><strong id="ta-score">–</strong><span>/ 100</span></div>
+              <div class="ta-gauge-value"><strong id="ta-score">–</strong><span>Score</span></div>
             </div>
             <span class="ta-tier" id="ta-tier"></span>
           </div>

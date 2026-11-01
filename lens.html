@@ -619,7 +619,15 @@ body.app-fullscreen .side-drawer { top: 64px; right: 16px; }
 .ta-signal-value.muted { font-weight: 400; color: #8c899f; }
 .ta-info { width: 24px; height: 24px; padding: 0; border: none; background: none; border-radius: 6px; display: inline-flex; align-items: center; justify-content: center; cursor: help; flex-shrink: 0; }
 .ta-info:hover { background: #eef0f3; }
-.ta-steps { list-style: none; margin: 0; padding: 4px 16px; border: 1px solid #e5e7eb; border-radius: 12px; }
+.ta-steps-card { display: flex; flex-direction: column; gap: 22px; padding: 20px 20px 20px 16px; background: #fff; border: 1px solid #dfdde7; border-radius: 12px; }
+.ta-steps-head { display: flex; align-items: center; justify-content: space-between; gap: 9px; min-height: 38px; }
+.ta-steps-heading { display: inline-flex; align-items: center; gap: 12px; min-width: 0; }
+.ta-steps-titles { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+.ta-steps-title { font-size: 16px; line-height: 19px; font-weight: 500; color: #2b2b40; }
+.ta-steps-sub { display: inline-flex; align-items: center; gap: 4px; font-size: 12px; line-height: 15px; color: #6b7280; white-space: nowrap; }
+.ta-steps-time { display: inline-flex; align-items: center; gap: 6px; height: 32px; padding: 0 12px; box-sizing: border-box; border: 1px solid #ececf3; border-radius: 50px; font-size: 14px; line-height: 17px; color: #2b2b40; white-space: nowrap; flex: none; }
+.ta-steps-time svg { flex: none; }
+.ta-steps { list-style: none; margin: 0; padding: 0; }
 .ta-step { display: flex; align-items: center; gap: 12px; min-height: 53px; border-bottom: 1px solid #f3f4f6; }
 .ta-step:last-child { border-bottom: none; }
 .ta-step .td-step-name { line-height: 17px; }
@@ -3532,8 +3540,14 @@ body.structural-diagram #play-animation-btn {
           </div>
         </section>
 
-        <section class="ta-section" id="ta-steps-section">
-          <div class="ta-section-head"><h3 class="ta-h">What will be automated</h3><span class="td-steps-meta" id="ta-steps-meta"></span></div>
+        <section class="ta-steps-card" id="ta-steps-section">
+          <div class="ta-steps-head">
+            <span class="ta-steps-heading">
+              <span class="ta-score-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M6.5 3h11M6.5 21h11M7.5 3v3.2a4.5 4.5 0 0 0 1.6 3.4L12 12l2.9-2.4a4.5 4.5 0 0 0 1.6-3.4V3M7.5 21v-3.2a4.5 4.5 0 0 1 1.6-3.4L12 12l2.9 2.4a4.5 4.5 0 0 1 1.6 3.4V21" stroke="#3a3a3a" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M9.2 6.2h5.6L12 8.6z" fill="#3a3a3a"/></svg></span>
+              <span class="ta-steps-titles"><span class="ta-steps-title">Automation steps</span><span class="ta-steps-sub" id="ta-steps-meta"></span></span>
+            </span>
+            <span class="ta-steps-time" id="ta-steps-time" title="Time automated per run"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M13.9 8.6A6 6 0 1 0 8.6 13.9" stroke="#198558" stroke-width="1.33" stroke-linecap="round"/><path d="M8 4.7V8l1.7 1.7" stroke="#198558" stroke-width="1.33" stroke-linecap="round" stroke-linejoin="round"/><path d="M12.6 10.7 11.3 12.7h2l-1.3 2" stroke="#198558" stroke-width="1.33" stroke-linecap="round" stroke-linejoin="round"/></svg><span id="ta-steps-time-value"></span></span>
+          </div>
           <ol class="ta-steps" id="ta-steps"></ol>
         </section>
 
@@ -12797,7 +12811,16 @@ function renderAutomationOverview(node, meta, m) {
   const totalInst = d3.sum(Array.from(counts.values())) || 0;
   const totalWeight = d3.sum(subtypes, (st) => st.weight || 0) || 1;
   const appIcon = meta && meta.appId ? (THC_APP_ICONS[String(meta.appId).toLowerCase()] || '') : '';
-  d3.select('#ta-steps-meta').html(`${appIcon}${meta && meta.appId ? `${escapeHtml(meta.appId)} · ` : ''}${subtypes.length} sub-step${subtypes.length === 1 ? '' : 's'}`);
+  const apps = meta && meta.appId ? [meta.appId] : [];
+  d3.select('#ta-steps-meta').html(apps.length
+    ? `${appIcon}${apps.length} App${apps.length === 1 ? '' : 's'} • ${apps.map(escapeHtml).join(' & ')}`
+    : `${subtypes.length} sub-step${subtypes.length === 1 ? '' : 's'}`);
+  // Time per run that the automatable sub-steps account for.
+  const autoShare = d3.sum(subtypes, (st) => {
+    const sh = totalInst ? (counts.get(st.id) || 0) / totalInst : (st.weight || 0) / totalWeight;
+    return m.tier !== 'low' && sh >= 0.2 ? sh : 0;
+  });
+  d3.select('#ta-steps-time-value').text(formatDurationClock(node.avgDuration * Math.min(1, autoShare)));
   const list = d3.select('#ta-steps');
   list.selectAll('*').remove();
   subtypes.forEach((st, i) => {

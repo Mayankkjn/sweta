@@ -596,7 +596,17 @@ body.app-fullscreen .side-drawer { top: 64px; right: 16px; }
 .ta-h { margin: 0; font-size: 15px; line-height: 18px; font-weight: 600; color: #111827; }
 .ta-why-count { font-size: 14px; line-height: 17px; font-weight: 600; color: #15803d; }
 .ta-why-count.mixed { color: #976c07; }
-.ta-signals { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+.ta-signals { display: flex; flex-direction: column; gap: 10px; }
+.ta-group { display: flex; flex-direction: column; gap: 8px; }
+.ta-group-head { display: inline-flex; align-items: center; gap: 5px; height: 23px; padding: 4px 0; box-sizing: border-box; font-size: 12px; line-height: 15px; color: #3d3c52; }
+.ta-group-head svg { flex: none; }
+.ta-group-row { display: flex; gap: 8px; }
+.ta-param { flex: 1 1 0; min-width: 0; height: 68px; box-sizing: border-box; display: flex; flex-direction: column; justify-content: center; align-items: flex-start; gap: 14px; padding: 0 12px 0 8px; background: #fcfcfd; border: 1px solid #ececf3; border-radius: 8px; }
+.ta-param-title { display: inline-flex; align-items: center; gap: 2px; max-width: 100%; font-size: 12px; line-height: 15px; color: #2b2b40; white-space: nowrap; }
+.ta-param-title > span { overflow: hidden; text-overflow: ellipsis; }
+.ta-param-title .ta-info { flex: none; }
+.ta-param-value { font-size: 18px; line-height: 20px; font-weight: 600; color: #3d3c52; white-space: nowrap; font-feature-settings: 'salt' on, 'ss01' on, 'ss02' on; }
+.ta-param-value.muted { font-weight: 400; color: #8c899f; }
 .ta-signal { display: flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 12px; border-radius: 8px; background: #f9fafb; min-width: 0; }
 .ta-signal.wide { grid-column: 1 / -1; padding-top: 10px; padding-bottom: 10px; }
 .ta-signal > svg { flex-shrink: 0; }
@@ -12636,6 +12646,11 @@ function renderTaskOccurrenceChart(taskId) {
 const TA_OK_SVG = '<svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="8" cy="8" r="6" stroke="#15803D" stroke-width="1.47"/><path d="M5.6 8.1 7.2 9.7 10.4 6.4" stroke="#15803D" stroke-width="1.47" stroke-linecap="round" stroke-linejoin="round"/></svg>';
 const TA_WARN_SVG = '<svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M7.1 2.6a1 1 0 0 1 1.8 0l5.6 10a1 1 0 0 1-.9 1.5H2.4a1 1 0 0 1-.9-1.5z" stroke="#976C07" stroke-width="1.33" stroke-linejoin="round"/><path d="M8 6.2v3.1M8 11.5v.1" stroke="#976C07" stroke-width="1.33" stroke-linecap="round"/></svg>';
 const TA_NEUTRAL_SVG = '<svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="8" cy="8" r="6" stroke="#9CA3AF" stroke-width="1.47"/><path d="M5.5 8h5" stroke="#9CA3AF" stroke-width="1.47" stroke-linecap="round"/></svg>';
+// Short card titles where the full signal name would be cut off.
+const TA_PARAM_SHORT = { 'Deviation rate': 'Deviation', 'Human judgment': 'Judgment' };
+const TA_GROUP_OK_SVG = '<svg width="11" height="11" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M2.3 6.3 4.8 8.7 9.7 3.4" stroke="#21AD73" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+const TA_GROUP_WARN_SVG = '<svg width="11" height="11" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M6 2.6v4.2M6 9.1v.1" stroke="#B45309" stroke-width="1.5" stroke-linecap="round"/></svg>';
+const TA_GROUP_NEUTRAL_SVG = '<svg width="11" height="11" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M3 6h6" stroke="#9CA3AF" stroke-width="1.4" stroke-linecap="round"/></svg>';
 const TA_INFO_SVG = '<svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><circle cx="7" cy="7" r="5.25" stroke="#6B7280" stroke-width="1.17"/><path d="M7 6.4v3M7 4.7v.05" stroke="#6B7280" stroke-width="1.17" stroke-linecap="round"/></svg>';
 const TA_CHIP_SVG = (color) => `<svg width="8" height="11" viewBox="0 0 8 11" fill="none" aria-hidden="true"><path d="M4.7.8 1 6.1h3l-.6 4.1L7 4.9H4z" stroke="${color}" stroke-width="1.2" stroke-linejoin="round"/></svg>`;
 const TA_BANDS = [
@@ -12741,10 +12756,31 @@ function renderAutomationOverview(node, meta, m) {
   d3.select('#ta-why-count').classed('mixed', favorable < counted.length * 0.7).text(`${favorable} of ${counted.length} signals favourable`);
   const icon = (ok) => (ok === null ? TA_NEUTRAL_SVG : ok ? TA_OK_SVG : TA_WARN_SVG);
   const info = (tip) => `<button type="button" class="ta-info" data-tip="${escapeHtml(tip)}" aria-label="${escapeHtml(tip)}">${TA_INFO_SVG}</button>`;
-  d3.select('#ta-signals').html(
-    signals.map((sg) => `<div class="ta-signal">${icon(sg.ok)}<span class="ta-signal-label" title="${sg.label}"><span class="ta-signal-name">${sg.label}</span>${info(sg.tip)}</span><span class="ta-signal-value${sg.ok === null ? ' muted' : ''}">${sg.value}</span></div>`).join('') +
-    `<div class="ta-signal wide">${icon(execution.ok)}<span class="ta-signal-text"><span class="ta-signal-label">${execution.label}${info(execution.tip)}</span><span class="ta-signal-note">${execution.note}</span></span><span class="ta-signal-value">${execution.value}</span></div>`
-  );
+  // Signals in three groups of parameter cards; each group's header says
+  // whether its signals are all favourable.
+  const byLabel = new Map([...signals, execution].map((sg) => [sg.label, sg]));
+  const groups = [
+    ['Consistency', ['Frequency', 'Consistency', 'Deviation rate']],
+    ['Reliability', ['Rework rate', 'Error rate', 'Executions']],
+    ['Complexity', ['Human judgment', 'Applications', 'Avg. duration']],
+  ];
+  const groupIcon = (items) => {
+    const known = items.filter((sg) => sg.ok !== null);
+    if (!known.length) return TA_GROUP_NEUTRAL_SVG;
+    return known.every((sg) => sg.ok) ? TA_GROUP_OK_SVG : TA_GROUP_WARN_SVG;
+  };
+  d3.select('#ta-signals').html(groups.map(([name, labels]) => {
+    const items = labels.map((l) => byLabel.get(l)).filter(Boolean);
+    return `<div class="ta-group">
+      <div class="ta-group-head">${groupIcon(items)}<span>${name}</span></div>
+      <div class="ta-group-row">${items.map((sg) => `
+        <div class="ta-param">
+          <span class="ta-param-title"><span>${TA_PARAM_SHORT[sg.label] || sg.label}</span>${info(sg.tip)}</span>
+          <span class="ta-param-value${sg.ok === null ? ' muted' : ''}">${sg.value}</span>
+        </div>`).join('')}
+      </div>
+    </div>`;
+  }).join(''));
   d3.selectAll('#ta-signals .ta-info')
     .on('mouseenter', function (event) { showTooltip(event, escapeHtml(this.dataset.tip)); tooltip.classed('ins-dark-tip', true); })
     .on('mousemove', moveTooltip)

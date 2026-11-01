@@ -458,7 +458,7 @@ body.app-fullscreen .side-drawer { top: 64px; right: 16px; }
 /* ---- Task detail: header, overview sections, footer ---- */
 .task-detail-panel { width: 480px; background: #fff; border-left: 1px solid #e5e7eb; font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
 .td-scroll { flex: 1; min-height: 0; overflow-y: auto; display: flex; flex-direction: column; }
-.task-detail-header.td-head { flex-direction: column; align-items: stretch; justify-content: flex-start; gap: 12px; padding: 24px 24px 22px; border-bottom: none; flex-shrink: 0; }
+.task-detail-header.td-head { flex-direction: column; align-items: stretch; justify-content: flex-start; gap: 12px; padding: 24px 24px 20px; border-bottom: none; flex-shrink: 0; }
 .td-head-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
 .td-head-tags { display: flex; align-items: center; gap: 8px; min-width: 0; }
 .td-app-chip { display: inline-flex; align-items: center; gap: 4px; height: 24px; padding: 0 8px; border-radius: 6px; background: #f3f4f6; font-size: 12px; line-height: 15px; font-weight: 500; color: #374151; white-space: nowrap; }
@@ -477,56 +477,59 @@ body.app-fullscreen .side-drawer { top: 64px; right: 16px; }
 .td-meta svg { flex-shrink: 0; color: #6b7280; }
 .task-detail-tabs.td-tabs { position: sticky; top: 0; z-index: 3; gap: 16px; padding: 0 24px; margin: 0; background: #fff; border-bottom: 1px solid #eef0f3; flex-shrink: 0; }
 .td-tabs .task-detail-tab { margin-bottom: -1px; }
-.td-tabs .task-detail-tab { position: relative; gap: 8px; padding: 12px 8px 16px; border: none; border-radius: 0; margin-bottom: 0; font-size: 14px; line-height: 20px; font-weight: 600; color: #3d3c52; }
+.td-tabs .task-detail-tab { position: relative; gap: 8px; padding: 12px 8px 16px; border: none; border-radius: 0; margin-bottom: 0; font-size: 16px; line-height: 24px; font-weight: 600; color: #3d3c52; }
 .td-tabs .task-detail-tab::after { content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 4px; background: transparent; }
 .td-tabs .task-detail-tab.active::after { background: #0975d7; }
-.td-tabs .task-detail-tab svg { width: 18px; height: 18px; color: #6b697b; flex-shrink: 0; }
+.td-tabs .task-detail-tab svg { width: 20px; height: 20px; color: #6b697b; flex-shrink: 0; }
 .td-tabs .task-detail-tab.active { color: #0975d7; }
 .td-tabs .task-detail-tab.active svg { color: #0975d7; }
 .task-detail-panel .task-detail-body { padding: 20px 24px 24px; flex: none; overflow: visible; }
 .td-overview { gap: 20px; }
 
-.td-auto { display: flex; flex-direction: column; gap: 14px; padding: 16px; border-radius: 9px; border-bottom: 1px solid #ececf3; background: linear-gradient(180deg, var(--td-tint, #f0fdf4) 0%, #fff 100%); color: var(--td-ink, #166534); }
-.td-auto.medium { --td-tint: #fff7ed; --td-ink: #9a3412; --td-line: #fed7aa; }
-.td-auto.low { --td-tint: #f3f4f6; --td-ink: #4b5563; --td-line: #e5e7eb; }
-.td-auto-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
-.td-auto-tier { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; line-height: 16px; font-weight: 600; }
-.td-auto-caption { font-size: 12px; line-height: 15px; }
-.td-auto-stats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
-.td-auto-stat { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
-.td-auto-stat + .td-auto-stat { padding-left: 12px; border-left: 1px solid var(--td-line, #bbf7d0); }
-.td-auto-stat strong { font-size: 22px; line-height: 28px; font-weight: 600; color: #3d3c52; white-space: nowrap; }
-.td-auto-stat span { font-size: 12px; line-height: 15px; }
-.td-reco { display: flex; align-items: flex-start; gap: 8px; padding-top: 2px; }
+.td-auto { display: flex; flex-direction: column; gap: 22px; padding: 18px 18px 0 0; border: 0.92px solid #ececf3; border-radius: 8px; background: linear-gradient(182.53deg, var(--td-tint, #c6eac6) -61.91%, #ffffff 36.65%); }
+.td-auto.medium { --td-tint: #f5dfa9; }
+.td-auto.low { --td-tint: #f3c9c9; }
+.td-auto-head { display: flex; align-items: center; gap: 12px; padding-left: 16px; }
+.td-auto-icon { width: 20px; height: 20px; border-radius: 50%; background: linear-gradient(180deg, #d9fbee 0%, #e3eac6 100%); display: inline-flex; align-items: center; justify-content: center; flex: none; }
+.td-auto.medium .td-auto-icon { background: linear-gradient(180deg, #fef3c7 0%, #fde8c8 100%); }
+.td-auto.low .td-auto-icon { background: linear-gradient(180deg, #fee2e2 0%, #fde4e4 100%); }
+.td-auto-tier { font-size: 16px; line-height: 19px; font-weight: 600; color: #2b2b40; }
+.td-auto-stats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; padding: 0 0 11px 10px; border-bottom: 1px solid #ececf3; }
+.td-auto-stat { display: flex; flex-direction: column; align-items: center; gap: 4px; min-width: 0; text-align: center; }
+.td-auto-stat + .td-auto-stat { border-left: 1px solid #eef0f3; }
+.td-auto-stat strong { font-size: 24px; line-height: 26px; font-weight: 600; color: #3d3c52; white-space: nowrap; font-feature-settings: 'ss01' on, 'salt' on, 'ss03' on, 'ss04' on; }
+.td-auto-stat span { font-size: 12px; line-height: 15px; color: #4b5563; }
+.td-reco { display: flex; align-items: flex-start; gap: 8px; margin-top: -10px; padding: 12px 16px 16px 11px; }
 .td-reco-icon { width: 14px; height: 14px; border-radius: 50%; background: #e1efea; display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px; }
 .td-reco-text { display: flex; flex-direction: column; gap: 3px; min-width: 0; }
 .td-reco-title { font-size: 13px; line-height: 16px; font-weight: 500; color: #2b2b40; }
 .td-reco-body { font-size: 11px; line-height: 16px; color: #3d3c52; }
 
-.td-section { display: flex; flex-direction: column; gap: 12px; }
-.td-eyebrow { margin: 0; font-size: 13px; line-height: 16px; font-weight: 600; letter-spacing: 0.52px; text-transform: uppercase; color: #374151; }
-.td-usage { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); border: 1px solid #e5e7eb; border-radius: 12px; overflow: hidden; }
-.td-usage-cell { display: flex; flex-direction: column; gap: 4px; padding: 14px 16px; min-width: 0; }
-.td-usage-cell:nth-child(odd) { border-right: 1px solid #e5e7eb; }
-.td-usage-cell:nth-child(-n+2) { border-bottom: 1px solid #e5e7eb; }
-.td-usage-label { font-size: 12px; line-height: 15px; color: #6b7280; }
-.td-usage-value { font-size: 20px; line-height: 26px; font-weight: 600; color: #111827; }
-.td-usage-sub { display: inline-flex; align-items: center; gap: 4px; font-size: 12px; line-height: 15px; color: #4b5563; }
-.td-usage-sub.up { color: #15803d; }
-.td-usage-sub.down { color: #b91c1c; }
+.td-usage { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+.td-usage-cell { display: flex; flex-direction: column; gap: 11px; padding: 8px 12px; min-width: 0; background: #fff; border: 1px solid #ececf3; border-radius: 12px; box-shadow: 0 4px 4px rgba(0, 0, 0, 0.02); }
+.td-usage-label { font-size: 12px; line-height: 16px; color: #6b697b; }
+.td-usage-main { display: flex; flex-direction: column; gap: 1px; }
+.td-usage-value-row { display: flex; align-items: flex-end; gap: 5px; }
+.td-usage-value { font-size: 22px; line-height: 32px; font-weight: 600; color: #3d3c52; white-space: nowrap; font-feature-settings: 'salt' on, 'ss01' on, 'ss02' on; }
+.td-usage-badge { display: inline-flex; align-items: center; gap: 4px; height: 27px; padding: 0 2px; font-size: 14px; line-height: 20px; font-weight: 500; color: #198558; }
+.td-usage-badge.down { color: #b91c1c; }
+.td-usage-sub { font-size: 12px; line-height: 16px; color: #525066; }
 
 .td-card { border: 1px solid #e5e7eb; border-radius: 12px; }
 .td-card.hidden { display: none; }
-.td-chart-card { display: flex; flex-direction: column; gap: 12px; padding: 16px; }
-.td-card-head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; }
-.td-card-title { font-size: 14px; line-height: 17px; font-weight: 600; color: #111827; }
-.td-card-range { font-size: 12px; line-height: 15px; color: #6b7280; }
+.td-chart-card { display: flex; flex-direction: column; gap: 14px; padding: 16px 16px 14px 18px; border-color: #ececf3; background: #fff; box-shadow: 0 4px 4px rgba(0, 0, 0, 0.02); }
+.td-card-head { display: flex; flex-direction: column; gap: 2px; }
+.td-card-title { display: inline-flex; align-items: center; font-size: 16px; line-height: 24px; font-weight: 600; color: #3d3c52; }
+.td-info { width: 32px; height: 32px; margin: -4px 0; padding: 0; border: none; background: none; border-radius: 16px; display: inline-flex; align-items: center; justify-content: center; cursor: help; }
+.td-card-range { font-size: 12px; line-height: 16px; color: #6b697b; }
+.td-occ-headline { display: flex; flex-direction: column; }
+.td-occ-headline strong { font-size: 24px; line-height: 32px; font-weight: 600; color: #3d3c52; font-feature-settings: 'salt' on, 'ss01' on, 'ss02' on; }
+.td-occ-headline span { font-size: 12px; line-height: 16px; color: #8c899f; }
 .td-occ-chart { position: relative; }
 .td-occ-chart svg { display: block; width: 100%; height: auto; overflow: visible; }
-.td-occ-grid { stroke: #eef0f3; stroke-width: 1; }
-.td-occ-base { stroke: #d1d5db; stroke-width: 1; }
-.td-occ-axis { font-size: 12px; fill: #6b7280; }
-.td-occ-line { fill: none; stroke: #0975d7; stroke-width: 1.6; stroke-linejoin: round; stroke-linecap: round; }
+.td-occ-grid, .td-occ-base { stroke: #ececf3; stroke-width: 0.8; stroke-dasharray: 3 2; }
+.td-occ-axis { font-size: 9px; fill: #6b697b; }
+.td-occ-line { fill: none; stroke: #0975d7; stroke-width: 1.2; stroke-linejoin: round; stroke-linecap: round; }
 .td-occ-guide { stroke: #9ca3af; stroke-width: 1; stroke-dasharray: 3 3; }
 .td-occ-dot { fill: #fff; stroke: #0975d7; stroke-width: 1.6; }
 .td-occ-tip { position: absolute; top: 0; padding: 6px 10px; border-radius: 8px; background: #111827; box-shadow: 0 4px 12px rgba(17, 24, 39, 0.18); pointer-events: none; white-space: nowrap; transform: translateX(-50%); }
@@ -534,16 +537,16 @@ body.app-fullscreen .side-drawer { top: 64px; right: 16px; }
 .td-occ-tip span { display: block; font-size: 11px; line-height: 13px; color: #d1d5db; }
 .td-occ-empty { margin: 0; font-size: 12px; color: #6b7280; }
 
-.td-steps-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 14px 16px; border-bottom: 1px solid #eef0f3; }
-.td-steps-title { font-size: 16px; line-height: 19px; font-weight: 600; color: #111827; }
-.td-steps-meta { display: inline-flex; align-items: center; gap: 4px; font-size: 12px; line-height: 15px; color: #6b7280; }
-.td-steps { list-style: none; margin: 0; padding: 0 16px 4px; }
-.td-step { display: flex; align-items: center; gap: 12px; min-height: 69px; border-bottom: 1px solid #f3f4f6; }
+.td-steps-card { display: flex; flex-direction: column; gap: 22px; padding: 20px 20px 20px 16px; background: #fff; border: 1px solid #dfdde7; border-radius: 12px; }
+.td-steps-card.hidden { display: none; }
+.td-steps { list-style: none; margin: 0; padding: 4px 0; }
+.td-step { display: flex; align-items: center; gap: 12px; min-height: 53px; border-bottom: 1px solid #f3f4f6; }
 .td-step:last-child { border-bottom: none; }
 .td-step-num { width: 24px; height: 24px; border-radius: 999px; background: #f3f4f6; display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 12px; line-height: 15px; font-weight: 600; color: #374151; }
-.td-step-name { flex: 1; min-width: 0; font-size: 14px; line-height: 20px; color: #111827; }
-.td-step-time { font-size: 13px; line-height: 16px; color: #4b5563; text-align: right; white-space: nowrap; }
-.td-step-play { width: 36px; height: 36px; flex-shrink: 0; padding: 0; border: 1px solid #e5e7eb; border-radius: 999px; background: #fff; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; margin-left: 4px; }
+.td-step-name { flex: 1; min-width: 0; font-size: 14px; line-height: 17px; color: #111827; }
+.td-step-time { display: inline-flex; align-items: center; gap: 4.8px; height: 22px; padding: 3.6px 7.2px; box-sizing: border-box; border-radius: 6px; font-size: 12px; line-height: 15px; font-weight: 500; letter-spacing: 0.04px; color: #6b697b; white-space: nowrap; }
+.td-step-time svg { flex: none; }
+.td-step-play { width: 36px; height: 36px; flex-shrink: 0; padding: 0; border: 1px solid #e5e7eb; border-radius: 18px; background: #f9f9fb; box-shadow: inset 0 1px 1px #fff; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; }
 .td-step-play:hover { border-color: #0975d7; }
 .td-step-play svg { flex-shrink: 0; }
 
@@ -3415,10 +3418,12 @@ body.structural-diagram #play-animation-btn {
     </div>
     <div class="task-detail-body">
       <div class="task-detail-tab-panel td-overview" id="task-detail-overview-tab">
+        <div class="td-usage" id="td-usage"></div>
+
         <section class="td-auto" id="td-auto">
           <div class="td-auto-head">
+            <span class="td-auto-icon" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M7.6 1.2 2.3 8h4.1l-.7 4.8L11 6H6.9z" fill="url(#td-bolt-grad)"/><defs><linearGradient id="td-bolt-grad" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#21AD73"/><stop offset="1" stop-color="#067C2F"/></linearGradient></defs></svg></span>
             <span class="td-auto-tier" id="td-auto-tier"></span>
-            <span class="td-auto-caption">Estimated impact</span>
           </div>
           <div class="td-auto-stats" id="td-auto-stats"></div>
           <div class="td-reco">
@@ -3430,18 +3435,23 @@ body.structural-diagram #play-animation-btn {
           </div>
         </section>
 
-        <section class="td-section">
-          <h3 class="td-eyebrow">Usage</h3>
-          <div class="td-usage" id="td-usage"></div>
-        </section>
-
         <section class="td-card td-chart-card" id="td-occ-card">
-          <div class="td-card-head"><span class="td-card-title">Occurrences over time</span><span class="td-card-range" id="td-occ-range"></span></div>
+          <div class="td-card-head">
+            <span class="td-card-title">Occurrences over time<button type="button" class="td-info" data-tip="How often this task ran, week by week" aria-label="How often this task ran, week by week"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="8" cy="8" r="6" stroke="#8C899F" stroke-width="1.6"/><path d="M8 7.4V11" stroke="#8C899F" stroke-width="1.6" stroke-linecap="round"/><circle cx="8" cy="5.1" r=".95" fill="#8C899F"/></svg></button></span>
+            <span class="td-card-range" id="td-occ-range"></span>
+          </div>
+          <div class="td-occ-headline"><strong id="td-occ-avg">–</strong><span>Avg cases per month</span></div>
           <div class="td-occ-chart" id="td-occ-chart"></div>
         </section>
 
-        <section class="td-card td-steps-card hidden" id="td-steps-card">
-          <div class="td-steps-head"><span class="td-steps-title">Sub-steps</span><span class="td-steps-meta" id="td-steps-meta"></span></div>
+        <section class="td-steps-card hidden" id="td-steps-card">
+          <div class="ta-steps-head">
+            <span class="ta-steps-heading">
+              <span class="ta-score-icon" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 0 1 13 0c0 1.2-.3 2.4-.8 3.5" stroke="#6B697B" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="10" r="2.3" stroke="#6B697B" stroke-width="1.6"/><path d="M18.5 15.5 16.5 18.5h3l-2 3" stroke="#6B697B" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+              <span class="ta-steps-titles"><span class="ta-steps-title">Sub steps</span></span>
+            </span>
+            <span class="ta-steps-time" title="Average time per case"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M13.9 8.6A6 6 0 1 0 8.6 13.9" stroke="#198558" stroke-width="1.33" stroke-linecap="round"/><path d="M8 4.7V8l1.7 1.7" stroke="#198558" stroke-width="1.33" stroke-linecap="round" stroke-linejoin="round"/><path d="M12.6 10.7 11.3 12.7h2l-1.3 2" stroke="#198558" stroke-width="1.33" stroke-linecap="round" stroke-linejoin="round"/></svg><span id="td-steps-meta"></span></span>
+          </div>
           <ol class="td-steps" id="td-steps"></ol>
         </section>
 
@@ -12472,7 +12482,7 @@ const TD_STEPS_ICON_SVG = '<svg width="14" height="14" viewBox="0 0 14 14" fill=
 const TD_PATHS_ICON_SVG = '<svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><circle cx="3.2" cy="3.2" r="1.2" stroke="currentColor" stroke-width="1.17"/><circle cx="10.8" cy="10.8" r="1.2" stroke="currentColor" stroke-width="1.17"/><path d="M3.5 4.7v1.8a2 2 0 0 0 2 2h3a2 2 0 0 1 2 2" stroke="currentColor" stroke-width="1.17" stroke-linecap="round"/></svg>';
 const TD_ARROW_UP_SVG = '<svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M6 9.5v-7M2.5 6 6 2.5 9.5 6" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
 const TD_ARROW_DOWN_SVG = '<svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M6 2.5v7M2.5 6 6 9.5 9.5 6" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
-const TD_PLAY_SVG = '<svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="M3.5 1.75v8.5L10.75 6z" fill="#6B697B"/></svg>';
+const TD_PLAY_SVG = '<svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="M3.5 1.75v8.5L10.75 6z" fill="#322A52" fill-opacity="0.5"/></svg>';
 const TD_TIER_ICON_SVG = '<svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M7.6 1.2 2.3 8h4.1l-.7 4.8L11 6H6.9z" stroke="currentColor" stroke-width="1.28" stroke-linejoin="round"/></svg>';
 
 // The share of a task's time automation would take over, by tier.
@@ -12505,35 +12515,36 @@ function renderTaskDetailOverview(node, meta, model, pathCount, richInstances) {
   const { recent, previous, hasDates } = taskOccurrenceWindows(taskId);
   const casesPerMonth = hasDates ? new Set(recent.map((o) => o.caseId)).size : node.caseCount;
   d3.select('#td-auto').attr('class', `td-auto ${m.tier}`);
-  d3.select('#td-auto-tier').html(`${TD_TIER_ICON_SVG}${tierLabel}`);
+  d3.select('#td-auto-tier').text(tierLabel);
+  void casesPerMonth;
   d3.select('#td-auto-stats').html([
-    [formatMinutesShort(perCase), 'saved per case'],
+    [formatDurationLong(perCase), 'Est. time save'],
     [`${Math.round(share * 100)}%`, 'of task time'],
-    [formatDurationLong(perCase * casesPerMonth), hasDates ? 'saved per month' : 'saved in total'],
+    [formatDurationLong(node.avgDuration), 'per execution'],
   ].map(([v, l]) => `<div class="td-auto-stat"><strong>${v}</strong><span>${l}</span></div>`).join(''));
   const recoText = m.tier === 'high'
-    ? 'Automate this task: high consistency and low complexity make it ideal for automation.'
+    ? 'Automate this task: High consistency and low complexity make this task ideal for automation.'
     : m.tier === 'medium'
       ? 'Partly automate this task: moderate consistency suggests automation with review for exceptions.'
       : 'Keep this task manual for now: lower consistency or higher judgment needs make it a weak candidate.';
   d3.select('#td-reco-body').text(recoText);
 
-  // Usage.
+  // Usage: four small cards.
   const recentCount = recent.length;
   const prevCount = previous.length;
-  let changeHtml = '<span class="td-usage-sub">Last 30 days</span>';
+  let badge = '';
   if (hasDates && prevCount) {
     const change = (recentCount - prevCount) / prevCount;
     const up = change >= 0;
-    changeHtml = `<span class="td-usage-sub ${up ? 'up' : 'down'}">${up ? TD_ARROW_UP_SVG : TD_ARROW_DOWN_SVG}${Math.abs(Math.round(change * 100))}% vs last month</span>`;
+    badge = `<span class="td-usage-badge${up ? '' : ' down'}">${up ? TD_ARROW_UP_SVG : TD_ARROW_DOWN_SVG}${Math.abs(Math.round(change * 100))}%</span>`;
   }
   const cells = [
-    ['Occurrences', node.visits.toLocaleString(), `<span class="td-usage-sub">in ${Math.round(node.casePct * 100)}% of cases (${node.caseCount.toLocaleString()})</span>`],
-    [hasDates ? 'This month' : 'All time', (hasDates ? recentCount : node.visits).toLocaleString(), hasDates ? changeHtml : ''],
-    ['Avg. time per case', formatMinutesShort(node.avgDuration * (node.visits / Math.max(1, node.caseCount))), ''],
-    [hasDates ? 'Time spent, last 30 days' : 'Total time spent', formatDurationLong(hasDates ? d3.sum(recent, (o) => o.duration) : node.totalTime), ''],
+    ['Occurrences', node.visits.toLocaleString(), '', `${Math.round(node.casePct * 100)}% of cases`],
+    [hasDates ? 'This month' : 'All time', (hasDates ? recentCount : node.visits).toLocaleString(), badge, hasDates ? 'Since last month' : ''],
+    ['Avg time', formatMinutesShort(node.avgDuration * (node.visits / Math.max(1, node.caseCount))), '', 'per case'],
+    ['Total time spent', formatDurationLong(hasDates ? d3.sum(recent, (o) => o.duration) : node.totalTime), '', hasDates ? 'Last 30 days' : 'All time'],
   ];
-  d3.select('#td-usage').html(cells.map(([l, v, sub]) => `<div class="td-usage-cell"><span class="td-usage-label">${l}</span><span class="td-usage-value">${v}</span>${sub}</div>`).join(''));
+  d3.select('#td-usage').html(cells.map(([l, v, b, sub]) => `<div class="td-usage-cell"><span class="td-usage-label">${l}</span><span class="td-usage-main"><span class="td-usage-value-row"><span class="td-usage-value">${v}</span>${b}</span><span class="td-usage-sub">${sub}</span></span></div>`).join(''));
 
   renderTaskOccurrenceChart(taskId);
 
@@ -12552,12 +12563,17 @@ function renderTaskDetailOverview(node, meta, model, pathCount, richInstances) {
       const durs = (byId.get(st.id) || []).filter((d) => d > 0);
       return { ...st, minutes: durs.length ? d3.mean(durs) : avgTask };
     });
-    d3.select('#td-steps-meta').html(`${appIcon}${meta && meta.appId ? `${escapeHtml(meta.appId)} · ` : ''}Avg ${formatDurationClock(avgTask * (node.visits / Math.max(1, node.caseCount)))} per case`);
+    d3.select('#td-steps-meta').text(formatDurationClock(avgTask * (node.visits / Math.max(1, node.caseCount))));
+    // A step's time chip is green when it runs often enough to automate.
+    const insts = richInstances || [];
+    const stepShare = (st) => (insts.length ? insts.filter((r) => r.subtypeId === st.id).length / insts.length : 1 / subtypes.length);
+    const bolt = (c) => `<svg width="8" height="10" viewBox="0 0 8 11" fill="none" aria-hidden="true"><path d="M4.7.8 1 6.1h3l-.6 4.1L7 4.9H4z" fill="${c}"/></svg>`;
     const list = d3.select('#td-steps');
     list.selectAll('*').remove();
     steps.forEach((st, i) => {
       const li = list.append('li').attr('class', 'td-step');
-      li.html(`<span class="td-step-num">${i + 1}</span><span class="td-step-name">${escapeHtml(st.name)}</span><span class="td-step-time">${formatMinutesShort(st.minutes)}</span>`);
+      const ok = m.tier !== 'low' && stepShare(st) >= 0.2;
+      li.html(`<span class="td-step-num">${i + 1}</span><span class="td-step-name">${escapeHtml(st.name)}</span><span class="td-step-time" title="${ok ? 'Automatable' : 'Needs support'}">${bolt(ok ? '#198558' : '#976C07')}${formatMinutesShort(st.minutes)}</span>`);
       li.append('button').attr('class', 'td-step-play').attr('type', 'button')
         .attr('aria-label', `Play step ${i + 1}: ${st.name}`)
         .html(TD_PLAY_SVG)
@@ -12603,10 +12619,11 @@ function renderTaskOccurrenceChart(taskId) {
   const counts = new Array(n).fill(0);
   dated.forEach((o) => { counts[n - 1 - Math.min(n - 1, Math.floor((max - o.t) / week))] += 1; });
   const startOf = (i) => max - (n - i) * week;
-  const fmtRange = (t, withYear) => new Date(t).toLocaleDateString('en-US', withYear ? { month: 'short', year: 'numeric' } : { month: 'short' });
-  d3.select('#td-occ-range').text(`${fmtRange(startOf(0), false)} – ${fmtRange(max, true)}`);
+  const months = Math.max(1, Math.round((max - min) / (30.44 * DAY_MS)));
+  d3.select('#td-occ-range').text(`Last ${months} month${months === 1 ? '' : 's'}`);
+  d3.select('#td-occ-avg').text(Math.round(new Set(dated.map((o) => o.caseId)).size / months).toLocaleString());
 
-  const W = 400, H = 168, left = 28, top = 26, plotH = 104, plotW = W - left;
+  const W = 400, H = 120, left = 24, top = 6, plotH = 86, plotW = W - left;
   const peak = d3.max(counts);
   const unit = peak > 20 ? 10 : 2;
   const yMax = Math.max(2, Math.ceil(peak / unit) * unit);
@@ -12618,17 +12635,17 @@ function renderTaskOccurrenceChart(taskId) {
   const grad = defs.append('linearGradient').attr('id', 'td-occ-fill').attr('x1', 0).attr('x2', 0).attr('y1', 0).attr('y2', 1);
   grad.append('stop').attr('offset', '0%').attr('stop-color', '#D3EDFE');
   grad.append('stop').attr('offset', '100%').attr('stop-color', '#FFFFFF');
-  [[yMax, 'td-occ-grid'], [yMax / 2, 'td-occ-grid'], [0, 'td-occ-base']].forEach(([v, cls]) => {
+  [[yMax, 'td-occ-grid', true], [yMax / 2, 'td-occ-grid', false], [0, 'td-occ-base', true]].forEach(([v, cls, label]) => {
     svg.append('line').attr('class', cls).attr('x1', left).attr('x2', W).attr('y1', y(v)).attr('y2', y(v));
-    svg.append('text').attr('class', 'td-occ-axis').attr('x', 0).attr('y', y(v) + 4).text(v);
+    if (label) svg.append('text').attr('class', 'td-occ-axis').attr('x', left - 6).attr('y', y(v) + 3).attr('text-anchor', 'end').text(v);
   });
   const area = d3.area().x((d, i) => x(i)).y0(y(0)).y1((d) => y(d)).curve(d3.curveMonotoneX);
   const line = d3.line().x((d, i) => x(i)).y((d) => y(d)).curve(d3.curveMonotoneX);
-  svg.append('path').attr('d', area(counts)).attr('fill', 'url(#td-occ-fill)');
+  void area;
   svg.append('path').attr('class', 'td-occ-line').attr('d', line(counts));
   // A whole number of weeks between labels keeps them equidistant in both
   // position and date (at most 6 labels).
-  const tickStep = Math.max(1, Math.ceil((n - 1) / 5));
+  const tickStep = Math.max(1, Math.ceil((n - 1) / 3));
   d3.range(0, n, tickStep).forEach((i) => {
     svg.append('text').attr('class', 'td-occ-axis').attr('x', x(i)).attr('y', H - 6)
       .attr('text-anchor', i === 0 ? 'start' : x(i) > W - 24 ? 'end' : 'middle')
@@ -13767,6 +13784,10 @@ d3.select('#ta-know-toggle').on('click', function () {
   d3.select('#ta-know').classed('open', open);
   document.getElementById('ta-know-body').hidden = !open;
 });
+d3.selectAll('.td-info')
+  .on('mouseenter', function (event) { showTooltip(event, escapeHtml(this.dataset.tip)); tooltip.classed('ins-dark-tip', true); })
+  .on('mousemove', moveTooltip)
+  .on('mouseleave', () => { hideTooltip(); tooltip.classed('ins-dark-tip', false); });
 // The compact map control mirrors the Process Variants slider.
 d3.select('#map-zoom-in').on('click', () => stepPathFilter(10));
 d3.select('#map-zoom-out').on('click', () => stepPathFilter(-10));

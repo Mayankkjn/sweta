@@ -1577,8 +1577,9 @@ body.insights-expanded .view-toggle-btn.active { width: 46px; min-width: 46px; p
 .ins-stat-sub { font-size: 12px; line-height: 16px; color: #525066; }
 .ins-card { background: #fff; border: 1px solid #f2f2f2; border-radius: 12px; box-shadow: 0 4px 4px rgba(0, 0, 0, 0.02); padding: 16px 6px 16px 12px; display: flex; flex-direction: column; gap: 16px; }
 .ins-card-list { gap: 25px; }
-.ins-card-auto { gap: 16px; }
-.ins-card-auto .ins-card-titles { padding-right: 4px; }
+.ins-card-auto { gap: 21px; padding: 8px 10px 12px 16px; border-color: #ececf3; }
+.ins-auto-head { display: flex; align-items: center; gap: 8px; min-height: 44px; padding-right: 4px; }
+.ins-card-auto .ins-card-sub { font-size: 12px; line-height: 20px; font-weight: 700; color: #6b697b; }
 .ins-chart-card { padding: 16px; gap: 16px; }
 .ins-chart-card .ins-chart-figure + .ins-chart { margin-top: 8px; }
 .ins-chart-head { display: flex; flex-direction: column; gap: 2px; }
@@ -1612,16 +1613,18 @@ body.insights-expanded .view-toggle-btn.active { width: 46px; min-width: 46px; p
 .ins-card-chevron { flex-shrink: 0; transition: transform 0.15s; }
 .ins-card-body { margin-right: 6px; }
 .ins-auto-row { display: flex; align-items: center; gap: 3px; width: 100%; padding: 0; border: none; background: none; font: inherit; text-align: left; cursor: pointer; }
-.ins-auto-stat { flex: 1; min-width: 0; display: flex; flex-direction: column; padding: 8px 10px; border-radius: 12px; }
-.ins-auto-stat .ins-stat-label { white-space: nowrap; }
+.ins-auto-stat { flex: 1; min-width: 0; display: flex; flex-direction: column; padding: 8px 12px 8px 8px; border-radius: 12px; }
+.ins-auto-stat:first-child { padding-left: 3px; }
+.ins-auto-stat .ins-stat-label { display: flex; align-items: center; gap: 4px; white-space: nowrap; font-size: 12px; line-height: 16px; color: #6b697b; }
+.ins-auto-dot { width: 6px; height: 6px; border-radius: 0.4px; flex: none; }
+.ins-auto-dot.high { background: #38bc85; }
+.ins-auto-dot.medium { background: #bc7a38; }
+.ins-auto-dot.low { background: #e31429; }
 .ins-auto-row:hover .ins-auto-stat { background: #fafafc; }
-.ins-auto-value { display: flex; align-items: flex-end; gap: 3px; }
-.ins-auto-value strong { font-size: 24px; line-height: 32px; font-weight: 600; }
-.ins-auto-value strong.high { color: #21ad73; }
-.ins-auto-value strong.medium { color: #e0a400; }
-.ins-auto-value strong.low { color: #b3141d; }
-.ins-auto-value span { font-size: 10px; line-height: 22px; color: #525066; }
-.ins-auto-sep { width: 1px; height: 49.5px; background: #dfdde7; flex-shrink: 0; }
+.ins-auto-value { display: flex; align-items: center; gap: 4px; }
+.ins-auto-value strong { font-size: 20px; line-height: 32px; font-weight: 600; color: #3d3c52; font-feature-settings: 'salt' on, 'ss01' on, 'ss02' on; }
+.ins-auto-value span { font-size: 12px; line-height: 16px; color: #525066; align-self: flex-end; padding-bottom: 6px; }
+.ins-auto-sep { width: 1px; height: 49.5px; background: #efeff0; flex-shrink: 0; }
 .ins-rank-list { list-style: none; margin: 0; padding: 0; }
 .ins-path-stats { display: flex; gap: 9px; }
 .ins-path-stat { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 4px; padding: 8px 12px; background: #fff; border: 1px solid #f2f2f2; border-radius: 12px; }
@@ -2978,16 +2981,19 @@ body.structural-diagram #play-animation-btn {
           </div>
 
           <section class="ins-card ins-card-auto">
-            <div class="ins-card-titles">
-              <span class="ins-card-title">Automation opportunity</span>
-              <span class="ins-card-sub" id="ins-automation-sub"> </span>
+            <div class="ins-auto-head">
+              <span class="ta-score-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M6.5 3h11M6.5 21h11M7.5 3v3.2a4.5 4.5 0 0 0 1.6 3.4L12 12l2.9-2.4a4.5 4.5 0 0 0 1.6-3.4V3M7.5 21v-3.2a4.5 4.5 0 0 1 1.6-3.4L12 12l2.9 2.4a4.5 4.5 0 0 1 1.6 3.4V21" stroke="#3a3a3a" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M9.2 6.2h5.6L12 8.6z" fill="#3a3a3a"/></svg></span>
+              <div class="ins-card-titles">
+                <span class="ins-card-title">Automation coverage</span>
+                <span class="ins-card-sub" id="ins-automation-sub"> </span>
+              </div>
             </div>
             <button class="ins-auto-row" id="ins-automation-open" type="button" title="Open automation opportunities">
-              <span class="ins-auto-stat"><span class="ins-stat-label">Fully automatable</span><span class="ins-auto-value"><strong class="high" id="ins-auto-high">0</strong><span>Tasks</span></span></span>
+              <span class="ins-auto-stat"><span class="ins-stat-label"><i class="ins-auto-dot high"></i>Automatable</span><span class="ins-auto-value"><strong class="high" id="ins-auto-high">0</strong><span>Tasks</span></span></span>
               <span class="ins-auto-sep"></span>
-              <span class="ins-auto-stat"><span class="ins-stat-label">Partially</span><span class="ins-auto-value"><strong class="medium" id="ins-auto-medium">0</strong><span>Tasks</span></span></span>
+              <span class="ins-auto-stat"><span class="ins-stat-label"><i class="ins-auto-dot medium"></i>Partially</span><span class="ins-auto-value"><strong class="medium" id="ins-auto-medium">0</strong><span>Tasks</span></span></span>
               <span class="ins-auto-sep"></span>
-              <span class="ins-auto-stat"><span class="ins-stat-label">Non automatable</span><span class="ins-auto-value"><strong class="low" id="ins-auto-low">0</strong><span>Tasks</span></span></span>
+              <span class="ins-auto-stat"><span class="ins-stat-label"><i class="ins-auto-dot low"></i>Can’t automate</span><span class="ins-auto-value"><strong class="low" id="ins-auto-low">0</strong><span>Tasks</span></span></span>
             </button>
           </section>
 

@@ -604,7 +604,10 @@ body.app-fullscreen .side-drawer { top: 64px; right: 16px; }
 .ta-reco-title { font-size: 14px; line-height: 17px; font-weight: 500; color: #3d3c52; }
 .ta-reco-body { font-size: 11px; line-height: 16px; color: #6b697b; }
 .ta-section { display: flex; flex-direction: column; gap: 12px; }
-.ta-know { margin: -16px -18px 0; border-top: 1px solid #eef0f3; }
+.ta-know { display: flex; flex-direction: column; margin: -16px -18px 0; border-top: 1px solid #eef0f3; }
+/* Open: the signals come first and the toggle drops to the card's bottom edge. */
+.ta-know.open .ta-know-toggle { order: 2; border-top: 1px solid #eef0f3; }
+.ta-know.open .ta-know-body { padding-top: 16px; }
 .ta-know-toggle { display: flex; align-items: center; justify-content: center; gap: 6px; width: 100%; padding: 14px 18px; border: none; background: none; font-size: 15px; line-height: 18px; font-weight: 600; color: #111827; cursor: pointer; }
 .ta-know-toggle:hover { color: #0975d7; }
 .ta-know-chevron { color: #6b697b; transition: transform 0.15s ease; }
@@ -13823,6 +13826,7 @@ d3.select('#ta-know-toggle').on('click', function () {
   const open = this.getAttribute('aria-expanded') !== 'true';
   this.setAttribute('aria-expanded', String(open));
   d3.select('#ta-know').classed('open', open);
+  d3.select(this).select('span').text(open ? 'Show less' : 'See why?');
   document.getElementById('ta-know-body').hidden = !open;
 });
 d3.selectAll('.td-info')

@@ -601,16 +601,16 @@ body.app-fullscreen .side-drawer { top: 64px; right: 16px; }
 .ta-h { margin: 0; font-size: 15px; line-height: 18px; font-weight: 600; color: #111827; }
 .ta-why-count { font-size: 14px; line-height: 17px; font-weight: 600; color: #15803d; }
 .ta-why-count.mixed { color: #976c07; }
-.ta-signals { display: flex; flex-direction: column; gap: 10px; }
+.ta-signals { display: flex; flex-direction: column; gap: 8px; }
 .ta-group { display: flex; flex-direction: column; gap: 8px; }
 .ta-group-head { display: inline-flex; align-items: center; gap: 5px; height: 23px; padding: 4px 0; box-sizing: border-box; font-size: 12px; line-height: 15px; color: #3d3c52; }
 .ta-group-head svg { flex: none; }
 .ta-group-row { display: flex; gap: 8px; }
-.ta-param { flex: 1 1 0; min-width: 0; height: 68px; box-sizing: border-box; display: flex; flex-direction: column; justify-content: center; align-items: flex-start; gap: 14px; padding: 0 12px 0 8px; background: #fcfcfd; border: 1px solid #ececf3; border-radius: 8px; }
+.ta-param { flex: 1 1 0; min-width: 0; height: 68px; box-sizing: border-box; display: flex; flex-direction: column; justify-content: center; align-items: flex-start; gap: 16px; padding: 0 12px 0 8px; background: #fcfcfd; border: 1px solid #ececf3; border-radius: 8px; }
 .ta-param-title { display: inline-flex; align-items: center; gap: 2px; max-width: 100%; font-size: 12px; line-height: 15px; color: #2b2b40; white-space: nowrap; }
 .ta-param-title > span { overflow: hidden; text-overflow: ellipsis; }
 .ta-param-title .ta-info { flex: none; }
-.ta-param-value { font-size: 18px; line-height: 20px; font-weight: 600; color: #3d3c52; white-space: nowrap; font-feature-settings: 'salt' on, 'ss01' on, 'ss02' on; }
+.ta-param-value { font-size: 18px; line-height: 20px; font-weight: 600; color: #6b697b; white-space: nowrap; font-feature-settings: 'salt' on, 'ss01' on, 'ss02' on; }
 .ta-param-value.muted { font-weight: 400; color: #8c899f; }
 .ta-signal { display: flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 12px; border-radius: 8px; background: #f9fafb; min-width: 0; }
 .ta-signal.wide { grid-column: 1 / -1; padding-top: 10px; padding-bottom: 10px; }
@@ -12802,7 +12802,6 @@ function renderAutomationOverview(node, meta, m) {
   d3.select('#ta-signals').html(groups.map(([name, labels]) => {
     const items = labels.map((l) => byLabel.get(l)).filter(Boolean);
     return `<div class="ta-group">
-      <div class="ta-group-head">${groupIcon(items)}<span>${name}</span></div>
       <div class="ta-group-row">${items.map((sg) => `
         <div class="ta-param">
           <span class="ta-param-title"><span>${TA_PARAM_SHORT[sg.label] || sg.label}</span>${info(sg.tip)}</span>

@@ -13699,6 +13699,8 @@ function handleUploadFile(file) {
         document.getElementById('page-title').textContent = raw.goal.name;
         document.title = pageTitle;
       }
+      // The header line under the title describes the imported process.
+      d3.select('.subtitle').text(raw && raw.goal && raw.goal.description ? raw.goal.description : '');
       state.expandedOpportunityIds = new Set();
       d3.select('#insight-compare-btn').classed('active', false).attr('aria-checked', 'false');
       d3.select('#pf-slider').property('value', 100);

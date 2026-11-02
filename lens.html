@@ -561,7 +561,14 @@ body.app-fullscreen .side-drawer { top: 64px; right: 16px; }
 
 /* ---- Task detail: Automation tab ---- */
 .ta-panel { gap: 24px; }
-.ta-score { position: relative; display: flex; flex-direction: column; align-items: stretch; gap: 16px; padding: 18px 18px 0; background: #fff; border: 1px solid #dfdde7; border-radius: 12px; overflow: hidden; }
+.ta-score { position: relative; display: flex; flex-direction: column; align-items: stretch; gap: 16px; padding: 18px 18px 0; background: #fff; border: 1px solid #dfdde7; border-radius: 12px; box-shadow: 0 21px 38px rgba(0, 0, 0, 0.07); overflow: hidden; }
+/* Header, gauge and numbers sit together; the explanation starts the lower group. */
+.ta-score > .ta-score-head { order: 0; }
+.ta-score > .ta-gauge-wrap { order: 1; }
+.ta-score > .ta-impact { order: 2; }
+.ta-score > .ta-score-text { order: 3; margin-top: 8px; }
+.ta-score > .ta-reco { order: 4; }
+.ta-score > .ta-know { order: 5; }
 .ta-score-head { display: flex; align-items: center; gap: 12px; height: 34px; }
 .ta-score-icon { width: 34px; height: 34px; border-radius: 50%; background: #f6f6f9; display: inline-flex; align-items: center; justify-content: center; flex: none; }
 .ta-score-title { font-size: 16px; line-height: 19px; font-weight: 600; color: #2b2b40; }
@@ -582,7 +589,7 @@ body.app-fullscreen .side-drawer { top: 64px; right: 16px; }
 .ta-impact div + div { padding-left: 12px; border-left: 1px solid #eef0f3; }
 .ta-impact strong { font-size: 24px; line-height: 26px; font-weight: 600; color: #3d3c52; white-space: nowrap; font-feature-settings: 'ss01' on, 'salt' on, 'ss03' on, 'ss04' on; }
 .ta-impact span { font-size: 12px; line-height: 15px; color: #4b5563; }
-.ta-reco { display: flex; align-items: flex-start; gap: 8px; margin: -16px -18px 0; padding: 16px 16px 18px; border-radius: 0 0 11px 11px; }
+.ta-reco { display: flex; align-items: flex-start; gap: 8px; margin: -4px -18px 0; padding: 0 16px 18px; border-radius: 0 0 11px 11px; }
 .ta-reco-check { color: #198558; width: 14px; height: 14px; margin-top: 1px; border-radius: 40px; background: linear-gradient(180deg, #d9fbee 0%, #e3eac6 100%); display: inline-flex; align-items: center; justify-content: center; flex: none; }
 .ta-reco.medium .ta-reco-check { color: #b45309; background: linear-gradient(180deg, #fef3c7 0%, #fde8c8 100%); }
 .ta-reco.low .ta-reco-check { color: #b91c1c; background: linear-gradient(180deg, #fee2e2 0%, #fde4e4 100%); }

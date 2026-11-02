@@ -590,6 +590,10 @@ body.app-fullscreen .side-drawer { top: 64px; right: 16px; }
 .ta-impact strong { font-size: 24px; line-height: 26px; font-weight: 600; color: #3d3c52; white-space: nowrap; font-feature-settings: 'ss01' on, 'salt' on, 'ss03' on, 'ss04' on; }
 .ta-impact span { font-size: 12px; line-height: 15px; color: #4b5563; }
 .ta-why { display: flex; flex-direction: column; gap: 8px; padding-bottom: 18px; }
+.ta-why-title { display: flex; align-items: center; gap: 8px; }
+.ta-why-icon { width: 19px; height: 19px; border-radius: 54px; display: inline-flex; align-items: center; justify-content: center; flex: none; background: linear-gradient(180deg, #d9fbee 0%, #e3eac6 100%); color: #12924f; }
+.ta-why-icon.medium { background: linear-gradient(180deg, #fef3c7 0%, #fde8c8 100%); color: #b45309; }
+.ta-why-icon.low { background: linear-gradient(180deg, #fee2e2 0%, #fde4e4 100%); color: #b91c1c; }
 .ta-why-h { margin: 0; font-size: 15px; line-height: 18px; font-weight: 600; color: #111827; }
 .ta-why .ta-score-text { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .ta-why-chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 4px; }
@@ -3557,7 +3561,7 @@ body.structural-diagram #play-animation-btn {
           </div>
           <div class="ta-impact" id="ta-impact"></div>
           <div class="ta-why">
-            <h3 class="ta-why-h" id="ta-why-heading">Why it scores high</h3>
+            <div class="ta-why-title"><span class="ta-why-icon" id="ta-why-icon" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7.6 1.2 2.3 8h4.1l-.7 4.8L11 6H6.9z" fill="currentColor"/></svg></span><h3 class="ta-why-h" id="ta-why-heading">Why it scores high</h3></div>
             <p class="ta-score-text" id="ta-score-text"></p>
             <div class="ta-why-chips" id="ta-why-chips"></div>
           </div>
@@ -12796,6 +12800,7 @@ function renderAutomationOverview(node, meta, m) {
   };
   const counted = [...signals, execution].filter((sg) => sg.ok !== null);
   const favorable = counted.filter((sg) => sg.ok).length;
+  d3.select('#ta-why-icon').attr('class', `ta-why-icon ${m.tier}`);
   d3.select('#ta-why-heading').text(m.tier === 'high' ? 'Why it scores high' : m.tier === 'medium' ? 'Why it scores moderate' : 'Why it scores low');
   // Chips for the signals that help the score: the first three, then "+N".
   const CHIP_LABEL = { Frequency: 'Frequent', Consistency: 'Consistent', 'Deviation rate': 'Few deviations', 'Rework rate': 'Low rework', 'Human judgment': 'Low judgement', Applications: 'Single app', 'Avg. duration': 'Worth the time', Executions: 'Enough runs' };

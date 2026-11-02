@@ -12876,7 +12876,7 @@ function renderAutomationOverview(node, meta, m) {
   const appIcon = meta && meta.appId ? (THC_APP_ICONS[String(meta.appId).toLowerCase()] || '') : '';
   const apps = meta && meta.appId ? [meta.appId] : [];
   d3.select('#ta-steps-meta').html(apps.length
-    ? `${appIcon}${apps.length} App${apps.length === 1 ? '' : 's'} • ${apps.map(escapeHtml).join(' & ')}`
+    ? `${apps.length} App${apps.length === 1 ? '' : 's'} • ${apps.map(escapeHtml).join(' & ')}`
     : `${subtypes.length} sub-step${subtypes.length === 1 ? '' : 's'}`);
   // Time per run that the automatable sub-steps account for.
   const autoShare = d3.sum(subtypes, (st) => {

@@ -11521,8 +11521,8 @@ function renderInsightsDashboard() {
 function renderDashPaths(model) {
   // Paths keep the number they have on the map, matched by their steps.
   const global = new Map(state.model.variants.map((v) => [v.signature, v]));
-  // Five rows fill the card to the height of All processes beside it.
-  const top = model.variants.slice(0, 5);
+  // Four rows sit beside All processes.
+  const top = model.variants.slice(0, 4);
   const r = 13;
   const circ = 2 * Math.PI * r;
   const list = d3.select('#dash-paths').html('').append('ul').attr('class', 'dash-list');
